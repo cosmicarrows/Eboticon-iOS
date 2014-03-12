@@ -7,6 +7,7 @@
 //
 
 #import "GifCollectionViewController.h"
+#import "GifCollectionViewFlowLayout.h"
 #import "GifCell.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
@@ -14,8 +15,9 @@
 @interface GifCollectionViewController () {
     UIToolbar *_toolbar;
     NSMutableArray *_toolbarButtons;
-    
 }
+
+@property (nonatomic, strong) GifCollectionViewFlowLayout *layout;
 
 @end
 
@@ -88,6 +90,10 @@
 
     // set up toolbar
     //[self addToolbar];
+    
+    //Add Layout Control
+    self.layout = [[GifCollectionViewFlowLayout alloc]init];
+    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
     
 }
 

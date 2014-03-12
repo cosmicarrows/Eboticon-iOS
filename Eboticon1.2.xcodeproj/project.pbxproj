@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6337EB3D188B11D200332C75 /* OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337EB3A188B11D200332C75 /* OLImage.m */; };
 		6337EB3E188B11D200332C75 /* OLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337EB3C188B11D200332C75 /* OLImageView.m */; };
+		635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */; };
 		6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368612C186D555C00EF3CC5 /* GifCollectionViewController.m */; };
 		63686130186D561600EF3CC5 /* GifCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368612F186D561600EF3CC5 /* GifCell.m */; };
 		63686136186D591400EF3CC5 /* caption1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 63686134186D591400EF3CC5 /* caption1.gif */; };
@@ -97,6 +98,8 @@
 		6337EB3A188B11D200332C75 /* OLImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLImage.m; sourceTree = "<group>"; };
 		6337EB3B188B11D200332C75 /* OLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLImageView.h; sourceTree = "<group>"; };
 		6337EB3C188B11D200332C75 /* OLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLImageView.m; sourceTree = "<group>"; };
+		635FBC9F18CA6A210054D163 /* GifCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		6368612B186D555C00EF3CC5 /* GifCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewController.h; sourceTree = "<group>"; };
 		6368612C186D555C00EF3CC5 /* GifCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewController.m; sourceTree = "<group>"; };
 		6368612E186D561600EF3CC5 /* GifCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCell.h; sourceTree = "<group>"; };
@@ -377,6 +380,8 @@
 				63CE781D18AD6B040069049F /* EboticonViewController.m */,
 				6368612E186D561600EF3CC5 /* GifCell.h */,
 				6368612F186D561600EF3CC5 /* GifCell.m */,
+				635FBC9F18CA6A210054D163 /* GifCollectionViewFlowLayout.h */,
+				635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */,
 				6368612B186D555C00EF3CC5 /* GifCollectionViewController.h */,
 				6368612C186D555C00EF3CC5 /* GifCollectionViewController.m */,
 				63FAE39B1868CC0200116D73 /* MasterViewController.h */,
@@ -587,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
 				63FAE3971868CC0200116D73 /* AppDelegate.m in Sources */,
 				63FAE39D1868CC0200116D73 /* MasterViewController.m in Sources */,
