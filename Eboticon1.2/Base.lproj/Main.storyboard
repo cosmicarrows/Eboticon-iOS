@@ -182,22 +182,6 @@
             </objects>
             <point key="canvasLocation" x="995" y="-302"/>
         </scene>
-        <!--Detail View Controller - Detail-->
-        <scene sceneID="Cn3-H9-jdl">
-            <objects>
-                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="DetailViewController" sceneMemberID="viewController">
-                    <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VdO-FT-Bj8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-106" y="734"/>
-        </scene>
         <!--Gif Detail View Controller-->
         <scene sceneID="hI3-YK-JfQ">
             <objects>
@@ -311,40 +295,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dy1-Vb-FUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1489" y="455"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="DFR-ID-8Or">
-            <objects>
-                <viewController id="gLd-aG-BPX" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0hF-S1-Y6z"/>
-                        <viewControllerLayoutGuide type="bottom" id="TIp-JZ-BdF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="K1Y-5w-inJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gIJ-dh-fM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="9ky-f9-nFX">
-            <objects>
-                <viewController id="w8H-Xb-kGA" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Fv2-WC-EAA"/>
-                        <viewControllerLayoutGuide type="bottom" id="xzz-mv-wMI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7em-80-6Af">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lsf-Pt-FvY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

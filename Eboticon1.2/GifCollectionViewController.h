@@ -11,6 +11,7 @@
 @interface GifCollectionViewController : UICollectionViewController<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *allImages;
+@property (strong, nonatomic) NSMutableArray *recentImages;
 @property (strong, nonatomic) NSMutableArray *captionImages;
 @property (strong, nonatomic) NSMutableArray *noCaptionImages;
 

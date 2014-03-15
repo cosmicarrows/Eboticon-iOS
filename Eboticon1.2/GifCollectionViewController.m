@@ -11,6 +11,9 @@
 #import "GifCell.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
+#define RECENT_GIFS_KEY @"listOfRecentGifs"
+#define CATEGORY_RECENT @"Recent"
+
 
 @interface GifCollectionViewController () {
     UIToolbar *_toolbar;
@@ -39,6 +42,16 @@
     
     NSLog(@"Gif Category is %@",_gifCategory);
     
+    if([_gifCategory isEqualToString:CATEGORY_RECENT])
+    {
+        UIBarButtonItem *clearbutton = [[UIBarButtonItem alloc]
+                                       initWithTitle:@"Clear"
+                                       style:UIBarButtonItemStyleBordered
+                                       target:self
+                                       action:@selector(clearRecentGifs)];
+        self.navigationItem.rightBarButtonItem = clearbutton;
+    }
+    
     /**
     _captionImages = [@[@"haveaseat.gif",
                         @"icant.gif",
@@ -52,6 +65,20 @@
                           @"wave.gif"] mutableCopy];
      **/
     
+    //Populate Gif Arrays
+    [self populateGifArrays];
+
+    // set up toolbar
+    //[self addToolbar];
+    
+    //Add Layout Control
+    self.layout = [[GifCollectionViewFlowLayout alloc]init];
+    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
+    
+}
+
+- (void) populateGifArrays
+{
     _captionImages = [@[@"FinalDead.gif",
                         @"FinalGoneWithTheWind.gif",
                         @"FINALGottaGo.gif",
@@ -69,31 +96,26 @@
                         @"FinalYouMad.gif"] mutableCopy];
     
     _noCaptionImages = [@[@"FinalCrying.gif",
-                        @"FinalDeadNT.gif",
-                        @"FinalGoneWithTheWindNT.gif",
-                        @"FINALGottaGoNT.gif",
-                        @"FinalHaveASeatNT.gif",
-                        @"FinalICantNT.gif",
-                        @"FinalLMAOKneeSlapNT.gif",
-                        @"FinalLMAOlongNT.gif",
-                        @"FINALLMAOShortNT.gif",
-                        @"FinalOneSecNT.gif",
-                        @"FinalTurnUpNT.gif",
-                        @"FinalTwerkTeamNT.gif",
-                        @"FinalWaveNT.gif",
-                        @"FinalWontHeDoItNT.gif",
-                        @"FinalYouMadNT.gif",
-                        @"FinalWTHNT.gif"] mutableCopy];
+                          @"FinalDeadNT.gif",
+                          @"FinalGoneWithTheWindNT.gif",
+                          @"FINALGottaGoNT.gif",
+                          @"FinalHaveASeatNT.gif",
+                          @"FinalICantNT.gif",
+                          @"FinalLMAOKneeSlapNT.gif",
+                          @"FinalLMAOlongNT.gif",
+                          @"FINALLMAOShortNT.gif",
+                          @"FinalOneSecNT.gif",
+                          @"FinalTurnUpNT.gif",
+                          @"FinalTwerkTeamNT.gif",
+                          @"FinalWaveNT.gif",
+                          @"FinalWontHeDoItNT.gif",
+                          @"FinalYouMadNT.gif",
+                          @"FinalWTHNT.gif"] mutableCopy];
     
     _allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
-    NSLog(@"Gif Category is %@",_gifCategory);
+    //_recentImages = [@[@"FinalWTHNT.gif"] mutableCopy];
+    _recentImages = [self getRecentGifs];
 
-    // set up toolbar
-    //[self addToolbar];
-    
-    //Add Layout Control
-    self.layout = [[GifCollectionViewFlowLayout alloc]init];
-    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
     
 }
 
@@ -114,6 +136,26 @@
     [_toolbar setItems:_toolbarButtons];
 }
 
+-(NSMutableArray*) getRecentGifs
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *recentGifs = [[defaults objectForKey:RECENT_GIFS_KEY] mutableCopy];
+    
+    NSLog(@"getRecentGifs: %@",recentGifs);
+    
+    return recentGifs;
+}
+
+-(void) clearRecentGifs
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:RECENT_GIFS_KEY];
+    self.recentImages = nil;
+    NSLog(@"Clear Recents");
+    [self.collectionView reloadData];
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -128,6 +170,8 @@
         imageNames = _captionImages;
     } else if ([_gifCategory isEqual: @"NoCaption"]){
         imageNames =  _noCaptionImages;
+    } else if ([_gifCategory isEqual: @"Recent"]){
+        imageNames =  _recentImages;
     } else {
         imageNames = _allImages;
     }
@@ -155,6 +199,9 @@
     } else if ([_gifCategory isEqual: @"NoCaption"]){
         NSLog(@"Returning No Caption");
         return _noCaptionImages.count;
+    } else if ([_gifCategory isEqual: @"Recent"]){
+        NSLog(@"Returning No Caption");
+        return _recentImages.count;
     }
     NSLog(@"Returning All");
     return _allImages.count;
@@ -166,48 +213,12 @@
     
     long row = [indexPath row];
 
-    //UIImage *image = [self getCellImage:row];
     NSString *gifName = [self getImageName:row];
-    
-    /**
-    UIImage *image;
-    long row = [indexPath row];
-    NSString *gifName;
-    
-    if([_gifCategory isEqual: @"Caption"]){
-        //NSLog(@"Returning Caption");
-        image = [UIImage imageNamed:_captionImages[row]];
-        gifName = _captionImages[row];
-        NSLog(@"Image name is %@",gifName);
-    } else if ([_gifCategory isEqual: @"NoCaption"]){
-        //NSLog(@"Returning No Caption");
-        image = [UIImage imageNamed:_noCaptionImages[row]];
-        gifName = _noCaptionImages[row];
-        NSLog(@"Image name is %@",gifName);
-    } else {
-        image = [UIImage imageNamed:_allImages[row]];
-        gifName = _allImages[row];
-        NSLog(@"Image name is %@",gifName);
-    }
-     **/
-    
-    //cell.gifImage.image = image;
-    //cell.gifImage = [[OLImageView alloc] initWithImage:[OLImage imageNamed:test]];
-    
-    //[cell.gifImage setImage:image];
-    //[cell.gifImage startAnimating];
-    //NSLog(@"Is animating: %d", cell.gifImage.isAnimating);
-    //[cell animateGif];
     
     gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
     NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
     NSData *GIFDATA = [NSData dataWithContentsOfFile:filepath];
-    //cell.gifImage.image = [OLImage imageWithData:GIFDATA];
     [cell setCellGif:GIFDATA];
-    //[cell setCellImage:gifName];
-    //[cell setGifImageView:[[OLImageView alloc] initWithImage:[OLImage imageNamed:gifName]]];
-  
-    
     return cell;
 }
 
@@ -221,6 +232,9 @@
     } else if ([_gifCategory isEqual: @"NoCaption"]){
         //NSLog(@"Returning No Caption");
         image = [UIImage imageNamed:_noCaptionImages[row]];
+    } else if ([_gifCategory isEqual: @"Recent"]){
+        //NSLog(@"Returning No Caption");
+        image = [UIImage imageNamed:_recentImages[row]];
     } else {
         image = [UIImage imageNamed:_allImages[row]];
     }
@@ -237,6 +251,9 @@
         //NSLog(@"Image name is %@",gifName);
     } else if ([_gifCategory isEqual: @"NoCaption"]){
         gifName = _noCaptionImages[row];
+        //NSLog(@"Image name is %@",gifName);
+    } else if ([_gifCategory isEqual: @"Recent"]){
+        gifName = _recentImages[row];
         //NSLog(@"Image name is %@",gifName);
     } else {
         gifName = _allImages[row];
