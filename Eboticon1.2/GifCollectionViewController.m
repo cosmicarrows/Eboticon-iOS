@@ -71,6 +71,9 @@
     // set up toolbar
     //[self addToolbar];
     
+    //Add background image
+    //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    
     //Add Layout Control
     self.layout = [[GifCollectionViewFlowLayout alloc]init];
     [self.collectionView setCollectionViewLayout:self.layout animated:YES];

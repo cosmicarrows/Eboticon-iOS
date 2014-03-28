@@ -37,6 +37,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
      **/
     self.title = @"Eboticon";
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
     
     /**
     for (NSString* family in [UIFont familyNames])
