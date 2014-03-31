@@ -72,7 +72,7 @@
     //[self addToolbar];
     
     //Add background image
-    //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
     
     //Add Layout Control
     self.layout = [[GifCollectionViewFlowLayout alloc]init];

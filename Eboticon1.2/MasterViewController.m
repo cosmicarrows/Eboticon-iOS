@@ -11,6 +11,10 @@
 #import "JMCategoryData.h"
 #import "JMCategoriesData.h"
 #import "GifCollectionViewController.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -37,9 +41,15 @@
     self.navigationItem.rightBarButtonItem = addButton;
      **/
     self.title = @"Eboticon";
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    //self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    
+    //GOOGLE ANALYTICS
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Home Screen" forKey:kGAIScreenName]build]];
+
     
     /**
+     Lists all fonts
     for (NSString* family in [UIFont familyNames])
     {
         NSLog(@"%@", family);

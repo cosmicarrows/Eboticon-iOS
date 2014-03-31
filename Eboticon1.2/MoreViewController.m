@@ -7,6 +7,9 @@
 //
 
 #import "MoreViewController.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface MoreViewController ()
 
@@ -28,6 +31,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [_eboticonLogo setImage:[UIImage imageNamed:@"Eboticon_Final.png"] forState:UIControlStateNormal];
+    
+    //GOOGLE ANALYTICS
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    //[tracker set:kGAIScreenName value:@"More Screen"];
+    //[tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"More Screen" forKey:kGAIScreenName]build]];
 
     
 }

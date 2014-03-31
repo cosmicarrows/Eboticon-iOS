@@ -9,20 +9,13 @@
 #import "AppDelegate.h"
 #import "JMCategoriesData.h"
 #import "MasterViewController.h"
+#import "GAI.h"
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /**
-    JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"ladybugThumb.png"] ];
-    JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"ladybugThumb.png"] ];
-    JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"ladybugThumb.png"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"NoCaption" thumbImage:[UIImage imageNamed:@"ladybugThumb.png"] ];
-    JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"centipedeThumb.png"] ];
-     **/
-    
     JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"blank"] ];
     JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"blank"] ];
     JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"blank"] ];
@@ -48,6 +41,22 @@
 
     MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
     masterController.categories = homepageRows;
+    
+    //GOOGLE ANALYTICS INITIALIZER
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
+    
+    
+    
     // Override point for customization after application launch.
     return YES;
 }
