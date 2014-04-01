@@ -10,6 +10,10 @@
 #import "EboticonViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <Social/Social.h>
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define MAX_RECENT_GIFS 10
@@ -101,6 +105,9 @@
     //Save gifs to recents
     [self saveRecentGif:gifName];
     
+    //Send gif share to Google Analytics
+    [self sendShareToGoogleAnalytics:gifName];
+    
     NSURL *url = [self fileToURL:gifName];
     NSArray *objectsToShare = @[url];
     
@@ -112,6 +119,16 @@
     
     [self presentViewController:controller animated:YES completion:nil];
 }
+
+-(void) sendShareToGoogleAnalytics:(NSString*) gifName
+{
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share"     // Event category (required)
+                                                         action:@"button_press"  // Event action (required)
+                                                          label:gifName         // Event label
+                                                          value:nil] build]];    // Event value
+}
+
 
 -(void) saveRecentGif:(NSString*) gifName
 {

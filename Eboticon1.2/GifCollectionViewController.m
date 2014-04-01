@@ -11,8 +11,14 @@
 #import "GifCell.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
+#define CATEGORY_CAPTION @"Caption"
+#define CATEGORY_NO_CAPTION @"NoCaption"
 
 
 @interface GifCollectionViewController () {
@@ -51,19 +57,7 @@
                                        action:@selector(clearRecentGifs)];
         self.navigationItem.rightBarButtonItem = clearbutton;
     }
-    
-    /**
-    _captionImages = [@[@"haveaseat.gif",
-                        @"icant.gif",
-                        @"turnup.gif",
-                        @"youmad.gif",
-                        @"gottago.gif"] mutableCopy];
-    _noCaptionImages = [@[@"LMAOKneeSlap.gif",
-                          @"LMAOlong.gif",
-                          @"LMAOshort.gif",
-                          @"crying.gif",
-                          @"wave.gif"] mutableCopy];
-     **/
+   
     
     //Populate Gif Arrays
     [self populateGifArrays];
@@ -77,6 +71,10 @@
     //Add Layout Control
     self.layout = [[GifCollectionViewFlowLayout alloc]init];
     [self.collectionView setCollectionViewLayout:self.layout animated:YES];
+    
+    //GOOGLE ANALYTICS
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:_gifCategory forKey:kGAIScreenName]build]];
     
 }
 
@@ -169,11 +167,11 @@
 {
     NSIndexPath *indexPath = (NSIndexPath *) sender;
     NSMutableArray *imageNames;
-    if([_gifCategory isEqual: @"Caption"]){
+    if([_gifCategory isEqual: CATEGORY_CAPTION]){
         imageNames = _captionImages;
-    } else if ([_gifCategory isEqual: @"NoCaption"]){
+    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
         imageNames =  _noCaptionImages;
-    } else if ([_gifCategory isEqual: @"Recent"]){
+    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
         imageNames =  _recentImages;
     } else {
         imageNames = _allImages;
@@ -196,13 +194,13 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSLog(@"In NumberofItemsinSection. gifCategory is %@",_gifCategory);
-    if([_gifCategory isEqual: @"Caption"]){
+    if([_gifCategory isEqual: CATEGORY_CAPTION]){
         NSLog(@"Returning Caption");
         return _captionImages.count;
-    } else if ([_gifCategory isEqual: @"NoCaption"]){
+    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
         NSLog(@"Returning No Caption");
         return _noCaptionImages.count;
-    } else if ([_gifCategory isEqual: @"Recent"]){
+    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
         NSLog(@"Returning No Caption");
         return _recentImages.count;
     }
