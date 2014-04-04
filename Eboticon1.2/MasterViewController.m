@@ -41,7 +41,14 @@
     self.navigationItem.rightBarButtonItem = addButton;
      **/
     self.title = @"Eboticon";
-    //self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    /**
+    UIImage *logoImage = [UIImage imageNamed:@"Eboticon_Final.png"];
+    UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
+    self.navigationItem.titleView = logoImageView;
+     **/
+    
+    //Ebo Background
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
     
     //GOOGLE ANALYTICS
     id tracker = [[GAI sharedInstance] defaultTracker];

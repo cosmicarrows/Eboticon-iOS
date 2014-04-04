@@ -16,11 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"blank"] ];
-    JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"blank"] ];
-    JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"blank"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"NoCaption" thumbImage:[UIImage imageNamed:@"blank"] ];
-    JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"blank"] ];
+    JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
+    JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
+    JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
+    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"NoCaption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+    JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
 
     
     //Setting up homepage rows
@@ -54,6 +54,9 @@
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
+    
+    //Set dry run to yes for testing purposes
+    [[GAI sharedInstance] setDryRun:YES];
     
     
     // Override point for customization after application launch.
