@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		024BBF66C11F427CBC9BE8D9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FECE51D319499E8C5B4ED8 /* libPods.a */; };
 		63376EB118E5FBF200DC1204 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EB018E5FBF200DC1204 /* libGoogleAnalyticsServices.a */; };
 		63376EBA18E5FC3500DC1204 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EB918E5FC3500DC1204 /* AdSupport.framework */; };
 		63376EBC18E5FC4300DC1204 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EBB18E5FC4300DC1204 /* CoreData.framework */; };
@@ -26,6 +27,7 @@
 		63A70AB218A609970075B829 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A70AB118A609970075B829 /* MessageUI.framework */; };
 		63A70AB418A6A0850075B829 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A70AB318A6A0850075B829 /* StoreKit.framework */; };
 		63A70AB718A6A0F30075B829 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70AB618A6A0F30075B829 /* iTellAFriend.m */; };
+		63B6CB4318F06D5300D1F08A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B6CB4218F06D5300D1F08A /* libsqlite3.dylib */; };
 		63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE781A18AD65090069049F /* GifDetailViewController.m */; };
 		63CE781E18AD6B040069049F /* EboticonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE781D18AD6B040069049F /* EboticonViewController.m */; };
 		63CE782018B15D720069049F /* gottago.gif in Resources */ = {isa = PBXBuildFile; fileRef = 63CE781F18B15D720069049F /* gottago.gif */; };
@@ -131,6 +133,7 @@
 		63A70AB318A6A0850075B829 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		63A70AB518A6A0F30075B829 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
 		63A70AB618A6A0F30075B829 /* iTellAFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTellAFriend.m; sourceTree = "<group>"; };
+		63B6CB4218F06D5300D1F08A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		63CE781918AD65090069049F /* GifDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifDetailViewController.h; sourceTree = "<group>"; };
 		63CE781A18AD65090069049F /* GifDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifDetailViewController.m; sourceTree = "<group>"; };
 		63CE781C18AD6B040069049F /* EboticonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EboticonViewController.h; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 		63FAE3C01868CCE900116D73 /* JMCategoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMCategoryData.m; sourceTree = "<group>"; };
 		63FAE3C11868CCE900116D73 /* JMCategoriesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMCategoriesData.h; sourceTree = "<group>"; };
 		63FAE3C21868CCE900116D73 /* JMCategoriesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMCategoriesData.m; sourceTree = "<group>"; };
+		86FECE51D319499E8C5B4ED8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2A2591941F7449AA600CC9A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B6CB4318F06D5300D1F08A /* libsqlite3.dylib in Frameworks */,
 				63376EC018E5FC5B00DC1204 /* libz.dylib in Frameworks */,
 				63376EBE18E5FC5000DC1204 /* SystemConfiguration.framework in Frameworks */,
 				63376EBC18E5FC4300DC1204 /* CoreData.framework in Frameworks */,
@@ -218,6 +224,7 @@
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
 				63376EB118E5FBF200DC1204 /* libGoogleAnalyticsServices.a in Frameworks */,
+				024BBF66C11F427CBC9BE8D9 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 				63FAE3AE1868CC0200116D73 /* Eboticon1.2Tests */,
 				63FAE3851868CC0200116D73 /* Frameworks */,
 				63FAE3841868CC0200116D73 /* Products */,
+				A2A2591941F7449AA600CC9A /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -401,6 +409,7 @@
 		63FAE3851868CC0200116D73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63B6CB4218F06D5300D1F08A /* libsqlite3.dylib */,
 				63376EBF18E5FC5B00DC1204 /* libz.dylib */,
 				63376EBD18E5FC5000DC1204 /* SystemConfiguration.framework */,
 				63376EBB18E5FC4300DC1204 /* CoreData.framework */,
@@ -411,6 +420,7 @@
 				63FAE3881868CC0200116D73 /* CoreGraphics.framework */,
 				63FAE38A1868CC0200116D73 /* UIKit.framework */,
 				63FAE3A81868CC0200116D73 /* XCTest.framework */,
+				86FECE51D319499E8C5B4ED8 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -501,9 +511,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63FAE3B81868CC0200116D73 /* Build configuration list for PBXNativeTarget "Eboticon1.2" */;
 			buildPhases = (
+				264B82EB419C47B68CD29948 /* Check Pods Manifest.lock */,
 				63FAE37F1868CC0200116D73 /* Sources */,
 				63FAE3801868CC0200116D73 /* Frameworks */,
 				63FAE3811868CC0200116D73 /* Resources */,
+				76FD957D2BCA4748884DC69C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -634,6 +646,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		264B82EB419C47B68CD29948 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		76FD957D2BCA4748884DC69C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63FAE37F1868CC0200116D73 /* Sources */ = {
@@ -778,7 +823,9 @@
 		};
 		63FAE3B91868CC0200116D73 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2A2591941F7449AA600CC9A /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jarryd McCree (TX5258GWRE)";
@@ -790,15 +837,19 @@
 					"$(inherited)",
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		63FAE3BA1868CC0200116D73 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2A2591941F7449AA600CC9A /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -810,8 +861,10 @@
 					"$(inherited)",
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
