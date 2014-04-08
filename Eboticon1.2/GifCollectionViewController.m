@@ -14,6 +14,8 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "CHCSVParser.h"
+#import "EboticonGif.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -24,6 +26,7 @@
 @interface GifCollectionViewController () {
     UIToolbar *_toolbar;
     NSMutableArray *_toolbarButtons;
+    NSMutableArray *_eboticonGifs;
 }
 
 @property (nonatomic, strong) GifCollectionViewFlowLayout *layout;
@@ -61,6 +64,11 @@
     
     //Populate Gif Arrays
     [self populateGifArrays];
+    
+    //Load Gif csv file
+    _eboticonGifs = [[NSMutableArray alloc] init];
+    [self loadGifsFromCSV];
+    NSLog(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
 
     // set up toolbar
     //[self addToolbar];
@@ -120,6 +128,73 @@
     
 }
 
+- (void) loadGifsFromCSV
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+    //NSLog(@"Path is %@", path);
+    
+    NSError *error = nil;
+    
+    @try {
+        /**
+        NSString *pathToGameLibrary = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+        NSString *fileString = [NSString stringWithContentsOfFile:pathToGameLibrary encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"%@", fileString);
+        CHCSVParser *file = [[CHCSVParser alloc] initWithContentsOfCSVFile:pathToGameLibrary];
+        NSLog(@"CHCSVPARSER: %@", file);
+         
+        
+        //CHCSVParser *file = [[CHCSVParser alloc] initWithContentsOfCSVFile:path];
+        //[file parse];
+         **/
+        
+        NSArray *rows = [NSArray arrayWithContentsOfCSVFile:path];
+        if (rows == nil) {
+            NSLog(@"Error parsing file: %@", error);
+            return;
+        } else {
+            //NSLog(@"Number of Elements found: %lu", (unsigned long)[rows count]);
+            EboticonGif *currentGif = [EboticonGif alloc];
+            
+            for(int i=0; i<[rows count];i++){
+                NSArray *element = [rows objectAtIndex: i];
+                //NSLog (@"Element %i = %@", i, element);
+                //NSLog (@"Element Count = %lu", (unsigned long)[element count]);
+                
+                for(int j=0; j<[element count];j++) {
+                    NSString *value = [element objectAtIndex: j];
+                    //NSLog (@"Value %i = %@", j, value);
+                    switch (j) {
+                        case 0:
+                            [currentGif setFileName:value];
+                            break;
+                        case 1:
+                            [currentGif setStillName:value];
+                            break;
+                        case 2:
+                            [currentGif setDisplayName:value];
+                            break;
+                        case 3:
+                            [currentGif setCategory:value];
+                            break;
+                        default:
+                            NSLog(@"Index out of bounds");
+                            break;
+                    }
+                }
+                //NSLog(@"Eboticon: %@", currentGif);
+                //NSLog(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category]);
+                [_eboticonGifs addObject:currentGif];
+            }
+        }
+         
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Unable to load csv: %@",exception);
+    }
+    
+    
+}
 -(void) addToolbar
 {
     //Create toolbar
