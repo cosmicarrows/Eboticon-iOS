@@ -69,6 +69,7 @@
     _eboticonGifs = [[NSMutableArray alloc] init];
     [self loadGifsFromCSV];
     NSLog(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
+    [self populateGifArraysFromCSV];
 
     // set up toolbar
     //[self addToolbar];
@@ -122,7 +123,6 @@
                           @"FinalWTHNT.gif"] mutableCopy];
     
     _allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
-    //_recentImages = [@[@"FinalWTHNT.gif"] mutableCopy];
     _recentImages = [self getRecentGifs];
 
     
@@ -131,33 +131,21 @@
 - (void) loadGifsFromCSV
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
-    //NSLog(@"Path is %@", path);
-    
     NSError *error = nil;
     
     @try {
-        /**
-        NSString *pathToGameLibrary = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
-        NSString *fileString = [NSString stringWithContentsOfFile:pathToGameLibrary encoding:NSUTF8StringEncoding error:nil];
-        NSLog(@"%@", fileString);
-        CHCSVParser *file = [[CHCSVParser alloc] initWithContentsOfCSVFile:pathToGameLibrary];
-        NSLog(@"CHCSVPARSER: %@", file);
-         
         
-        //CHCSVParser *file = [[CHCSVParser alloc] initWithContentsOfCSVFile:path];
-        //[file parse];
-         **/
-        
-        NSArray *rows = [NSArray arrayWithContentsOfCSVFile:path];
-        if (rows == nil) {
+        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
+        if (csvArray == nil) {
             NSLog(@"Error parsing file: %@", error);
             return;
         } else {
             //NSLog(@"Number of Elements found: %lu", (unsigned long)[rows count]);
-            EboticonGif *currentGif = [EboticonGif alloc];
+            EboticonGif *currentGif = [[EboticonGif alloc] init];
+            NSMutableArray *element = [[NSMutableArray alloc]init];
             
-            for(int i=0; i<[rows count];i++){
-                NSArray *element = [rows objectAtIndex: i];
+            for(int i=0; i<[csvArray count];i++){
+                element = [csvArray objectAtIndex: i];
                 //NSLog (@"Element %i = %@", i, element);
                 //NSLog (@"Element Count = %lu", (unsigned long)[element count]);
                 
@@ -181,11 +169,26 @@
                             NSLog(@"Index out of bounds");
                             break;
                     }
+                    //[_eboticonGifs addObject:currentGif];
                 }
+                [_eboticonGifs addObject:currentGif];
+                currentGif = [[EboticonGif alloc] init];
                 //NSLog(@"Eboticon: %@", currentGif);
                 //NSLog(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category]);
-                [_eboticonGifs addObject:currentGif];
+                /**
+                if(nil != _eboticonGifs){
+                    [_eboticonGifs addObject:currentGif];
+                } else {
+                    _eboticonGifs = [NSMutableArray arrayWithObject:currentGif];
+                }
+                 **/
             }
+            /**
+            for (int a = 0; a< [_eboticonGifs count]; a++){
+                NSLog(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category]);
+                
+            }
+             **/
         }
          
     }
@@ -194,6 +197,32 @@
     }
     
     
+}
+
+-(void) populateGifArraysFromCSV
+{
+    if([_eboticonGifs count] > 0){
+        EboticonGif *currentGif = [EboticonGif alloc];
+
+        for(int i = 0; i < [_eboticonGifs count]; i++){
+            currentGif = [_eboticonGifs objectAtIndex:i];
+            NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category]);
+            if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
+                NSLog(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
+                //[_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
+            } else if([[currentGif category] isEqual:CATEGORY_NO_CAPTION]) {
+                NSLog(@"Adding eboticon to category noCaption:%@",[currentGif fileName]);
+                //[_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
+            } else {
+                NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
+            }
+        }
+        //_allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
+        //_recentImages = [self getRecentGifs];
+        
+    } else {
+        NSLog(@"Eboticon Gif array count is less than zero.");
+    }
 }
 -(void) addToolbar
 {
@@ -215,10 +244,8 @@
 -(NSMutableArray*) getRecentGifs
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     NSMutableArray *recentGifs = [[defaults objectForKey:RECENT_GIFS_KEY] mutableCopy];
-    
-    NSLog(@"getRecentGifs: %@",recentGifs);
+    //NSLog(@"getRecentGifs: %@",recentGifs);
     
     return recentGifs;
 }
