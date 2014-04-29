@@ -8,7 +8,6 @@
 
 #import "GifCollectionViewController.h"
 #import "GifCollectionViewFlowLayout.h"
-#import "GifCell.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
 #import "GAI.h"
@@ -16,6 +15,7 @@
 #import "GAIDictionaryBuilder.h"
 #import "CHCSVParser.h"
 #import "EboticonGif.h"
+#import "EboticonGifCell.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -63,9 +63,10 @@
    
     
     //Populate Gif Arrays
-    [self populateGifArrays];
+    //[self populateGifArrays];
     
     //Load Gif csv file
+    NSLog(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
     [self loadGifsFromCSV];
     NSLog(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
@@ -203,22 +204,26 @@
 {
     if([_eboticonGifs count] > 0){
         EboticonGif *currentGif = [EboticonGif alloc];
+        _captionImages = [[NSMutableArray alloc]init];
+        _noCaptionImages = [[NSMutableArray alloc]init];
+        _allImages = [[NSMutableArray alloc]init];
+        _recentImages = [[NSMutableArray alloc]init];
 
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
             NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category]);
             if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
                 NSLog(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
-                //[_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
+                [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
             } else if([[currentGif category] isEqual:CATEGORY_NO_CAPTION]) {
                 NSLog(@"Adding eboticon to category noCaption:%@",[currentGif fileName]);
-                //[_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
+                [_noCaptionImages addObject:[_eboticonGifs objectAtIndex:i]];
             } else {
                 NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
             }
         }
-        //_allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
-        //_recentImages = [self getRecentGifs];
+        _allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
+        _recentImages = [self getRecentGifs];
         
     } else {
         NSLog(@"Eboticon Gif array count is less than zero.");
@@ -245,10 +250,36 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *recentGifs = [[defaults objectForKey:RECENT_GIFS_KEY] mutableCopy];
-    //NSLog(@"getRecentGifs: %@",recentGifs);
+    NSLog(@"getRecentGifs: %@",recentGifs);
+    recentGifs = [self populateEboticonGifArrayFromFileNames:recentGifs];
     
     return recentGifs;
 }
+
+-(NSMutableArray*) populateEboticonGifArrayFromFileNames:(NSMutableArray *) filenames
+{
+    NSMutableArray* arrayEboticonGifs = [[NSMutableArray alloc]init];
+    
+    if([filenames count]>0){
+        for (int i =0; i<[filenames count]; i++){
+            for (int j=0; j<[_eboticonGifs count]; j++){
+                if ([[filenames objectAtIndex:i] isEqualToString:[[_eboticonGifs objectAtIndex:j] fileName]]){
+                    if(!arrayEboticonGifs){
+                        arrayEboticonGifs = [@[[_eboticonGifs objectAtIndex:j]] mutableCopy];
+                    } else {
+                        [arrayEboticonGifs insertObject:[_eboticonGifs objectAtIndex:j] atIndex:0];
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
+    return arrayEboticonGifs;
+}
+
+
 
 -(void) clearRecentGifs
 {
@@ -312,31 +343,25 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GifCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
     
-    long row = [indexPath row];
-
-    NSString *gifName = [self getImageName:row];
+    EboticonGifCell *gifCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
+    long gifRow = [indexPath row];
+    EboticonGif *eboticonGifName = [self getCurrentEboticonGif:gifRow];
+    //long gifIndex = [self findFilenameIndex:eboticonGifName];
+    [gifCell setCellGif:eboticonGifName];
     
-    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
-    NSData *GIFDATA = [NSData dataWithContentsOfFile:filepath];
-    [cell setCellGif:GIFDATA];
-    return cell;
+    return gifCell;
 }
 
 -(UIImage *) getCellImage: (long)row
 {
     UIImage *image;
     
-    if([_gifCategory isEqual: @"Caption"]){
-        //NSLog(@"Returning Caption");
+    if([_gifCategory isEqual: CATEGORY_CAPTION]){
         image = [UIImage imageNamed:_captionImages[row]];
-    } else if ([_gifCategory isEqual: @"NoCaption"]){
-        //NSLog(@"Returning No Caption");
+    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
         image = [UIImage imageNamed:_noCaptionImages[row]];
-    } else if ([_gifCategory isEqual: @"Recent"]){
-        //NSLog(@"Returning No Caption");
+    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
         image = [UIImage imageNamed:_recentImages[row]];
     } else {
         image = [UIImage imageNamed:_allImages[row]];
@@ -349,13 +374,13 @@
 {
     NSString *gifName;
     
-    if([_gifCategory isEqual: @"Caption"]){
+    if([_gifCategory isEqual: CATEGORY_CAPTION]){
         gifName = _captionImages[row];
         //NSLog(@"Image name is %@",gifName);
-    } else if ([_gifCategory isEqual: @"NoCaption"]){
+    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
         gifName = _noCaptionImages[row];
         //NSLog(@"Image name is %@",gifName);
-    } else if ([_gifCategory isEqual: @"Recent"]){
+    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
         gifName = _recentImages[row];
         //NSLog(@"Image name is %@",gifName);
     } else {
@@ -366,34 +391,52 @@
     return gifName;
 }
 
+-(EboticonGif *) getCurrentEboticonGif: (long)row
+{
+    EboticonGif *gifName = [[EboticonGif alloc]init];
+    
+    if([_gifCategory isEqual: CATEGORY_CAPTION]){
+        gifName = _captionImages[row];
+        //NSLog(@"Image name is %@",gifName);
+    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+        gifName = _noCaptionImages[row];
+        //NSLog(@"Image name is %@",gifName);
+    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+        gifName = _recentImages[row];
+        //NSLog(@"Image name is %@",gifName);
+    } else {
+        gifName = _allImages[row];
+        //NSLog(@"Image name is %@",gifName);
+    }
+    
+    return gifName;
+}
+
+-(long) findFilenameIndex: (EboticonGif*) filename
+{
+    long index = -1;
+    EboticonGif *test = [[EboticonGif alloc]init];
+    
+    for(int i = 0; i<[_eboticonGifs count]; i++){
+        test = [_eboticonGifs objectAtIndex:i];
+        if(nil != test && [test isEqual:filename]){
+            NSLog(@"Filename found: %@ Index is %d",[filename getFileName], i);
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
 #pragma mark - 
 #pragma mark UICollectionViewDelegate
 
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"Gif Selected is %@",indexPath);
-    GifCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
-    NSLog(@"Is animating: %d", [cell isCellAnimating]);
-    NSString *gifName = [self getImageName:[indexPath row]];
-    NSLog(@"Gif Name: %@", gifName);
-
-    
-    /**
-    NSString *gifName = [self getImageName:[indexPath row]];
-    NSURL *url = [self fileToURL:gifName];
-    NSArray *objectsToShare = @[url];
-    
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    
-    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo];
-    controller.excludedActivityTypes = excludedActivities;
-    
-   
-    [self presentViewController:controller animated:YES completion:nil];
-    **/
+    //EboticonGifCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
+    //NSString *gifName = [self getImageName:[indexPath row]];
     
     [self performSegueWithIdentifier:@"toGifDetailViewController" sender:indexPath];
-    
 }
 
 - (NSURL *) fileToURL:(NSString*)filename

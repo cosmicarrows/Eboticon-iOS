@@ -26,4 +26,25 @@
     return self;
 }
 
+-(NSString *)getFileName
+{
+    return _fileName;
+}
+
+-(NSString *) getStillName
+{
+    return _stillName;
+}
+
+-(NSString *) getDisplayName
+{
+    return _displayName;
+}
+
+-(NSString *) getCategory
+{
+    return _category;
+}
+
+
 @end

@@ -33,12 +33,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.imageView.image = [OLImage imageNamed:self.imageName];
+    self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];
     
-    NSString *titleString = self.imageName;
+    NSString *titleString = self.eboticonGif.getDisplayName;
     NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:titleString];
     
-    NSRange titleRange = [titleString rangeOfString:self.imageName];
+    NSRange titleRange = [titleString rangeOfString:self.eboticonGif.getDisplayName];
     
     [attributedTitle addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:titleRange];
     

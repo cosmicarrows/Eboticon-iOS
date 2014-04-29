@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EboticonGif.h"
 
 @interface EboticonViewController : UIViewController
 
 @property (assign, nonatomic) NSUInteger index;
 @property (strong, nonatomic) NSString *imageName;
+@property (strong, nonatomic) EboticonGif *eboticonGif;
 
 @end

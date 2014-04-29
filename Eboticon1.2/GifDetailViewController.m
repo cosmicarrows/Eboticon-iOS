@@ -7,6 +7,7 @@
 //
 
 #import "GifDetailViewController.h"
+#import "EboticonGif.h"
 #import "EboticonViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <Social/Social.h>
@@ -46,8 +47,13 @@
     
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
+    EboticonGif *currGif = self.imageNames[self.index];
+    
     eboticonViewController.index = self.index;
-    eboticonViewController.imageName = self.imageNames[self.index];
+    //eboticonViewController.imageName = self.imageNames[self.index];
+    eboticonViewController.eboticonGif = currGif;
+    //eboticonViewController.imageName = [currGif getDisplayName];
+    
     
     [self.pageViewController setViewControllers:@[eboticonViewController]
                                       direction:UIPageViewControllerNavigationDirectionForward
@@ -100,15 +106,15 @@
 
 - (IBAction)shareButtonTapped:(id)sender {
     
-    NSString *gifName = self.imageNames[self.index];
+    EboticonGif *currGif = self.imageNames[self.index];
    
     //Save gifs to recents
-    [self saveRecentGif:gifName];
+    [self saveRecentGif:currGif];
     
     //Send gif share to Google Analytics
-    [self sendShareToGoogleAnalytics:gifName];
+    [self sendShareToGoogleAnalytics:[currGif getFileName]];
     
-    NSURL *url = [self fileToURL:gifName];
+    NSURL *url = [self fileToURL:[currGif getFileName]];
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
@@ -130,21 +136,21 @@
 }
 
 
--(void) saveRecentGif:(NSString*) gifName
+-(void) saveRecentGif:(EboticonGif*) currGif
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSMutableArray *recentGifs = [[defaults objectForKey:RECENT_GIFS_KEY] mutableCopy];
     
     if(!recentGifs){
-        recentGifs = [@[gifName] mutableCopy];
+        recentGifs = [@[[currGif fileName]] mutableCopy];
     } else if ([recentGifs count] >= MAX_RECENT_GIFS) {
         NSLog(@"Max Recent Gifs Met");
         [recentGifs removeLastObject];
-        [recentGifs insertObject:gifName atIndex:0];
+        [recentGifs insertObject:[currGif fileName] atIndex:0];
         
     } else {
-        [recentGifs insertObject:gifName atIndex:0];
+        [recentGifs insertObject:[currGif fileName] atIndex:0];
     }
 
     [defaults setObject:recentGifs forKey:RECENT_GIFS_KEY];
@@ -175,8 +181,8 @@
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
     eboticonViewController.index = previousViewController.index + 1;
-    eboticonViewController.imageName = self.imageNames[previousViewController.index+1];
-    
+    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index+1];
+
     return eboticonViewController;
 }
 
@@ -190,8 +196,8 @@
     
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
-    eboticonViewController.index = previousViewController.index + 1;
-    eboticonViewController.imageName = self.imageNames[previousViewController.index+1];
+    eboticonViewController.index = previousViewController.index - 1;
+    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index-1];
     
     return eboticonViewController;
     

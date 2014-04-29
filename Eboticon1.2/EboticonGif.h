@@ -10,21 +10,20 @@
 
 @interface EboticonGif : NSObject
 
-enum gifCategory
-{
-    caption=0,
-    noCaption=1
-};
-
 @property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSString *stillName;
 @property (strong, nonatomic) NSString *displayName;
-//@property (nonatomic) enum gifCategory *category;
 @property (strong, nonatomic) NSString *category;
 
 
-//- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(enum gifCategory *)category;
 - (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category;
+-(NSString *) getFileName;
+-(NSString *) getStillName;
+-(NSString *) getDisplayName;
+-(NSString *) getCategory;
+
+
+
 
 
 
