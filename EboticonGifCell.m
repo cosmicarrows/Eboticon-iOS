@@ -27,7 +27,8 @@
     if (nil != eboticonGif){
         _cellGif = eboticonGif;
         
-        NSString *gifName = [_cellGif getFileName];
+        //NSString *gifName = [_cellGif getFileName];
+        NSString *gifName = [_cellGif getStillName];
         
         gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
         NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];

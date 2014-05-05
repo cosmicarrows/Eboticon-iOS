@@ -68,6 +68,7 @@
 		63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
 		63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE781A18AD65090069049F /* GifDetailViewController.m */; };
 		63CE781E18AD6B040069049F /* EboticonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE781D18AD6B040069049F /* EboticonViewController.m */; };
+		63D46B0819142CAD001A0ABB /* icant.gif in Resources */ = {isa = PBXBuildFile; fileRef = 63D46B0719142CAD001A0ABB /* icant.gif */; };
 		63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE3861868CC0200116D73 /* Foundation.framework */; };
 		63FAE3891868CC0200116D73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE3881868CC0200116D73 /* CoreGraphics.framework */; };
 		63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE38A1868CC0200116D73 /* UIKit.framework */; };
@@ -175,6 +176,7 @@
 		63CE781A18AD65090069049F /* GifDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifDetailViewController.m; sourceTree = "<group>"; };
 		63CE781C18AD6B040069049F /* EboticonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EboticonViewController.h; sourceTree = "<group>"; };
 		63CE781D18AD6B040069049F /* EboticonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EboticonViewController.m; sourceTree = "<group>"; };
+		63D46B0719142CAD001A0ABB /* icant.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = icant.gif; sourceTree = "<group>"; };
 		63FAE3831868CC0200116D73 /* Eboticon1.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eboticon1.2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FAE3861868CC0200116D73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63FAE3881868CC0200116D73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -331,6 +333,7 @@
 		63686131186D58DC00EF3CC5 /* Gifs */ = {
 			isa = PBXGroup;
 			children = (
+				63D46B0719142CAD001A0ABB /* icant.gif */,
 				635182DC18F4125B00932C04 /* OrderedAndNamed */,
 			);
 			name = Gifs;
@@ -521,7 +524,7 @@
 		63FAE37B1868CC0200116D73 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Incling;
 				TargetAttributes = {
 					63FAE3821868CC0200116D73 = {
@@ -560,6 +563,7 @@
 				6351832618F4129800932C04 /* turn_up-caption.gif in Resources */,
 				6351831218F4129800932C04 /* hey_boo_hey-caption.gif in Resources */,
 				63FAE3A21868CC0200116D73 /* Images.xcassets in Resources */,
+				63D46B0819142CAD001A0ABB /* icant.gif in Resources */,
 				63FAE3911868CC0200116D73 /* InfoPlist.strings in Resources */,
 				6351831A18F4129800932C04 /* oh_crap-nocaption.gif in Resources */,
 				6351830D18F4129800932C04 /* fabulous-nocaption.gif in Resources */,
@@ -721,7 +725,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -760,7 +763,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -793,7 +795,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A2A2591941F7449AA600CC9A /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jarryd McCree (TX5258GWRE)";
@@ -805,7 +806,7 @@
 					"$(inherited)",
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
@@ -817,7 +818,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A2A2591941F7449AA600CC9A /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -829,7 +829,7 @@
 					"$(inherited)",
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
@@ -840,7 +840,6 @@
 		63FAE3BC1868CC0200116D73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eboticon1.2.app/Eboticon1.2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -863,7 +862,6 @@
 		63FAE3BD1868CC0200116D73 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eboticon1.2.app/Eboticon1.2";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
