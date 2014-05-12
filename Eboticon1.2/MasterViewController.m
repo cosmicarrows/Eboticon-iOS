@@ -40,7 +40,8 @@
      UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
      **/
-    self.title = @"Eboticon";
+    //self.title = @"Eboticon";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavBarLogo.png"]];
     /**
     UIImage *logoImage = [UIImage imageNamed:@"Eboticon_Final.png"];
     UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
@@ -122,6 +123,13 @@
     // Return NO if you do not want the specified item to be editable.
     return NO;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //return [indexPath row] * 20;
+    return 100;
+}
+
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

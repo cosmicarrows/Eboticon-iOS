@@ -19,7 +19,7 @@
     JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
     JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
     JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"NoCaption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
     JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
 
     
@@ -28,7 +28,7 @@
     
     //Setting up Navigation Bar
     UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
+    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
