@@ -19,7 +19,7 @@
     JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
     JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
     JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"NoCaption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
     JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
 
     
@@ -50,7 +50,7 @@
     [GAI sharedInstance].dispatchInterval = 20;
     
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];

@@ -160,7 +160,7 @@
      **/
     JMCategoriesData *categoryData = _categories[indexPath.row];
     NSString *categoryName = categoryData.data.title;
-    NSLog(@"Category name is %@",categoryName);
+    //NSLog(@"Category name is %@",categoryName);
     
     if ([categoryName isEqualToString:@"More"]){
         [self performSegueWithIdentifier:@"showMoreView" sender:self];
