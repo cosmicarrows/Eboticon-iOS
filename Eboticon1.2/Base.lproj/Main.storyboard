@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -76,8 +76,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIs-lj-Xb2">
-                                <rect key="frame" x="107" y="261" width="80" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIs-lj-Xb2">
+                                <rect key="frame" x="120" y="292" width="80" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Contact Us">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,8 +86,8 @@
                                     <action selector="contactUsEmail:" destination="r3n-oC-yF2" eventType="touchUpInside" id="d8c-nJ-G3S"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-8Y-xhP">
-                                <rect key="frame" x="99" y="316" width="97" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-8Y-xhP">
+                                <rect key="frame" x="110" y="349" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Rate Eboticon">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,8 +96,8 @@
                                     <action selector="rateEboticon:" destination="r3n-oC-yF2" eventType="touchUpInside" id="vcA-bh-9bF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tr-9v-ufr">
-                                <rect key="frame" x="107" y="359" width="83" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tr-9v-ufr">
+                                <rect key="frame" x="117" y="406" width="86" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Tell a Friend">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,8 +106,8 @@
                                     <action selector="tellAFriend:" destination="r3n-oC-yF2" eventType="touchUpInside" id="e8O-KH-zC4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZlC-9H-6RD">
-                                <rect key="frame" x="115" y="215" width="64" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZlC-9H-6RD">
+                                <rect key="frame" x="128" y="235" width="64" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="About">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -116,9 +116,13 @@
                                     <action selector="aboutURL:" destination="r3n-oC-yF2" eventType="touchUpInside" id="66Q-d1-MtG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-eY-jeQ">
-                                <rect key="frame" x="35" y="101" width="240" height="78"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-eY-jeQ">
+                                <rect key="frame" x="40" y="120" width="240" height="78"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="gWc-GP-Unj"/>
+                                    <constraint firstAttribute="width" constant="240" id="tgC-Wy-iUs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,6 +133,23 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Gep-eY-jeQ" secondAttribute="trailing" constant="40" id="6Bi-ik-oe7"/>
+                            <constraint firstItem="Gep-eY-jeQ" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="56" id="96C-PM-8Mj"/>
+                            <constraint firstItem="8JE-8Y-xhP" firstAttribute="top" secondItem="WIs-lj-Xb2" secondAttribute="bottom" constant="27" id="DMy-B6-BAk"/>
+                            <constraint firstItem="7tr-9v-ufr" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="117" id="IeD-xV-YiE"/>
+                            <constraint firstAttribute="trailing" secondItem="WIs-lj-Xb2" secondAttribute="trailing" constant="120" id="MGm-19-RSY"/>
+                            <constraint firstItem="Gep-eY-jeQ" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="40" id="QQY-Oc-dfp"/>
+                            <constraint firstAttribute="trailing" secondItem="8JE-8Y-xhP" secondAttribute="trailing" constant="110" id="RMC-fc-kVt"/>
+                            <constraint firstItem="ZlC-9H-6RD" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="37" id="Ths-3r-5Ag"/>
+                            <constraint firstAttribute="trailing" secondItem="ZlC-9H-6RD" secondAttribute="trailing" constant="128" id="bgx-tg-qBI"/>
+                            <constraint firstItem="WIs-lj-Xb2" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="120" id="cXm-d5-0Jw"/>
+                            <constraint firstItem="ZlC-9H-6RD" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="128" id="kuH-kI-xxK"/>
+                            <constraint firstItem="7tr-9v-ufr" firstAttribute="top" secondItem="8JE-8Y-xhP" secondAttribute="bottom" constant="27" id="nXx-Cp-5yG"/>
+                            <constraint firstItem="8JE-8Y-xhP" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="110" id="ueu-mG-ZW0"/>
+                            <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="ZlC-9H-6RD" secondAttribute="bottom" constant="27" id="wev-Q2-jmo"/>
+                            <constraint firstAttribute="trailing" secondItem="7tr-9v-ufr" secondAttribute="trailing" constant="117" id="zRT-Yq-jzM"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h7A-Du-ikd"/>
                     <connections>
