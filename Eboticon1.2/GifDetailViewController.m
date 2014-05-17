@@ -54,6 +54,7 @@
     eboticonViewController.eboticonGif = currGif;
     //eboticonViewController.imageName = [currGif getDisplayName];
     
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
     
     [self.pageViewController setViewControllers:@[eboticonViewController]
                                       direction:UIPageViewControllerNavigationDirectionForward
@@ -70,14 +71,16 @@
     
     
     //Adds extra color block on top of view to fix overlap
+    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
         UIView *fixbar = [[UIView alloc] init];
         fixbar.frame = CGRectMake(0, 0, 320, 20);
         //fixbar.backgroundColor = [UIColor colorWithRed:0.973 green:0.973 blue:0.973 alpha:1]; // the default color of iOS7 bacground or any color suits your design
-        fixbar.backgroundColor = UIColorFromRGB(0xFf6c00);
+        //fixbar.backgroundColor = UIColorFromRGB(0xFf6c00); //Eboticon Orange
+        fixbar.backgroundColor = UIColorFromRGB(0x7e00c0); //Eboticon Purple
+        //fixbar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:fixbar];
-    }    
-    
+    }
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

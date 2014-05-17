@@ -62,7 +62,7 @@
     NSString *messageBody = @"We want to hear what you think!";
     
     //To Address
-    NSArray *toRecipients = [NSArray arrayWithObject:@"contactus@inclingconsulting.com"];
+    NSArray *toRecipients = [NSArray arrayWithObject:@"contactus@eboticon.com"];
     
     //MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc = [[MFMailComposeViewController alloc] init];

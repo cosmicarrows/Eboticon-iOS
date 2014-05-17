@@ -126,8 +126,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //return [indexPath row] * 20;
-    return 100;
+    CGFloat navNarHeight = 66; //Height of navigation bar plus status bar
+    CGRect screenBounds = [[UIScreen mainScreen] bounds]; //screen size
+    CGFloat screenHeight = screenBounds.size.height;
+    CGFloat rowHeight = (screenHeight-navNarHeight)/5;
+    //NSLog(@"Row Height is: %f",rowHeight);
+    return rowHeight;
 }
 
 

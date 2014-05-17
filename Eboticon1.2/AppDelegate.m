@@ -29,6 +29,7 @@
     //Setting up Navigation Bar
     UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
     //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
@@ -36,7 +37,7 @@
                                                            [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
                                                            shadow, NSShadowAttributeName,
                                                            [UIFont fontWithName:@"LinkinPark-ExtraBold" size:21.0], NSFontAttributeName, nil]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
     
 
     MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
