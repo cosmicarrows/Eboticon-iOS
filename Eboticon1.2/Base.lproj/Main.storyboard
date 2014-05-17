@@ -54,7 +54,7 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="tQt-TN-PWz"/>
+                    <navigationItem key="navigationItem" title="Home" id="tQt-TN-PWz"/>
                     <connections>
                         <segue destination="wPB-LL-kAA" kind="push" identifier="showGifCollection" id="jlZ-dQ-ihg"/>
                         <segue destination="r3n-oC-yF2" kind="push" identifier="showMoreView" id="UKg-wZ-Gyf"/>

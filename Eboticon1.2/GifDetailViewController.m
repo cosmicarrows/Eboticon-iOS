@@ -18,6 +18,8 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define MAX_RECENT_GIFS 10
+#define FIRST_RUN @"firstAppRun"
+
 
 @interface GifDetailViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
@@ -81,6 +83,9 @@
         //fixbar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:fixbar];
     }
+    
+    [self showSwipeAlert];
+    
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -89,6 +94,19 @@
         self.pageViewController = segue.destinationViewController;
         self.pageViewController.dataSource = self;
         self.pageViewController.delegate = self;
+    }
+}
+
+-(void) showSwipeAlert
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    //[defaults setBool:NO forKey:FIRST_RUN];//Uncomment to test alert
+    
+    if(![defaults boolForKey:FIRST_RUN]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Swipe left or right to view more Eboticons!" delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
+        [alert show];
+        [defaults setBool:YES forKey:FIRST_RUN];
     }
 }
 
