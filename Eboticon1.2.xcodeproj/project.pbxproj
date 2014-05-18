@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		024BBF66C11F427CBC9BE8D9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FECE51D319499E8C5B4ED8 /* libPods.a */; };
+		6322EB901928214900E7BA72 /* lmao-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322EB8E1928214900E7BA72 /* lmao-caption.png */; };
+		6322EB911928214900E7BA72 /* lmao-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322EB8F1928214900E7BA72 /* lmao-nocaption.png */; };
 		63376EB118E5FBF200DC1204 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EB018E5FBF200DC1204 /* libGoogleAnalyticsServices.a */; };
 		63376EBA18E5FC3500DC1204 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EB918E5FC3500DC1204 /* AdSupport.framework */; };
 		63376EBC18E5FC4300DC1204 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EBB18E5FC4300DC1204 /* CoreData.framework */; };
@@ -105,8 +107,6 @@
 		63BCCE051920E96B00C8508D /* i_cant-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD11920E96B00C8508D /* i_cant-nocaption.png */; };
 		63BCCE061920E96B00C8508D /* kisses-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD21920E96B00C8508D /* kisses-caption.png */; };
 		63BCCE071920E96B00C8508D /* kisses-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD31920E96B00C8508D /* kisses-nocaption.png */; };
-		63BCCE081920E96B00C8508D /* lmao-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD41920E96B00C8508D /* lmao-caption.png */; };
-		63BCCE091920E96B00C8508D /* lmao-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD51920E96B00C8508D /* lmao-nocaption.png */; };
 		63BCCE0A1920E96B00C8508D /* oh_crap-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD61920E96B00C8508D /* oh_crap-caption.png */; };
 		63BCCE0B1920E96B00C8508D /* oh_crap-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD71920E96B00C8508D /* oh_crap-nocaption.png */; };
 		63BCCE0C1920E96B00C8508D /* one_sec-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BCCDD81920E96B00C8508D /* one_sec-caption.png */; };
@@ -168,6 +168,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6322EB8E1928214900E7BA72 /* lmao-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lmao-caption.png"; sourceTree = "<group>"; };
+		6322EB8F1928214900E7BA72 /* lmao-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lmao-nocaption.png"; sourceTree = "<group>"; };
 		63376EB018E5FBF200DC1204 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		63376EB318E5FC0800DC1204 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		63376EB418E5FC0800DC1204 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
@@ -280,8 +282,6 @@
 		63BCCDD11920E96B00C8508D /* i_cant-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "i_cant-nocaption.png"; sourceTree = "<group>"; };
 		63BCCDD21920E96B00C8508D /* kisses-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kisses-caption.png"; sourceTree = "<group>"; };
 		63BCCDD31920E96B00C8508D /* kisses-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kisses-nocaption.png"; sourceTree = "<group>"; };
-		63BCCDD41920E96B00C8508D /* lmao-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lmao-caption.png"; sourceTree = "<group>"; };
-		63BCCDD51920E96B00C8508D /* lmao-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lmao-nocaption.png"; sourceTree = "<group>"; };
 		63BCCDD61920E96B00C8508D /* oh_crap-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oh_crap-caption.png"; sourceTree = "<group>"; };
 		63BCCDD71920E96B00C8508D /* oh_crap-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oh_crap-nocaption.png"; sourceTree = "<group>"; };
 		63BCCDD81920E96B00C8508D /* one_sec-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one_sec-caption.png"; sourceTree = "<group>"; };
@@ -516,6 +516,8 @@
 			isa = PBXGroup;
 			children = (
 				63BCCDBE1920E96B00C8508D /* aint_nobody-caption.png */,
+				6322EB8E1928214900E7BA72 /* lmao-caption.png */,
+				6322EB8F1928214900E7BA72 /* lmao-nocaption.png */,
 				63BCCDBF1920E96B00C8508D /* aint_nobody-nocaption.png */,
 				63BCCDC01920E96B00C8508D /* congrats-caption.png */,
 				63BCCDC11920E96B00C8508D /* congrats-nocaption.png */,
@@ -537,8 +539,6 @@
 				63BCCDD11920E96B00C8508D /* i_cant-nocaption.png */,
 				63BCCDD21920E96B00C8508D /* kisses-caption.png */,
 				63BCCDD31920E96B00C8508D /* kisses-nocaption.png */,
-				63BCCDD41920E96B00C8508D /* lmao-caption.png */,
-				63BCCDD51920E96B00C8508D /* lmao-nocaption.png */,
 				63BCCDD61920E96B00C8508D /* oh_crap-caption.png */,
 				63BCCDD71920E96B00C8508D /* oh_crap-nocaption.png */,
 				63BCCDD81920E96B00C8508D /* one_sec-caption.png */,
@@ -782,7 +782,6 @@
 				63BCCE101920E96B00C8508D /* really_male-caption.png in Resources */,
 				63BCCDB91920E92200C8508D /* yas-caption.gif in Resources */,
 				63BCCE0D1920E96B00C8508D /* one_sec-nocaption.png in Resources */,
-				63BCCE081920E96B00C8508D /* lmao-caption.png in Resources */,
 				63BCCE171920E96B00C8508D /* thinking_about_you-nocaption.png in Resources */,
 				63BCCD961920E92200C8508D /* have_several_seats-nocaption.gif in Resources */,
 				63BCCE111920E96B00C8508D /* really_male-nocaption.png in Resources */,
@@ -811,7 +810,6 @@
 				63BCCE151920E96B00C8508D /* that_aint_funny-nocaption.png in Resources */,
 				63BCCE0C1920E96B00C8508D /* one_sec-caption.png in Resources */,
 				63BCCDBC1920E92200C8508D /* you_mad-nocaption.gif in Resources */,
-				63BCCE091920E96B00C8508D /* lmao-nocaption.png in Resources */,
 				63BCCDAD1920E92200C8508D /* thinking_about_you-caption.gif in Resources */,
 				63BCCD951920E92200C8508D /* have_several_seats-caption.gif in Resources */,
 				63BCCDA41920E92200C8508D /* really_female-nocaption.gif in Resources */,
@@ -848,6 +846,7 @@
 				63BCCE1B1920E96B00C8508D /* twerkteam-nocaption.png in Resources */,
 				63BCCD941920E92200C8508D /* have_a_seat-nocaption.gif in Resources */,
 				63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */,
+				6322EB911928214900E7BA72 /* lmao-nocaption.png in Resources */,
 				63BCCD8B1920E92200C8508D /* crying-caption.gif in Resources */,
 				63BCCDA71920E92200C8508D /* schwam-caption.gif in Resources */,
 				63BCCD8F1920E92200C8508D /* fabulous-caption.gif in Resources */,
@@ -875,6 +874,7 @@
 				63BCCDB21920E92200C8508D /* twerkteam-nocaption.gif in Resources */,
 				63BCCE251920E96B00C8508D /* you_mad-nocaption.png in Resources */,
 				63BCCD971920E92200C8508D /* hey_boo_hey-caption.gif in Resources */,
+				6322EB901928214900E7BA72 /* lmao-caption.png in Resources */,
 				6373A00718C2471200E7ECBD /* linkinpark.ttf in Resources */,
 				63BCCDF41920E96B00C8508D /* congrats-caption.png in Resources */,
 				63BCCD931920E92200C8508D /* have_a_seat-caption.gif in Resources */,

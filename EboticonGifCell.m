@@ -31,7 +31,7 @@
         NSString *gifName = [_cellGif getStillName];
         
         gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-        NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
+        NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"png"];
         NSData *GIFDATA = [NSData dataWithContentsOfFile:filepath];
         _gifImageView.image = [UIImage imageWithData:GIFDATA];
         
