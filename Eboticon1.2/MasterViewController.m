@@ -41,7 +41,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
      **/
     //self.title = @"Eboticon";
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavBarLogo.png"]];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavBarLogo2.png"]];
     /**
     UIImage *logoImage = [UIImage imageNamed:@"Eboticon_Final.png"];
     UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];

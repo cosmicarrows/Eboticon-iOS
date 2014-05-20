@@ -20,7 +20,8 @@
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
 #define CATEGORY_CAPTION @"Caption"
-#define CATEGORY_NO_CAPTION @"NoCaption"
+#define CATEGORY_NO_CAPTION @"No Caption"
+#define CSV_CATEGORY_NO_CAPTION @"NoCaption"
 
 
 @interface GifCollectionViewController () {
@@ -215,7 +216,7 @@
             if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
                 NSLog(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
                 [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
-            } else if([[currentGif category] isEqual:CATEGORY_NO_CAPTION]) {
+            } else if([[currentGif category] isEqual:CSV_CATEGORY_NO_CAPTION]) {
                 NSLog(@"Adding eboticon to category noCaption:%@",[currentGif fileName]);
                 [_noCaptionImages addObject:[_eboticonGifs objectAtIndex:i]];
             } else {
