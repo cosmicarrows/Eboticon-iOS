@@ -170,7 +170,7 @@
         [recentGifs removeLastObject];
         [recentGifs insertObject:[currGif fileName] atIndex:0];
         
-    } else {
+    } else if (![recentGifs containsObject:[currGif fileName]]){
         [recentGifs insertObject:[currGif fileName] atIndex:0];
     }
 
