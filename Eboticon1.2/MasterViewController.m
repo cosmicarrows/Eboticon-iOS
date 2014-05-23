@@ -7,7 +7,6 @@
 //
 
 #import "MasterViewController.h"
-#import "DetailViewController.h"
 #import "JMCategoryData.h"
 #import "JMCategoriesData.h"
 #import "GifCollectionViewController.h"
@@ -140,11 +139,7 @@
 {
     NSLog(@"prepareForSegue: %@", segue.identifier);
     
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    } else if ([[segue identifier] isEqualToString:@"showGifCollection"]) {
+    if ([[segue identifier] isEqualToString:@"showGifCollection"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         GifCollectionViewController *destViewController = segue.destinationViewController;
         JMCategoriesData *categoryData = _categories[indexPath.row];

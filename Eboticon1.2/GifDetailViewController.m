@@ -140,7 +140,7 @@
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToFacebook, UIActivityTypePostToTwitter];
+    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr];
     controller.excludedActivityTypes = excludedActivities;
     
     
