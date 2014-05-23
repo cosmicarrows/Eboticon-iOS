@@ -140,7 +140,7 @@
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo];
+    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToFacebook, UIActivityTypePostToTwitter];
     controller.excludedActivityTypes = excludedActivities;
     
     
@@ -156,7 +156,11 @@
                                                           value:nil] build]];    // Event value
 }
 
-
+/**
+ *  Saves current gif to RECENT_GIFS_KEY
+ *
+ *  @param currGif Gif to save
+ */
 -(void) saveRecentGif:(EboticonGif*) currGif
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

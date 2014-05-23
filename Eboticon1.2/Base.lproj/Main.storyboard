@@ -131,23 +131,47 @@
                                     <action selector="eboticonLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="hRf-Av-JdI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1Z-Hb-Zfo">
+                                <rect key="frame" x="16" y="515" width="288" height="11"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Eboticon and all related characters are trademarks of Eboticon LLC.
+2014 Eboticon. All Rights Reserved. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2014 Eboticon. All Rights Reserved. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwS-Qq-eiI">
+                                <rect key="frame" x="79" y="531" width="162" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6Jx-4l-ve3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="16" id="0YD-X8-3xj"/>
                             <constraint firstAttribute="trailing" secondItem="Gep-eY-jeQ" secondAttribute="trailing" constant="40" id="6Bi-ik-oe7"/>
                             <constraint firstItem="Gep-eY-jeQ" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="56" id="96C-PM-8Mj"/>
                             <constraint firstItem="8JE-8Y-xhP" firstAttribute="top" secondItem="WIs-lj-Xb2" secondAttribute="bottom" constant="27" id="DMy-B6-BAk"/>
                             <constraint firstItem="7tr-9v-ufr" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="117" id="IeD-xV-YiE"/>
+                            <constraint firstItem="SwS-Qq-eiI" firstAttribute="top" secondItem="N1Z-Hb-Zfo" secondAttribute="bottom" constant="5" id="J5A-Zu-pMt"/>
                             <constraint firstAttribute="trailing" secondItem="WIs-lj-Xb2" secondAttribute="trailing" constant="120" id="MGm-19-RSY"/>
                             <constraint firstItem="Gep-eY-jeQ" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="40" id="QQY-Oc-dfp"/>
                             <constraint firstAttribute="trailing" secondItem="8JE-8Y-xhP" secondAttribute="trailing" constant="110" id="RMC-fc-kVt"/>
                             <constraint firstItem="ZlC-9H-6RD" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="37" id="Ths-3r-5Ag"/>
                             <constraint firstAttribute="trailing" secondItem="ZlC-9H-6RD" secondAttribute="trailing" constant="128" id="bgx-tg-qBI"/>
                             <constraint firstItem="WIs-lj-Xb2" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="120" id="cXm-d5-0Jw"/>
+                            <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="centerX" secondItem="7tr-9v-ufr" secondAttribute="centerX" id="jRL-UY-N7f"/>
                             <constraint firstItem="ZlC-9H-6RD" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="128" id="kuH-kI-xxK"/>
                             <constraint firstItem="7tr-9v-ufr" firstAttribute="top" secondItem="8JE-8Y-xhP" secondAttribute="bottom" constant="27" id="nXx-Cp-5yG"/>
+                            <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="centerX" secondItem="SwS-Qq-eiI" secondAttribute="centerX" id="oql-t0-MUx"/>
                             <constraint firstItem="8JE-8Y-xhP" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="110" id="ueu-mG-ZW0"/>
                             <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="ZlC-9H-6RD" secondAttribute="bottom" constant="27" id="wev-Q2-jmo"/>
+                            <constraint firstItem="vsi-ng-OnB" firstAttribute="top" secondItem="SwS-Qq-eiI" secondAttribute="bottom" constant="16" id="y7a-Ls-v5Y"/>
                             <constraint firstAttribute="trailing" secondItem="7tr-9v-ufr" secondAttribute="trailing" constant="117" id="zRT-Yq-jzM"/>
                         </constraints>
                     </view>
