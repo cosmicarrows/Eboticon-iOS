@@ -10,6 +10,12 @@
 #import "JMCategoriesData.h"
 #import "MasterViewController.h"
 #import "GAI.h"
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+
+
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation AppDelegate
@@ -58,6 +64,10 @@
     
     //Set dry run to yes for testing purposes
     [[GAI sharedInstance] setDryRun:YES];
+    
+    //Cocoalumberjack init files
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     
     // Override point for customization after application launch.
