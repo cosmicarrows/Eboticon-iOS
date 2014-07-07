@@ -314,7 +314,7 @@
 		63D46B0719142CAD001A0ABB /* icant.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = icant.gif; sourceTree = "<group>"; };
 		63D57F8E192FCA2900C00C85 /* congrats-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "congrats-caption.gif"; sourceTree = "<group>"; };
 		63D57F8F192FCA2900C00C85 /* congrats-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "congrats-nocaption.gif"; sourceTree = "<group>"; };
-		63FAE3831868CC0200116D73 /* Eboticon1.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eboticon1.2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63FAE3831868CC0200116D73 /* Eboticon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eboticon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FAE3861868CC0200116D73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63FAE3881868CC0200116D73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		63FAE38A1868CC0200116D73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -582,7 +582,7 @@
 		63FAE3841868CC0200116D73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63FAE3831868CC0200116D73 /* Eboticon1.2.app */,
+				63FAE3831868CC0200116D73 /* Eboticon.app */,
 				63FAE3A71868CC0200116D73 /* Eboticon1.2Tests.xctest */,
 			);
 			name = Products;
@@ -707,7 +707,7 @@
 			);
 			name = Eboticon1.2;
 			productName = Eboticon1.2;
-			productReference = 63FAE3831868CC0200116D73 /* Eboticon1.2.app */;
+			productReference = 63FAE3831868CC0200116D73 /* Eboticon.app */;
 			productType = "com.apple.product-type.application";
 		};
 		63FAE3A61868CC0200116D73 /* Eboticon1.2Tests */ = {
@@ -738,7 +738,7 @@
 				ORGANIZATIONNAME = Incling;
 				TargetAttributes = {
 					63FAE3821868CC0200116D73 = {
-						DevelopmentTeam = 8S6259722M;
+						DevelopmentTeam = 662TV55PE6;
 					};
 					63FAE3A61868CC0200116D73 = {
 						TestTargetID = 63FAE3821868CC0200116D73;
@@ -1092,7 +1092,7 @@
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
@@ -1117,7 +1117,7 @@
 					/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/Eboticon1.2,
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
