@@ -63,7 +63,7 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:YES];
+    [[GAI sharedInstance] setDryRun:NO];
     
     //Cocoalumberjack init files
     [DDLog addLogger:[DDASLLogger sharedInstance]];
