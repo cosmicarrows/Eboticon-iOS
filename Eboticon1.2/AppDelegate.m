@@ -10,9 +10,10 @@
 #import "JMCategoriesData.h"
 #import "MasterViewController.h"
 #import "GAI.h"
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
+#import "GAIFields.h"
+//#import "DDLog.h"
+//#import "DDASLLogger.h"
+//#import "DDTTYLogger.h"
 
 
 
@@ -63,11 +64,16 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:NO];
+    [[GAI sharedInstance] setDryRun:YES];
+    
+    //Set version for app tracking
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    [[GAI sharedInstance].defaultTracker set:kGAIAppVersion value:version];
+    [[GAI sharedInstance].defaultTracker set:kGAISampleRate value:@"50.0"];
     
     //Cocoalumberjack init files
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    //[DDLog addLogger:[DDASLLogger sharedInstance]];
+    //[DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     
     // Override point for customization after application launch.

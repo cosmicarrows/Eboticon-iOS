@@ -14,13 +14,15 @@
 @property (strong, nonatomic) NSString *stillName;
 @property (strong, nonatomic) NSString *displayName;
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *movFileName;
 
 
-- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category;
+- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName;
 -(NSString *) getFileName;
 -(NSString *) getStillName;
 -(NSString *) getDisplayName;
 -(NSString *) getCategory;
+-(NSString *) getMovFileName;
 
 
 

@@ -14,6 +14,8 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "EBOActivityTypePostToInstagram.h"
+#import "EBOActivityTypePostToFacebook.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
@@ -152,10 +154,16 @@
     
     [self showEmailAlert];
     
-    NSURL *url = [self fileToURL:[currGif getFileName]];
-    NSArray *objectsToShare = @[url];
+    NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
+    //NSURL *movFileURL = [self fileToURL:[currGif getMovFileName]];
     
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    NSArray *objectsToShare = @[gifFileURL];
+    //NSArray *objectsToShare = @[gifFileURL, movFileURL];
+    
+    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]];
+
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
     
     NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr];
     controller.excludedActivityTypes = excludedActivities;

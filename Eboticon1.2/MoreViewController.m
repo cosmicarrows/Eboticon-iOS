@@ -81,7 +81,9 @@
 
 - (IBAction)rateEboticon:(id)sender {
     
-     [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
+     //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&onlyLatestVersion=false&type=Purple+Software"]];
+
 }
 
 - (IBAction)tellAFriend:(id)sender {
@@ -95,7 +97,7 @@
 #pragma mark - mail compose delegate
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    #warning TODO: input alert messages
+    //#warning TODO: input alert messages
     switch (result)
     {
         case MFMailComposeResultCancelled:

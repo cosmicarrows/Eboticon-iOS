@@ -167,6 +167,9 @@
                         case 3:
                             [currentGif setCategory:value];
                             break;
+                        case 4:
+                            [currentGif setMovFileName:value];
+                            break;
                         default:
                             NSLog(@"Index out of bounds");
                             break;
@@ -185,12 +188,12 @@
                 }
                  **/
             }
-            /**
+            
             for (int a = 0; a< [_eboticonGifs count]; a++){
-                NSLog(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category]);
+                NSLog(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category],[[_eboticonGifs objectAtIndex:a] movFileName]);
                 
             }
-             **/
+            
         }
          
     }
@@ -212,7 +215,7 @@
 
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
-            NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category]);
+            NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName]);
             if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
                 NSLog(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
                 [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];

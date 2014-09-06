@@ -14,14 +14,16 @@
 @synthesize displayName = _displayName;
 @synthesize stillName = _stillName;
 @synthesize category = _category;
+@synthesize movFileName = _movFileName;
 
-- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString*)category
+- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString*)category movFileName:(NSString *)movFileName
 {
     if((self = [super init])){
         self.fileName = fileName;
         self.displayName = displayName;
         self.stillName = stillName;
         self.category = category;
+        self.movFileName = movFileName;
     }
     return self;
 }
@@ -44,6 +46,11 @@
 -(NSString *) getCategory
 {
     return _category;
+}
+
+-(NSString *) getMovFileName
+{
+    return _movFileName;
 }
 
 
