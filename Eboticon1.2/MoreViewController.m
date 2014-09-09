@@ -79,6 +79,11 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com"]];
 }
 
+- (IBAction)faqURL:(id)sender {
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/#!faq/cne9"]];
+}
+
 - (IBAction)rateEboticon:(id)sender {
     
      //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
