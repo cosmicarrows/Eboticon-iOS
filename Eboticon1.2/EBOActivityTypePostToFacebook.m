@@ -92,9 +92,9 @@
     
     NSString * gifName = [self.movItems objectAtIndex:0];
     gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
+    //NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
     
-    NSData *movData = [NSData dataWithContentsOfFile:filepath];
+    //NSData *movData = [NSData dataWithContentsOfFile:filepath];
     
     // Check if the Facebook app is installed and we can present the share dialog
     FBLinkShareParams *params = [[FBLinkShareParams alloc] init];

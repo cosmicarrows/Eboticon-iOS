@@ -11,6 +11,7 @@
 #import "MasterViewController.h"
 #import "GAI.h"
 #import "GAIFields.h"
+#import "iRate.h"
 //#import "DDLog.h"
 //#import "DDASLLogger.h"
 //#import "DDTTYLogger.h"
@@ -74,6 +75,16 @@
     //Cocoalumberjack init files
     //[DDLog addLogger:[DDASLLogger sharedInstance]];
     //[DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    //configure iRate
+    [iRate sharedInstance].daysUntilPrompt = 3;
+    [iRate sharedInstance].usesUntilPrompt = 15;
+    [iRate sharedInstance].verboseLogging = YES;
+    [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
+    // #warning TODO: Set below to no before deploying!
+    [iRate sharedInstance].previewMode = NO;
+    
+
     
     
     // Override point for customization after application launch.

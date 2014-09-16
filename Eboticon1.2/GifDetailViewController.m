@@ -155,13 +155,11 @@
     [self showEmailAlert];
     
     NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
-    //NSURL *movFileURL = [self fileToURL:[currGif getMovFileName]];
     
     NSArray *objectsToShare = @[gifFileURL];
-    //NSArray *objectsToShare = @[gifFileURL, movFileURL];
     
-    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]];
-
+    //NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
+    NSArray *applicationActivities = [[NSArray alloc] init];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
     
