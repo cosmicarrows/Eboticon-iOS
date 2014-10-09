@@ -12,10 +12,10 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "iRate.h"
-//#import "DDLog.h"
-//#import "DDASLLogger.h"
-//#import "DDTTYLogger.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
 
+//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -74,7 +74,8 @@
     
     //Cocoalumberjack init files
     //[DDLog addLogger:[DDASLLogger sharedInstance]];
-    //[DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
     
     //configure iRate
     [iRate sharedInstance].daysUntilPrompt = 3;

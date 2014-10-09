@@ -16,6 +16,9 @@
 #import "GAIDictionaryBuilder.h"
 #import "EBOActivityTypePostToInstagram.h"
 #import "EBOActivityTypePostToFacebook.h"
+#import "DDLog.h"
+
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
@@ -50,6 +53,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    _isFirstView = TRUE;
+    
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
     EboticonGif *currGif = self.imageNames[self.index];
@@ -57,7 +62,14 @@
     eboticonViewController.index = self.index;
     //eboticonViewController.imageName = self.imageNames[self.index];
     eboticonViewController.eboticonGif = currGif;
+    
     //eboticonViewController.imageName = [currGif getDisplayName];
+    
+    DDLogDebug(@"View Load. Index is %lu",(unsigned long)eboticonViewController.index);
+    DDLogDebug(@"View Load. Self Index is %lu",(unsigned long)self.index);
+    DDLogDebug(@"View Load. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
+
+
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
     
@@ -145,6 +157,7 @@
     
     NSLog(@"Share button Current Index:%ld", (long)self.index);
     EboticonGif *currGif = self.imageNames[self.index];
+    DDLogDebug(@"Shared Gif is %@",currGif.getFileName);
    
     //Save gifs to recents
     [self saveRecentGif:currGif];
@@ -222,16 +235,31 @@
 {
     EboticonViewController *previousViewController = (EboticonViewController *)viewController;
     
+    /**
+    if(previousViewController.index >= self.imageNames.count - 1) {
+        return nil;
+    }
+        
+    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
+    
+    eboticonViewController.index = previousViewController.index + 1;
+    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index+1];
+    self.index++;
+    return eboticonViewController;
+     **/
+    
     if(previousViewController.index >= self.imageNames.count - 1) {
         return nil;
     }
     
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
-    eboticonViewController.index = previousViewController.index + 1;
-    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index+1];
     self.index++;
-
+    eboticonViewController.index = self.index;
+    eboticonViewController.eboticonGif = self.imageNames[self.index];
+    
+    DDLogDebug(@"viewControllerAfterViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
+    
     return eboticonViewController;
 }
 
@@ -239,15 +267,17 @@
 {
     EboticonViewController *previousViewController = (EboticonViewController *)viewController;
     
-    if(previousViewController.index ==0) {
+    if(previousViewController.index == 0) {
         return nil;
     }
-    
+
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
-    
-    eboticonViewController.index = previousViewController.index - 1;
-    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index-1];
+
     self.index--;
+    eboticonViewController.index = self.index;
+    eboticonViewController.eboticonGif = self.imageNames[self.index];
+    
+    DDLogDebug(@"viewControllerBeforeViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
     
     return eboticonViewController;
 }
