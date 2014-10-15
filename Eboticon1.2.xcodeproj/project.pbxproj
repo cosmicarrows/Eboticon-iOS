@@ -1478,7 +1478,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Eboticon1.2",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1508,7 +1508,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Eboticon1.2",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1533,6 +1533,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Eboticon1.2Tests/Eboticon1.2Tests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1551,6 +1552,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eboticon1.2/Eboticon1.2-Prefix.pch";
 				INFOPLIST_FILE = "Eboticon1.2Tests/Eboticon1.2Tests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

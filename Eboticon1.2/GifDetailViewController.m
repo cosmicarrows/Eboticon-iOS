@@ -155,7 +155,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 - (IBAction)shareButtonTapped:(id)sender {
     
-    NSLog(@"Share button Current Index:%ld", (long)self.index);
+    DDLogDebug(@"Share button Current Index:%ld", (long)self.index);
     EboticonGif *currGif = self.imageNames[self.index];
     DDLogDebug(@"Shared Gif is %@",currGif.getFileName);
    
@@ -217,7 +217,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     [defaults setObject:recentGifs forKey:RECENT_GIFS_KEY];
     [defaults synchronize];
     
-    NSLog(@"Recent Gifs Array: %@",recentGifs);
+    DDLogDebug(@"Recent Gifs Array: %@",recentGifs);
     
 }
 
