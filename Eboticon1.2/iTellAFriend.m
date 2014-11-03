@@ -127,7 +127,7 @@ static NSString *const iTellAFriendGiftiOSiTunesURLFormat = @"https://buy.itunes
 {
     // app key used to cache the app data
     if (self.appStoreID) {
-        self.applicationKey = [NSString stringWithFormat:@"%d-%@", self.appStoreID, self.applicationVersion];
+        self.applicationKey = [NSString stringWithFormat:@"%lu-%@", (unsigned long)self.appStoreID, self.applicationVersion];
     } else {
         self.applicationKey = [NSString stringWithFormat:@"%@-%@", self.applicationBundleID, self.applicationVersion];
     }

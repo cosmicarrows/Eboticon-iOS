@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) EboticonGif *cellGif;
 @property (strong, nonatomic) IBOutlet OLImageView *gifImageView;
-#warning TODO: input alert messages
+//TODO: input alert messages
 
 
 -(void) setCellGif:(EboticonGif *) eboticonGif;

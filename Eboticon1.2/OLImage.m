@@ -178,7 +178,8 @@ inline static BOOL isRetinaFilePath(NSString *path)
         self.frameDurations[i] = frameDuration;
         self.totalDuration += frameDuration;
     }
-    CFTimeInterval start = CFAbsoluteTimeGetCurrent();
+    //Commenting out below line because unused
+    //CFTimeInterval start = CFAbsoluteTimeGetCurrent();
     // Load first frame
     CGImageRef firstImage = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
     [self.images replaceObjectAtIndex:0 withObject:[UIImage imageWithCGImage:firstImage scale:scale orientation:UIImageOrientationUp]];

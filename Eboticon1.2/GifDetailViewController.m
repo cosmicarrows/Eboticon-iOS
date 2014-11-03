@@ -53,17 +53,17 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    _isFirstView = TRUE;
+    
     
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
     EboticonGif *currGif = self.imageNames[self.index];
     
     eboticonViewController.index = self.index;
-    //eboticonViewController.imageName = self.imageNames[self.index];
     eboticonViewController.eboticonGif = currGif;
     
-    //eboticonViewController.imageName = [currGif getDisplayName];
+    _currentDisplayIndex = self.index;
+
     
     DDLogDebug(@"View Load. Index is %lu",(unsigned long)eboticonViewController.index);
     DDLogDebug(@"View Load. Self Index is %lu",(unsigned long)self.index);
@@ -156,7 +156,8 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 - (IBAction)shareButtonTapped:(id)sender {
     
     DDLogDebug(@"Share button Current Index:%ld", (long)self.index);
-    EboticonGif *currGif = self.imageNames[self.index];
+    //EboticonGif *currGif = self.imageNames[self.index];
+    EboticonGif *currGif = self.imageNames[self.currentDisplayIndex];
     DDLogDebug(@"Shared Gif is %@",currGif.getFileName);
    
     //Save gifs to recents
@@ -233,7 +234,8 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    EboticonViewController *previousViewController = (EboticonViewController *)viewController;
+    
+    //EboticonViewController *previousViewController = (EboticonViewController *)viewController;
     
     /**
     if(previousViewController.index >= self.imageNames.count - 1) {
@@ -247,7 +249,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     self.index++;
     return eboticonViewController;
      **/
-    
+    /**
     if(previousViewController.index >= self.imageNames.count - 1) {
         return nil;
     }
@@ -261,10 +263,24 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     DDLogDebug(@"viewControllerAfterViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
     
     return eboticonViewController;
+     **/
+    
+    NSUInteger index = ((EboticonViewController*) viewController).index;
+    
+    if (index == NSNotFound) {
+        return nil;
+    }
+    
+    index++;
+    if (index >= self.imageNames.count) {
+        return nil;
+    }
+    return [self viewControllerAtIndex:index];
 }
 
 -(UIViewController *) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    /**
     EboticonViewController *previousViewController = (EboticonViewController *)viewController;
     
     if(previousViewController.index == 0) {
@@ -278,6 +294,42 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     eboticonViewController.eboticonGif = self.imageNames[self.index];
     
     DDLogDebug(@"viewControllerBeforeViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
+    
+    return eboticonViewController;
+     **/
+    
+    NSUInteger index = ((EboticonViewController*) viewController).index;
+    
+    if ((index == 0) || (index == NSNotFound)) {
+        return nil;
+    }
+    
+    index--;
+    return [self viewControllerAtIndex:index];
+}
+
+-(void) pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (!completed) {
+        return;
+    }
+    //NSUInteger currentIndex = [[self.pageViewController.viewControllers lastObject] index];
+    self.currentDisplayIndex = [[self.pageViewController.viewControllers lastObject] index];
+    DDLogDebug(@"didFinishAnimating(), Current index: %lu", (unsigned long)self.currentDisplayIndex);
+}
+
+- (UIViewController *)viewControllerAtIndex:(NSUInteger)index
+{
+    if ((index == NSNotFound) || (index >= self.imageNames.count)) {
+        return nil;
+    }
+    
+    self.index = index;
+    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
+    eboticonViewController.index = index;
+    eboticonViewController.eboticonGif = self.imageNames[index];
+    
+    DDLogDebug(@"ViewControllerAtIndex(), Current Gif: %@",eboticonViewController.eboticonGif.fileName);
     
     return eboticonViewController;
 }

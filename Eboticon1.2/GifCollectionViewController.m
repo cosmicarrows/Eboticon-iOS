@@ -59,7 +59,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     {
         UIBarButtonItem *clearbutton = [[UIBarButtonItem alloc]
                                        initWithTitle:@"Clear"
-                                       style:UIBarButtonItemStyleBordered
+                                       style:UIBarButtonItemStylePlain
                                        target:self
                                        action:@selector(clearRecentGifs)];
         self.navigationItem.rightBarButtonItem = clearbutton;
@@ -242,8 +242,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
     //Create buttons
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleBordered target:self action:nil];
-    UIBarButtonItem *enlarge = [[UIBarButtonItem alloc] initWithTitle:@"Enlarge" style:UIBarButtonItemStyleBordered target:self action:nil];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *enlarge = [[UIBarButtonItem alloc] initWithTitle:@"Enlarge" style:UIBarButtonItemStylePlain target:self action:nil];
     _toolbarButtons = [NSMutableArray arrayWithObjects:shareButton, enlarge, nil];
 
     

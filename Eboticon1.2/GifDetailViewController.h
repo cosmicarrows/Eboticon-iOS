@@ -13,7 +13,7 @@
 
 @property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) NSMutableArray *imageNames;
-@property (assign, nonatomic) BOOL isFirstView;
+@property (assign, nonatomic) NSInteger currentDisplayIndex;
 
 
 @end
