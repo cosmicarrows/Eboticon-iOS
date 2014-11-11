@@ -65,7 +65,7 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:YES];
+    [[GAI sharedInstance] setDryRun:NO];
     
     //Set version for app tracking
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
