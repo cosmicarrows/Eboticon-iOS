@@ -38,6 +38,8 @@
     UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
     //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
+
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
@@ -65,7 +67,7 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:NO];
+    [[GAI sharedInstance] setDryRun:YES];
     
     //Set version for app tracking
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
@@ -84,9 +86,6 @@
     [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
     // #warning TODO: Set below to no before deploying!
     [iRate sharedInstance].previewMode = NO;
-    
-
-    
     
     // Override point for customization after application launch.
     return YES;

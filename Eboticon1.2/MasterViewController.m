@@ -34,58 +34,26 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    /**
-     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-     **/
-    //self.title = @"Eboticon";
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavBarLogo3.png"]];
-    /**
-    UIImage *logoImage = [UIImage imageNamed:@"Eboticon_Final.png"];
-    UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
-    self.navigationItem.titleView = logoImageView;
-     **/
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBarLogo.png"]];
+
+    self.tableView.backgroundColor = [UIColor clearColor];
     
-    //Ebo Background
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    //self.tableView.scrollEnabled = false;
+    self.tableView.alwaysBounceVertical = NO;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MasterBackground2.0.png"]];
     
     //GOOGLE ANALYTICS
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Home Screen" forKey:kGAIScreenName]build]];
 
-    
-    /**
-     Lists all fonts
-    for (NSString* family in [UIFont familyNames])
-    {
-        NSLog(@"%@", family);
-        
-        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-        {
-            NSLog(@"  %@", name);
-        }
-    }
-     **/
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender
-{
-    /**
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-     **/
 }
 
 #pragma mark - Table View
@@ -102,18 +70,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /**
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
-     **/
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
     
     JMCategoriesData *eboticonPic = [self.categories objectAtIndex:indexPath.row];
     cell.textLabel.text = eboticonPic.data.title;
     cell.imageView.image = eboticonPic.thumbImage;
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textColor= [UIColor whiteColor];
     
     return cell;
 }
@@ -130,7 +93,6 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds]; //screen size
     CGFloat screenHeight = screenBounds.size.height;
     CGFloat rowHeight = (screenHeight-navNarHeight)/5;
-    //NSLog(@"Row Height is: %f",rowHeight);
     return rowHeight;
 }
 
@@ -150,14 +112,9 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    /**
-    UIAlertView *messageAlert = [[UIAlertView alloc]
-                                 initWithTitle:@"Row Selected" message:@"You've selected a row" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    // Display Alert Message
-    [messageAlert show];
-     **/
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+ 
     JMCategoriesData *categoryData = _categories[indexPath.row];
     NSString *categoryName = categoryData.data.title;
     //NSLog(@"Category name is %@",categoryName);
