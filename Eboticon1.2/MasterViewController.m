@@ -15,6 +15,7 @@
 #import "GAIDictionaryBuilder.h"
 #import "DDLog.h"
 
+static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -100,14 +101,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"prepareForSegue: %@", segue.identifier);
+    DDLogDebug(@"prepareForSegue: %@", segue.identifier);
     
     if ([[segue identifier] isEqualToString:@"showGifCollection"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         GifCollectionViewController *destViewController = segue.destinationViewController;
         JMCategoriesData *categoryData = _categories[indexPath.row];
         NSString *categoryName = categoryData.data.title;
-        NSLog(@"Category name is %@",categoryName);
+        DDLogDebug(@"Category name is %@",categoryName);
         destViewController.gifCategory = categoryName;
     }
 }
@@ -117,7 +118,7 @@
  
     JMCategoriesData *categoryData = _categories[indexPath.row];
     NSString *categoryName = categoryData.data.title;
-    //NSLog(@"Category name is %@",categoryName);
+    DDLogDebug(@"Category name is %@",categoryName);
     
     if ([categoryName isEqualToString:@"More"]){
         [self performSegueWithIdentifier:@"showMoreView" sender:self];

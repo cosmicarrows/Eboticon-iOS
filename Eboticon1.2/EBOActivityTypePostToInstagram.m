@@ -7,6 +7,10 @@
 //
 
 #import "EBOActivityTypePostToInstagram.h"
+#import "SIAlertView.h"
+#import "DDLog.h"
+
+static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @interface EBOActivityTypePostToInstagram()
 
@@ -88,20 +92,28 @@
             UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
         }
     } else {
-        NSLog(@"Video is Not Compatible");
+        DDLogError(@"Video is Not Compatible");
     }
     
     [self activityDidFinish:YES];
 }
 
 -(void)video:(NSString*)videoPath didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
+    
     if (error) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Eboticon Saving Failed"
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     } else {
-        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Instagram Video" message:@"This Eboticon has been saved to your camera roll.  You will need to load it from your camera roll inside Instagram. Make sure to hashtag #eboticons!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [successAlert show];
+        SIAlertView *successAlertView = [[SIAlertView alloc] initWithTitle:@"Instagram Video" andMessage:@"This Eboticon has been saved to your camera roll.  You will need to load it from your camera roll inside Instagram. Make sure to hashtag #eboticons!"];
+        [successAlertView addButtonWithTitle:@"OK"
+                                 type:SIAlertViewButtonTypeDestructive
+                              handler:^(SIAlertView *alert) {
+                                  [self openInstagram];
+                              }];
+        successAlertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [successAlertView show];
+
     }
 }
 
@@ -111,5 +123,23 @@
     }
     return NO;
 }
+
+-(void)openInstagram {
+    NSURL *instagramURL = [NSURL URLWithString:@"instagram://camera"];
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+        [[UIApplication sharedApplication] openURL:instagramURL];
+    } else {
+        DDLogDebug(@"Instagram not installed on device");
+        SIAlertView *igNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Instagram Error" andMessage:@"Instagram is not installed on your device.  Please install Instagram and try again."];
+        [igNotInstalledAlert addButtonWithTitle:@"OK"
+                                        type:SIAlertViewButtonTypeDestructive
+                                     handler:^(SIAlertView *alert) {
+                                         [self openInstagram];
+                                     }];
+        igNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [igNotInstalledAlert show];
+    }
+}
+
 
 @end

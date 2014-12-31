@@ -173,6 +173,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSArray *objectsToShare = @[gifFileURL];
     
     //NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
+    //NSArray *applicationActivities = @[[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
     NSArray *applicationActivities = [[NSArray alloc] init];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
