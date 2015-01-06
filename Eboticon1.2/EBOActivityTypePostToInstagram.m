@@ -31,25 +31,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (UIImage *)activityImage {
-    // The icon that appears in the "share sheet". NB: it's a mask, like UITabBar button images.
-    
-    /**
-    CGRect rect = CGRectMake(0.0f, 0.0f, 85.0f, 85.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    
-    rect = CGRectInset(rect, 15.0f, 15.0f);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10.0f];
-    [path stroke];
-    
-    rect = CGRectInset(rect, 0.0f, 10.0f);
-    [@"IG" drawInRect:rect withFont:[UIFont fontWithName:@"Futura" size:13.0f] lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    **/
-    return [UIImage imageNamed:@"Icon_Instagram"];
 
-    //return image;
+    return [UIImage imageNamed:@"Icon_Instagram"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {

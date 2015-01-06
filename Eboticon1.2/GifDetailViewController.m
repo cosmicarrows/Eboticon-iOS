@@ -172,9 +172,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     NSArray *objectsToShare = @[gifFileURL];
     
-    //NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
-    //NSArray *applicationActivities = @[[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
-    NSArray *applicationActivities = [[NSArray alloc] init];
+    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
+    //NSArray *applicationActivities = @[[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in instagram capability
+    //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities 
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
     
@@ -235,37 +235,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    
-    //EboticonViewController *previousViewController = (EboticonViewController *)viewController;
-    
-    /**
-    if(previousViewController.index >= self.imageNames.count - 1) {
-        return nil;
-    }
-        
-    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
-    
-    eboticonViewController.index = previousViewController.index + 1;
-    eboticonViewController.eboticonGif = self.imageNames[previousViewController.index+1];
-    self.index++;
-    return eboticonViewController;
-     **/
-    /**
-    if(previousViewController.index >= self.imageNames.count - 1) {
-        return nil;
-    }
-    
-    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
-    
-    self.index++;
-    eboticonViewController.index = self.index;
-    eboticonViewController.eboticonGif = self.imageNames[self.index];
-    
-    DDLogDebug(@"viewControllerAfterViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
-    
-    return eboticonViewController;
-     **/
-    
     NSUInteger index = ((EboticonViewController*) viewController).index;
     
     if (index == NSNotFound) {
@@ -280,25 +249,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 -(UIViewController *) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    /**
-    EboticonViewController *previousViewController = (EboticonViewController *)viewController;
-    
-    if(previousViewController.index == 0) {
-        return nil;
-    }
-
-    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
-
-    self.index--;
-    eboticonViewController.index = self.index;
-    eboticonViewController.eboticonGif = self.imageNames[self.index];
-    
-    DDLogDebug(@"viewControllerBeforeViewController. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
-    
-    return eboticonViewController;
-     **/
-    
+{ 
     NSUInteger index = ((EboticonViewController*) viewController).index;
     
     if ((index == 0) || (index == NSNotFound)) {

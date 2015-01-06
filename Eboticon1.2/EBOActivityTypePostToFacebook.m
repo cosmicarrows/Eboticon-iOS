@@ -11,6 +11,10 @@
 #import <Accounts/Accounts.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "DDLog.h"
+#import "SIAlertView.h"
+
+static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @interface EBOActivityTypePostToFacebook()
 
@@ -31,26 +35,8 @@
 }
 
 - (UIImage *)activityImage {
-    // The icon that appears in the "share sheet". NB: it's a mask, like UITabBar button images.
-    
-    /**
-    CGRect rect = CGRectMake(0.0f, 0.0f, 85.0f, 85.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    
-    rect = CGRectInset(rect, 15.0f, 15.0f);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10.0f];
-    [path stroke];
-    
-    rect = CGRectInset(rect, 0.0f, 10.0f);
-    [@"FBook" drawInRect:rect withFont:[UIFont fontWithName:@"Futura" size:13.0f] lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-     **/
     
     return [UIImage imageNamed:@"Icon_Facebook"];
-    //return image;
-
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
@@ -84,53 +70,40 @@
 }
 
 - (void)performActivity {
-    // Open the map items in Maps
-    //[MKMapItem openMapsWithItems:self.mapItems launchOptions:nil];
-    
-    [self shareOnFaceBook];
-    return;
     
     NSString * gifName = [self.movItems objectAtIndex:0];
     gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-    //NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
-    
+    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
     //NSData *movData = [NSData dataWithContentsOfFile:filepath];
     
-    // Check if the Facebook app is installed and we can present the share dialog
-    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
-    params.link = [NSURL URLWithString:@"https://developers.facebook.com/docs/ios/share/"];
-    
-    // If the Facebook app is installed and we can present the share dialog
-    if ([FBDialogs canPresentShareDialogWithParams:params]) {
-        // Present the share dialog
-        NSLog(@"Permission Granted");
-        
-        [FBDialogs presentShareDialogWithLink:params.link
-                                      handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-                                          if(error) {
-                                              // An error occurred, we need to handle the error
-                                              // See: https://developers.facebook.com/docs/ios/errors
-                                              NSLog(@"Error publishing story: %@", error.description);
-                                          } else {
-                                              // Success
-                                              NSLog(@"result %@", results);
-                                          }
-                                      }];
-    } else {
-        // Present the feed dialog
-        NSLog(@"Permission Denied");
-
-    }
-    
-    /**
-     //Save to Camera Roll
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
-        UISaveVideoAtPathToSavedPhotosAlbum(filepath, nil, nil, nil);
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
+            UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        }
+    } else {
+        DDLogError(@"Video is not Compatible");
     }
-     **/
-  
     
     [self activityDidFinish:YES];
+}
+
+-(void)video:(NSString*)videoPath didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
+    
+    if (error) {
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Eboticon Saving Failed"
+                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+    } else {
+        SIAlertView *successAlertView = [[SIAlertView alloc] initWithTitle:@"Facebook Video" andMessage:@"This Eboticon has been saved to your camera roll.  You will need to load it from your camera roll inside Facebook. Make sure to hashtag #eboticons!"];
+        [successAlertView addButtonWithTitle:@"OK"
+                                        type:SIAlertViewButtonTypeDestructive
+                                     handler:^(SIAlertView *alert) {
+                                         [self openFacebook];
+                                     }];
+        successAlertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [successAlertView show];
+        
+    }
 }
 
 -(BOOL)isGifString:(NSString *)gifFileName {
@@ -140,82 +113,30 @@
     return NO;
 }
 
--(void)shareOnFaceBook
+-(void)openFacebook
 {
-    NSString * gifName = [self.movItems objectAtIndex:0];
-    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-    //NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
-    
-    //sample_video.mov is the name of file
-    NSString *filePathOfVideo = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
-    
-    NSLog(@"Path  Of Video is %@", filePathOfVideo);
-    NSData *videoData = [NSData dataWithContentsOfFile:filePathOfVideo];
-    //you can use dataWithContentsOfURL if you have a Url of video file
-    //NSData *videoData = [NSData dataWithContentsOfURL:shareURL];
-    //NSLog(@"data is :%@",videoData);
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   videoData, @"video.mov",
-                                   @"video/quicktime", @"contentType",
-                                   @"Video name ", @"name",
-                                   @"description of Video", @"description",
-                                   nil];
-    
-    if (FBSession.activeSession.isOpen)
-    {
-        [FBRequestConnection startWithGraphPath:@"me/videos"
-                                     parameters:params
-                                     HTTPMethod:@"POST"
-                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                  if(!error)
-                                  {
-                                      NSLog(@"RESULT: %@", result);
-                                      //[self throwAlertWithTitle:@"Success" message:@"Video uploaded"];
-                                  }
-                                  else
-                                  {
-                                      NSLog(@"ERROR: %@", error.localizedDescription);
-                                      //[self throwAlertWithTitle:@"Denied" message:@"Try Again"];
-                                  }
-                              }];
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];
+    NSURL *facebookWebURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];
+
+
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        DDLogDebug(@"Facebook not installed on device");
+        SIAlertView *fbNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Facebook Error" andMessage:@"Facebook is not installed on your device.  We'll open facebook via your web browser."];
+        [fbNotInstalledAlert addButtonWithTitle:@"OK"
+                                           type:SIAlertViewButtonTypeDestructive
+                                        handler:^(SIAlertView *alert) {
+                                            if ([[UIApplication sharedApplication] canOpenURL:facebookWebURL]) {
+                                                [[UIApplication sharedApplication] openURL:facebookWebURL];
+                                            } else {
+                                                DDLogError(@"Cannot open FB in browser");
+                                            };
+                                        }];
+        fbNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [fbNotInstalledAlert show];
     }
-    else
-    {
-        NSArray *permissions = [[NSArray alloc] initWithObjects:
-                                @"publish_actions",
-                                nil];
-        // OPEN Session!
-        [FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceEveryone  allowLoginUI:YES
-                                         completionHandler:^(FBSession *session,
-                                                             FBSessionState status,
-                                                             NSError *error) {
-                                             if (error)
-                                             {
-                                                 NSLog(@"Login fail :%@",error);
-                                             }
-                                             else if (FB_ISSESSIONOPENWITHSTATE(status))
-                                             {
-                                                 [FBRequestConnection startWithGraphPath:@"me/videos"
-                                                                              parameters:params
-                                                                              HTTPMethod:@"POST"
-                                                                       completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                                           if(!error)
-                                                                           {
-                                                                               //[self throwAlertWithTitle:@"Success" message:@"Video uploaded"];
-                                                                               
-                                                                               NSLog(@"RESULT: %@", result);
-                                                                           }
-                                                                           else
-                                                                           {
-                                                                               //[self throwAlertWithTitle:@"Denied" message:@"Try Again"];
-                                                                               
-                                                                               NSLog(@"ERROR: %@", error.localizedDescription);
-                                                                           }
-                                                                           
-                                                                       }];
-                                             }
-                                         }];
-    }
+    
 }
 
 
