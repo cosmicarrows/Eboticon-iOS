@@ -9,6 +9,9 @@
 #import "EBOActivityTypePostToInstagram.h"
 #import "SIAlertView.h"
 #import "DDLog.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
@@ -110,9 +113,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 -(void)openInstagram {
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://camera"];
     if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+        [self sendShareToGoogleAnalytics:@"nativeApp"];
         [[UIApplication sharedApplication] openURL:instagramURL];
     } else {
         DDLogDebug(@"Instagram not installed on device");
+        [self sendShareToGoogleAnalytics:@"viaWeb"];
         SIAlertView *igNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Instagram Error" andMessage:@"Instagram is not installed on your device.  Please install Instagram and try again."];
         [igNotInstalledAlert addButtonWithTitle:@"OK"
                                         type:SIAlertViewButtonTypeDestructive
@@ -122,6 +127,19 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         igNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
         [igNotInstalledAlert show];
     }
+}
+
+-(void) sendShareToGoogleAnalytics:(NSString*) redirectType
+{
+    if (!redirectType.length) {
+        DDLogError(@"redirectType null or empty! Not sending analytics!");
+        return;
+    }
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Social Media Share"     // Event category (required)
+                                                          action:@"instagram"  // Event action (required)
+                                                           label:redirectType         // Event label
+                                                           value:nil] build]];    // Event value
 }
 
 

@@ -13,6 +13,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "DDLog.h"
 #import "SIAlertView.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
@@ -115,15 +118,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 -(void)openFacebook
 {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];
-    NSURL *facebookWebURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];
-
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://publish"];
+    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com"];
 
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [self sendShareToGoogleAnalytics:@"nativeApp"];
         [[UIApplication sharedApplication] openURL:facebookURL];
     } else {
         DDLogDebug(@"Facebook not installed on device");
-        SIAlertView *fbNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Facebook Error" andMessage:@"Facebook is not installed on your device.  We'll open facebook via your web browser."];
+        [self sendShareToGoogleAnalytics:@"viaWeb"];
+        SIAlertView *fbNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Whoops!" andMessage:@"The Facebook app is not installed on your device.  We'll open Facebook via your web browser."];
         [fbNotInstalledAlert addButtonWithTitle:@"OK"
                                            type:SIAlertViewButtonTypeDestructive
                                         handler:^(SIAlertView *alert) {
@@ -137,6 +141,19 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         [fbNotInstalledAlert show];
     }
     
+}
+
+-(void) sendShareToGoogleAnalytics:(NSString*) redirectType
+{
+    if (!redirectType.length) {
+        DDLogError(@"redirectType null or empty! Not sending analytics!");
+        return;
+    }
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Social Media Share"     // Event category (required)
+                                                          action:@"facebook"  // Event action (required)
+                                                           label:redirectType         // Event label
+                                                           value:nil] build]];    // Event value
 }
 
 

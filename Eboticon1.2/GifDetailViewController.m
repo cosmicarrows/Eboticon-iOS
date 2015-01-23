@@ -187,11 +187,17 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 -(void) sendShareToGoogleAnalytics:(NSString*) gifName
 {
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share"     // Event category (required)
-                                                         action:@"button_press"  // Event action (required)
-                                                          label:gifName         // Event label
-                                                          value:nil] build]];    // Event value
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share"     // Event category (required)
+                                                              action:@"button_press"  // Event action (required)
+                                                               label:gifName         // Event label
+                                                               value:nil] build]];    // Event value
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
+    
 }
 
 /**

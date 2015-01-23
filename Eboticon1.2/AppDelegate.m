@@ -62,12 +62,15 @@
     
     // Optional: set Logger to VERBOSE for debug information.
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
+    //[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:YES];
+    [[GAI sharedInstance] setDryRun:NO];
+        
     
     //Set version for app tracking
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];

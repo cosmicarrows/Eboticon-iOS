@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -76,7 +77,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIs-lj-Xb2">
-                                <rect key="frame" x="120" y="347" width="80" height="30"/>
+                                <rect key="frame" x="120" y="297" width="80" height="30"/>
                                 <state key="normal" title="Contact Us">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -85,7 +86,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHU-4J-8OF">
-                                <rect key="frame" x="120" y="286" width="80" height="40"/>
+                                <rect key="frame" x="120" y="243" width="80" height="30"/>
                                 <state key="normal" title="FAQs">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -94,7 +95,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-8Y-xhP">
-                                <rect key="frame" x="110" y="398" width="100" height="30"/>
+                                <rect key="frame" x="110" y="351" width="100" height="30"/>
                                 <state key="normal" title="Rate Eboticon">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -103,7 +104,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tr-9v-ufr">
-                                <rect key="frame" x="117" y="449" width="86" height="30"/>
+                                <rect key="frame" x="117" y="405" width="86" height="30"/>
                                 <state key="normal" title="Tell a Friend">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -112,7 +113,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZlC-9H-6RD">
-                                <rect key="frame" x="128" y="235" width="64" height="30"/>
+                                <rect key="frame" x="128" y="189" width="64" height="30"/>
                                 <state key="normal" title="About">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -120,8 +121,8 @@
                                     <action selector="aboutURL:" destination="r3n-oC-yF2" eventType="touchUpInside" id="66Q-d1-MtG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-eY-jeQ">
-                                <rect key="frame" x="40" y="120" width="240" height="78"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-eY-jeQ" userLabel="Eboticon">
+                                <rect key="frame" x="40" y="87" width="240" height="78"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="78" id="gWc-GP-Unj"/>
                                     <constraint firstAttribute="width" constant="240" id="tgC-Wy-iUs"/>
@@ -135,52 +136,117 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1Z-Hb-Zfo">
-                                <rect key="frame" x="16" y="525" width="288" height="11"/>
+                                <rect key="frame" x="16" y="523" width="288" height="11"/>
                                 <string key="text">Eboticon and all related characters are trademarks of Eboticon LLC.
 2014 Eboticon. All Rights Reserved. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2014 Eboticon. All Rights Reserved. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwS-Qq-eiI">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2015 Eboticon. All Rights Reserved. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwS-Qq-eiI">
                                 <rect key="frame" x="79" y="541" width="162" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Td7-G7-sFn" userLabel="Instagram">
+                                <rect key="frame" x="110" y="466" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="2IV-xL-ZmI"/>
+                                    <constraint firstAttribute="height" constant="40" id="MsC-Av-3wA"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="instagramLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="iGD-Ab-mQR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZW-sa-XLI" userLabel="Twitter">
+                                <rect key="frame" x="174" y="466" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cmg-dy-aJ5"/>
+                                    <constraint firstAttribute="width" constant="40" id="gFg-5p-Cz2"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="XH7-Ya-hG5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GrB-V3-P1o" userLabel="Youtube">
+                                <rect key="frame" x="234" y="465" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="X9C-Ru-dHI"/>
+                                    <constraint firstAttribute="width" constant="40" id="mZ2-Dp-KxN"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="youtubeLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="5mv-vc-SPq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lp-0a-Z8U" userLabel="Facebook">
+                                <rect key="frame" x="45" y="467" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="q2Z-jS-Mww"/>
+                                    <constraint firstAttribute="width" constant="40" id="z8T-mw-9K0"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="facebookLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="Suf-uR-Osr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="cHU-4J-8OF" secondAttribute="trailing" constant="120" id="0sC-ge-wGS"/>
-                            <constraint firstItem="cHU-4J-8OF" firstAttribute="top" secondItem="ZlC-9H-6RD" secondAttribute="bottom" constant="21" id="3dh-1m-A1l"/>
+                            <constraint firstItem="SZW-sa-XLI" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="31" id="3zt-ER-Ip4"/>
+                            <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="cHU-4J-8OF" secondAttribute="bottom" constant="24" id="4fC-wa-gwK"/>
+                            <constraint firstItem="GrB-V3-P1o" firstAttribute="leading" secondItem="SZW-sa-XLI" secondAttribute="trailing" constant="20" id="4tA-Sv-nc0"/>
                             <constraint firstAttribute="trailing" secondItem="Gep-eY-jeQ" secondAttribute="trailing" constant="40" id="6Bi-ik-oe7"/>
                             <constraint firstAttribute="trailing" secondItem="WIs-lj-Xb2" secondAttribute="trailing" constant="120" id="81s-fw-cSn"/>
                             <constraint firstItem="WIs-lj-Xb2" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="120" id="8YC-4k-uC7"/>
-                            <constraint firstItem="Gep-eY-jeQ" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="56" id="96C-PM-8Mj"/>
+                            <constraint firstItem="SZW-sa-XLI" firstAttribute="leading" secondItem="Td7-G7-sFn" secondAttribute="trailing" constant="24" id="94b-i4-dru"/>
                             <constraint firstItem="cHU-4J-8OF" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="120" id="9Ss-Y8-dia"/>
                             <constraint firstItem="8JE-8Y-xhP" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="110" id="9eB-Zm-4Bj"/>
-                            <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="cHU-4J-8OF" secondAttribute="bottom" constant="21" id="JCl-TB-SJi"/>
-                            <constraint firstItem="ZlC-9H-6RD" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="37" id="LWG-Fo-y5p"/>
+                            <constraint firstItem="8JE-8Y-xhP" firstAttribute="top" secondItem="WIs-lj-Xb2" secondAttribute="bottom" constant="24" id="B6B-up-mGo"/>
+                            <constraint firstItem="GrB-V3-P1o" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="300" id="D9c-kG-LvC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GrB-V3-P1o" secondAttribute="trailing" constant="30" id="MqW-X7-RWx"/>
+                            <constraint firstItem="7tr-9v-ufr" firstAttribute="top" secondItem="8JE-8Y-xhP" secondAttribute="bottom" constant="24" id="Q6J-g6-SyV"/>
                             <constraint firstItem="Gep-eY-jeQ" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="40" id="QQY-Oc-dfp"/>
-                            <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="46" id="QY9-WB-yPZ"/>
                             <constraint firstAttribute="trailing" secondItem="SwS-Qq-eiI" secondAttribute="trailing" constant="79" id="Qen-Tt-rTI"/>
                             <constraint firstAttribute="trailing" secondItem="N1Z-Hb-Zfo" secondAttribute="trailing" constant="16" id="Xf7-Fl-UvI"/>
-                            <constraint firstItem="7tr-9v-ufr" firstAttribute="top" secondItem="8JE-8Y-xhP" secondAttribute="bottom" constant="21" id="Xo4-Vz-aaH"/>
                             <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="16" id="Xvd-8D-fqe"/>
                             <constraint firstItem="7tr-9v-ufr" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="117" id="aX2-FB-FKI"/>
                             <constraint firstItem="ZlC-9H-6RD" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="128" id="azG-va-6mq"/>
                             <constraint firstItem="SwS-Qq-eiI" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leading" constant="79" id="byK-8c-eLk"/>
-                            <constraint firstItem="8JE-8Y-xhP" firstAttribute="top" secondItem="WIs-lj-Xb2" secondAttribute="bottom" constant="21" id="eDY-T7-rUg"/>
+                            <constraint firstItem="cHU-4J-8OF" firstAttribute="top" secondItem="ZlC-9H-6RD" secondAttribute="bottom" constant="24" id="d3K-MI-H35"/>
+                            <constraint firstItem="0Lp-0a-Z8U" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="302" id="eEA-qb-7Ky"/>
                             <constraint firstAttribute="trailing" secondItem="8JE-8Y-xhP" secondAttribute="trailing" constant="110" id="fSt-Eo-Zlz"/>
                             <constraint firstAttribute="trailing" secondItem="ZlC-9H-6RD" secondAttribute="trailing" constant="128" id="fyl-4T-WoE"/>
+                            <constraint firstItem="ZlC-9H-6RD" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="24" id="gyo-tB-WmB"/>
                             <constraint firstAttribute="trailing" secondItem="7tr-9v-ufr" secondAttribute="trailing" constant="117" id="h43-Gv-apM"/>
-                            <constraint firstItem="SwS-Qq-eiI" firstAttribute="top" secondItem="N1Z-Hb-Zfo" secondAttribute="bottom" constant="5" id="wMV-Op-Ixm"/>
+                            <constraint firstItem="Td7-G7-sFn" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="31" id="hwj-FQ-r6I"/>
+                            <constraint firstItem="0Lp-0a-Z8U" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leadingMargin" constant="29" id="qKg-Sg-syD"/>
+                            <constraint firstItem="Gep-eY-jeQ" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="23" id="raE-iE-2Hx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GrB-V3-P1o" secondAttribute="trailing" constant="30" id="vP0-bK-Zn5"/>
+                            <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="top" secondItem="0Lp-0a-Z8U" secondAttribute="bottom" constant="16" id="xfI-4y-EAf"/>
+                            <constraint firstItem="Td7-G7-sFn" firstAttribute="leading" secondItem="0Lp-0a-Z8U" secondAttribute="trailing" constant="25" id="yS5-9X-GeX"/>
                             <constraint firstItem="vsi-ng-OnB" firstAttribute="top" secondItem="SwS-Qq-eiI" secondAttribute="bottom" constant="16" id="zNh-JP-hi7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h7A-Du-ikd"/>
                     <connections>
                         <outlet property="eboticonLogo" destination="Gep-eY-jeQ" id="YL2-Ee-yEg"/>
+                        <outlet property="facebookLogo" destination="0Lp-0a-Z8U" id="PhN-Hw-2lw"/>
+                        <outlet property="instagramLogo" destination="Td7-G7-sFn" id="8wT-0U-ggg"/>
+                        <outlet property="twitterLogo" destination="SZW-sa-XLI" id="wQE-sh-XXp"/>
+                        <outlet property="youtubeLogo" destination="GrB-V3-P1o" id="Uey-IP-ji7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQp-Ll-cts" userLabel="First Responder" sceneMemberID="firstResponder"/>

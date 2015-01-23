@@ -15,6 +15,10 @@
     MFMailComposeViewController *mc;
 }
 @property (strong, nonatomic) IBOutlet UIButton *eboticonLogo;
+@property (strong, nonatomic) IBOutlet UIButton *facebookLogo;
+@property (strong, nonatomic) IBOutlet UIButton *instagramLogo;
+@property (strong, nonatomic) IBOutlet UIButton *twitterLogo;
+@property (strong, nonatomic) IBOutlet UIButton *youtubeLogo;
 
 - (IBAction)eboticonLogo:(id)sender;
 - (IBAction)contactUsEmail:(id)sender;

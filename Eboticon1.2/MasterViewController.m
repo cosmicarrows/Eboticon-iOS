@@ -46,8 +46,14 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MasterBackground2.0.png"]];
     
     //GOOGLE ANALYTICS
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Home Screen" forKey:kGAIScreenName]build]];
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Home Screen" forKey:kGAIScreenName]build]];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
+    
 
 }
 
