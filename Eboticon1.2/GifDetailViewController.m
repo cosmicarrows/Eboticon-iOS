@@ -17,12 +17,11 @@
 #import "EBOActivityTypePostToInstagram.h"
 #import "EBOActivityTypePostToFacebook.h"
 #import "DDLog.h"
-
-static const int ddLogLevel = LOG_LEVEL_WARN;
+#import "iRate.h"
+#import "Constants.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
-#define MAX_RECENT_GIFS 10
 #define FIRST_RUN_SWIPE @"firstAppRunSwipe"
 #define FIRST_RUN_EMAIL @"firstAppRunEmail"
 
@@ -164,7 +163,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [self saveRecentGif:currGif];
     
     //Send gif share to Google Analytics
-    [self sendShareToGoogleAnalytics:[currGif getFileName]];
+    //[self sendShareToGoogleAnalytics:[currGif getFileName]];
     
     [self showEmailAlert];
     
@@ -182,20 +181,56 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     controller.excludedActivityTypes = excludedActivities;
     
     
-    [self presentViewController:controller animated:YES completion:nil];
+    //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
+    [self presentViewController:controller animated:YES completion: nil];
+    [controller setCompletionWithItemsHandler:
+     ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+         DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
+         [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
+         [[iRate sharedInstance] logEvent:TRUE];
+         [self promptForRating];         
+     }];
 }
 
--(void) sendShareToGoogleAnalytics:(NSString*) gifName
+-(void) promptForRating
+{
+    //DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
+    //DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
+    if ([iRate sharedInstance].shouldPromptForRating) {
+        DDLogDebug(@"%@: Prompt for rating criteria met. Launching iRate", NSStringFromClass(self.class));
+        [[iRate sharedInstance] promptIfNetworkAvailable];
+    } else {
+        DDLogDebug(@"%@: Prompt for rating criteria NOT met. Currently at %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
+    }
+}
+
+-(void) sendShareToGoogleAnalytics:(NSString*) gifName withShareMethod:(NSString*)shareMethod
 {
     @try {
+        DDLogInfo(@"%@: Attempting to send share analytics to google", NSStringFromClass(self.class));
         id tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share"     // Event category (required)
-                                                              action:@"button_press"  // Event action (required)
-                                                               label:gifName         // Event label
-                                                               value:nil] build]];    // Event value
+        
+        if ([gifName length]!=0) {
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share"     // Event category (required)
+                                                                  action:@"button_press"  // Event action (required)
+                                                                   label:gifName         // Event label
+                                                                   value:nil] build]];    // Event value
+        } else {
+            DDLogWarn(@"%@: gifName is null or empty.  Unable to send analytics", NSStringFromClass(self.class));
+        }
+        
+        if ([shareMethod length] != 0) {
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Share Method"     // Event category (required)
+                                                                  action:@"button_press"  // Event action (required)
+                                                                   label:shareMethod         // Event label
+                                                                   value:nil] build]];    // Event value
+        } else {
+            DDLogWarn(@"%@: sharedMethod is null or empty.  Unable to send analytics", NSStringFromClass(self.class));
+        }
+        
     }
     @catch (NSException *exception) {
-        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+        DDLogError(@"%@:[ERROR] in Automatic screen tracking: %@", NSStringFromClass(self.class), exception.description);
     }
     
 }

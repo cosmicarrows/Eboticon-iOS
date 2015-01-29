@@ -14,8 +14,8 @@
 #import "iRate.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
-
-//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#import "Harpy.h"
+#import "Constants.h"
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -83,15 +83,72 @@
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
     
     //configure iRate
-    [iRate sharedInstance].daysUntilPrompt = 3;
-    [iRate sharedInstance].usesUntilPrompt = 15;
-    [iRate sharedInstance].verboseLogging = YES;
-    [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
-    // #warning TODO: Set below to no before deploying!
-    [iRate sharedInstance].previewMode = NO;
+    [self configureiRate];
+    
+    //Harpy
+    //TODO: turn on Harpy
+    [self configureHarpy];
+    
     
     // Override point for customization after application launch.
     return YES;
+}
+
+/**
+ *  Setup Harpy update reminder
+ */
+- (void) configureHarpy
+{
+    @try {
+        // Present Window before calling Harpy
+        [self.window makeKeyAndVisible];
+        
+        // Set the App ID for your app
+        [[Harpy sharedInstance] setAppID:@"899011953"];
+        
+        // Set the UIViewController that will present an instance of UIAlertController
+        [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
+        
+        // (Optional) The tintColor for the alertController
+        //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
+        
+        // (Optional) Set the App Name for your app
+        [[Harpy sharedInstance] setAppName:@"Eboticon"];
+               
+        // Perform check for new version of your app 
+        [[Harpy sharedInstance] checkVersion];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in enabling Harpy: %@", exception.description);
+    }
+    
+}
+
+/**
+ *  Setup iRate rating scheme
+ */
+- (void) configureiRate
+{
+    @try {
+        [iRate sharedInstance].appStoreID = appStoreID;
+        [iRate sharedInstance].daysUntilPrompt = 7;
+        //[iRate sharedInstance].usesUntilPrompt = 5;
+        //[iRate sharedInstance].verboseLogging = YES;
+        [iRate sharedInstance].promptAtLaunch = NO;
+        [iRate sharedInstance].eventsUntilPrompt = 5;
+        [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
+        [iRate sharedInstance].remindPeriod = 7;
+        //TODO: Set below to no before deploying!
+        [iRate sharedInstance].previewMode = NO;
+        
+        
+        DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
+        DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in enabling iRate: %@", exception.description);
+    }
+
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

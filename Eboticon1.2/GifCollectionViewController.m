@@ -64,10 +64,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                                        action:@selector(clearRecentGifs)];
         self.navigationItem.rightBarButtonItem = clearbutton;
     }
-   
-    
-    //Populate Gif Arrays
-    //[self populateGifArrays];
     
     //Load Gif csv file
     DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
@@ -95,47 +91,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
     
-    
-}
-
-- (void) populateGifArrays
-{
-    _captionImages = [@[@"FinalDead.gif",
-                        @"FinalGoneWithTheWind.gif",
-                        @"FINALGottaGo.gif",
-                        @"FinalHaveASeat.gif",
-                        @"FinalICant.gif",
-                        @"FinalLMAOKneeSlap.gif",
-                        @"FinalLMAOlong.gif",
-                        @"FINALLMAOShort.gif",
-                        @"FinalOneSec.gif",
-                        @"FinalTurnUp.gif",
-                        @"FinalTwerkTeam.gif",
-                        @"FinalWave.gif",
-                        @"FinalWontHeDoIt.gif",
-                        @"FinalWTH.gif",
-                        @"FinalYouMad.gif"] mutableCopy];
-    
-    _noCaptionImages = [@[@"FinalCrying.gif",
-                          @"FinalDeadNT.gif",
-                          @"FinalGoneWithTheWindNT.gif",
-                          @"FINALGottaGoNT.gif",
-                          @"FinalHaveASeatNT.gif",
-                          @"FinalICantNT.gif",
-                          @"FinalLMAOKneeSlapNT.gif",
-                          @"FinalLMAOlongNT.gif",
-                          @"FINALLMAOShortNT.gif",
-                          @"FinalOneSecNT.gif",
-                          @"FinalTurnUpNT.gif",
-                          @"FinalTwerkTeamNT.gif",
-                          @"FinalWaveNT.gif",
-                          @"FinalWontHeDoItNT.gif",
-                          @"FinalYouMadNT.gif",
-                          @"FinalWTHNT.gif"] mutableCopy];
-    
-    _allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
-    _recentImages = [self getRecentGifs];
-
     
 }
 
@@ -241,6 +196,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         DDLogWarn(@"Eboticon Gif array count is less than zero.");
     }
 }
+
 -(void) addToolbar
 {
     //Create toolbar

@@ -10,6 +10,11 @@
 #define Eboticon1_2_Constants_h
 
 
+//LOGGERS
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
+static const int appStoreID = 899011953;
+#define MAX_RECENT_GIFS 12
 
 
 #endif
