@@ -200,7 +200,7 @@
         DDLogDebug(@"%@: Prompt for rating criteria met. Launching iRate", NSStringFromClass(self.class));
         [[iRate sharedInstance] promptIfNetworkAvailable];
     } else {
-        DDLogDebug(@"%@: Prompt for rating criteria NOT met. Currently at %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
+        DDLogDebug(@"%@: Prompt for rating criteria NOT met. Currently at %lu. %lu more needed", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount, (unsigned long)[iRate sharedInstance].eventsUntilPrompt);
     }
 }
 
