@@ -10,7 +10,6 @@
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "DDLog.h"
 #import "SIAlertView.h"
 #import "GAI.h"
