@@ -70,11 +70,16 @@
 
     
     // Initialize tracker. Replace with your tracking ID.
+#ifdef FREE
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-3"];
+    DDLogInfo(@"Google Analytics Enabled for Lite Version");
+#else
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
+    DDLogInfo(@"Google Analytics Enabled for Paid Version");
+#endif
     
     //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:NO];
-        
+    [[GAI sharedInstance] setDryRun:YES];
     
     //Set version for app tracking
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
@@ -123,7 +128,11 @@
         [self.window makeKeyAndVisible];
         
         // Set the App ID for your app
+#ifdef FREE
+        [[Harpy sharedInstance] setAppID:@"977505283"];
+#else
         [[Harpy sharedInstance] setAppID:@"899011953"];
+#endif
         
         // Set the UIViewController that will present an instance of UIAlertController
         [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
@@ -132,8 +141,12 @@
         //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
         
         // (Optional) Set the App Name for your app
+#ifdef FREE
+        [[Harpy sharedInstance] setAppName:@"Eboticon Lite"];
+#else
         [[Harpy sharedInstance] setAppName:@"Eboticon"];
-               
+#endif
+        
         // Perform check for new version of your app 
         [[Harpy sharedInstance] checkVersion];
     }
@@ -149,7 +162,12 @@
 - (void) configureiRate
 {
     @try {
+#ifdef FREE
+        [iRate sharedInstance].appStoreID = appStoreID_lite;
+#else
         [iRate sharedInstance].appStoreID = appStoreID;
+#endif
+        
         [iRate sharedInstance].daysUntilPrompt = 7;
         //[iRate sharedInstance].usesUntilPrompt = 5;
         //[iRate sharedInstance].verboseLogging = YES;
@@ -159,7 +177,6 @@
         [iRate sharedInstance].remindPeriod = 7;
         //TODO: Set below to no before deploying!
         [iRate sharedInstance].previewMode = NO;
-        
         
         DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
         DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);

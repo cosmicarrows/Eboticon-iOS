@@ -36,7 +36,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
+#ifdef FREE
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBarLogo-Lite.png"]];
+#else
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBarLogo.png"]];
+#endif
 
     self.tableView.backgroundColor = [UIColor clearColor];
     
@@ -53,7 +57,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     @catch (NSException *exception) {
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
-    
 
 }
 
