@@ -15,6 +15,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 static const int appStoreID = 899011953;
 static const int appStoreID_lite = 977505283;
+
 #define MAX_RECENT_GIFS 12
 
 

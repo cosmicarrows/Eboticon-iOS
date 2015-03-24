@@ -52,8 +52,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    
-    
     EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
     
     EboticonGif *currGif = self.imageNames[self.index];
@@ -67,8 +65,6 @@
     DDLogDebug(@"View Load. Index is %lu",(unsigned long)eboticonViewController.index);
     DDLogDebug(@"View Load. Self Index is %lu",(unsigned long)self.index);
     DDLogDebug(@"View Load. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
-
-
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
     
@@ -158,7 +154,22 @@
     //EboticonGif *currGif = self.imageNames[self.index];
     EboticonGif *currGif = self.imageNames[self.currentDisplayIndex];
     DDLogDebug(@"Shared Gif is %@",currGif.getFileName);
+    
+#ifdef FREE
+    if([currGif.getDisplayType isEqualToString:@"f"]) {
+        [self loadShareView:currGif];
+    } else {
+        NSLog(@"nope");
+    }
+#else
+    [self loadShareView:currGif];
+#endif
    
+    
+}
+
+-(void) loadShareView: (EboticonGif*)currGif
+{
     //Save gifs to recents
     [self saveRecentGif:currGif];
     
@@ -173,7 +184,7 @@
     
     NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
     //NSArray *applicationActivities = @[[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in instagram capability
-    //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities 
+    //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
     
@@ -188,7 +199,7 @@
          DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
          [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
          [[iRate sharedInstance] logEvent:TRUE];
-         [self promptForRating];         
+         [self promptForRating];
      }];
 }
 

@@ -42,7 +42,17 @@
     
     NSRange titleRange = [titleString rangeOfString:self.eboticonGif.getDisplayName];
     
+    //[attributedTitle addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xFf6c00) range:titleRange];
+    
+#ifdef FREE
+    if([self.eboticonGif.getDisplayType isEqualToString:@"f"]) {
+        [attributedTitle addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xFf6c00) range:titleRange];
+    } else {
+        [attributedTitle addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x808080) range:titleRange];
+    }
+#else
     [attributedTitle addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xFf6c00) range:titleRange];
+#endif
     
     self.imageLabel.attributedText = attributedTitle;
     
