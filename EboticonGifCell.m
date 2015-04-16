@@ -40,7 +40,7 @@
             _gifImageView.image = [UIImage imageWithData:GIFDATA];
         } else {
             GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
-            _gifImageView.image = [grayscaleFilter imageByFilteringImage:[UIImage imageWithData:GIFDATA]];;
+            _gifImageView.image = [grayscaleFilter imageByFilteringImage:[UIImage imageWithData:GIFDATA]];
         }
 #else
         _gifImageView.image = [UIImage imageWithData:GIFDATA];

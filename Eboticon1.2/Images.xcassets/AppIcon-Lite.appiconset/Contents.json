@@ -33,8 +33,9 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
       "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "ebo-lite-57pt.png",
       "scale" : "2x"
     },
     {

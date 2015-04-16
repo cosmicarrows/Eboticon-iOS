@@ -19,6 +19,7 @@
 #import "DDLog.h"
 #import "iRate.h"
 #import "Constants.h"
+#import "SIAlertView.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
@@ -159,12 +160,31 @@
     if([currGif.getDisplayType isEqualToString:@"f"]) {
         [self loadShareView:currGif];
     } else {
-        NSLog(@"nope");
+        [self loadUpgradeView];
     }
 #else
     [self loadShareView:currGif];
 #endif
-   
+    
+}
+
+-(void) loadUpgradeView
+{
+    NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id899011953?mt=8";
+
+    SIAlertView *upgradeView = [[SIAlertView alloc] initWithTitle:@"Thank you!" andMessage:@"Thanks so much for using Eboticon Lite! Upgrade now to access this Eboji!"];
+    [upgradeView addButtonWithTitle:@"Maybe Later"
+                             type:SIAlertViewButtonTypeCancel
+                          handler:^(SIAlertView *alertView) {
+                              DDLogDebug(@"Cancel Clicked");
+                          }];
+    [upgradeView addButtonWithTitle:@"OK"
+                               type:SIAlertViewButtonTypeDestructive
+                            handler:^(SIAlertView *alert) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+                            }];
+    upgradeView.transitionStyle = SIAlertViewTransitionStyleBounce;
+    [upgradeView show];
     
 }
 
