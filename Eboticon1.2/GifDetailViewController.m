@@ -171,17 +171,21 @@
 -(void) loadUpgradeView
 {
     NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id899011953?mt=8";
+    NSString *cancelledResponse = @"cancelled";
+    NSString *upgradeResponse = @"upgrade";
 
     SIAlertView *upgradeView = [[SIAlertView alloc] initWithTitle:@"Thank you!" andMessage:@"Thanks so much for using Eboticon Lite! Upgrade now to access this Eboji!"];
     [upgradeView addButtonWithTitle:@"Maybe Later"
                              type:SIAlertViewButtonTypeCancel
                           handler:^(SIAlertView *alertView) {
                               DDLogDebug(@"Cancel Clicked");
+                              [self sendUpgradeButtonClickToGoogleAnalytics:cancelledResponse];
                           }];
     [upgradeView addButtonWithTitle:@"OK"
                                type:SIAlertViewButtonTypeDestructive
                             handler:^(SIAlertView *alert) {
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+                                [self sendUpgradeButtonClickToGoogleAnalytics:upgradeResponse];
                             }];
     upgradeView.transitionStyle = SIAlertViewTransitionStyleBounce;
     [upgradeView show];
@@ -203,7 +207,6 @@
     NSArray *objectsToShare = @[gifFileURL];
     
     NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
-    //NSArray *applicationActivities = @[[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in instagram capability
     //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
@@ -263,7 +266,21 @@
     @catch (NSException *exception) {
         DDLogError(@"%@:[ERROR] in Automatic screen tracking: %@", NSStringFromClass(self.class), exception.description);
     }
-    
+}
+
+-(void) sendUpgradeButtonClickToGoogleAnalytics:(NSString*) upgradeResponse
+{
+    @try {
+        DDLogInfo(@"%@: Attempting to send share analytics to google", NSStringFromClass(self.class));
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Upgrade"     // Event category (required)
+                                                              action:@"AttemptedShare"  // Event action (required)
+                                                               label:upgradeResponse         // Event label
+                                                               value:nil] build]];    // Event value
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"%@:[ERROR] in Automatic screen tracking: %@", NSStringFromClass(self.class), exception.description);
+    }
 }
 
 /**

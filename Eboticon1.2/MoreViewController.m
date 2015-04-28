@@ -60,8 +60,36 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     @catch (NSException *exception) {
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
-    }    
+    }
+    
+#ifdef FREE
+    UIBarButtonItem *upgradeButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade" style: UIBarButtonItemStylePlain target:self action:@selector(upgradeToPaidApp)];
+    self.navigationItem.rightBarButtonItem = upgradeButtonItem;
+#else
+    DDLogInfo(@"Paid Version. Not Showing Upgrade Button");
+#endif
 
+}
+
+- (void)upgradeToPaidApp {
+    [self sendUpgradeButtonClickToGoogleAnalytics];
+    NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id899011953?mt=8";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+}
+
+-(void) sendUpgradeButtonClickToGoogleAnalytics
+{
+    @try {
+        DDLogInfo(@"%@: Attempting to send share analytics to google", NSStringFromClass(self.class));
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Eboticon Upgrade"     // Event category (required)
+                                                              action:@"More Screen Button"  // Event action (required)
+                                                               label:nil         // Event label
+                                                               value:nil] build]];    // Event value
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"%@:[ERROR] in Automatic screen tracking: %@", NSStringFromClass(self.class), exception.description);
+    }
 }
 
 - (void)didReceiveMemoryWarning

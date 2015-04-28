@@ -2905,8 +2905,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Eboticon LLC (662TV55PE6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Eboticon LLC (662TV55PE6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jarryd McCree (98VZ5MWL9T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jarryd McCree (98VZ5MWL9T)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jarrydmccree/Documents/FacebookSDK,
@@ -2941,7 +2941,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = Eboticon;
-				PROVISIONING_PROFILE = "dc03fe1b-22a9-404e-ba5f-b4ec1c998d1f";
+				PROVISIONING_PROFILE = "95a6e494-e3c1-4adb-b7ec-b8f9679885e5";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -2990,7 +2990,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = Eboticon;
-				PROVISIONING_PROFILE = "dc03fe1b-22a9-404e-ba5f-b4ec1c998d1f";
+				PROVISIONING_PROFILE = "95a6e494-e3c1-4adb-b7ec-b8f9679885e5";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
