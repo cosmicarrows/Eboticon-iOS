@@ -16,14 +16,16 @@
 @property (strong, nonatomic) NSString *category;
 @property (strong, nonatomic) NSString *movFileName;
 @property (strong, nonatomic) NSString *displayType;
+@property (strong, nonatomic) NSString *emotionCategory;
 
 
-- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType;
+- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType emotionCategory:(NSString *)emotionCategory;
 -(NSString *) getFileName;
 -(NSString *) getStillName;
 -(NSString *) getDisplayName;
 -(NSString *) getCategory;
 -(NSString *) getMovFileName;
 -(NSString *) getDisplayType;
+-(NSString *) getEmotionCategory;
 
 @end

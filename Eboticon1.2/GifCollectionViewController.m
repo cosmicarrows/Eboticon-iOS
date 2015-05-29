@@ -18,7 +18,7 @@
 #import "EboticonGifCell.h"
 #import "DDLog.h"
 
-static const int ddLogLevel = LOG_LEVEL_WARN;
+static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -136,6 +136,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                         case 5:
                             [currentGif setDisplayType:value];
                             break;
+                        case 6:
+                            [currentGif setEmotionCategory:value];
+                            break;
                         default:
                             DDLogWarn(@"Index out of bounds");
                             break;
@@ -145,7 +148,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 [_eboticonGifs addObject:currentGif];
                 currentGif = [[EboticonGif alloc] init];
                 DDLogDebug(@"Eboticon: %@", currentGif);
-                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif displayType]);
+                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ displayType:%@ emotionCategory%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif displayType], [currentGif emotionCategory]);
                 /**
                 if(nil != _eboticonGifs){
                     [_eboticonGifs addObject:currentGif];
@@ -156,7 +159,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
             }
             
             for (int a = 0; a< [_eboticonGifs count]; a++){
-                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayname:%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category],[[_eboticonGifs objectAtIndex:a] movFileName], [[_eboticonGifs objectAtIndex:a] displayType]);
+                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayname:%@ emotionCategory%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category],[[_eboticonGifs objectAtIndex:a] movFileName], [[_eboticonGifs objectAtIndex:a] displayType], [[_eboticonGifs objectAtIndex:a] emotionCategory]);
                 
             }
             
@@ -181,7 +184,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
-            DDLogDebug(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
+            DDLogDebug(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@ emotionCategory%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType], [currentGif emotionCategory]);
             if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
                 DDLogDebug(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
                 [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];

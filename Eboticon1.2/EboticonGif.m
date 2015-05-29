@@ -16,8 +16,9 @@
 @synthesize category = _category;
 @synthesize movFileName = _movFileName;
 @synthesize displayType = _displayType;
+@synthesize emotionCategory = _emotionCategory;
 
-- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString*)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType
+- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString*)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType emotionCategory:(NSString *)emotionCategory
 {
     if((self = [super init])){
         self.fileName = fileName;
@@ -26,6 +27,7 @@
         self.category = category;
         self.movFileName = movFileName;
         self.displayType = displayType;
+        self.emotionCategory = emotionCategory;
     }
     return self;
 }
@@ -58,6 +60,11 @@
 -(NSString *) getDisplayType
 {
     return _displayType;
+}
+
+-(NSString *) getEmotionCategory
+{
+    return _emotionCategory;
 }
 
 
