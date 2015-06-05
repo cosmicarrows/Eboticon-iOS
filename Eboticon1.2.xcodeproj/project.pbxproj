@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385DE330CEEAE1743E27C3CC /* libPods-Eboticon1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C002F0D6AA317379978322B4 /* libPods-Eboticon1.2.a */; };
 		6304514D1ABF950A001DC8B2 /* 2015_lets_get_it-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 630450F01ABF950A001DC8B2 /* 2015_lets_get_it-caption.png */; };
 		6304514E1ABF950A001DC8B2 /* 2015_lets_get_it-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 630450F01ABF950A001DC8B2 /* 2015_lets_get_it-caption.png */; };
 		6304514F1ABF950A001DC8B2 /* aint_nobody-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 630450F11ABF950A001DC8B2 /* aint_nobody-caption.png */; };
@@ -313,7 +314,6 @@
 		6324471A1AAB67470057ABB2 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA481A8FCC2300C4CABB /* Fabric.framework */; };
 		6324471B1AAB67470057ABB2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE38A1868CC0200116D73 /* UIKit.framework */; };
 		6324471C1AAB67470057ABB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE3861868CC0200116D73 /* Foundation.framework */; };
-		6324471D1AAB67470057ABB2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5D28B18F87439D9A4175FD /* libPods.a */; };
 		6324471E1AAB67470057ABB2 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA4C1A8FD29B00C4CABB /* Bolts.framework */; };
 		632447201AAB67470057ABB2 /* omg-nocaption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 636EE6961A63473900E43D65 /* omg-nocaption.mov */; };
 		632447231AAB67470057ABB2 /* aye_girl-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 631DC14B19CE474400B11541 /* aye_girl-nocaption.gif */; };
@@ -729,7 +729,16 @@
 		63FAE3B51868CC0200116D73 /* Eboticon1_2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3B41868CC0200116D73 /* Eboticon1_2Tests.m */; };
 		63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C01868CCE900116D73 /* JMCategoryData.m */; };
 		63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C21868CCE900116D73 /* JMCategoriesData.m */; };
-		822687A4D18F455C8E755F9C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5D28B18F87439D9A4175FD /* libPods.a */; };
+		96D96E5DE14EADA63AEB3A7F /* libPods-EboticonLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */; };
+		97702BC61B21FB070011F6DE /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BC51B21FB070011F6DE /* KeyboardViewController.m */; };
+		97702BC91B21FB070011F6DE /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97702BC01B21FB070011F6DE /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97702BD11B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */; };
+		97702BD21B21FB470011F6DE /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BD01B21FB470011F6DE /* MyCell.m */; };
+		97702BD51B21FB500011F6DE /* KeyArt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97702BD31B21FB500011F6DE /* KeyArt.xcassets */; };
+		97702BD61B21FB500011F6DE /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 97702BD41B21FB500011F6DE /* placeholder.png */; };
+		97702BD71B21FB630011F6DE /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
+		97702BD91B21FB780011F6DE /* Keyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97702BD81B21FB780011F6DE /* Keyboard.storyboard */; };
+		D0B4F924A43DBD4F37A81FAF /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8459AE06593CA56BE3ED54DB /* libPods-Keyboard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -740,10 +749,35 @@
 			remoteGlobalIDString = 63FAE3821868CC0200116D73;
 			remoteInfo = Eboticon1.2;
 		};
+		97702BC71B21FB070011F6DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63FAE37B1868CC0200116D73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97702BBF1B21FB070011F6DE;
+			remoteInfo = Keyboard;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		97702BB71B21F6A20011F6DE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				97702BC91B21FB070011F6DE /* Keyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		489FCD6317162271C153DA0A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		51B7C2C9376910040797EC5E /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EboticonLite.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		535743783F960A4AB0E25300 /* Pods-Eboticon1.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eboticon1.2.release.xcconfig"; path = "Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2.release.xcconfig"; sourceTree = "<group>"; };
+		5432CC8402458D4FE0FF3B3D /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		630450F01ABF950A001DC8B2 /* 2015_lets_get_it-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2015_lets_get_it-caption.png"; sourceTree = "<group>"; };
 		630450F11ABF950A001DC8B2 /* aint_nobody-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aint_nobody-caption.png"; sourceTree = "<group>"; };
 		630450F21ABF950A001DC8B2 /* aint_nobody-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aint_nobody-nocaption.png"; sourceTree = "<group>"; };
@@ -1135,8 +1169,24 @@
 		63FAE3C01868CCE900116D73 /* JMCategoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMCategoryData.m; sourceTree = "<group>"; };
 		63FAE3C11868CCE900116D73 /* JMCategoriesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMCategoriesData.h; sourceTree = "<group>"; };
 		63FAE3C21868CCE900116D73 /* JMCategoriesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMCategoriesData.m; sourceTree = "<group>"; };
+		7D6FD9BA89AC306BD6766F2A /* Pods-EboticonLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonLite/Pods-EboticonLite.release.xcconfig"; sourceTree = "<group>"; };
+		8459AE06593CA56BE3ED54DB /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5D28B18F87439D9A4175FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97702BC01B21FB070011F6DE /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97702BC31B21FB070011F6DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97702BC41B21FB070011F6DE /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		97702BC51B21FB070011F6DE /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		97702BCD1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		97702BCF1B21FB470011F6DE /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCell.h; sourceTree = "<group>"; };
+		97702BD01B21FB470011F6DE /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCell.m; sourceTree = "<group>"; };
+		97702BD31B21FB500011F6DE /* KeyArt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = KeyArt.xcassets; sourceTree = "<group>"; };
+		97702BD41B21FB500011F6DE /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		97702BD81B21FB780011F6DE /* Keyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Keyboard.storyboard; sourceTree = "<group>"; };
+		A82C3D0E94DF00ED58D2A447 /* Pods-Eboticon1.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eboticon1.2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2.debug.xcconfig"; sourceTree = "<group>"; };
+		C002F0D6AA317379978322B4 /* libPods-Eboticon1.2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Eboticon1.2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65DB9B82968233A37475269 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FF58A1928859E968E77CF8B8 /* Pods-EboticonLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonLite/Pods-EboticonLite.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1164,8 +1214,8 @@
 				6324471A1AAB67470057ABB2 /* Fabric.framework in Frameworks */,
 				6324471B1AAB67470057ABB2 /* UIKit.framework in Frameworks */,
 				6324471C1AAB67470057ABB2 /* Foundation.framework in Frameworks */,
-				6324471D1AAB67470057ABB2 /* libPods.a in Frameworks */,
 				6324471E1AAB67470057ABB2 /* Bolts.framework in Frameworks */,
+				96D96E5DE14EADA63AEB3A7F /* libPods-EboticonLite.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,8 +1243,8 @@
 				6325FA4A1A8FCC2300C4CABB /* Fabric.framework in Frameworks */,
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
-				822687A4D18F455C8E755F9C /* libPods.a in Frameworks */,
 				6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */,
+				385DE330CEEAE1743E27C3CC /* libPods-Eboticon1.2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,6 +1258,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97702BBD1B21FB070011F6DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0B4F924A43DBD4F37A81FAF /* libPods-Keyboard.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1216,6 +1274,12 @@
 			children = (
 				D65DB9B82968233A37475269 /* Pods.debug.xcconfig */,
 				489FCD6317162271C153DA0A /* Pods.release.xcconfig */,
+				5432CC8402458D4FE0FF3B3D /* Pods-Keyboard.debug.xcconfig */,
+				51B7C2C9376910040797EC5E /* Pods-Keyboard.release.xcconfig */,
+				A82C3D0E94DF00ED58D2A447 /* Pods-Eboticon1.2.debug.xcconfig */,
+				535743783F960A4AB0E25300 /* Pods-Eboticon1.2.release.xcconfig */,
+				FF58A1928859E968E77CF8B8 /* Pods-EboticonLite.debug.xcconfig */,
+				7D6FD9BA89AC306BD6766F2A /* Pods-EboticonLite.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1632,6 +1696,7 @@
 			children = (
 				63FAE38C1868CC0200116D73 /* Eboticon1.2 */,
 				63FAE3AE1868CC0200116D73 /* Eboticon1.2Tests */,
+				97702BC11B21FB070011F6DE /* Keyboard */,
 				63FAE3851868CC0200116D73 /* Frameworks */,
 				63FAE3841868CC0200116D73 /* Products */,
 				064704221C682C8DD45D2B11 /* Pods */,
@@ -1644,6 +1709,7 @@
 				63FAE3831868CC0200116D73 /* Eboticon.app */,
 				63FAE3A71868CC0200116D73 /* Eboticon1.2Tests.xctest */,
 				632448471AAB67470057ABB2 /* EboticonLite.app */,
+				97702BC01B21FB070011F6DE /* Keyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1673,6 +1739,9 @@
 				63FAE38A1868CC0200116D73 /* UIKit.framework */,
 				63FAE3A81868CC0200116D73 /* XCTest.framework */,
 				8F5D28B18F87439D9A4175FD /* libPods.a */,
+				C002F0D6AA317379978322B4 /* libPods-Eboticon1.2.a */,
+				52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */,
+				8459AE06593CA56BE3ED54DB /* libPods-Keyboard.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1763,6 +1832,31 @@
 			name = Media;
 			sourceTree = "<group>";
 		};
+		97702BC11B21FB070011F6DE /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				97702BD81B21FB780011F6DE /* Keyboard.storyboard */,
+				97702BC41B21FB070011F6DE /* KeyboardViewController.h */,
+				97702BC51B21FB070011F6DE /* KeyboardViewController.m */,
+				97702BCD1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.h */,
+				97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */,
+				97702BCF1B21FB470011F6DE /* MyCell.h */,
+				97702BD01B21FB470011F6DE /* MyCell.m */,
+				97702BD31B21FB500011F6DE /* KeyArt.xcassets */,
+				97702BD41B21FB500011F6DE /* placeholder.png */,
+				97702BC21B21FB070011F6DE /* Supporting Files */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		97702BC21B21FB070011F6DE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				97702BC31B21FB070011F6DE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1796,10 +1890,12 @@
 				63FAE3811868CC0200116D73 /* Resources */,
 				76FD957D2BCA4748884DC69C /* Copy Pods Resources */,
 				6325FA461A8FCB4C00C4CABB /* ShellScript */,
+				97702BB71B21F6A20011F6DE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				97702BC81B21FB070011F6DE /* PBXTargetDependency */,
 			);
 			name = Eboticon1.2;
 			productName = Eboticon1.2;
@@ -1824,6 +1920,25 @@
 			productReference = 63FAE3A71868CC0200116D73 /* Eboticon1.2Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		97702BBF1B21FB070011F6DE /* Keyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97702BCC1B21FB080011F6DE /* Build configuration list for PBXNativeTarget "Keyboard" */;
+			buildPhases = (
+				95F51F07F94A69EB44E789FC /* Check Pods Manifest.lock */,
+				97702BBC1B21FB070011F6DE /* Sources */,
+				97702BBD1B21FB070011F6DE /* Frameworks */,
+				97702BBE1B21FB070011F6DE /* Resources */,
+				8C5063B92221EC765137D6FE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Keyboard;
+			productName = Keyboard;
+			productReference = 97702BC01B21FB070011F6DE /* Keyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1837,10 +1952,14 @@
 						DevelopmentTeam = 662TV55PE6;
 					};
 					63FAE3821868CC0200116D73 = {
-						DevelopmentTeam = 662TV55PE6;
+						DevelopmentTeam = D64285HJMY;
 					};
 					63FAE3A61868CC0200116D73 = {
 						TestTargetID = 63FAE3821868CC0200116D73;
+					};
+					97702BBF1B21FB070011F6DE = {
+						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = D64285HJMY;
 					};
 				};
 			};
@@ -1860,6 +1979,7 @@
 				63FAE3821868CC0200116D73 /* Eboticon1.2 */,
 				63FAE3A61868CC0200116D73 /* Eboticon1.2Tests */,
 				632446F41AAB67470057ABB2 /* EboticonLite */,
+				97702BBF1B21FB070011F6DE /* Keyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -2527,6 +2647,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97702BBE1B21FB070011F6DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97702BD71B21FB630011F6DE /* eboticon_gifs.csv in Resources */,
+				97702BD51B21FB500011F6DE /* KeyArt.xcassets in Resources */,
+				97702BD61B21FB500011F6DE /* placeholder.png in Resources */,
+				97702BD91B21FB780011F6DE /* Keyboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2572,7 +2703,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EboticonLite/Pods-EboticonLite-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		632448431AAB67470057ABB2 /* ShellScript */ = {
@@ -2613,7 +2744,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C5063B92221EC765137D6FE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95F51F07F94A69EB44E789FC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2675,6 +2836,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97702BBC1B21FB070011F6DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97702BC61B21FB070011F6DE /* KeyboardViewController.m in Sources */,
+				97702BD11B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m in Sources */,
+				97702BD21B21FB470011F6DE /* MyCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2682,6 +2853,11 @@
 			isa = PBXTargetDependency;
 			target = 63FAE3821868CC0200116D73 /* Eboticon1.2 */;
 			targetProxy = 63FAE3AC1868CC0200116D73 /* PBXContainerItemProxy */;
+		};
+		97702BC81B21FB070011F6DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97702BBF1B21FB070011F6DE /* Keyboard */;
+			targetProxy = 97702BC71B21FB070011F6DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2715,7 +2891,7 @@
 /* Begin XCBuildConfiguration section */
 		632448451AAB67470057ABB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D65DB9B82968233A37475269 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = FF58A1928859E968E77CF8B8 /* Pods-EboticonLite.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Lite";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Lite";
@@ -2769,7 +2945,7 @@
 		};
 		632448461AAB67470057ABB2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 489FCD6317162271C153DA0A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 7D6FD9BA89AC306BD6766F2A /* Pods-EboticonLite.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Lite";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Lite";
@@ -2901,12 +3077,12 @@
 		};
 		63FAE3B91868CC0200116D73 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D65DB9B82968233A37475269 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = A82C3D0E94DF00ED58D2A447 /* Pods-Eboticon1.2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jarryd McCree (98VZ5MWL9T)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jarryd McCree (98VZ5MWL9T)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jarrydmccree/Documents/FacebookSDK,
@@ -2924,12 +3100,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-l\"Pods-CHCSVParser\"",
-					"-l\"Pods-CocoaLumberjack\"",
-					"-l\"Pods-GPUImage\"",
-					"-l\"Pods-Harpy\"",
-					"-l\"Pods-SIAlertView\"",
-					"-l\"Pods-iRate\"",
 					"-framework",
 					"\"AVFoundation\"",
 					"-framework",
@@ -2941,7 +3111,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = Eboticon;
-				PROVISIONING_PROFILE = "95a6e494-e3c1-4adb-b7ec-b8f9679885e5";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -2950,12 +3120,12 @@
 		};
 		63FAE3BA1868CC0200116D73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 489FCD6317162271C153DA0A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 535743783F960A4AB0E25300 /* Pods-Eboticon1.2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Eboticon LLC (662TV55PE6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Eboticon LLC (662TV55PE6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jarrydmccree/Documents/FacebookSDK,
@@ -2973,12 +3143,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-l\"Pods-CHCSVParser\"",
-					"-l\"Pods-CocoaLumberjack\"",
-					"-l\"Pods-GPUImage\"",
-					"-l\"Pods-Harpy\"",
-					"-l\"Pods-SIAlertView\"",
-					"-l\"Pods-iRate\"",
 					"-framework",
 					"\"AVFoundation\"",
 					"-framework",
@@ -2990,7 +3154,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = Eboticon;
-				PROVISIONING_PROFILE = "95a6e494-e3c1-4adb-b7ec-b8f9679885e5";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -3039,6 +3203,53 @@
 			};
 			name = Release;
 		};
+		97702BCA1B21FB080011F6DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5432CC8402458D4FE0FF3B3D /* Pods-Keyboard.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		97702BCB1B21FB080011F6DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B7C2C9376910040797EC5E /* Pods-Keyboard.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3074,6 +3285,15 @@
 			buildConfigurations = (
 				63FAE3BC1868CC0200116D73 /* Debug */,
 				63FAE3BD1868CC0200116D73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97702BCC1B21FB080011F6DE /* Build configuration list for PBXNativeTarget "Keyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97702BCA1B21FB080011F6DE /* Debug */,
+				97702BCB1B21FB080011F6DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

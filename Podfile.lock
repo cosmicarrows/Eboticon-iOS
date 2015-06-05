@@ -8,22 +8,30 @@ PODS:
   - GPUImage (0.1.6)
   - Harpy (3.3.1)
   - iRate (1.10.3)
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
   - SIAlertView (1.3)
+  - Toast (2.4)
 
 DEPENDENCIES:
-  - CHCSVParser (= 2.0.7)
+  - CHCSVParser (~> 2.0.7)
   - CocoaLumberjack (~> 1.9)
   - GPUImage (~> 0.1)
   - Harpy (~> 3.3)
   - iRate (~> 1.10)
+  - SDWebImage (~> 3.7)
   - SIAlertView (~> 1.3)
+  - Toast (~> 2.4)
 
 SPEC CHECKSUMS:
-  CHCSVParser: 0c75a766de2eabc4ff03639945a7ad4a724344d4
-  CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
-  GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
-  Harpy: 289cafd8e69ff94e787a1aa2847e70c4326d5d66
-  iRate: 40ebea2bb1e88866cef7393bd0abeae232cc5d38
-  SIAlertView: d00609a1faa9d82f17b9f0b4eede64e84a577b10
+  CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
+  CocoaLumberjack: e9b828e64142be63c1c130517b33aa5e235d2413
+  GPUImage: 4675ce4a5370ca92fcea8623b2a08b8f0c51b940
+  Harpy: 1c3f286473c97db20a19dda87582331e951036bc
+  iRate: 724a3e080d5b0681e50a57d6cef1a81f83c23df3
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
+  Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.2
