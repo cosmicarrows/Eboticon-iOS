@@ -139,8 +139,17 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (IBAction)rateEboticon:(id)sender {
     
-     //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
+#ifdef FREE
+    DDLogInfo(@"Lite Version-Redirecting to Lite Rating");
+    //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=977505283&onlyLatestVersion=false&type=Purple+Software"]];
+#else
+    DDLogInfo(@"Paid Version-Redirecting to Paid Rating");
+    //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&onlyLatestVersion=false&type=Purple+Software"]];
+#endif
+    
+   
     [self sendAlertToGoogleAnalytics:RATE];
 
 }
