@@ -10,10 +10,9 @@
 #import "MyCell.h"
 #import "UIView+Toast.h"
 #import "CHCSVParser.h"
-//#import "FLAnimatedImage.h"
-#import "OLImageView.h"
-#import "OLImage.h"
 
+//#import <DFImageManager/DFImageManagerKit.h>
+#import "Reachability.h"
 
 #define CATEGORY_SMILE @"Happy"
 #define CATEGORY_NOSMILE @"Sad"
@@ -24,8 +23,6 @@
 
 
 @interface KeyboardViewController () {
-    
-    int _shiftStatus; //0 = off, 1 = on, 2 = caps lock
     
     NSInteger _currentCategory;
     NSInteger _tappedImageCount;
@@ -41,9 +38,9 @@
     NSMutableArray *_giftImages;
     NSMutableArray *_heartImages;
     
-    
 }
 
+// Categories
 @property (weak, nonatomic) IBOutlet UIButton *globeKey;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton;
 @property (weak, nonatomic) IBOutlet UIButton *smileButton;
@@ -52,14 +49,21 @@
 @property (weak, nonatomic) IBOutlet UIButton *exclamationButton;
 @property (weak, nonatomic) IBOutlet UIButton *returnButton;
 
-//Collection View
+// Collection View
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *keyboardCollectionView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
-//Images
+// Reachability
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
 
+// No connection
+@property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
 
+//
+//@property (nonatomic) BOOL ;
 
 @end
 
@@ -73,10 +77,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //Add Border to the category keys
-    //self.globeKey.layer.borderColor = [UIColor blueColor].CGColor;
-    //self.globeKey.layer.borderWidth = 1.0f;
     
+    /*
+     Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    
+
     // Add a target that will be invoked when the page control is
     // changed by tapping on it
     [self.pageControl
@@ -84,6 +94,11 @@
      action:@selector(pageControlChanged:)
      forControlEvents:UIControlEventValueChanged
      ];
+    
+    // Set the number of pages to the number of pages in the paged interface
+    // and let the height flex so that it sits nicely in its frame
+    self.pageControl.numberOfPages = 1;
+    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     
     //Initialize Gifs
@@ -102,18 +117,23 @@
     
     NSLog(@"Keyboard Started");
     
+    //Setup Keyboard
     [self initializeKeyboard];
     
+    //Load CSV into Array
     [self loadGifsFromCSV];
     
-    [self populateGifArraysFromCSV];
-    
-    // Set the number of pages to the number of pages in the paged interface
-    // and let the height flex so that it sits nicely in its frame
-    self.pageControl.numberOfPages = 1;
-    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
+    if([self doesInternetExists]){
+        
+        [self populateGifArraysFromCSV];
+    }
+    else{
+        //add Internet connection view
+        self.noConnectionImageView.hidden = NO;
+    }
+
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -122,6 +142,8 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    NSLog(@"Eboticon memory warning");
     
 }
 
@@ -134,6 +156,69 @@
 - (void)textDidChange:(id<UITextInput>)textInput {
     
 }
+
+
+#pragma mark-
+#pragma mark Reachability
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    NetworkStatus internetStatus = [self.internetReachability currentReachabilityStatus];
+    NSLog(@"Network status: %li", (long)internetStatus);
+    
+    if (internetStatus != NotReachable) {
+        //my web-dependent code
+        NSLog(@"Internet connection exists");
+        self.noConnectionImageView.hidden = YES;
+  
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        self.noConnectionImageView.hidden = NO;
+ 
+    }
+    
+}
+
+
+- (BOOL) doesInternetExists {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        //my web-dependent code
+        NSLog(@"Internet connection exists");
+        return YES;
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        return NO;
+    }
+    
+}
+
+
+//
+- (BOOL) isRequestsOpenAccessEnabled {
+    
+    if([UIPasteboard generalPasteboard]){
+        return YES;
+    }
+    else{
+        return NO;
+    }
+    
+}
+
+
 
 #pragma mark - initialization method
 
@@ -173,7 +258,7 @@
             
             for(int i=0; i<[_csvImages count];i++){
                 element = [_csvImages objectAtIndex: i];
-                NSLog(@"Element %i = %@", i, element);
+                //NSLog(@"Element %i = %@", i, element);
                // NSLog(@"Element Count = %lu", (unsigned long)[element count]);
             }
             
@@ -214,7 +299,7 @@
                 [_nosmileImages addObject:[_allImages objectAtIndex:i]];
             }
             else if([currentCategory isEqual:CATEGORY_HEART]) {
-                NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
+               // NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
                 [_heartImages addObject:[_allImages objectAtIndex:i]];
             }
             else if([currentCategory isEqual:CATEGORY_GIFT]) {
@@ -232,11 +317,11 @@
         
         //Set currnet gifs
         _currentEboticonGifs = _heartImages;
-        
         [self changeCategory:1];
-        [self.keyboardCollectionView reloadData];
         
-        [self changePageControlNum];
+        
+        [self.keyboardCollectionView reloadData];       //Relaod the images into view
+        [self changePageControlNum];                    //Change the page control
         
         
     } else {
@@ -250,110 +335,31 @@
 - (IBAction) globeKeyPressed:(UIButton*)sender {
     
     //switches to user's next keyboard
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
     [self advanceToNextInputMode];
     
 }
 
-- (IBAction) heartKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next category
-    NSLog(@"heartKeyPressed");
-    
-    //Change category
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
-    
-    //Load Gifs
-    _currentEboticonGifs = _heartImages;
-    
-    [self.keyboardCollectionView reloadData];
-    [self changePageControlNum];
-    
-}
 
-- (IBAction) smileKeyPressed:(UIButton*)sender {
+- (IBAction) categoryKeyPressed:(UIButton*)sender {
     
     //switches to user's next category
-    NSLog(@"smileKeyPressed");
-    
-    //Change category bar
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
-    
-    //Load Gifs
-    _currentEboticonGifs = _smileImages;
-    
-    [self.keyboardCollectionView reloadData];
-    [self changePageControlNum];
-}
-
-- (IBAction) noSmileKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next category
-    NSLog(@"noSmileKeyPressed");
+    NSLog(@"Category %ld Pressed", (long)sender.tag);
     
     //Change category
-    _currentCategory = sender.tag;
     [self changeCategory:sender.tag];
-    
-    //Load Gifs
-    _currentEboticonGifs = _nosmileImages;
-    
-    [self.keyboardCollectionView reloadData];
-    [self changePageControlNum];
-    
-}
-- (IBAction)giftKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next category
-    NSLog(@"giftKeyPressed");
-    
-    //Change category
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
-    
-    //Load Gifs
-    _currentEboticonGifs = _giftImages;
-    
-    
-    [self.keyboardCollectionView reloadData];
-    [self changePageControlNum];
-    
-}
-
-- (IBAction)exclamationKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next category
-    NSLog(@"exclamationKeyPressed");
-    
-    //Change category
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
-    
-    //Load Gifs
-    _currentEboticonGifs = _exclamationImages;
-    
-    
-    [self.keyboardCollectionView reloadData];
-    [self changePageControlNum];
     
 }
 
 -(IBAction) returnKeyPressed: (UIButton*) sender {
     
     [self.textDocumentProxy deleteBackward];       // Deletes the character to the left of the insertion point
-    
-    //Change category
-    _currentCategory = sender.tag;
-    [self changeCategory:sender.tag];
 }
 
 
 - (void) changeCategory: (NSInteger)tag{
     
     //Make sure nothing is animated
+    _currentCategory = tag;
     _tappedImageCount = 0;
     _currentImageSelected = 0;
     
@@ -373,9 +379,8 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
-            
-            
-            
+            //Load Gifs
+            _currentEboticonGifs = _heartImages;
             
         }
             break;
@@ -387,6 +392,9 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            
+            //Load Gifs
+            _currentEboticonGifs = _smileImages;
             
         }
             break;
@@ -400,6 +408,9 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
+            //Load Gifs
+            _currentEboticonGifs = _nosmileImages;
+            
         }
             break;
             //Gift
@@ -411,6 +422,9 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"HLGiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            
+            //Load Gifs
+            _currentEboticonGifs = _giftImages;
             
         }
             break;
@@ -425,6 +439,9 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"HLExclamationSmaller.png"] forState:UIControlStateNormal];
             //[self.exclamationButton setImage:[UIImage imageNamed:@"Exclamation2.jpg"] forState:UIControlStateNormal];
             
+            //Load Gifs
+            _currentEboticonGifs = _exclamationImages;
+            
         }
             break;
             
@@ -437,11 +454,18 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             break;
     }
+    
+    [self.keyboardCollectionView reloadData];
+    [self changePageControlNum];
 }
 
 - (void) tapToView{
     
 }
+
+
+#pragma mark-
+#pragma mark
 
 
 #pragma mark-
@@ -477,6 +501,8 @@
 }
 
 
+
+
 #pragma mark-
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -502,71 +528,64 @@
     
     MyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
     
+    
+    
     //Change image to gif
     NSString * filePath;
     NSString * urlPath;
-    if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
-        filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-        urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", filename];
-        NSLog(@"%@", urlPath);
+    
+    if([self isRequestsOpenAccessEnabled]){
         
-        // Here we use the new provided sd_setImageWithURL: method to load the web image
-       
-       // sd_animatedGIFWithData
+        //Add DFImageView
         /*
-        [cell.imageView  sd_setImageWithURL:[NSURL URLWithString:urlPath]
-                           placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                           options:0
-                           progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                               NSLog(@"p = %f", (float)receivedSize/(float)expectedSize );
-                           }
-                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
-                               if (error) {
-                                   NSLog(@"ERROR: %@", error);
-                               } else {
-                                   
-                               }
-                           }];
+        DFImageView *imageView = (id)[cell viewWithTag:15];
+        if (!imageView) {
+            imageView = [[DFImageView alloc] initWithFrame:cell.bounds];
+            imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            imageView.tag = 15;
+            [cell addSubview:imageView];
+        }
          */
         
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-        UIImage *gifImage = [UIImage sd_animatedGIFWithData:imageData];
-        cell.imageView.image = gifImage;
+        [cell.imageView prepareForReuse];
         
-        //[gifImage sd_animatedGIFWithData:imageData];
-        //[cell.imageView.image sd_animatedGIFWithData:imageData];
-         
+        //Load Gif File name
+        if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
+            filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
+            urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", filename];
+            NSLog(@"Loading gif: %@", urlPath);
+            
+            [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
+            
+        }
+        //Load Still Name
+        else{
+            filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
+            urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", stillname];
+            //NSLog(@"Loading still: %@", urlPath);
+            //UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
+            
+            [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
+        }
+    }
+    else{
         
-       // sd_animatedGIFWithData
+        NSURL *imageURL = [[NSBundle mainBundle] URLForResource:@"placeholder" withExtension:@"png"];
+        [cell.imageView setImageWithResource:imageURL targetSize:[self _imageTargetSize] contentMode:DFImageContentModeAspectFill options:nil];
         
-       
-        
-        //UIImage *image = [OLImage imageWithData:imageData];
-        //cell.imageView.image = image;
-        
-        //NSData *data = [NSData dataWithContentsOfFile:urlPath];
-        //UIImage *image =  [UIImage sd_imageWithData:data];
-        //NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithFormat:urlPath];
-        //NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:url];
-        //[[SDImageCache sharedImageCache] storeImage:image recalculateFromImage:NO imageData:data forKey:key toDisk:YES];
-        
-        
-    }else{
-        filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
-        urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", stillname];
-        NSLog(@"%@", urlPath);
-        
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:urlPath]
-                          placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
     
+        // UIImage *image = [OLImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+        // cell.imageView.image = image;
+   
+        return cell;
     
-    // UIImage *image = [OLImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
-    // cell.imageView.image = image;
-    
-    NSLog(@"1");
-    return cell;
-    
+}
+
+- (CGSize)_imageTargetSize {
+    CGSize size = ((UICollectionViewFlowLayout *)self.flowLayout).itemSize;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    return CGSizeMake(size.width * scale, size.height * scale);
 }
 
 
@@ -574,7 +593,7 @@
 {
     
     NSLog(@"Button Tapped: %ld", (long)[indexPath row]);
-    
+    BOOL allowedOpenAccess = [self isRequestsOpenAccessEnabled]; // Can you allow access
     
     //Copy Image to Pasteboard
     //csvRow is the a row of the csv
@@ -587,12 +606,12 @@
     
     
     //First Tap
-    if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row){
+    if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
         
         NSLog(@"Button Tapped once");
-        NSLog(@"currentImage %d", _currentImageSelected);
-        NSLog(@"tap count %d", _tappedImageCount);
-        NSLog(@"lastImage %d", _lastImageSelected);
+        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+        NSLog(@"tap count %ld", (long)_tappedImageCount);
+        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         // Make toast
         [self.view makeToast:@"Viewing Eboticon... Tap again to copy to clipboard."
@@ -606,12 +625,12 @@
         
     }
     //Tapped different image
-    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row){
+    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
         NSLog(@"Button Tapped once different");
-        NSLog(@"currentImage %d", _currentImageSelected);
-        NSLog(@"tap count %d", _tappedImageCount);
-        NSLog(@"lastImage %d", _lastImageSelected);
+        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+        NSLog(@"tap count %ld", (long)_tappedImageCount);
+        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
         
@@ -629,7 +648,7 @@
         
         
     }
-    else if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){       //Second Tap
+    else if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row && allowedOpenAccess){       //Second Tap
         
         NSLog(@"Button Tapped twice");
         _tappedImageCount = 0;
@@ -670,16 +689,26 @@
         
         
     }
-    else{
+    //No image selected
+    else if (_tappedImageCount == 0 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
         NSLog(@"Button Tapped once");
-        NSLog(@"currentImage %d", _currentImageSelected);
-        NSLog(@"tap count %d", _tappedImageCount);
-        NSLog(@"lastImage %d", _lastImageSelected);
+        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+        NSLog(@"tap count %ld", (long)_tappedImageCount);
+        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
+        
+    }
+    else {
+        
+        // Make toast with an image
+        [self.view makeToast:@"Please allow full access. Go to Settings->General->Keyboard->Eboticons->Allow full access"
+                    duration:3.0
+                    position:CSToastPositionCenter
+         ];
         
     }
     

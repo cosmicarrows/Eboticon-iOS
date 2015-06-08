@@ -21,7 +21,8 @@ end
 target 'Keyboard' do
     pod 'Toast', '~> 2.4'
     pod 'CHCSVParser', '~> 2.0.7'
-    pod 'SDWebImage', '~>3.7'
+    pod 'DFImageManager'
+    pod 'DFImageManager/GIF'
 end
 
 

@@ -37,7 +37,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C6D-M2-gXk">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C6D-M2-gXk" customClass="DFImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="69"/>
                                                 </imageView>
                                             </subviews>
@@ -59,6 +59,12 @@
                                     <outlet property="delegate" destination="kiH-9x-JpX" id="RTO-Tj-kw2"/>
                                 </connections>
                             </collectionView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_connection.png" translatesAutoresizingMaskIntoConstraints="NO" id="bPT-0n-ZJS">
+                                <rect key="frame" x="0.0" y="22" width="375" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="m1Y-UB-Pa4"/>
+                                </constraints>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToZ-BY-5iF">
                                 <rect key="frame" x="0.0" y="172" width="375" height="44"/>
                                 <items>
@@ -83,7 +89,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="heartKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="Izf-sC-sGe"/>
+                                                <action selector="categoryKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="a39-zz-KST"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -96,7 +102,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="smileKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="Hh7-u1-MIM"/>
+                                                <action selector="categoryKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="XPQ-Hr-5bD"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -109,7 +115,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="noSmileKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="gJM-I0-esj"/>
+                                                <action selector="categoryKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="sWH-tD-bFH"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -122,7 +128,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="giftKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="bmz-ma-ijs"/>
+                                                <action selector="categoryKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="phQ-Sw-hG5"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -135,7 +141,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="exclamationKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="WFG-Da-hMc"/>
+                                                <action selector="categoryKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="XpJ-Xy-dmy"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -157,7 +163,7 @@
                             </toolbar>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="y3U-SD-rww">
                                 <rect key="frame" x="168" y="-9" width="39" height="37"/>
-                                <color key="pageIndicatorTintColor" red="0.89862856660000001" green="0.89862856660000001" blue="0.89862856660000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="pageIndicatorTintColor" red="0.87678250178518513" green="0.87678250178518513" blue="0.87678250178518513" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.88414753339999996" green="0.67717308099999995" blue="0.94689101769999995" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                         </subviews>
@@ -166,11 +172,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="fUV-Mb-PaC" secondAttribute="trailing" constant="-16" id="13P-gk-xog"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="top" secondItem="fUV-Mb-PaC" secondAttribute="bottom" id="22n-7d-xe5"/>
                             <constraint firstItem="y3U-SD-rww" firstAttribute="top" secondItem="2k2-WJ-fML" secondAttribute="topMargin" constant="-9" id="DEh-8Z-Nk0"/>
+                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="top" secondItem="bPT-0n-ZJS" secondAttribute="bottom" id="GjB-Va-rMN"/>
                             <constraint firstItem="fUV-Mb-PaC" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="L9K-SO-305"/>
                             <constraint firstItem="dvR-vy-uxf" firstAttribute="top" secondItem="ToZ-BY-5iF" secondAttribute="bottom" id="Uc3-FK-uaz"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="Vcr-8t-1xd"/>
                             <constraint firstItem="y3U-SD-rww" firstAttribute="centerX" secondItem="fUV-Mb-PaC" secondAttribute="centerX" id="hwE-r0-2mM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ToZ-BY-5iF" secondAttribute="trailing" constant="-16" id="jL6-PV-Rbg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bPT-0n-ZJS" secondAttribute="trailing" constant="-16" id="tEB-Rf-q9u"/>
+                            <constraint firstItem="bPT-0n-ZJS" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="zB1-al-dsW"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -183,6 +192,7 @@
                         <outlet property="globeKey" destination="nRZ-gK-Ad1" id="WHN-4k-fi0"/>
                         <outlet property="heartButton" destination="TFI-aJ-PWG" id="bTy-RW-wW9"/>
                         <outlet property="keyboardCollectionView" destination="fUV-Mb-PaC" id="RHF-sS-gtk"/>
+                        <outlet property="noConnectionImageView" destination="bPT-0n-ZJS" id="Lcq-3E-FpA"/>
                         <outlet property="noSmileButton" destination="Nsa-C3-h9U" id="gx5-bC-RWh"/>
                         <outlet property="pageControl" destination="y3U-SD-rww" id="iZv-VN-e9G"/>
                         <outlet property="returnButton" destination="s9E-Uj-rEM" id="UNm-2Q-tdg"/>
@@ -201,6 +211,7 @@
         <image name="HeartSmaller" width="44" height="44"/>
         <image name="NotHappySmaller" width="44" height="44"/>
         <image name="globe" width="35" height="35"/>
+        <image name="no_connection.png" width="320" height="216"/>
         <image name="return" width="35" height="35"/>
     </resources>
 </document>
