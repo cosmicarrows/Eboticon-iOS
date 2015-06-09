@@ -596,7 +596,6 @@
     //Set filename
     NSString *filename      = [currentGif objectAtIndex: 0];       //Gif File Name
     
-    
     //First Tap
     if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
         
@@ -606,7 +605,7 @@
         NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         // Make toast
-        [self.view makeToast:@"Viewing Eboticon... Tap again to copy to clipboard."
+        [self.view makeToast:@"Tap again to copy to clipboard."
                     duration:2.0
                     position:CSToastPositionCenter
          ];
@@ -628,7 +627,7 @@
         
         
         // Make toast
-        [self.view makeToast:@"Viewing Eboticon... Tap again to copy to clipboard."
+        [self.view makeToast:@"Tap again to copy into clipboard."
                     duration:2.0
                     position:CSToastPositionCenter
          ];
@@ -660,11 +659,15 @@
             
             [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
             
+            
+            
+            
             // Make toast with an image
-            [self.view makeToast:@"Eboticon copied to clipboard."
+            [self.view makeToast:@"Eboticon copied."
                         duration:3.0
                         position:CSToastPositionCenter
              ];
+            
             
             
         }
@@ -692,6 +695,12 @@
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
         
+        // Make toast
+        [self.view makeToast:@"Tap again to copy into clipboard."
+                    duration:2.0
+                    position:CSToastPositionCenter
+         ];
+        
     }
     else {
         
@@ -707,8 +716,7 @@
     [indexPaths addObject:indexPath];
     [self.keyboardCollectionView  reloadItemsAtIndexPaths:indexPaths];
     
-    //Selcet
-    
+    //Select last image
     _lastImageSelected = _currentImageSelected;
     
 }
