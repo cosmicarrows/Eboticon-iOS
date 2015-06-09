@@ -560,12 +560,15 @@
         }
         //Load Still Name
         else{
-            filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
-            urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", stillname];
+//            filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
+//            urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", stillname];
             //NSLog(@"Loading still: %@", urlPath);
             //UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
             
-            [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
+//            [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
+//            NSURL *imageURL = [[NSBundle mainBundle] URLForResource:stillname withExtension:@"png"];
+//            [cell.imageView setImageWithResource:imageURL targetSize:[self _imageTargetSize] contentMode:DFImageContentModeAspectFill options:nil];
+            [cell.imageView setImage:[UIImage imageNamed:stillname]];
         }
     }
     else{

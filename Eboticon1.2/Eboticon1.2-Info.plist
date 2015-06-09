@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.eboticon.Eboticon</string>
+	<string>com.eboticon.Eboticon2</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -34,7 +34,7 @@
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string>c164e148e1bd950db7ea717d4d28e2065fcd707c</string>
+		<string>a9a59c791b6749c4e0bf26ed1771b7aafd2db9cc</string>
 		<key>Kits</key>
 		<array>
 			<dict>
