@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -201,16 +201,10 @@
                                     <action selector="facebookLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="Suf-uR-Osr"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B51-o1-wQk">
-                                <rect key="frame" x="22" y="72" width="282" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="cHU-4J-8OF" secondAttribute="trailing" constant="120" id="0sC-ge-wGS"/>
-                            <constraint firstItem="B51-o1-wQk" firstAttribute="trailing" secondItem="N1Z-Hb-Zfo" secondAttribute="trailing" id="2mz-z6-i2P"/>
                             <constraint firstItem="SZW-sa-XLI" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="31" id="3zt-ER-Ip4"/>
                             <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="cHU-4J-8OF" secondAttribute="bottom" constant="24" id="4fC-wa-gwK"/>
                             <constraint firstItem="GrB-V3-P1o" firstAttribute="leading" secondItem="SZW-sa-XLI" secondAttribute="trailing" constant="20" id="4tA-Sv-nc0"/>
@@ -235,13 +229,11 @@
                             <constraint firstItem="0Lp-0a-Z8U" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="302" id="eEA-qb-7Ky"/>
                             <constraint firstAttribute="trailing" secondItem="8JE-8Y-xhP" secondAttribute="trailing" constant="110" id="fSt-Eo-Zlz"/>
                             <constraint firstAttribute="trailing" secondItem="ZlC-9H-6RD" secondAttribute="trailing" constant="128" id="fyl-4T-WoE"/>
-                            <constraint firstItem="B51-o1-wQk" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leadingMargin" constant="6" id="g15-5q-Lxd"/>
                             <constraint firstItem="ZlC-9H-6RD" firstAttribute="top" secondItem="Gep-eY-jeQ" secondAttribute="bottom" constant="24" id="gyo-tB-WmB"/>
                             <constraint firstAttribute="trailing" secondItem="7tr-9v-ufr" secondAttribute="trailing" constant="117" id="h43-Gv-apM"/>
                             <constraint firstItem="Td7-G7-sFn" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="31" id="hwj-FQ-r6I"/>
                             <constraint firstItem="0Lp-0a-Z8U" firstAttribute="leading" secondItem="6mm-Lw-N6B" secondAttribute="leadingMargin" constant="29" id="qKg-Sg-syD"/>
                             <constraint firstItem="Gep-eY-jeQ" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="23" id="raE-iE-2Hx"/>
-                            <constraint firstItem="B51-o1-wQk" firstAttribute="top" secondItem="qfP-yv-0Z3" secondAttribute="bottom" constant="8" symbolic="YES" id="v2k-WK-uKd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GrB-V3-P1o" secondAttribute="trailing" constant="30" id="vP0-bK-Zn5"/>
                             <constraint firstItem="N1Z-Hb-Zfo" firstAttribute="top" secondItem="0Lp-0a-Z8U" secondAttribute="bottom" constant="16" id="xfI-4y-EAf"/>
                             <constraint firstItem="Td7-G7-sFn" firstAttribute="leading" secondItem="0Lp-0a-Z8U" secondAttribute="trailing" constant="25" id="yS5-9X-GeX"/>

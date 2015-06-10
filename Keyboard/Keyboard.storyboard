@@ -65,6 +65,9 @@
                                     <constraint firstAttribute="height" constant="150" id="m1Y-UB-Pa4"/>
                                 </constraints>
                             </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0t0-PA-bJ0">
+                                <rect key="frame" x="320" y="2" width="51" height="31"/>
+                            </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToZ-BY-5iF">
                                 <rect key="frame" x="0.0" y="172" width="375" height="44"/>
                                 <items>
@@ -176,16 +179,19 @@
                             <constraint firstItem="fUV-Mb-PaC" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="L9K-SO-305"/>
                             <constraint firstItem="dvR-vy-uxf" firstAttribute="top" secondItem="ToZ-BY-5iF" secondAttribute="bottom" id="Uc3-FK-uaz"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="Vcr-8t-1xd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0t0-PA-bJ0" secondAttribute="trailing" constant="-10" id="XDd-aE-TiG"/>
                             <constraint firstItem="y3U-SD-rww" firstAttribute="centerX" secondItem="fUV-Mb-PaC" secondAttribute="centerX" id="hwE-r0-2mM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ToZ-BY-5iF" secondAttribute="trailing" constant="-16" id="jL6-PV-Rbg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bPT-0n-ZJS" secondAttribute="trailing" constant="-16" id="tEB-Rf-q9u"/>
                             <constraint firstItem="bPT-0n-ZJS" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="zB1-al-dsW"/>
+                            <constraint firstItem="0t0-PA-bJ0" firstAttribute="top" secondItem="fhD-3P-rBF" secondAttribute="bottom" constant="2" id="zfq-Qb-roJ"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="216"/>
                     <connections>
+                        <outlet property="captionSwitch" destination="0t0-PA-bJ0" id="Z0F-cJ-Uav"/>
                         <outlet property="exclamationButton" destination="jRO-nq-BFB" id="bXQ-1Y-9Y9"/>
                         <outlet property="flowLayout" destination="7Kc-10-a3X" id="y7m-Kg-4Lv"/>
                         <outlet property="giftButton" destination="LGD-dx-gSi" id="QLq-VH-uwM"/>

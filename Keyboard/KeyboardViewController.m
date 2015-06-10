@@ -32,11 +32,16 @@
     NSArray *_csvImages;
     NSMutableArray *_currentEboticonGifs;
     NSMutableArray *_allImages;
-    NSMutableArray *_exclamationImages;
-    NSMutableArray *_smileImages;
-    NSMutableArray *_nosmileImages;
-    NSMutableArray *_giftImages;
-    NSMutableArray *_heartImages;
+    NSMutableArray *_exclamationImagesCaption;
+    NSMutableArray *_exclamationImagesNoCaption;
+    NSMutableArray *_smileImagesCaption;
+    NSMutableArray *_smileImagesNoCaption;
+    NSMutableArray *_nosmileImagesCaption;
+    NSMutableArray *_nosmileImagesNoCaption;
+    NSMutableArray *_giftImagesCaption;
+    NSMutableArray *_giftImagesNoCaption;
+    NSMutableArray *_heartImagesCaption;
+    NSMutableArray *_heartImagesNoCaption;
     
 }
 
@@ -48,6 +53,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 @property (weak, nonatomic) IBOutlet UIButton *exclamationButton;
 @property (weak, nonatomic) IBOutlet UIButton *returnButton;
+@property (weak, nonatomic) IBOutlet UISwitch *captionSwitch;
 
 // Collection View
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *keyboardCollectionView;
@@ -101,14 +107,24 @@
     self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     
+    //Caption Switch
+    [self.captionSwitch addTarget:self
+                      action:@selector(stateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
     //Initialize Gifs
-    _currentEboticonGifs    = [[NSMutableArray alloc] init];
-    _allImages              = [[NSMutableArray alloc] init];
-    _exclamationImages      = [[NSMutableArray alloc] init];
-    _smileImages            = [[NSMutableArray alloc] init];
-    _nosmileImages          = [[NSMutableArray alloc] init];
-    _giftImages             = [[NSMutableArray alloc] init];
-    _heartImages            = [[NSMutableArray alloc] init];
+    _currentEboticonGifs         = [[NSMutableArray alloc] init];
+    _allImages                   = [[NSMutableArray alloc] init];
+    _exclamationImagesCaption    = [[NSMutableArray alloc] init];
+    _exclamationImagesNoCaption  = [[NSMutableArray alloc] init];
+    _smileImagesCaption          = [[NSMutableArray alloc] init];
+    _smileImagesNoCaption        = [[NSMutableArray alloc] init];
+    _nosmileImagesCaption        = [[NSMutableArray alloc] init];
+    _nosmileImagesNoCaption      = [[NSMutableArray alloc] init];
+    _giftImagesCaption           = [[NSMutableArray alloc] init];
+    _giftImagesNoCaption         = [[NSMutableArray alloc] init];
+    _heartImagesCaption          = [[NSMutableArray alloc] init];
+    _heartImagesNoCaption        = [[NSMutableArray alloc] init];
     
     //Intialize current tapped image
     _tappedImageCount       = 0;
@@ -279,36 +295,76 @@
         
         NSMutableArray *currentGif = [[NSMutableArray alloc]init];
         
-        _exclamationImages = [[NSMutableArray alloc]init];
-        _smileImages = [[NSMutableArray alloc]init];
-        _nosmileImages = [[NSMutableArray alloc]init];
-        _giftImages = [[NSMutableArray alloc]init];
-        _heartImages = [[NSMutableArray alloc]init];
+        _exclamationImagesCaption = [[NSMutableArray alloc]init];
+        _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
+        _smileImagesCaption = [[NSMutableArray alloc]init];
+        _smileImagesNoCaption = [[NSMutableArray alloc]init];
+        _nosmileImagesCaption = [[NSMutableArray alloc]init];
+        _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
+        _giftImagesCaption = [[NSMutableArray alloc]init];
+        _giftImagesNoCaption = [[NSMutableArray alloc]init];
+        _heartImagesCaption = [[NSMutableArray alloc]init];
+        _heartImagesNoCaption = [[NSMutableArray alloc]init];
         
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
             
-            NSString * currentCategory = [currentGif objectAtIndex:6]; //Category
+            NSString * gifCategory = [currentGif objectAtIndex:6]; //Category
+            NSString * gifCaption = [currentGif objectAtIndex:3];
             
             //  NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
-            if([currentCategory isEqual:CATEGORY_SMILE]) {
+            if([gifCategory isEqual:CATEGORY_SMILE]) {
                 //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
-                [_smileImages addObject:[_allImages objectAtIndex:i]];
-            } else if([currentCategory isEqual:CATEGORY_NOSMILE]) {
-                // NSLog(@"Adding eboticon to category CATEGORY_NOSMILE:%@",[currentGif fileName]);
-                [_nosmileImages addObject:[_allImages objectAtIndex:i]];
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                 [_smileImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                 [_smileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+            } else if([gifCategory isEqual:CATEGORY_NOSMILE]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_nosmileImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_nosmileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+    
             }
-            else if([currentCategory isEqual:CATEGORY_HEART]) {
+            else if([gifCategory isEqual:CATEGORY_HEART]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_heartImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_heartImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
                // NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
-                [_heartImages addObject:[_allImages objectAtIndex:i]];
+            
             }
-            else if([currentCategory isEqual:CATEGORY_GIFT]) {
+            else if([gifCategory isEqual:CATEGORY_GIFT]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_giftImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_giftImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
                 // NSLog(@"Adding eboticon to category CATEGORY_GIFT:%@",[currentGif fileName]);
-                [_giftImages addObject:[_allImages objectAtIndex:i]];
             }
-            else if([currentCategory isEqual:CATEGORY_EXCLAMATION]) {
+            else if([gifCategory isEqual:CATEGORY_EXCLAMATION]) {
+                
+                
+                if ([gifCaption isEqual:@"Caption"])
+                    [_exclamationImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_exclamationImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
                 // NSLog(@"Adding eboticon to category CATEGORY_EXCLAMATION:%@",[currentGif fileName]);
-                [_exclamationImages addObject:[_allImages objectAtIndex:i]];
             }
             else {
                 //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
@@ -316,7 +372,7 @@
         }
         
         //Set currnet gifs
-        _currentEboticonGifs = _heartImages;
+        _currentEboticonGifs = _heartImagesCaption;
         [self changeCategory:1];
         
         
@@ -350,9 +406,136 @@
     
 }
 
--(IBAction) returnKeyPressed: (UIButton*) sender {
+-(IBAction) deleteKeyPressed: (UIButton*) sender {
     
     [self.textDocumentProxy deleteBackward];       // Deletes the character to the left of the insertion point
+}
+
+
+- (void)stateChanged:(UISwitch *)switchState
+{
+    
+    //Send a toast
+    if ([switchState isOn]) {
+        // Make toast
+        [self.view makeToast:@"Caption is on."
+                    duration:2.0
+                    position:CSToastPositionCenter
+         ];
+        
+    } else {
+        [self.view makeToast:@"Caption is off."
+                    duration:2.0
+                    position:CSToastPositionCenter
+         ];
+    }
+    
+    //Load the Gifs
+    switch (_currentCategory) {
+            //Heart
+        case 1: {
+            
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _heartImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _heartImagesNoCaption;
+            }
+            
+        }
+            break;
+            //Smile
+        case 2: {
+            
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _smileImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _smileImagesNoCaption;
+            }
+            
+        }
+            break;
+            //No Smile
+        case 3: {
+            
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _nosmileImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _nosmileImagesNoCaption;
+            }
+            
+            
+        }
+            break;
+            //Gift
+        case 4: {
+            
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _giftImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _giftImagesNoCaption;
+            }
+            
+            
+            
+        }
+            break;
+            //Exclamation
+        case 5: {
+            
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _exclamationImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _exclamationImagesNoCaption;
+            }
+            
+        }
+            break;
+            
+            //Return or Globe
+        default:
+            break;
+    }
+    
+    //Reload keyboard data
+    [self.keyboardCollectionView reloadData];
+    [self changePageControlNum];
+
+}
+
+
+- (IBAction)captionSwitchPressed1:(UIButton *)sender {
+    if ([self.captionSwitch isOn]) {
+       // self.myTextField.text = @"The Switch is Off";
+        
+        // Make toast
+        [self.view makeToast:@"Caption is on."
+                    duration:2.0
+                    position:CSToastPositionCenter
+         ];
+        
+        
+        NSLog(@"Switch is on");
+        [self.captionSwitch setOn:NO animated:YES];
+    } else {
+        
+        [self.view makeToast:@"Caption is off."
+                    duration:2.0
+                    position:CSToastPositionCenter
+         ];
+        
+       // self.myTextField.text = @"The Switch is On";
+        [self.captionSwitch setOn:YES animated:YES];
+    }
 }
 
 
@@ -363,7 +546,6 @@
     _tappedImageCount = 0;
     _currentImageSelected = 0;
     
-    
     //Change the toolbar
     NSLog(@"tag: %ld", (long)tag);
     
@@ -372,66 +554,90 @@
             //Heart
         case 1: {
             
+            //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HLHeartSmaller.png"] forState:UIControlStateNormal];
-            //[self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
             [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
-            //Load Gifs
-            _currentEboticonGifs = _heartImages;
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _heartImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _heartImagesNoCaption;
+            }
             
         }
             break;
             //Smile
         case 2: {
             
+            //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
             [self.smileButton setImage:[UIImage imageNamed:@"HLHappySmaller.png"] forState:UIControlStateNormal];
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
-            //Load Gifs
-            _currentEboticonGifs = _smileImages;
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _smileImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _smileImagesNoCaption;
+            }
             
         }
             break;
             //No Smile
         case 3: {
             
-            
+            //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
             [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
             [self.noSmileButton setImage:[UIImage imageNamed:@"HLNotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
-            //Load Gifs
-            _currentEboticonGifs = _nosmileImages;
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _nosmileImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _nosmileImagesNoCaption;
+            }
+            
             
         }
             break;
             //Gift
         case 4: {
             
-            
+            //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
             [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"HLGiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
-            //Load Gifs
-            _currentEboticonGifs = _giftImages;
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _giftImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _giftImagesNoCaption;
+            }
+            
+        
             
         }
             break;
             //Exclamation
         case 5: {
             
-            
+            //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
             [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
@@ -439,8 +645,13 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"HLExclamationSmaller.png"] forState:UIControlStateNormal];
             //[self.exclamationButton setImage:[UIImage imageNamed:@"Exclamation2.jpg"] forState:UIControlStateNormal];
             
-            //Load Gifs
-            _currentEboticonGifs = _exclamationImages;
+            //Load Gifs depending on caption
+            if ([self.captionSwitch isOn]) {
+                _currentEboticonGifs = _exclamationImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _exclamationImagesNoCaption;
+            }
             
         }
             break;
@@ -552,6 +763,8 @@
         //Load Gif File name
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
             filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
+            //urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/small/gifs/%@", filename];
+            
             urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", filename];
             NSLog(@"Loading gif: %@", urlPath);
             

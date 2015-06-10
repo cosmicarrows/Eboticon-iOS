@@ -1416,6 +1416,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */,
 				6325FA5B1A8FD34800C4CABB /* Security.framework in Frameworks */,
 				6325FA591A8FD33500C4CABB /* QuartzCore.framework in Frameworks */,
 				6325FA571A8FD31D00C4CABB /* MobileCoreServices.framework in Frameworks */,
@@ -1435,7 +1436,6 @@
 				63FAE3891868CC0200116D73 /* CoreGraphics.framework in Frameworks */,
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
-				6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */,
 				385DE330CEEAE1743E27C3CC /* libPods-Eboticon1.2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3597,6 +3597,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

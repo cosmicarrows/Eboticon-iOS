@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -35,10 +35,10 @@
 			<key>RequestsOpenAccess</key>
 			<true/>
 		</dict>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.keyboard-service</string>
 		<key>NSExtensionMainStoryboard</key>
 		<string>Keyboard</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.keyboard-service</string>
 	</dict>
 </dict>
 </plist>
