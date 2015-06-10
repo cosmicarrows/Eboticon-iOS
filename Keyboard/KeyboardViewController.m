@@ -148,11 +148,15 @@
     
     if([self doesInternetExists]){
         //Convert CSV to an array
+        self.captionButton.hidden = NO;
+        self.pageControl.hidden = NO;
         [self populateGifArraysFromCSV];
     }
     else{
-        //add Internet connection view
+        //add Internet connection view and remove caption button
         self.noConnectionImageView.hidden = NO;
+        self.captionButton.hidden = YES;
+        self.pageControl.hidden = YES;
     }
     
     
@@ -199,12 +203,16 @@
         //
         NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
+        self.captionButton.hidden = NO;
+        self.pageControl.hidden = NO;
   
     }
     else {
         //there-is-no-connection warning
         NSLog(@"NO Internet connection exists");
         self.noConnectionImageView.hidden = NO;
+        self.captionButton.hidden = YES;
+        self.pageControl.hidden = YES;
  
     }
     
