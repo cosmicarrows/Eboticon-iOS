@@ -10,6 +10,4 @@
 
 @interface KeyboardViewController : UIInputViewController  <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-
-
 @end

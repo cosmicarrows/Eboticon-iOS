@@ -65,9 +65,6 @@
                                     <constraint firstAttribute="height" constant="150" id="m1Y-UB-Pa4"/>
                                 </constraints>
                             </imageView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0t0-PA-bJ0">
-                                <rect key="frame" x="320" y="2" width="51" height="31"/>
-                            </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToZ-BY-5iF">
                                 <rect key="frame" x="0.0" y="172" width="375" height="44"/>
                                 <items>
@@ -157,16 +154,31 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="returnKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="OpM-pR-7qB"/>
+                                                <action selector="deleteKeyPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="kpz-bk-7VK"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-oj-bel">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="22"/>
+                                <color key="backgroundColor" red="0.96920469576719581" green="0.96920469576719581" blue="0.96920469576719581" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="qdr-fb-3ct"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="With Punchline">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="captionSwitchPressed:" destination="kiH-9x-JpX" eventType="touchUpInside" id="P0j-W5-xJh"/>
+                                </connections>
+                            </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="y3U-SD-rww">
-                                <rect key="frame" x="168" y="-9" width="39" height="37"/>
-                                <color key="pageIndicatorTintColor" red="0.87678250178518513" green="0.87678250178518513" blue="0.87678250178518513" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="327" y="-7" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="currentPageIndicatorTintColor" red="0.88414753339999996" green="0.67717308099999995" blue="0.94689101769999995" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                         </subviews>
@@ -174,24 +186,25 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="fUV-Mb-PaC" secondAttribute="trailing" constant="-16" id="13P-gk-xog"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="top" secondItem="fUV-Mb-PaC" secondAttribute="bottom" id="22n-7d-xe5"/>
-                            <constraint firstItem="y3U-SD-rww" firstAttribute="top" secondItem="2k2-WJ-fML" secondAttribute="topMargin" constant="-9" id="DEh-8Z-Nk0"/>
+                            <constraint firstItem="y3U-SD-rww" firstAttribute="top" secondItem="2k2-WJ-fML" secondAttribute="topMargin" constant="-7" id="DEh-8Z-Nk0"/>
+                            <constraint firstItem="1hw-oj-bel" firstAttribute="trailing" secondItem="fUV-Mb-PaC" secondAttribute="trailing" id="Ei1-H1-Ey8"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="top" secondItem="bPT-0n-ZJS" secondAttribute="bottom" id="GjB-Va-rMN"/>
                             <constraint firstItem="fUV-Mb-PaC" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="L9K-SO-305"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="y3U-SD-rww" secondAttribute="trailing" constant="-7" id="MCK-bB-I1y"/>
+                            <constraint firstItem="1hw-oj-bel" firstAttribute="leading" secondItem="bPT-0n-ZJS" secondAttribute="leading" id="P5x-qu-l6w"/>
                             <constraint firstItem="dvR-vy-uxf" firstAttribute="top" secondItem="ToZ-BY-5iF" secondAttribute="bottom" id="Uc3-FK-uaz"/>
                             <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="Vcr-8t-1xd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0t0-PA-bJ0" secondAttribute="trailing" constant="-10" id="XDd-aE-TiG"/>
-                            <constraint firstItem="y3U-SD-rww" firstAttribute="centerX" secondItem="fUV-Mb-PaC" secondAttribute="centerX" id="hwE-r0-2mM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ToZ-BY-5iF" secondAttribute="trailing" constant="-16" id="jL6-PV-Rbg"/>
+                            <constraint firstItem="1hw-oj-bel" firstAttribute="top" secondItem="2k2-WJ-fML" secondAttribute="topMargin" id="pmD-WZ-oFk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bPT-0n-ZJS" secondAttribute="trailing" constant="-16" id="tEB-Rf-q9u"/>
                             <constraint firstItem="bPT-0n-ZJS" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leadingMargin" constant="-16" id="zB1-al-dsW"/>
-                            <constraint firstItem="0t0-PA-bJ0" firstAttribute="top" secondItem="fhD-3P-rBF" secondAttribute="bottom" constant="2" id="zfq-Qb-roJ"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="216"/>
                     <connections>
-                        <outlet property="captionSwitch" destination="0t0-PA-bJ0" id="Z0F-cJ-Uav"/>
+                        <outlet property="captionButton" destination="1hw-oj-bel" id="Umc-qO-O9k"/>
                         <outlet property="exclamationButton" destination="jRO-nq-BFB" id="bXQ-1Y-9Y9"/>
                         <outlet property="flowLayout" destination="7Kc-10-a3X" id="y7m-Kg-4Lv"/>
                         <outlet property="giftButton" destination="LGD-dx-gSi" id="QLq-VH-uwM"/>
@@ -201,13 +214,13 @@
                         <outlet property="noConnectionImageView" destination="bPT-0n-ZJS" id="Lcq-3E-FpA"/>
                         <outlet property="noSmileButton" destination="Nsa-C3-h9U" id="gx5-bC-RWh"/>
                         <outlet property="pageControl" destination="y3U-SD-rww" id="iZv-VN-e9G"/>
-                        <outlet property="returnButton" destination="s9E-Uj-rEM" id="UNm-2Q-tdg"/>
+                        <outlet property="returnButton" destination="s9E-Uj-rEM" id="wcs-S4-ovz"/>
                         <outlet property="smileButton" destination="Nhj-It-Ssn" id="G9R-nB-CH5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEO-Au-RRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366.5" y="386.5"/>
+            <point key="canvasLocation" x="366.5" y="386"/>
         </scene>
     </scenes>
     <resources>

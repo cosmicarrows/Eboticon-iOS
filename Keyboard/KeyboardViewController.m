@@ -28,9 +28,12 @@
     NSInteger _tappedImageCount;
     NSInteger _currentImageSelected;
     NSInteger _lastImageSelected;
+    NSInteger _captionState;
     
     NSArray *_csvImages;
+    
     NSMutableArray *_currentEboticonGifs;
+    
     NSMutableArray *_allImages;
     NSMutableArray *_exclamationImagesCaption;
     NSMutableArray *_exclamationImagesNoCaption;
@@ -53,7 +56,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 @property (weak, nonatomic) IBOutlet UIButton *exclamationButton;
 @property (weak, nonatomic) IBOutlet UIButton *returnButton;
-@property (weak, nonatomic) IBOutlet UISwitch *captionSwitch;
 
 // Collection View
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *keyboardCollectionView;
@@ -68,8 +70,8 @@
 // No connection
 @property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
 
-//
-//@property (nonatomic) BOOL ;
+//Caption Button
+@property (weak, nonatomic) IBOutlet UIButton *captionButton;
 
 @end
 
@@ -107,11 +109,6 @@
     self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     
-    //Caption Switch
-    [self.captionSwitch addTarget:self
-                      action:@selector(stateChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    
     //Initialize Gifs
     _currentEboticonGifs         = [[NSMutableArray alloc] init];
     _allImages                   = [[NSMutableArray alloc] init];
@@ -129,7 +126,17 @@
     //Intialize current tapped image
     _tappedImageCount       = 0;
     _currentImageSelected   = 0;
-    _lastImageSelected     = 0;
+    _lastImageSelected      = 0;
+    _captionState           = 1;
+    
+    //Add bottom border
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.captionButton.frame.size.height - 1.0f, self.captionButton.frame.size.width, 1)];
+    bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f
+                                                   green:0.0/255.0f
+                                                    blue:0.0/255.0f
+                                                   alpha:0.2f];
+    
+    [self.captionButton addSubview:bottomBorder];
     
     NSLog(@"Keyboard Started");
     
@@ -140,13 +147,15 @@
     [self loadGifsFromCSV];
     
     if([self doesInternetExists]){
-        
+        //Convert CSV to an array
         [self populateGifArraysFromCSV];
     }
     else{
         //add Internet connection view
         self.noConnectionImageView.hidden = NO;
     }
+    
+    
 
 }
 
@@ -180,16 +189,14 @@
 /*!
  * Called by Reachability whenever status changes.
  */
-/*!
- * Called by Reachability whenever status changes.
- */
 - (void) reachabilityChanged:(NSNotification *)note
 {
     NetworkStatus internetStatus = [self.internetReachability currentReachabilityStatus];
     NSLog(@"Network status: %li", (long)internetStatus);
     
     if (internetStatus != NotReachable) {
-        //my web-dependent code
+        
+        //
         NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
   
@@ -268,7 +275,6 @@
             
             
             [_allImages addObjectsFromArray:_csvImages];
-            
             
             NSMutableArray *element = [[NSMutableArray alloc]init];
             
@@ -369,7 +375,7 @@
             else {
                 //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
             }
-        }
+        }//End for
         
         //Set currnet gifs
         _currentEboticonGifs = _heartImagesCaption;
@@ -412,22 +418,22 @@
 }
 
 
-- (void)stateChanged:(UISwitch *)switchState
-{
+- (IBAction)captionSwitchPressed:(UIButton *)sender {
+
     
     //Send a toast
-    if ([switchState isOn]) {
-        // Make toast
-        [self.view makeToast:@"Caption is on."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
+    if (!_captionState) {
+        
+        
+        [self.captionButton setTitle:@"With Punchline" forState:UIControlStateNormal];
+        _captionState = 1;
+        
         
     } else {
-        [self.view makeToast:@"Caption is off."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
+
+        
+        [self.captionButton setTitle:@"Without Punchline" forState:UIControlStateNormal];
+        _captionState = 0;
     }
     
     //Load the Gifs
@@ -436,7 +442,7 @@
         case 1: {
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _heartImagesCaption;
             }
             else{
@@ -449,7 +455,7 @@
         case 2: {
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _smileImagesCaption;
             }
             else{
@@ -462,7 +468,7 @@
         case 3: {
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _nosmileImagesCaption;
             }
             else{
@@ -476,7 +482,7 @@
         case 4: {
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _giftImagesCaption;
             }
             else{
@@ -491,7 +497,7 @@
         case 5: {
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _exclamationImagesCaption;
             }
             else{
@@ -510,32 +516,6 @@
     [self.keyboardCollectionView reloadData];
     [self changePageControlNum];
 
-}
-
-
-- (IBAction)captionSwitchPressed1:(UIButton *)sender {
-    if ([self.captionSwitch isOn]) {
-       // self.myTextField.text = @"The Switch is Off";
-        
-        // Make toast
-        [self.view makeToast:@"Caption is on."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
-        
-        
-        NSLog(@"Switch is on");
-        [self.captionSwitch setOn:NO animated:YES];
-    } else {
-        
-        [self.view makeToast:@"Caption is off."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
-        
-       // self.myTextField.text = @"The Switch is On";
-        [self.captionSwitch setOn:YES animated:YES];
-    }
 }
 
 
@@ -562,7 +542,7 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _heartImagesCaption;
             }
             else{
@@ -582,7 +562,7 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _smileImagesCaption;
             }
             else{
@@ -602,7 +582,7 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _nosmileImagesCaption;
             }
             else{
@@ -623,7 +603,7 @@
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _giftImagesCaption;
             }
             else{
@@ -646,7 +626,7 @@
             //[self.exclamationButton setImage:[UIImage imageNamed:@"Exclamation2.jpg"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-            if ([self.captionSwitch isOn]) {
+            if (_captionState) {
                 _currentEboticonGifs = _exclamationImagesCaption;
             }
             else{
@@ -669,15 +649,6 @@
     [self.keyboardCollectionView reloadData];
     [self changePageControlNum];
 }
-
-- (void) tapToView{
-    
-}
-
-
-#pragma mark-
-#pragma mark
-
 
 #pragma mark-
 #pragma mark PageControl
@@ -954,10 +925,5 @@
  */
 
 
-
-
-
-
-
-
 @end
+
