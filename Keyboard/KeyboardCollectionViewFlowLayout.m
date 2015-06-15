@@ -28,7 +28,7 @@
     NSInteger itemCount = [self.collectionView numberOfItemsInSection:0];
     NSInteger pages = ceil(itemCount / 10.0);
     
-    return CGSizeMake(320 * pages, self.collectionView.frame.size.height);
+    return CGSizeMake(self.collectionView.frame.size.width * pages, self.collectionView.frame.size.height);
 }
 
 

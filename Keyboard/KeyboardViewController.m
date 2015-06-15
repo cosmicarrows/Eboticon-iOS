@@ -70,6 +70,8 @@
 // No connection
 @property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
 
+//Bottom border
+@property (nonatomic, nonatomic) UIView *bottomBorder;
 //Caption Button
 @property (weak, nonatomic) IBOutlet UIButton *captionButton;
 
@@ -130,13 +132,13 @@
     _captionState           = 1;
     
     //Add bottom border
-    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.captionButton.frame.size.height - 1.0f, self.captionButton.frame.size.width, 1)];
-    bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f
+    self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.captionButton.frame.size.height - 1.0f, self.captionButton.frame.size.width, 1)];
+    self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f
                                                    green:0.0/255.0f
                                                     blue:0.0/255.0f
                                                    alpha:0.2f];
     
-    [self.captionButton addSubview:bottomBorder];
+    [self.captionButton addSubview:self.bottomBorder];
     
     NSLog(@"Keyboard Started");
     
@@ -664,6 +666,7 @@
 
 - (void)pageControlChanged:(id)sender
 {
+    NSLog(@"pageControlChanged");
     UIPageControl *pageControl = sender;
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     CGPoint scrollTo = CGPointMake(pageWidth * pageControl.currentPage, 0);
@@ -672,18 +675,34 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+     NSLog(@"scrollViewDidEndDecelerating");
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     self.pageControl.currentPage = self.keyboardCollectionView.contentOffset.x / pageWidth;
 }
 
 - (void) changePageControlNum {
     
-    //CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
-    // CGFloat contentSize = self.keyboardCollectionView.contentSize.width;
     CGFloat numberOfGifs = [_currentEboticonGifs count];
-    CGFloat pageNumber = ceil(numberOfGifs/10);
+    CGFloat pageNumber;
+    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
+        //Keyboard is in Portrait
+        pageNumber = ceil(numberOfGifs/10);
+        
+    }
+    else{
+        //Keyboard is in Landscape
+        NSLog(@"Landscape");
+        pageNumber = ceil(numberOfGifs/18);
+    }
+
+    
+     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+     CGFloat contentSize = self.keyboardCollectionView.contentSize.width;
+
     NSLog(@"%f", numberOfGifs);
     NSLog(@"page num: %f", pageNumber);
+    NSLog(@"page width: %f", pageWidth);
+    NSLog(@"content size: %f", contentSize);
     
     //Page Control
     self.pageControl.numberOfPages = pageNumber;
@@ -916,6 +935,39 @@
 
 
 
+#pragma mark - Orientation Protocol methods
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    NSLog(@"viewDidLayoutSubviews");
+    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
+        //Keyboard is in Portrait
+        NSLog(@"Portrait");
+        
+        //Change the bottom border
+        CGRect newFrame = self.bottomBorder.frame;
+        newFrame.size.width = [[UIScreen mainScreen] bounds].size.width;
+        [self.bottomBorder setFrame:newFrame];
+        
+        //Change Page Control
+        [self changePageControlNum];
+
+    }
+    else{
+        //Keyboard is in Landscape
+        NSLog(@"Landscape");
+        
+        //Change the bottom border
+        CGRect newFrame = self.bottomBorder.frame;
+        newFrame.size.width = [[UIScreen mainScreen] bounds].size.width;
+        [self.bottomBorder setFrame:newFrame];
+        
+        //Change Page Control
+        [self changePageControlNum];
+    }
+    
+}
 
 
 #pragma mark - UICollectionViewDelegateFlowLayout Protocol methods
