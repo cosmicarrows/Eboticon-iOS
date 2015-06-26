@@ -23,6 +23,7 @@ target 'Keyboard' do
     pod 'CHCSVParser', '~> 2.0.7'
     pod 'DFImageManager'
     pod 'DFImageManager/GIF'
+    pod 'TTSwitch', '~> 0.0.5'
 end
 
 

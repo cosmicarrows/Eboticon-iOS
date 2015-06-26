@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardViewController : UIInputViewController  <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface KeyboardViewController : UIInputViewController  <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate>
 
 @end

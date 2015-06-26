@@ -731,6 +731,16 @@
 		97702BDD1B2384CF0011F6DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BDC1B2384CF0011F6DE /* Reachability.m */; };
 		97702BDF1B2398B10011F6DE /* no_connection.png in Resources */ = {isa = PBXBuildFile; fileRef = 97702BDE1B2398B10011F6DE /* no_connection.png */; };
 		97702BE51B2772070011F6DE /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97702BC01B21FB070011F6DE /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97B681131B3D9B4F00170446 /* round-switch-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681091B3D9B4F00170446 /* round-switch-mask.png */; };
+		97B681141B3D9B4F00170446 /* round-switch-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */; };
+		97B681151B3D9B4F00170446 /* round-switch-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */; };
+		97B681161B3D9B4F00170446 /* round-switch-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810C1B3D9B4F00170446 /* round-switch-overlay@2x.png */; };
+		97B681171B3D9B4F00170446 /* round-switch-thumb-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810D1B3D9B4F00170446 /* round-switch-thumb-highlight.png */; };
+		97B681181B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810E1B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png */; };
+		97B681191B3D9B4F00170446 /* round-switch-thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810F1B3D9B4F00170446 /* round-switch-thumb.png */; };
+		97B6811A1B3D9B4F00170446 /* round-switch-thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681101B3D9B4F00170446 /* round-switch-thumb@2x.png */; };
+		97B6811B1B3D9B4F00170446 /* round-switch-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681111B3D9B4F00170446 /* round-switch-track.png */; };
+		97B6811C1B3D9B4F00170446 /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681121B3D9B4F00170446 /* round-switch-track@2x.png */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 		A78A24BD1B26EF85007A4931 /* 2015_lets_get_it-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = A78A24551B26EF84007A4931 /* 2015_lets_get_it-caption.png */; };
 		A78A24BE1B26EF85007A4931 /* aint_nobody-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = A78A24561B26EF84007A4931 /* aint_nobody-caption.png */; };
@@ -1274,6 +1284,16 @@
 		97702BDC1B2384CF0011F6DE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		97702BDE1B2398B10011F6DE /* no_connection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_connection.png; sourceTree = "<group>"; };
 		97702BE11B24E5160011F6DE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		97B681091B3D9B4F00170446 /* round-switch-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask.png"; sourceTree = "<group>"; };
+		97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask@2x.png"; sourceTree = "<group>"; };
+		97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-overlay.png"; sourceTree = "<group>"; };
+		97B6810C1B3D9B4F00170446 /* round-switch-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-overlay@2x.png"; sourceTree = "<group>"; };
+		97B6810D1B3D9B4F00170446 /* round-switch-thumb-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-thumb-highlight.png"; sourceTree = "<group>"; };
+		97B6810E1B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-thumb-highlight@2x.png"; sourceTree = "<group>"; };
+		97B6810F1B3D9B4F00170446 /* round-switch-thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-thumb.png"; sourceTree = "<group>"; };
+		97B681101B3D9B4F00170446 /* round-switch-thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-thumb@2x.png"; sourceTree = "<group>"; };
+		97B681111B3D9B4F00170446 /* round-switch-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-track.png"; sourceTree = "<group>"; };
+		97B681121B3D9B4F00170446 /* round-switch-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-track@2x.png"; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		A78A24551B26EF84007A4931 /* 2015_lets_get_it-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2015_lets_get_it-caption.png"; path = "resource/png/2015_lets_get_it-caption.png"; sourceTree = "<group>"; };
 		A78A24561B26EF84007A4931 /* aint_nobody-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "aint_nobody-caption.png"; path = "resource/png/aint_nobody-caption.png"; sourceTree = "<group>"; };
@@ -2050,9 +2070,27 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
+		97B681081B3D9B1700170446 /* switch */ = {
+			isa = PBXGroup;
+			children = (
+				97B681091B3D9B4F00170446 /* round-switch-mask.png */,
+				97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */,
+				97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */,
+				97B6810C1B3D9B4F00170446 /* round-switch-overlay@2x.png */,
+				97B6810D1B3D9B4F00170446 /* round-switch-thumb-highlight.png */,
+				97B6810E1B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png */,
+				97B6810F1B3D9B4F00170446 /* round-switch-thumb.png */,
+				97B681101B3D9B4F00170446 /* round-switch-thumb@2x.png */,
+				97B681111B3D9B4F00170446 /* round-switch-track.png */,
+				97B681121B3D9B4F00170446 /* round-switch-track@2x.png */,
+			);
+			name = switch;
+			sourceTree = "<group>";
+		};
 		A78A24521B26EF5E007A4931 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				97B681081B3D9B1700170446 /* switch */,
 				A78A24541B26EF73007A4931 /* png */,
 			);
 			name = resource;
@@ -2943,6 +2981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A78A24BD1B26EF85007A4931 /* 2015_lets_get_it-caption.png in Resources */,
+				97B681191B3D9B4F00170446 /* round-switch-thumb.png in Resources */,
 				97702BD71B21FB630011F6DE /* eboticon_gifs.csv in Resources */,
 				A78A25081B26EF85007A4931 /* that_aint_funny-caption.png in Resources */,
 				A78A24E51B26EF85007A4931 /* i_cant-caption.png in Resources */,
@@ -2952,10 +2991,13 @@
 				A78A24D91B26EF85007A4931 /* good_morning-nocaption.png in Resources */,
 				A78A24DA1B26EF85007A4931 /* good_night-caption.png in Resources */,
 				A78A24C81B26EF85007A4931 /* crying-caption.png in Resources */,
+				97B681131B3D9B4F00170446 /* round-switch-mask.png in Resources */,
 				A78A24C71B26EF85007A4931 /* congrats-nocaption.png in Resources */,
 				A78A25231B26EF85007A4931 /* you_mad-caption.png in Resources */,
 				A78A24C31B26EF85007A4931 /* bruh-nocaption.png in Resources */,
+				97B681161B3D9B4F00170446 /* round-switch-overlay@2x.png in Resources */,
 				A78A25171B26EF85007A4931 /* where_they_do_that_at-caption.png in Resources */,
+				97B6811C1B3D9B4F00170446 /* round-switch-track@2x.png in Resources */,
 				A78A24F41B26EF85007A4931 /* oh_crap-nocaption.png in Resources */,
 				A78A24EC1B26EF85007A4931 /* im_flattered-nocaption.png in Resources */,
 				A78A24CC1B26EF85007A4931 /* deal_with_it-caption.png in Resources */,
@@ -2978,6 +3020,7 @@
 				A78A24F91B26EF85007A4931 /* operation_skinty-caption.png in Resources */,
 				A78A24CF1B26EF85007A4931 /* did_that-nocaption.png in Resources */,
 				A78A24D01B26EF85007A4931 /* dont_mind_me-caption.png in Resources */,
+				97B681171B3D9B4F00170446 /* round-switch-thumb-highlight.png in Resources */,
 				A78A24E61B26EF85007A4931 /* i_cant-nocaption.png in Resources */,
 				A78A25071B26EF85007A4931 /* thanks-nocaption.png in Resources */,
 				A78A24D41B26EF85007A4931 /* girl_gone-caption.png in Resources */,
@@ -3002,6 +3045,7 @@
 				A78A250B1B26EF85007A4931 /* thinking_about_you-nocaption.png in Resources */,
 				A78A25111B26EF85007A4931 /* twerkteam-caption.png in Resources */,
 				A78A24D81B26EF85007A4931 /* good_morning-caption.png in Resources */,
+				97B681141B3D9B4F00170446 /* round-switch-mask@2x.png in Resources */,
 				A78A24CA1B26EF85007A4931 /* dead-caption.png in Resources */,
 				A78A24FF1B26EF85007A4931 /* schmoney_dance-nocaption.png in Resources */,
 				A78A24D21B26EF85007A4931 /* fabulous-caption.png in Resources */,
@@ -3021,6 +3065,7 @@
 				A78A24DE1B26EF85007A4931 /* happy_new_year_boo-caption.png in Resources */,
 				A78A24EB1B26EF85007A4931 /* im_flattered-caption.png in Resources */,
 				A78A25151B26EF85007A4931 /* where_da_milk_and_cookies-caption.png in Resources */,
+				97B6811B1B3D9B4F00170446 /* round-switch-track.png in Resources */,
 				A78A24D51B26EF85007A4931 /* girl_gone-nocaption.png in Resources */,
 				A78A24FD1B26EF85007A4931 /* really_male-caption.png in Resources */,
 				A78A25031B26EF85007A4931 /* slide_through_your_dm-nocaption.png in Resources */,
@@ -3040,11 +3085,14 @@
 				A78A25021B26EF85007A4931 /* slide_through_your_dm-caption.png in Resources */,
 				A78A24F11B26EF85007A4931 /* none_of_my_business-caption.png in Resources */,
 				A78A24C61B26EF85007A4931 /* congrats-caption.png in Resources */,
+				97B681151B3D9B4F00170446 /* round-switch-overlay.png in Resources */,
+				97B681181B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png in Resources */,
 				A78A24F21B26EF85007A4931 /* none_of_my_business-nocaption.png in Resources */,
 				A78A24E91B26EF85007A4931 /* i_love_you-caption.png in Resources */,
 				A78A25051B26EF85007A4931 /* thank_ya-nocaption.png in Resources */,
 				A78A251D1B26EF85007A4931 /* wth-caption.png in Resources */,
 				A78A24F71B26EF85007A4931 /* one_sec-caption.png in Resources */,
+				97B6811A1B3D9B4F00170446 /* round-switch-thumb@2x.png in Resources */,
 				A78A24FC1B26EF85007A4931 /* really_female-nocaption.png in Resources */,
 				A78A24E31B26EF85007A4931 /* hey_boo_hey-caption.png in Resources */,
 				A78A25221B26EF85007A4931 /* you_knew-nocaption.png in Resources */,
@@ -3564,7 +3612,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-Keyboard-CHCSVParser\"",
 					"-l\"Pods-Keyboard-Toast\"",
 					"-framework",
 					"\"CoreGraphics\"",
@@ -3601,7 +3648,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-Keyboard-CHCSVParser\"",
 					"-l\"Pods-Keyboard-Toast\"",
 					"-framework",
 					"\"CoreGraphics\"",

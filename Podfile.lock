@@ -29,6 +29,7 @@ PODS:
   - iRate (1.10.3)
   - SIAlertView (1.3)
   - Toast (2.4)
+  - TTSwitch (0.0.6)
 
 DEPENDENCIES:
   - CHCSVParser (~> 2.0.7)
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - iRate (~> 1.10)
   - SIAlertView (~> 1.3)
   - Toast (~> 2.4)
+  - TTSwitch (~> 0.0.5)
 
 SPEC CHECKSUMS:
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
@@ -51,5 +53,6 @@ SPEC CHECKSUMS:
   iRate: 724a3e080d5b0681e50a57d6cef1a81f83c23df3
   SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
+  TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
 COCOAPODS: 0.37.2

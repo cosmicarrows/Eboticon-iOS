@@ -11,6 +11,8 @@
 #import "UIView+Toast.h"
 #import "CHCSVParser.h"
 
+#import "TTSwitch.h"
+
 //#import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
 
@@ -29,6 +31,7 @@
     NSInteger _currentImageSelected;
     NSInteger _lastImageSelected;
     NSInteger _captionState;
+    NSInteger _scrollSwipeState;
     
     NSArray *_csvImages;
     
@@ -47,6 +50,10 @@
     NSMutableArray *_heartImagesNoCaption;
     
 }
+
+
+- (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender;
+- (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender;
 
 // Categories
 @property (weak, nonatomic) IBOutlet UIButton *globeKey;
@@ -70,10 +77,16 @@
 // No connection
 @property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
 
+
+
 //Bottom border
 @property (nonatomic, nonatomic) UIView *bottomBorder;
+
 //Caption Button
-@property (weak, nonatomic) IBOutlet UIButton *captionButton;
+@property (weak, nonatomic) IBOutlet UIImageView *topBarView;
+
+//Caption Switch
+@property (strong, nonatomic) IBOutlet TTSwitch *captionSwitch;
 
 @end
 
@@ -86,6 +99,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //The switch size should be the size of the overlay.
+    
+     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 5.0f, 2.0f, 100.0f, 20.0f }];
+    //self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ self.keyboardCollectionView.frame.size.width/2.0f-50.0f, 2.0f, 100.0f, 20.0f }];
+    [[TTSwitch appearance] setTrackImage:[UIImage imageNamed:@"round-switch-track"]];
+    [[TTSwitch appearance] setOverlayImage:[UIImage imageNamed:@"round-switch-overlay"]];
+    [[TTSwitch appearance] setTrackMaskImage:[UIImage imageNamed:@"round-switch-mask"]];
+    [[TTSwitch appearance] setThumbImage:[UIImage imageNamed:@"round-switch-thumb"]];
+    [[TTSwitch appearance] setThumbHighlightImage:[UIImage imageNamed:@"round-switch-thumb-highlight"]];
+    [[TTSwitch appearance] setThumbMaskImage:[UIImage imageNamed:@"round-switch-mask"]];
+    [[TTSwitch appearance] setThumbInsetX:-6.0f];
+    [[TTSwitch appearance] setThumbOffsetY:-6.0f];
+    
+    [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
+    
+    
+     self.captionSwitch.on = true;
+    
+    [self.view addSubview: self.captionSwitch];
     
     
     /*
@@ -132,13 +166,10 @@
     _captionState           = 1;
     
     //Add bottom border
-    self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.captionButton.frame.size.height - 1.0f, self.captionButton.frame.size.width, 1)];
-    self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f
-                                                   green:0.0/255.0f
-                                                    blue:0.0/255.0f
-                                                   alpha:0.2f];
+    self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self. self.topBarView.frame.size.height - 1.0f, self. self.topBarView.frame.size.width, 1)];
+    self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
     
-    [self.captionButton addSubview:self.bottomBorder];
+    [self.topBarView addSubview:self.bottomBorder];
     
     NSLog(@"Keyboard Started");
     
@@ -148,22 +179,41 @@
     //Load CSV into Array
     [self loadGifsFromCSV];
     
+    //Setup item size of keyboard layout to fit keyboard.
+    [self changeKeyboardFlowLayout];
+    
     if([self doesInternetExists]){
         //Convert CSV to an array
-        self.captionButton.hidden = NO;
+        self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
         [self populateGifArraysFromCSV];
+    
     }
     else{
         //add Internet connection view and remove caption button
         self.noConnectionImageView.hidden = NO;
-        self.captionButton.hidden = YES;
+        self. self.captionSwitch.hidden = YES;
         self.pageControl.hidden = YES;
     }
     
     
-
+    // Create and initialize a swipe right gesture
+    UISwipeGestureRecognizer *swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeRightGesture:)];
+    swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRecognizerRight.numberOfTouchesRequired = 1;
+    [self.keyboardCollectionView addGestureRecognizer:swipeRecognizerRight];
+    
+    
+    // Create and initialize a swipe right gesture
+    UISwipeGestureRecognizer *swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
+    swipeRecognizerLeft.direction =  UISwipeGestureRecognizerDirectionLeft;
+    swipeRecognizerLeft.numberOfTouchesRequired = 1;
+    [self.keyboardCollectionView addGestureRecognizer:swipeRecognizerLeft];
+    
 }
+
+
+
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -177,6 +227,45 @@
     NSLog(@"Eboticon memory warning");
     
 }
+
+
+#pragma mark-
+#pragma mark Gesture Recognizer
+
+
+- (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender{
+    NSLog(@"Swipe Right Detected");
+    
+    if(_currentCategory > 1){
+        //Change category
+        [self changeCategory:_currentCategory-1];
+    }
+    else{
+        //Change category
+        [self changeCategory:5];
+    }
+    
+    
+}
+
+- (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender{
+    NSLog(@"Swipe Detected Left");
+    
+    if(_currentCategory < 5){
+        
+        
+        //Change category
+        [self changeCategory:_currentCategory+1];
+    }
+    else{
+        //Change category
+        [self changeCategory:1];
+    }
+    
+    
+}
+
+
 
 #pragma mark - TextInput methods
 
@@ -205,7 +294,7 @@
         //
         NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
-        self.captionButton.hidden = NO;
+        self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
   
     }
@@ -213,7 +302,7 @@
         //there-is-no-connection warning
         NSLog(@"NO Internet connection exists");
         self.noConnectionImageView.hidden = NO;
-        self.captionButton.hidden = YES;
+        self. self.captionSwitch.hidden = YES;
         self.pageControl.hidden = YES;
  
     }
@@ -261,8 +350,8 @@
     self.flowLayout = [[KeyboardCollectionViewFlowLayout alloc] init];
     
     //collectionView.frame
-    self.keyboardCollectionView.showsHorizontalScrollIndicator = NO;
-    self.keyboardCollectionView.pagingEnabled = YES;
+    self.keyboardCollectionView.showsHorizontalScrollIndicator = YES;
+    self.keyboardCollectionView.pagingEnabled = NO;
     [self.keyboardCollectionView setCollectionViewLayout:self.flowLayout];
     
 }
@@ -395,56 +484,30 @@
         [self.keyboardCollectionView reloadData];       //Relaod the images into view
         [self changePageControlNum];                    //Change the page control
         
+        [self changeKeyboardFlowLayout];                //Change flowlayout
+        
         
     } else {
         NSLog(@"Eboticon Gif array count is less than zero.");
     }
-}
-
-
-#pragma mark - key methods
-
-- (IBAction) globeKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next keyboard
-    [self advanceToNextInputMode];
     
 }
 
 
-- (IBAction) categoryKeyPressed:(UIButton*)sender {
-    
-    //switches to user's next category
-    NSLog(@"Category %ld Pressed", (long)sender.tag);
-    
-    //Change category
-    [self changeCategory:sender.tag];
-    
-}
-
--(IBAction) deleteKeyPressed: (UIButton*) sender {
-    
-    [self.textDocumentProxy deleteBackward];       // Deletes the character to the left of the insertion point
-}
+#pragma mark - Key methods
 
 
-- (IBAction)captionSwitchPressed:(UIButton *)sender {
-
-    
-    //Send a toast
-    if (!_captionState) {
-        
-        
-        [self.captionButton setTitle:@"With Punchline" forState:UIControlStateNormal];
+- (void)changeCaptionSwitch:(id)sender{
+    if([sender isOn]){
+        // Execute any code when the switch is ON
+        NSLog(@"Switch is ON");
         _captionState = 1;
-        
-        
-    } else {
-
-        
-        [self.captionButton setTitle:@"Without Punchline" forState:UIControlStateNormal];
+    } else{
+        // Execute any code when the switch is OFF
+        NSLog(@"Switch is OFF");
         _captionState = 0;
     }
+    
     
     //Load the Gifs
     switch (_currentCategory) {
@@ -525,7 +588,32 @@
     //Reload keyboard data
     [self.keyboardCollectionView reloadData];
     [self changePageControlNum];
+}
 
+
+
+
+- (IBAction) globeKeyPressed:(UIButton*)sender {
+    
+    //switches to user's next keyboard
+    [self advanceToNextInputMode];
+    
+}
+
+
+- (IBAction) categoryKeyPressed:(UIButton*)sender {
+    
+    //switches to user's next category
+    NSLog(@"Category %ld Pressed", (long)sender.tag);
+    
+    //Change category
+    [self changeCategory:sender.tag];
+    
+}
+
+-(IBAction) deleteKeyPressed: (UIButton*) sender {
+    
+    [self.textDocumentProxy deleteBackward];       // Deletes the character to the left of the insertion point
 }
 
 
@@ -666,11 +754,12 @@
 
 - (void)pageControlChanged:(id)sender
 {
+    
     NSLog(@"pageControlChanged");
-    UIPageControl *pageControl = sender;
-    CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
-    CGPoint scrollTo = CGPointMake(pageWidth * pageControl.currentPage, 0);
-    [self.keyboardCollectionView setContentOffset:scrollTo animated:YES];
+    //UIPageControl *pageControl = sender;
+    //CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+    //CGPoint scrollTo = CGPointMake(pageWidth * pageControl.currentPage, 0);
+    //[self.keyboardCollectionView setContentOffset:scrollTo animated:YES];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -678,6 +767,54 @@
      NSLog(@"scrollViewDidEndDecelerating");
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     self.pageControl.currentPage = self.keyboardCollectionView.contentOffset.x / pageWidth;
+    
+    //Reset Scroll State
+    _scrollSwipeState = 0;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width - 75;
+    if (rightEdge >= scrollView.contentSize.width) {
+        // we are at the end
+        NSLog(@"At the right end!");
+        
+        if(_currentCategory < 5 && _scrollSwipeState == 0){
+            
+            //Change category
+            _scrollSwipeState = 1;
+            [self changeCategory:_currentCategory+1];
+        }
+        else if(_currentCategory == 5 && _scrollSwipeState == 0){
+            //Change category
+            _scrollSwipeState = 1;
+            [self changeCategory:1];
+        }
+    }
+    
+    
+    
+    float leftEdge = scrollView.contentOffset.x;
+   // NSLog(@"scrollView.contentOffset: %f", scrollView.contentOffset.x);
+    if (leftEdge <= -75) {
+        // we are at the en d
+        NSLog(@"At the left Edge end!");
+  
+        if(_currentCategory > 1 && _scrollSwipeState == 0){
+            //Change category
+            _scrollSwipeState = 1;
+            [self changeCategory:_currentCategory-1];
+        }
+        else if(_currentCategory == 1 && _scrollSwipeState == 0){
+            //Change category
+            _scrollSwipeState = 1;
+            [self changeCategory:5];
+        }
+        
+
+    }
+
+    
 }
 
 - (void) changePageControlNum {
@@ -691,22 +828,67 @@
     }
     else{
         //Keyboard is in Landscape
-        NSLog(@"Landscape");
+        //NSLog(@"Landscape");
         pageNumber = ceil(numberOfGifs/18);
     }
 
     
-     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
-     CGFloat contentSize = self.keyboardCollectionView.contentSize.width;
+    CGFloat pageWidth      = self.keyboardCollectionView.frame.size.width;
+    CGFloat pageHeight     = self.keyboardCollectionView.frame.size.height;
+    //CGFloat contentSize    = self.keyboardCollectionView.contentSize.width;
 
-    NSLog(@"%f", numberOfGifs);
-    NSLog(@"page num: %f", pageNumber);
-    NSLog(@"page width: %f", pageWidth);
-    NSLog(@"content size: %f", contentSize);
+    //NSLog(@"%f", numberOfGifs);
+    //NSLog(@"page num: %f", pageNumber);
+    NSLog(@"page width 2: %f", pageWidth);
+    //NSLog(@"content size: %f", contentSize);
     
     //Page Control
     self.pageControl.numberOfPages = pageNumber;
+    self.keyboardCollectionView.contentSize = CGSizeMake(pageWidth*pageNumber, pageHeight);
     
+}
+
+
+- (void) changeKeyboardFlowLayout {
+    
+    CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+    CGFloat pageHeight = self.keyboardCollectionView.frame.size.height;
+    CGFloat newItemSizeHeight;
+    CGFloat newItemSizeWidth;
+    UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
+
+    
+    //Check for Landscape or Portrait mode
+    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
+        //Keyboard is in Portrait
+        //NSLog(@"Portrait");
+        
+        //Create 5x2 grid
+        newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
+        newItemSizeHeight = floor(pageHeight/2) - 3;
+        
+        
+    }
+    else{
+        //Keyboard is in Landscape
+        NSLog(@"Landscape");
+        
+        //Create 9x2 grid
+        newItemSizeWidth = floor(pageWidth/9) - 1;
+        newItemSizeHeight = floor(pageHeight/2) - 4;
+    }
+
+    //NSLog(@"pageHeight %f", pageHeight);
+    //NSLog(@"pageWidth %f", pageWidth);
+    //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
+    //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
+    //NSLog(@"newItemSizeHeight %f", newItemSizeHeight);
+    //NSLog(@"newItemSizeWidth %f", newItemSizeWidth);
+    
+    //Create new item size
+    self.flowLayout.itemSize = CGSizeMake(newItemSizeWidth, newItemSizeHeight);
+    
+
 }
 
 
@@ -744,17 +926,6 @@
     NSString * urlPath;
     
     if([self isRequestsOpenAccessEnabled]){
-        
-        //Add DFImageView
-        /*
-        DFImageView *imageView = (id)[cell viewWithTag:15];
-        if (!imageView) {
-            imageView = [[DFImageView alloc] initWithFrame:cell.bounds];
-            imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            imageView.tag = 15;
-            [cell addSubview:imageView];
-        }
-         */
         
         [cell.imageView prepareForReuse];
         
@@ -816,7 +987,7 @@
         NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         // Make toast
-        [self.view makeToast:@"Tap again to copy to clipboard."
+        [self.view makeToast:@"Tap again to copy Eboticon."
                     duration:2.0
                     position:CSToastPositionCenter
          ];
@@ -838,7 +1009,7 @@
         
         
         // Make toast
-        [self.view makeToast:@"Tap again to copy into clipboard."
+        [self.view makeToast:@"Tap again to copy Eboticon."
                     duration:2.0
                     position:CSToastPositionCenter
          ];
@@ -874,7 +1045,7 @@
             
             
             // Make toast with an image
-            [self.view makeToast:@"Eboticon copied."
+            [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0
                         position:CSToastPositionCenter
              ];
@@ -907,7 +1078,7 @@
         _currentImageSelected = indexPath.row;
         
         // Make toast
-        [self.view makeToast:@"Tap again to copy into clipboard."
+        [self.view makeToast:@"Tap again to copy Eboticon."
                     duration:2.0
                     position:CSToastPositionCenter
          ];
@@ -937,13 +1108,19 @@
 
 #pragma mark - Orientation Protocol methods
 
+- (void)viewWillLayoutSubviews
+{
+    [self.flowLayout invalidateLayout];
+}
+
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    NSLog(@"viewDidLayoutSubviews");
+    //NSLog(@"viewDidLayoutSubviews");
     if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
         //Keyboard is in Portrait
-        NSLog(@"Portrait");
+        //NSLog(@"Portrait");
         
         //Change the bottom border
         CGRect newFrame = self.bottomBorder.frame;
@@ -952,6 +1129,9 @@
         
         //Change Page Control
         [self changePageControlNum];
+        
+        //Change flowlayout
+        //[self changeKeyboardFlowLayout];
 
     }
     else{
@@ -965,24 +1145,67 @@
         
         //Change Page Control
         [self changePageControlNum];
+        
+        //Change flowlayout
+        //[self changeKeyboardFlowLayout];
     }
     
 }
 
-
 #pragma mark - UICollectionViewDelegateFlowLayout Protocol methods
-/*
+
  - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
  {
- return CGSizeMake(100, 100);
- }*/
-/*
+
+     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+     CGFloat pageHeight = self.keyboardCollectionView.frame.size.height;
+     CGFloat newItemSizeHeight;
+     CGFloat newItemSizeWidth;
+     UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
+     
+     
+     //Check for Landscape or Portrait mode
+     if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
+         //Keyboard is in Portrait
+         //NSLog(@"Portrait");
+         
+         
+         
+         //Create 5x2 grid
+         newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
+         newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+         
+         
+     }
+     else{
+         //Keyboard is in Landscape
+         NSLog(@"Landscape");
+         
+         //Create 9x2 grid
+         newItemSizeWidth = floor(pageWidth/9) - 1;
+         newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+         
+     }
+     
+     NSLog(@"pageHeight %f", pageHeight);
+     NSLog(@"pageWidth %f", pageWidth);
+     //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
+     //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
+     NSLog(@"newItemSizeHeight %f", newItemSizeHeight);
+     NSLog(@"newItemSizeWidth %f", newItemSizeWidth);
+     
+     //Create new item size
+     return CGSizeMake(newItemSizeWidth, newItemSizeHeight);
+ }
+
+
+
  
  - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
  {
- return UIEdgeInsetsMake(0, 0, 0, 0);
+ return UIEdgeInsetsMake(2, 2, 2, 2);
  }
- */
+ 
 
 
 @end
