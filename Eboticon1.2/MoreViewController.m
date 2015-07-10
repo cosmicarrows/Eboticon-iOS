@@ -133,7 +133,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (IBAction)faqURL:(id)sender {
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/#!faq/cne9"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/faq"]];
     [self sendAlertToGoogleAnalytics:FAQS];
 }
 
@@ -164,8 +164,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (IBAction)facebookLogo:(id)sender {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];
-    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com/1416004045306313"];
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/826163820808391"];
+    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com/eboticon"];
     
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
         [[UIApplication sharedApplication] openURL:facebookURL];
