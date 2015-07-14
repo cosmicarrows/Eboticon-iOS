@@ -176,6 +176,8 @@
     //Setup Keyboard
     [self initializeKeyboard];
     
+    
+    
     //Load CSV into Array
     [self loadGifsFromCSV];
     
@@ -757,9 +759,9 @@
     
     NSLog(@"pageControlChanged");
     //UIPageControl *pageControl = sender;
-    //CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
-    //CGPoint scrollTo = CGPointMake(pageWidth * pageControl.currentPage, 0);
-    //[self.keyboardCollectionView setContentOffset:scrollTo animated:YES];
+    CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+    CGPoint scrollTo = CGPointMake(pageWidth * self.pageControl.currentPage, 0);
+    [self.keyboardCollectionView setContentOffset:scrollTo animated:YES];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -823,7 +825,8 @@
     CGFloat pageNumber;
     if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
         //Keyboard is in Portrait
-        pageNumber = ceil(numberOfGifs/10);
+        pageNumber = ceil(numberOfGifs/8);
+        
         
     }
     else{
@@ -833,18 +836,35 @@
     }
 
     
-    CGFloat pageWidth      = self.keyboardCollectionView.frame.size.width;
+    //CGFloat pageWidth    = self.keyboardCollectionView.frame.size.width;
+    CGFloat pageWidth      = self.flowLayout.itemSize.width*4;
+   
     CGFloat pageHeight     = self.keyboardCollectionView.frame.size.height;
     //CGFloat contentSize    = self.keyboardCollectionView.contentSize.width;
 
+
     //NSLog(@"%f", numberOfGifs);
-    //NSLog(@"page num: %f", pageNumber);
+    NSLog(@"*****");
+    NSLog(@"numberOfGifs: %f", numberOfGifs)
+    ;
+    NSLog(@"page num   calc: %f", ceil(numberOfGifs/8));
+    NSLog(@"page num   2: %f", pageNumber);
     NSLog(@"page width 2: %f", pageWidth);
-    //NSLog(@"content size: %f", contentSize);
+    
     
     //Page Control
     self.pageControl.numberOfPages = pageNumber;
-    self.keyboardCollectionView.contentSize = CGSizeMake(pageWidth*pageNumber, pageHeight);
+    
+    self.keyboardCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    if(pageNumber == 1 && numberOfGifs>6){
+        [self.keyboardCollectionView setContentSize:CGSizeMake(pageWidth*2, pageHeight)];
+    }
+    else{
+        [self.keyboardCollectionView setContentSize:CGSizeMake(pageWidth*pageNumber, pageHeight)];
+    }
+    
+    //self.keyboardCollectionView.contentSize.width      = self.flowLayout.itemSize.width*4;
+    NSLog(@"content size: %f", self.keyboardCollectionView.contentSize.width);
     
 }
 
@@ -864,8 +884,9 @@
         //NSLog(@"Portrait");
         
         //Create 5x2 grid
-        newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
+        //newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
         newItemSizeHeight = floor(pageHeight/2) - 3;
+        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
         
         
     }
@@ -874,16 +895,17 @@
         NSLog(@"Landscape");
         
         //Create 9x2 grid
-        newItemSizeWidth = floor(pageWidth/9) - 1;
+        //newItemSizeWidth = floor(pageWidth/9) - 1;
         newItemSizeHeight = floor(pageHeight/2) - 4;
+        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
     }
 
     //NSLog(@"pageHeight %f", pageHeight);
     //NSLog(@"pageWidth %f", pageWidth);
     //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
     //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
-    //NSLog(@"newItemSizeHeight %f", newItemSizeHeight);
-    //NSLog(@"newItemSizeWidth %f", newItemSizeWidth);
+    NSLog(@"newItemSizeHeight 1: %f", newItemSizeHeight);
+    NSLog(@"newItemSizeWidth  1: %f", newItemSizeWidth);
     
     //Create new item size
     self.flowLayout.itemSize = CGSizeMake(newItemSizeWidth, newItemSizeHeight);
@@ -932,9 +954,8 @@
         //Load Gif File name
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
             filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            //urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/small/gifs/%@", filename];
             
-            urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", filename];
+            urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", filename];
             NSLog(@"Loading gif: %@", urlPath);
             
             [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
@@ -1033,7 +1054,8 @@
             
             
            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = [NSString stringWithFormat:@"http://brainrainsolutions.com/eboticons/%@", filename];
+             NSString * urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", filename];
+            
             NSLog(@"%@",urlPath);
             UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
             //NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -1172,8 +1194,9 @@
          
          
          //Create 5x2 grid
-         newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
+         //newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
          newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+          newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
          
          
      }
@@ -1182,17 +1205,19 @@
          NSLog(@"Landscape");
          
          //Create 9x2 grid
-         newItemSizeWidth = floor(pageWidth/9) - 1;
+         //newItemSizeWidth = floor(pageWidth/9) - 1;
          newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+         newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
+         
          
      }
      
-     NSLog(@"pageHeight %f", pageHeight);
-     NSLog(@"pageWidth %f", pageWidth);
+     //NSLog(@"pageHeight %f", pageHeight);
+     //NSLog(@"pageWidth %f", pageWidth);
      //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
      //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
-     NSLog(@"newItemSizeHeight %f", newItemSizeHeight);
-     NSLog(@"newItemSizeWidth %f", newItemSizeWidth);
+     //NSLog(@"newItemSizeHeight 2: %f", newItemSizeHeight);
+     //NSLog(@"newItemSizeWidth  2: %f", newItemSizeWidth);
      
      //Create new item size
      return CGSizeMake(newItemSizeWidth, newItemSizeHeight);
