@@ -14,6 +14,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import "DDLog.h"
+#import <QuartzCore/QuartzCore.h>
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
@@ -47,7 +48,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     //self.tableView.scrollEnabled = false;
     self.tableView.alwaysBounceVertical = NO;
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MasterBackground2.0.png"]];
+    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MasterBackground2.0.png"]];
+    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
+    
     
     //GOOGLE ANALYTICS
     @try {
