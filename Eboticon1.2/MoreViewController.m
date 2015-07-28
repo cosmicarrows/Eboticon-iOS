@@ -11,6 +11,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import "DDLog.h"
+#import "WhatsNewMainViewController.h"
 
 //Definitions
 #define TWITTER @"twitter"
@@ -153,6 +154,18 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     [self sendAlertToGoogleAnalytics:RATE];
 }
+
+
+- (IBAction)whatsNew:(id)sender {
+    
+    NSLog(@"whatsNew");
+
+    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    [self.navigationController pushViewController:whatsNewMainViewController animated:YES];
+    
+}
+
 
 - (IBAction)facebookLogo:(id)sender {
     NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/1416004045306313"];

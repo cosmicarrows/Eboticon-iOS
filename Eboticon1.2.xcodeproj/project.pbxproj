@@ -731,6 +731,10 @@
 		97702BDD1B2384CF0011F6DE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BDC1B2384CF0011F6DE /* Reachability.m */; };
 		97702BDF1B2398B10011F6DE /* no_connection.png in Resources */ = {isa = PBXBuildFile; fileRef = 97702BDE1B2398B10011F6DE /* no_connection.png */; };
 		97702BE51B2772070011F6DE /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97702BC01B21FB070011F6DE /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97A383051B67E054002F5571 /* KMXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383041B67E054002F5571 /* KMXMLParser.m */; };
+		97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */; };
+		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
+		97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A3830D1B67E0E4002F5571 /* iAd.framework */; };
 		97B681131B3D9B4F00170446 /* round-switch-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681091B3D9B4F00170446 /* round-switch-mask.png */; };
 		97B681141B3D9B4F00170446 /* round-switch-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */; };
 		97B681151B3D9B4F00170446 /* round-switch-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */; };
@@ -1284,6 +1288,13 @@
 		97702BDC1B2384CF0011F6DE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		97702BDE1B2398B10011F6DE /* no_connection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_connection.png; sourceTree = "<group>"; };
 		97702BE11B24E5160011F6DE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		97A383031B67E054002F5571 /* KMXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMXMLParser.h; sourceTree = "<group>"; };
+		97A383041B67E054002F5571 /* KMXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMXMLParser.m; sourceTree = "<group>"; };
+		97A383071B67E0AF002F5571 /* WhatsNewMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewMainViewController.h; sourceTree = "<group>"; };
+		97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsNewMainViewController.m; sourceTree = "<group>"; };
+		97A383091B67E0AF002F5571 /* WhatsNewWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewWebViewController.h; sourceTree = "<group>"; };
+		97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsNewWebViewController.m; sourceTree = "<group>"; };
+		97A3830D1B67E0E4002F5571 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		97B681091B3D9B4F00170446 /* round-switch-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask.png"; sourceTree = "<group>"; };
 		97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask@2x.png"; sourceTree = "<group>"; };
 		97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-overlay.png"; sourceTree = "<group>"; };
@@ -1436,6 +1447,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */,
 				6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */,
 				6325FA5B1A8FD34800C4CABB /* Security.framework in Frameworks */,
 				6325FA591A8FD33500C4CABB /* QuartzCore.framework in Frameworks */,
@@ -1918,6 +1930,7 @@
 		63FAE3851868CC0200116D73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97A3830D1B67E0E4002F5571 /* iAd.framework */,
 				A78A244F1B26C6E1007A4931 /* Fabric.framework */,
 				97702BE11B24E5160011F6DE /* ImageIO.framework */,
 				6325FA5A1A8FD34800C4CABB /* Security.framework */,
@@ -1974,6 +1987,7 @@
 				63D643981984579B0056AC0B /* EBOActivityTypePostToFacebook.m */,
 				63A70AAE18A606540075B829 /* MoreViewController.h */,
 				63A70AAF18A606540075B829 /* MoreViewController.m */,
+				97A383061B67E07F002F5571 /* Whats-New */,
 				63FAE3A11868CC0200116D73 /* Images.xcassets */,
 				63FAE38D1868CC0200116D73 /* Supporting Files */,
 				63C2A44B1A642DB800B28566 /* Constants.h */,
@@ -1984,6 +1998,8 @@
 		63FAE38D1868CC0200116D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				97A383031B67E054002F5571 /* KMXMLParser.h */,
+				97A383041B67E054002F5571 /* KMXMLParser.m */,
 				63FAE38E1868CC0200116D73 /* Eboticon1.2-Info.plist */,
 				632448481AAB67470057ABB2 /* EboticonLite-Info.plist */,
 				63FAE38F1868CC0200116D73 /* InfoPlist.strings */,
@@ -2068,6 +2084,17 @@
 				97702BDC1B2384CF0011F6DE /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		97A383061B67E07F002F5571 /* Whats-New */ = {
+			isa = PBXGroup;
+			children = (
+				97A383071B67E0AF002F5571 /* WhatsNewMainViewController.h */,
+				97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */,
+				97A383091B67E0AF002F5571 /* WhatsNewWebViewController.h */,
+				97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */,
+			);
+			name = "Whats-New";
 			sourceTree = "<group>";
 		};
 		97B681081B3D9B1700170446 /* switch */ = {
@@ -3251,15 +3278,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A383051B67E054002F5571 /* KMXMLParser.m in Sources */,
 				635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */,
 				63B6CB4618F07C9600D1F08A /* EboticonGif.m in Sources */,
 				63D643991984579B0056AC0B /* EBOActivityTypePostToFacebook.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
 				63FAE3971868CC0200116D73 /* AppDelegate.m in Sources */,
+				97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */,
 				63FAE39D1868CC0200116D73 /* MasterViewController.m in Sources */,
 				6337EB3D188B11D200332C75 /* OLImage.m in Sources */,
 				6351833118F6BBA700932C04 /* EboticonGifCell.m in Sources */,
 				63A70AB718A6A0F30075B829 /* iTellAFriend.m in Sources */,
+				97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */,
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,
