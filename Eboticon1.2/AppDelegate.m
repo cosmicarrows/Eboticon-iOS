@@ -41,8 +41,13 @@
     //Setting up Navigation Bar
     UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
     //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
+    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
+   // [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setTranslucent:YES];
+
 
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
