@@ -53,7 +53,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
+    EboticonViewController *eboticonViewController =  [[EboticonViewController alloc] initWithNibName:@"EboticonView" bundle:nil];
+    
+   // GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
     EboticonGif *currGif = self.imageNames[self.index];
     

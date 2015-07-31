@@ -35,6 +35,11 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+     //Sets the navigation bar title
+    [self.navigationController.navigationBar.topItem setTitle:@"What's New"];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,8 +47,10 @@
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadFeed)];
     self.navigationItem.rightBarButtonItem = refreshButton;
     
-    //Sets the navigation bar title
-    self.title = @"What's New";
+   
+
+    
+
     //Set table row height so it can fit title & 2 lines of summary
     self.tableView.rowHeight = 85;
     

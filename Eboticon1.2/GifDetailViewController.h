@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSMutableArray *imageNames;
 @property (assign, nonatomic) NSInteger currentDisplayIndex;
 
+@property (strong, nonatomic) id gifCategory;
 
 @end

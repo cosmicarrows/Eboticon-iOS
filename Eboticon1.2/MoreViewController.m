@@ -22,6 +22,7 @@
 
 #define ABOUT @"about_link"
 #define FAQS @"faqs_link"
+#define PRIVACYPOLICY @"privacy_policy"
 #define CONTACTUS @"contactUs_link"
 #define RATE @"rate_link"
 #define TELLAFRIEND @"tellFriend_link"
@@ -49,10 +50,22 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [_eboticonLogo setImage:[UIImage imageNamed:@"Eboticon_Final.png"] forState:UIControlStateNormal];
+    
     [_facebookLogo setImage:[UIImage imageNamed:@"facebook-social.png"] forState:UIControlStateNormal];
+    _facebookLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _facebookLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_instagramLogo setImage:[UIImage imageNamed:@"instagram-social.png"] forState:UIControlStateNormal];
+    _instagramLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _instagramLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_twitterLogo setImage:[UIImage imageNamed:@"twitter-social.png"] forState:UIControlStateNormal];
+    _twitterLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _twitterLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_youtubeLogo setImage:[UIImage imageNamed:@"youtube-social.png"] forState:UIControlStateNormal];
+    _youtubeLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _youtubeLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     
     //GOOGLE ANALYTICS
     @try {
@@ -165,13 +178,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 
-- (IBAction)whatsNew:(id)sender {
+- (IBAction) privacyPolicy:(id)sender {
     
-    NSLog(@"whatsNew");
-
-    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
-    
-    [self.navigationController pushViewController:whatsNewMainViewController animated:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/privacy_policy"]];
+    [self sendAlertToGoogleAnalytics:PRIVACYPOLICY];
     
 }
 

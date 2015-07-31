@@ -71,9 +71,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self loadGifsFromCSV];
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     [self populateGifArraysFromCSV];
-
-    // set up toolbar
-    //[self addToolbar];
     
     //Add background image
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
