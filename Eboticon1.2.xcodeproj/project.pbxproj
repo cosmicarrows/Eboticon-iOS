@@ -769,6 +769,11 @@
 		63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C01868CCE900116D73 /* JMCategoryData.m */; };
 		63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C21868CCE900116D73 /* JMCategoriesData.m */; };
 		96D96E5DE14EADA63AEB3A7F /* libPods-EboticonLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */; };
+		97035AA01B6C1FB5004FEDC5 /* page-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9B1B6C1FB5004FEDC5 /* page-1.png */; };
+		97035AA11B6C1FB5004FEDC5 /* page-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9C1B6C1FB5004FEDC5 /* page-4.png */; };
+		97035AA31B6C1FB5004FEDC5 /* page-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9E1B6C1FB5004FEDC5 /* page-3.png */; };
+		97035AA61B6C201A004FEDC5 /* page-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA41B6C201A004FEDC5 /* page-5.png */; };
+		97035AA71B6C201A004FEDC5 /* page-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA51B6C201A004FEDC5 /* page-2.png */; };
 		970658691B6A536A004B149A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970658681B6A536A004B149A /* SWRevealViewController.m */; };
 		9706586E1B6A54A8004B149A /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9706586C1B6A54A8004B149A /* RightViewController.m */; };
 		9706586F1B6A54A8004B149A /* RightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9706586D1B6A54A8004B149A /* RightViewController.xib */; };
@@ -1375,6 +1380,11 @@
 		7D6FD9BA89AC306BD6766F2A /* Pods-EboticonLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonLite/Pods-EboticonLite.release.xcconfig"; sourceTree = "<group>"; };
 		8459AE06593CA56BE3ED54DB /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5D28B18F87439D9A4175FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		97035A9B1B6C1FB5004FEDC5 /* page-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-1.png"; sourceTree = "<group>"; };
+		97035A9C1B6C1FB5004FEDC5 /* page-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-4.png"; sourceTree = "<group>"; };
+		97035A9E1B6C1FB5004FEDC5 /* page-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-3.png"; sourceTree = "<group>"; };
+		97035AA41B6C201A004FEDC5 /* page-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-5.png"; sourceTree = "<group>"; };
+		97035AA51B6C201A004FEDC5 /* page-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-2.png"; sourceTree = "<group>"; };
 		970658671B6A536A004B149A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		970658681B6A536A004B149A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		9706586B1B6A54A8004B149A /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
@@ -2203,6 +2213,18 @@
 			name = Media;
 			sourceTree = "<group>";
 		};
+		97035A8B1B6C191E004FEDC5 /* Keyboard Tutorial Images */ = {
+			isa = PBXGroup;
+			children = (
+				97035AA41B6C201A004FEDC5 /* page-5.png */,
+				97035AA51B6C201A004FEDC5 /* page-2.png */,
+				97035A9B1B6C1FB5004FEDC5 /* page-1.png */,
+				97035A9C1B6C1FB5004FEDC5 /* page-4.png */,
+				97035A9E1B6C1FB5004FEDC5 /* page-3.png */,
+			);
+			name = "Keyboard Tutorial Images";
+			sourceTree = "<group>";
+		};
 		9706585F1B6A4C38004B149A /* Bottom Tab bar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2258,6 +2280,7 @@
 		970DA3CA1B6979A400587CD6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				97035A8B1B6C191E004FEDC5 /* Keyboard Tutorial Images */,
 				97065D731B6A85B1004B149A /* shop-slider.png */,
 				970658701B6A570A004B149A /* reveal-icon.png */,
 				970658711B6A570A004B149A /* reveal-icon@2x.png */,
@@ -3066,6 +3089,7 @@
 				639B13101B46F0A100EF8997 /* dead_female-nocaption.gif in Resources */,
 				63C613361A1AE6A3004D821D /* happy_birthday-caption.gif in Resources */,
 				630BF52D1A5EDFCE00F179F5 /* wait_whet-nocaption.mov in Resources */,
+				97035AA71B6C201A004FEDC5 /* page-2.png in Resources */,
 				630451571ABF950A001DC8B2 /* bruh-caption.png in Resources */,
 				630451F31ABF950A001DC8B2 /* wont_he_do_it_female-caption.png in Resources */,
 				63C893B61A3CF985005D5562 /* where_da_milk_and_cookies-caption.gif in Resources */,
@@ -3082,6 +3106,7 @@
 				63BCCDA41920E92200C8508D /* really_female-nocaption.gif in Resources */,
 				637077FE1AC11628007652E1 /* you_knew-caption.gif in Resources */,
 				63BCCDB71920E92200C8508D /* wth-caption.gif in Resources */,
+				97035AA31B6C1FB5004FEDC5 /* page-3.png in Resources */,
 				631DC16819CE474400B11541 /* operation_skinty-caption.gif in Resources */,
 				63BCCD9A1920E92200C8508D /* i_cant-nocaption.gif in Resources */,
 				6332782C1A82E0F4000557D0 /* im_flattered-nocaption.mov in Resources */,
@@ -3109,6 +3134,7 @@
 				630452011ABF950A001DC8B2 /* yas-nocaption.png in Resources */,
 				637078161AC11714007652E1 /* good_night-caption.mov in Resources */,
 				630BF52B1A5EDFCE00F179F5 /* twerk_team-nocaption.mov in Resources */,
+				97035AA61B6C201A004FEDC5 /* page-5.png in Resources */,
 				6332784E1A82E120000557D0 /* did_that-nocaption.gif in Resources */,
 				633278501A82E120000557D0 /* girl_gone-nocaption.gif in Resources */,
 				63BCCDA01920E92200C8508D /* oh_crap-nocaption.gif in Resources */,
@@ -3130,6 +3156,7 @@
 				63BCCD901920E92200C8508D /* fabulous-nocaption.gif in Resources */,
 				631DC16019CE474400B11541 /* dont_mind_me-caption.gif in Resources */,
 				630BF4F41A5EDFCE00F179F5 /* crying-caption.mov in Resources */,
+				97035AA01B6C1FB5004FEDC5 /* page-1.png in Resources */,
 				639B13461B46F27500EF8997 /* buckets-caption.mov in Resources */,
 				63BCCD881920E92200C8508D /* brb-nocaption.gif in Resources */,
 				636EE68C1A63464800E43D65 /* aint_nobody-nocaption.mov in Resources */,
@@ -3208,6 +3235,7 @@
 				639B13481B46F27500EF8997 /* buckets-nocaption.mov in Resources */,
 				639B13521B46F27500EF8997 /* uh_hello-caption.mov in Resources */,
 				63BCCD8F1920E92200C8508D /* fabulous-caption.gif in Resources */,
+				97035AA11B6C1FB5004FEDC5 /* page-4.png in Resources */,
 				63BCCDB61920E92200C8508D /* wont_he_do_it_male-nocaption.gif in Resources */,
 				6332782A1A82E0F4000557D0 /* i_love_you-nocaption.mov in Resources */,
 				630BF52C1A5EDFCE00F179F5 /* wait_whet-caption.mov in Resources */,

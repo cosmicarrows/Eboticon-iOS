@@ -26,7 +26,9 @@
     
     pageControlBeingUsed = NO;
     
-    NSArray *colors = [NSArray arrayWithObjects:[UIColor grayColor], [UIColor whiteColor], [UIColor yellowColor], nil];
+    /*
+    NSArray *colors = [NSArray arrayWithObjects:[UIColor grayColor], [UIColor whiteColor], [UIColor yellowColor],[NSArray arrayWithObjects:[UIColor grayColor], [UIColor whiteColor], nil];
+    
     for (int i = 0; i < colors.count; i++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
@@ -37,14 +39,52 @@
         subview.backgroundColor = [colors objectAtIndex:i];
         [self.scrollView addSubview:subview];
     }
+     */
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
+    int numberOfImages = 5;
+    CGFloat currentX = 0.0f;
+    
+    //create image width and height
+    CGFloat imageWidth = 300.0f;
+    CGFloat imageHeight = 300.0f;
+    
+    //Computer centered origin
+    CGFloat centeredOrigin = ([[UIScreen mainScreen] bounds].size.width - imageWidth)/2;
+    
+    for (int i=1; i <= numberOfImages; i++) {
+        
+
+        
+ 
+        
+        // create image
+        NSString *imageName = [NSString stringWithFormat:@"page-%d.png", i];
+        UIImage *image = [UIImage imageNamed:imageName];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        
+        // put image on correct position
+        CGRect frame = CGRectMake(self.scrollView.frame.size.width * (i-1)+centeredOrigin, 100, imageWidth, imageHeight);
+        imageView.frame = frame;
+        
+        // update currentX
+        currentX += self.scrollView.frame.size.width;
+        
+        [self.scrollView addSubview:imageView];
+    }
+    
+    
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * numberOfImages, self.scrollView.frame.size.height);
     
     self.pageControl.currentPage = 0;
-    self.pageControl.numberOfPages = colors.count;
+    self.pageControl.numberOfPages = numberOfImages;
     
      self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
+    
+    [self.view addSubview:scrollView];
 }
+
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (!pageControlBeingUsed) {

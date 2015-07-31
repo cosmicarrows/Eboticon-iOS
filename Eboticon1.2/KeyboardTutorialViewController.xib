@@ -29,7 +29,7 @@
                         <constraint firstAttribute="height" constant="37" id="rL2-E9-0Rg"/>
                     </constraints>
                     <color key="pageIndicatorTintColor" red="0.69396551593286637" green="0.65476106166549264" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="currentPageIndicatorTintColor" red="0.1797768396342973" green="0.10190910485507042" blue="0.50589037698412698" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="currentPageIndicatorTintColor" red="0.93183709653434121" green="0.95383175119614927" blue="0.98148148148148151" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="changePage" destination="-1" eventType="valueChanged" id="uik-rM-QNi"/>
                     </connections>
