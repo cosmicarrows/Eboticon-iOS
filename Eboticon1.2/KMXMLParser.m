@@ -42,6 +42,8 @@
     [self.delegate parserDidBegin];
 }
 
+
+
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     [self.delegate parserCompletedSuccessfully];
