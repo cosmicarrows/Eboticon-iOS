@@ -90,7 +90,7 @@
     moreViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     
     
-    [self.tabBar setBarTintColor:[UIColor colorWithRed:37.0f/255.0f green:21.0f/255.0f blue:48.0f/255.0f alpha:0.7f]]; //
+    [self.tabBar setBarTintColor:[UIColor colorWithRed:37.0f/255.0f green:21.0f/255.0f blue:48.0f/255.0f alpha:0.5f]]; //
 }
 
 

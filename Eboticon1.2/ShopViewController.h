@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopViewController : UIViewController
+@interface ShopViewController : UIViewController{
+    
+}
+
+@property (retain, nonatomic) IBOutlet UITableView *inAppPurchaseTable;
+
 
 @end

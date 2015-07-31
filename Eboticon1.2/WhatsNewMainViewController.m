@@ -47,21 +47,47 @@
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadFeed)];
     self.navigationItem.rightBarButtonItem = refreshButton;
     
-   
-
+    //Load Spinner
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    NSLog(@"center x: %f", [[UIScreen mainScreen] bounds].size.width/2.0f);
+     NSLog(@"center y: %f", [[UIScreen mainScreen] bounds].size.height/2.0f);
     
-
+    self.spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
+    [self.spinner startAnimating];
+    
+   
     //Set table row height so it can fit title & 2 lines of summary
     self.tableView.rowHeight = 85;
     
     //Parse feed
-    KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
-    _parseResults = [parser posts];
+    [self parseRssFeed];
 
-    [self stripHTMLFromSummary];
     self.canDisplayBannerAds = NO;
+    
 }
 
+- (void)parseRssFeed{
+    
+    dispatch_async( dispatch_get_global_queue(0, 0), ^{
+        
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        // call the result handler block on the main queue (i.e. main thread)
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // running synchronously on the main thread now -- call the handler
+            _parseResults = [parser posts];
+             [self stripHTMLFromSummary];
+             [self.tableView reloadData];
+             [self.spinner stopAnimating];
+        });
+    });
+    
+    
+
+    
+    
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -75,6 +101,8 @@
 }
 
 - (void)stripHTMLFromSummary {
+    NSLog(@"stripHTMLFromSummary");
+    NSLog(@" COUNT: %lu", (unsigned long)self.parseResults.count);
     int i = 0;
     int count = self.parseResults.count;
     //cycles through each 'summary' element stripping HTML
@@ -89,11 +117,19 @@
 }
 
 - (void)reloadFeed {
-    KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://rss.cnn.com/rss/edition.rss" delegate:self];
-    _parseResults = [parser posts];
-
-    [self stripHTMLFromSummary];
-    [self.tableView reloadData];
+    [self.spinner startAnimating];
+    dispatch_async( dispatch_get_global_queue(0, 0), ^{
+        
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        // call the result handler block on the main queue (i.e. main thread)
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // running synchronously on the main thread now -- call the handler
+            _parseResults = [parser posts];
+            [self stripHTMLFromSummary];
+            [self.tableView reloadData];
+            [self.spinner stopAnimating];
+        });
+    });
 }
 
 #pragma mark - Table view data source
@@ -149,14 +185,22 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not parse feed. Check your network connection." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     [alert show];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
 }
 
 - (void)parserCompletedSuccessfully {
+    NSLog(@"parserCompletedSuccessfully");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+     NSLog(@"stop animating");
+    
+   
+    
 }
 
 - (void)parserDidBegin {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSLog(@"parserDidBegin");
+    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
 }
 
 @end

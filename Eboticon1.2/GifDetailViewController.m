@@ -55,7 +55,6 @@
     
     EboticonViewController *eboticonViewController =  [[EboticonViewController alloc] initWithNibName:@"EboticonView" bundle:nil];
     
-   // GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
     EboticonGif *currGif = self.imageNames[self.index];
     
