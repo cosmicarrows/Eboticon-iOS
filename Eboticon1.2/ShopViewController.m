@@ -8,7 +8,7 @@
 
 #import "ShopViewController.h"
 
-@interface ShopViewController ()
+@interface ShopViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -40,6 +40,35 @@
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
 }
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    if (! cell) {
+        NSArray *parts = [[NSBundle mainBundle] loadNibNamed:@"ShopTableCell" owner:nil options:nil];
+        cell = [parts objectAtIndex:0];
+    }
+    
+    return cell;
+}
+#pragma mark -
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+#pragma mark -
+
+
+
 
 /*
 #pragma mark - Navigation

@@ -38,7 +38,7 @@
     
     //Load Spinner
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.center = CGPointMake(160, 240);
+    self.spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     [self.spinner startAnimating];

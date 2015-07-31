@@ -774,6 +774,7 @@
 		97035AA31B6C1FB5004FEDC5 /* page-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9E1B6C1FB5004FEDC5 /* page-3.png */; };
 		97035AA61B6C201A004FEDC5 /* page-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA41B6C201A004FEDC5 /* page-5.png */; };
 		97035AA71B6C201A004FEDC5 /* page-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA51B6C201A004FEDC5 /* page-2.png */; };
+		97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */; };
 		970658691B6A536A004B149A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970658681B6A536A004B149A /* SWRevealViewController.m */; };
 		9706586E1B6A54A8004B149A /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9706586C1B6A54A8004B149A /* RightViewController.m */; };
 		9706586F1B6A54A8004B149A /* RightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9706586D1B6A54A8004B149A /* RightViewController.xib */; };
@@ -1385,6 +1386,7 @@
 		97035A9E1B6C1FB5004FEDC5 /* page-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-3.png"; sourceTree = "<group>"; };
 		97035AA41B6C201A004FEDC5 /* page-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-5.png"; sourceTree = "<group>"; };
 		97035AA51B6C201A004FEDC5 /* page-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-2.png"; sourceTree = "<group>"; };
+		97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopTableCell.xib; sourceTree = "<group>"; };
 		970658671B6A536A004B149A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		970658681B6A536A004B149A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		9706586B1B6A54A8004B149A /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
@@ -2139,19 +2141,19 @@
 				63CE781C18AD6B040069049F /* EboticonViewController.h */,
 				63CE781D18AD6B040069049F /* EboticonViewController.m */,
 				97065D761B6BAC87004B149A /* EboticonView.xib */,
+				6384DAF419AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.h */,
+				6384DAF519AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m */,
+				63D643971984579B0056AC0B /* EBOActivityTypePostToFacebook.h */,
+				63D643981984579B0056AC0B /* EBOActivityTypePostToFacebook.m */,
 				97065D721B6A7543004B149A /* Detail View */,
 				970DA3C71B6978CF00587CD6 /* Gif Collection View */,
 				97A3830F1B695C12002F5571 /* Home View */,
 				970DA3E01B69CD1000587CD6 /* Shop View */,
 				97A383061B67E07F002F5571 /* Whats-New */,
 				970DA3EB1B69CD9100587CD6 /* Keyboard Tutorial View */,
-				6384DAF419AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.h */,
-				6384DAF519AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m */,
 				970DA3F11B69D01700587CD6 /* More View Controller */,
 				97065D751B6A8705004B149A /* Right Side Menu */,
-				9706585F1B6A4C38004B149A /* Bottom Tab bar */,
-				63D643971984579B0056AC0B /* EBOActivityTypePostToFacebook.h */,
-				63D643981984579B0056AC0B /* EBOActivityTypePostToFacebook.m */,
+				9706585F1B6A4C38004B149A /* Tab Bar */,
 				970DA3CA1B6979A400587CD6 /* Images */,
 				63FAE38D1868CC0200116D73 /* Supporting Files */,
 				63C2A44B1A642DB800B28566 /* Constants.h */,
@@ -2225,13 +2227,13 @@
 			name = "Keyboard Tutorial Images";
 			sourceTree = "<group>";
 		};
-		9706585F1B6A4C38004B149A /* Bottom Tab bar */ = {
+		9706585F1B6A4C38004B149A /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
 				97A383101B695D7B002F5571 /* TabViewController.h */,
 				97A383111B695D7B002F5571 /* TabViewController.m */,
 			);
-			name = "Bottom Tab bar";
+			name = "Tab Bar";
 			sourceTree = "<group>";
 		};
 		9706586A1B6A5473004B149A /* SWReveal */ = {
@@ -2296,6 +2298,7 @@
 				970DA3E11B69CD5100587CD6 /* ShopViewController.h */,
 				970DA3E21B69CD5100587CD6 /* ShopViewController.m */,
 				970DA3E31B69CD5100587CD6 /* ShopView.xib */,
+				97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */,
 			);
 			name = "Shop View";
 			sourceTree = "<group>";
@@ -3075,6 +3078,7 @@
 				63A1D30F1A194A0300FC0C45 /* thanks-caption.gif in Resources */,
 				63BCCD981920E92200C8508D /* hey_boo_hey-nocaption.gif in Resources */,
 				630BF4EE1A5EDFCE00F179F5 /* bruh-caption.mov in Resources */,
+				97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */,
 				63BCCDAB1920E92200C8508D /* that_aint_funny-caption.gif in Resources */,
 				630451AB1ABF950A001DC8B2 /* none_of_my_business-nocaption.png in Resources */,
 				63BCCDBB1920E92200C8508D /* you_mad-caption.gif in Resources */,

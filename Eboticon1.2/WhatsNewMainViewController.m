@@ -49,7 +49,10 @@
     
     //Load Spinner
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.center = CGPointMake(160, 240);
+    NSLog(@"center x: %f", [[UIScreen mainScreen] bounds].size.width/2.0f);
+     NSLog(@"center y: %f", [[UIScreen mainScreen] bounds].size.height/2.0f);
+    
+    self.spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     [self.spinner startAnimating];
@@ -114,11 +117,19 @@
 }
 
 - (void)reloadFeed {
-    KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
-    _parseResults = [parser posts];
-
-    [self stripHTMLFromSummary];
-    [self.tableView reloadData];
+    [self.spinner startAnimating];
+    dispatch_async( dispatch_get_global_queue(0, 0), ^{
+        
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        // call the result handler block on the main queue (i.e. main thread)
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // running synchronously on the main thread now -- call the handler
+            _parseResults = [parser posts];
+            [self stripHTMLFromSummary];
+            [self.tableView reloadData];
+            [self.spinner stopAnimating];
+        });
+    });
 }
 
 #pragma mark - Table view data source
