@@ -21,11 +21,16 @@
  THE SOFTWARE.
  
 */
-
+#import "TabViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface RightViewController : UIViewController
+@interface RightViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) BOOL wantsCustomAnimation;
+@property (strong, nonatomic) NSArray *categoryTitles;
+@property (strong, nonatomic) NSArray *categoryImages;
+@property (retain, nonatomic) IBOutlet UITableView *categoryTable;
+
+@property (strong, nonatomic) TabViewController *tabBarController;
 
 @end

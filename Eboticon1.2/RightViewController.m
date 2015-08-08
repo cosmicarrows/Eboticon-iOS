@@ -25,6 +25,8 @@
 #import "RightViewController.h"
 #import "SWRevealViewController.h"
 #import "MainViewController.h"
+#import "SidebarCategoryTableViewCell.h"
+#import "TTSwitch.h"
 
 
 
@@ -38,6 +40,11 @@
 
 
 @interface RightViewController ()
+
+//Caption Switch
+@property (strong, nonatomic) TTSwitch *captionSwitch;
+
+
 // Private Methods:
 - (IBAction)replaceMe:(id)sender;
 - (IBAction)replaceMeCustom:(id)sender;
@@ -59,13 +66,44 @@
 {
     [super viewDidLoad];
     
+    // Create the data model
+    _categoryTitles = @[@"ALL", @"LOVE", @"HAPPY", @"UNHAPPY", @"EXCLAMATION", @"GREETING"];
+    _categoryImages = @[@"", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller"];
+    
     // Set a random -not too dark- background color.
     //CGFloat r = 0.001f*(250+arc4random_uniform(750));
     //CGFloat g = 0.001f*(250+arc4random_uniform(750));
     //CGFloat b = 0.001f*(250+arc4random_uniform(750));
     //UIColor *color = [UIColor colorWithRed:r green:g blue:b alpha:1.0f];
     //self.view.backgroundColor = color;
+    
+    //The switch size should be the size of the overlay.
+    
+    self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 100.0f, 125.0f, 100.0f, 20.0f }];
+    [[TTSwitch appearance] setTrackImage:[UIImage imageNamed:@"round-switch-track"]];
+    [[TTSwitch appearance] setOverlayImage:[UIImage imageNamed:@"round-switch-overlay"]];
+    [[TTSwitch appearance] setTrackMaskImage:[UIImage imageNamed:@"round-switch-mask"]];
+    [[TTSwitch appearance] setThumbImage:[UIImage imageNamed:@"round-switch-thumb"]];
+    [[TTSwitch appearance] setThumbHighlightImage:[UIImage imageNamed:@"round-switch-thumb-highlight"]];
+    [[TTSwitch appearance] setThumbMaskImage:[UIImage imageNamed:@"round-switch-mask"]];
+    [[TTSwitch appearance] setThumbInsetX:-6.0f];
+    [[TTSwitch appearance] setThumbOffsetY:-6.0f];
+    
+    [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    self.captionSwitch.on = true;
+    
+    [self.view addSubview: self.captionSwitch];
+    
+    
 }
+
+- (void)changeCaptionSwitch:(id)sender{
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -114,58 +152,58 @@
 }
 
 
+- (IBAction) recentKeyPressed:(UIButton*)sender {
+    
+}
 
-- (IBAction) categoryKeyPressed:(UIButton*)sender {
+
+- (IBAction) purchasedKeyPressed:(UIButton*)sender {
+    
+}
+
+
+
+
+- (void) categoryKeyPressed:(NSInteger)tag {
     
     //switches to user's next category
-    NSLog(@"Category %ld Pressed", (long)sender.tag);
+ 
     
     //Change category
-    //[self changeCategory:sender.tag];
-    
     SWRevealViewController *revealController = self.revealViewController;
-    UIViewController *frontController = nil;
     MainViewController *mainViewController = [[MainViewController alloc] init];
     NSString *categoryName = @"";
     
-    switch ( sender.tag )
+    switch ((int)tag)
     {
         case 0:
-        {
-            
-        }
-        case 1:
-        {
-            
-        }
-        case 2:
         {
             categoryName = CATEGORY_ALL;
             break;
         }
-        case 3:
+        case 1:
         {
             categoryName = CATEGORY_HEART;
             break;
         }
             
-        case 4:
+        case 2:
         {
             
             categoryName = CATEGORY_SMILE;
             break;
         }
-        case 5:
+        case 3:
         {
             categoryName =  CATEGORY_NOSMILE;
             break;
         }
-        case 6:
+        case 4:
         {
             categoryName = CATEGORY_EXCLAMATION;
             break;
         }
-        case 7:
+        case 5:
         {
              categoryName = CATEGORY_GIFT;
              break;
@@ -173,17 +211,65 @@
           
     }
         
-         NSLog(@"Category name is %@",categoryName);
+         NSLog(@"The Category name is %@",categoryName);
          mainViewController.gifCategory = categoryName;
     
+        TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
     
-        UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-        [revealController pushFrontViewController:navigationMainController animated:YES];
-    
-        // frontController = mainViewController;
-        // [revealController setFrontViewController:frontController animated:YES];    //sf
+        //UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+        [revealController pushFrontViewController:tabBarController animated:YES];
     
 }
+
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SidebarCategoryTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    if (!cell)
+    {
+        [tableView registerNib:[UINib nibWithNibName:@"SidebarCategoryCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    }
+    
+
+
+    
+    NSLog(@"categoryImages: %@", [_categoryImages objectAtIndex:indexPath.row]);
+    NSLog(@"categoryTitles: %@", [_categoryTitles objectAtIndex:indexPath.row]);
+    
+
+    
+    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(SidebarCategoryTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Configure Cell
+    cell.categoryLabel.text = [_categoryTitles objectAtIndex:indexPath.row];
+    cell.categoryImage.image = [UIImage imageNamed:[_categoryImages objectAtIndex:indexPath.row]];
+}
+
+
+#pragma mark -
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self categoryKeyPressed:indexPath.row];
+}
+#pragma mark -
+
+
+
 
 
 //- (void)dealloc

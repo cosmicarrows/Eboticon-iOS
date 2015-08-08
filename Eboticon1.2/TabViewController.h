@@ -10,4 +10,8 @@
 
 @interface TabViewController : UITabBarController
 
+    @property (strong, nonatomic) id gifCategory;
+
+    - (id)initWithCategory:(id )identifier;
+
 @end

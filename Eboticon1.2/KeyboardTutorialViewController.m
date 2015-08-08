@@ -1,136 +1,129 @@
 //
-//  KeyboardTutorialViewController.m
-//  Eboticon1.2
+//  APPViewController.m
+//  PageApp
 //
-//  Created by Troy Nunnally on 7/29/15.
-//  Copyright (c) 2015 Incling. All rights reserved.
+//  Created by Rafael Garcia Leiva on 10/06/13.
+//  Copyright (c) 2013 Appcoda. All rights reserved.
 //
-
 
 #import "KeyboardTutorialViewController.h"
+#import "TutorialContentViewController.h"
 
-@interface KeyboardTutorialViewController (){
-    
-}
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+@interface KeyboardTutorialViewController ()
 
 @end
 
 @implementation KeyboardTutorialViewController
 
-
-@synthesize scrollView, pageControl;
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    pageControlBeingUsed = NO;
+    // Override point for customization after application launch.
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = UIColorFromRGB(0x7e00c0);
+    pageControl.currentPageIndicatorTintColor = UIColorFromRGB(0xFf6c00);
     
-    /*
-    NSArray *colors = [NSArray arrayWithObjects:[UIColor grayColor], [UIColor whiteColor], [UIColor yellowColor],[NSArray arrayWithObjects:[UIColor grayColor], [UIColor whiteColor], nil];
+    // Create the data model
+    _pageTitles = @[@"Go to Settings", @"Click on General, then Keyboard", @"Add Eboticon", @"Enjoy"];
+    _pageImages = @[@"page1.png", @"page2.png", @"page3.png", @"page4.png"];
     
-    for (int i = 0; i < colors.count; i++) {
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        UIView *subview = [[UIView alloc] initWithFrame:frame];
-        subview.backgroundColor = [colors objectAtIndex:i];
-        [self.scrollView addSubview:subview];
-    }
-     */
     
-    int numberOfImages = 5;
-    CGFloat currentX = 0.0f;
+    // Create page view controller
+    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageController.dataSource = self;
+    //[[self.pageController view] setFrame:[[self view] bounds]];
     
-    //create image width and height
-    CGFloat imageWidth = 300.0f;
-    CGFloat imageHeight = 300.0f;
+    TutorialContentViewController *initialViewController = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     
-    //Computer centered origin
-    CGFloat centeredOrigin = ([[UIScreen mainScreen] bounds].size.width - imageWidth)/2;
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
-    for (int i=1; i <= numberOfImages; i++) {
-        
+    // Change the size of page view controller
+    self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50);
+    
+    [self addChildViewController:self.pageController];
+    [[self view] addSubview:[self.pageController view]];
+    [self.pageController didMoveToParentViewController:self];
+    
+}
 
-        
- 
-        
-        // create image
-        NSString *imageName = [NSString stringWithFormat:@"page-%d.png", i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        
-        // put image on correct position
-        CGRect frame = CGRectMake(self.scrollView.frame.size.width * (i-1)+centeredOrigin, 100, imageWidth, imageHeight);
-        imageView.frame = frame;
-        
-        // update currentX
-        currentX += self.scrollView.frame.size.width;
-        
-        [self.scrollView addSubview:imageView];
-    }
-    
-    
-    
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * numberOfImages, self.scrollView.frame.size.height);
-    
-    self.pageControl.currentPage = 0;
-    self.pageControl.numberOfPages = numberOfImages;
-    
-     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
-    [self.view addSubview:scrollView];
+- (IBAction)startWalkthrough:(id)sender {
+    TutorialContentViewController *startingViewController = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
 }
 
 
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    if (!pageControlBeingUsed) {
-        // Switch the indicator when more than 50% of the previous/next page is visible
-        CGFloat pageWidth = self.scrollView.frame.size.width;
-        int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        self.pageControl.currentPage = page;
-    }
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-
-- (IBAction)changePage {
-    // Update the scroll view to the appropriate page
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-    
-    // Keep track of when scrolls happen in response to the page control
-    // value changing. If we don't do this, a noticeable "flashing" occurs
-    // as the the scroll delegate will temporarily switch back the page
-    // number.
-    pageControlBeingUsed = YES;
-}
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
     
-    // Release any cached data, images, etc that aren't in use.
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    
 }
 
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.scrollView = nil;
-    self.pageControl = nil;
+
+- (TutorialContentViewController *)viewControllerAtIndex:(NSUInteger)index {
+    
+    
+    if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {
+        return nil;
+    }
+    
+    // Create a new view controller and pass suitable data.
+    TutorialContentViewController *pageContentViewController = [[TutorialContentViewController alloc] initWithNibName:@"TutorialContentViewController" bundle:nil];
+    
+    pageContentViewController.imageFile = self.pageImages[index];
+    pageContentViewController.titleText = self.pageTitles[index];
+    pageContentViewController.pageIndex = index;
+    pageContentViewController.index = index;
+    
+    return pageContentViewController;
 }
 
+
+#pragma mark - Page View Controller Data Source
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    
+    NSUInteger index = [(TutorialContentViewController *)viewController index];
+    
+    if (index == 0) {
+        return nil;
+    }
+    
+    // Decrease the index by 1 to return
+    index--;
+    
+    return [self viewControllerAtIndex:index];
+    
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    
+    NSUInteger index = [(TutorialContentViewController *)viewController index];
+    
+    index++;
+    
+    if (index == [self.pageTitles count]) {
+        return nil;
+    }
+    
+    return [self viewControllerAtIndex:index];
+    
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    // The number of items reflected in the page indicator.
+    return [self.pageTitles count];
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
+    // The selected item reflected in the page indicator.
+    return 0;
+}
 
 @end

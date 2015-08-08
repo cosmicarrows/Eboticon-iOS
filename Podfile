@@ -7,6 +7,7 @@ target 'Eboticon1.2' do
     pod 'SIAlertView', '~> 1.3'
     pod 'Harpy', '~> 3.3'
     pod 'GPUImage', '~> 0.1'
+    pod 'TTSwitch', '~> 0.0.5'
 end
 
 target 'EboticonLite' do

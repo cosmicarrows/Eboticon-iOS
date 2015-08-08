@@ -769,11 +769,6 @@
 		63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C01868CCE900116D73 /* JMCategoryData.m */; };
 		63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C21868CCE900116D73 /* JMCategoriesData.m */; };
 		96D96E5DE14EADA63AEB3A7F /* libPods-EboticonLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */; };
-		97035AA01B6C1FB5004FEDC5 /* page-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9B1B6C1FB5004FEDC5 /* page-1.png */; };
-		97035AA11B6C1FB5004FEDC5 /* page-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9C1B6C1FB5004FEDC5 /* page-4.png */; };
-		97035AA31B6C1FB5004FEDC5 /* page-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035A9E1B6C1FB5004FEDC5 /* page-3.png */; };
-		97035AA61B6C201A004FEDC5 /* page-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA41B6C201A004FEDC5 /* page-5.png */; };
-		97035AA71B6C201A004FEDC5 /* page-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 97035AA51B6C201A004FEDC5 /* page-2.png */; };
 		97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */; };
 		970658691B6A536A004B149A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970658681B6A536A004B149A /* SWRevealViewController.m */; };
 		9706586E1B6A54A8004B149A /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9706586C1B6A54A8004B149A /* RightViewController.m */; };
@@ -797,9 +792,27 @@
 		970DA3DF1B69C75E00587CD6 /* nav_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3DE1B69C75E00587CD6 /* nav_bg.png */; };
 		970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970DA3E21B69CD5100587CD6 /* ShopViewController.m */; };
 		970DA3E51B69CD5100587CD6 /* ShopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3E31B69CD5100587CD6 /* ShopView.xib */; };
-		970DA3EF1B69CDF700587CD6 /* KeyboardTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970DA3ED1B69CDF700587CD6 /* KeyboardTutorialViewController.m */; };
-		970DA3F01B69CDF700587CD6 /* KeyboardTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3EE1B69CDF700587CD6 /* KeyboardTutorialViewController.xib */; };
 		970DA3F31B69D04A00587CD6 /* MoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3F21B69D04A00587CD6 /* MoreView.xib */; };
+		9760B5351B750B6800E75EEC /* page1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5311B750B6800E75EEC /* page1.png */; };
+		9760B5361B750B6800E75EEC /* page2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5321B750B6800E75EEC /* page2.png */; };
+		9760B5371B750B6800E75EEC /* page3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5331B750B6800E75EEC /* page3.png */; };
+		9760B5381B750B6800E75EEC /* page4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5341B750B6800E75EEC /* page4.png */; };
+		9760B5451B750D0E00E75EEC /* KeyboardTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5401B750D0E00E75EEC /* KeyboardTutorialViewController.m */; };
+		9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5411B750D0E00E75EEC /* KeyboardTutorialViewController.xib */; };
+		9760B5471B750D0E00E75EEC /* TutorialContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5431B750D0E00E75EEC /* TutorialContentViewController.m */; };
+		9760B5481B750D0E00E75EEC /* TutorialContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5441B750D0E00E75EEC /* TutorialContentViewController.xib */; };
+		9760B5491B75425200E75EEC /* round-switch-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681091B3D9B4F00170446 /* round-switch-mask.png */; };
+		9760B54A1B75425200E75EEC /* round-switch-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810A1B3D9B4F00170446 /* round-switch-mask@2x.png */; };
+		9760B54B1B75425200E75EEC /* round-switch-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810B1B3D9B4F00170446 /* round-switch-overlay.png */; };
+		9760B54C1B75425200E75EEC /* round-switch-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810C1B3D9B4F00170446 /* round-switch-overlay@2x.png */; };
+		9760B54D1B75425200E75EEC /* round-switch-thumb-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810D1B3D9B4F00170446 /* round-switch-thumb-highlight.png */; };
+		9760B54E1B75425200E75EEC /* round-switch-thumb-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810E1B3D9B4F00170446 /* round-switch-thumb-highlight@2x.png */; };
+		9760B54F1B75425200E75EEC /* round-switch-thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B6810F1B3D9B4F00170446 /* round-switch-thumb.png */; };
+		9760B5501B75425200E75EEC /* round-switch-thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681101B3D9B4F00170446 /* round-switch-thumb@2x.png */; };
+		9760B5511B75425200E75EEC /* round-switch-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681111B3D9B4F00170446 /* round-switch-track.png */; };
+		9760B5521B75425200E75EEC /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681121B3D9B4F00170446 /* round-switch-track@2x.png */; };
+		9760B5601B754CA800E75EEC /* SidebarCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9760B55F1B754CA800E75EEC /* SidebarCategoryCell.xib */; };
+		9760B5631B754E7800E75EEC /* SidebarCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5621B754E7800E75EEC /* SidebarCategoryTableViewCell.m */; };
 		97702BC61B21FB070011F6DE /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BC51B21FB070011F6DE /* KeyboardViewController.m */; };
 		97702BD11B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */; };
 		97702BD21B21FB470011F6DE /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BD01B21FB470011F6DE /* MyCell.m */; };
@@ -1381,11 +1394,6 @@
 		7D6FD9BA89AC306BD6766F2A /* Pods-EboticonLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonLite/Pods-EboticonLite.release.xcconfig"; sourceTree = "<group>"; };
 		8459AE06593CA56BE3ED54DB /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5D28B18F87439D9A4175FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		97035A9B1B6C1FB5004FEDC5 /* page-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-1.png"; sourceTree = "<group>"; };
-		97035A9C1B6C1FB5004FEDC5 /* page-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-4.png"; sourceTree = "<group>"; };
-		97035A9E1B6C1FB5004FEDC5 /* page-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-3.png"; sourceTree = "<group>"; };
-		97035AA41B6C201A004FEDC5 /* page-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-5.png"; sourceTree = "<group>"; };
-		97035AA51B6C201A004FEDC5 /* page-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page-2.png"; sourceTree = "<group>"; };
 		97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopTableCell.xib; sourceTree = "<group>"; };
 		970658671B6A536A004B149A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		970658681B6A536A004B149A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -1405,10 +1413,20 @@
 		970DA3E11B69CD5100587CD6 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
 		970DA3E21B69CD5100587CD6 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		970DA3E31B69CD5100587CD6 /* ShopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopView.xib; sourceTree = "<group>"; };
-		970DA3EC1B69CDF700587CD6 /* KeyboardTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardTutorialViewController.h; sourceTree = "<group>"; };
-		970DA3ED1B69CDF700587CD6 /* KeyboardTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardTutorialViewController.m; sourceTree = "<group>"; };
-		970DA3EE1B69CDF700587CD6 /* KeyboardTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardTutorialViewController.xib; sourceTree = "<group>"; };
 		970DA3F21B69D04A00587CD6 /* MoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreView.xib; sourceTree = "<group>"; };
+		9760B5311B750B6800E75EEC /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
+		9760B5321B750B6800E75EEC /* page2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page2.png; sourceTree = "<group>"; };
+		9760B5331B750B6800E75EEC /* page3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page3.png; sourceTree = "<group>"; };
+		9760B5341B750B6800E75EEC /* page4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page4.png; sourceTree = "<group>"; };
+		9760B53F1B750D0E00E75EEC /* KeyboardTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardTutorialViewController.h; sourceTree = "<group>"; };
+		9760B5401B750D0E00E75EEC /* KeyboardTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardTutorialViewController.m; sourceTree = "<group>"; };
+		9760B5411B750D0E00E75EEC /* KeyboardTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardTutorialViewController.xib; sourceTree = "<group>"; };
+		9760B5421B750D0E00E75EEC /* TutorialContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialContentViewController.h; sourceTree = "<group>"; };
+		9760B5431B750D0E00E75EEC /* TutorialContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialContentViewController.m; sourceTree = "<group>"; };
+		9760B5441B750D0E00E75EEC /* TutorialContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialContentViewController.xib; sourceTree = "<group>"; };
+		9760B55F1B754CA800E75EEC /* SidebarCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarCategoryCell.xib; sourceTree = "<group>"; };
+		9760B5611B754E7800E75EEC /* SidebarCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarCategoryTableViewCell.h; sourceTree = "<group>"; };
+		9760B5621B754E7800E75EEC /* SidebarCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarCategoryTableViewCell.m; sourceTree = "<group>"; };
 		97702BC01B21FB070011F6DE /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97702BC31B21FB070011F6DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97702BC41B21FB070011F6DE /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
@@ -2138,9 +2156,6 @@
 				63FAE3951868CC0200116D73 /* AppDelegate.h */,
 				63FAE3961868CC0200116D73 /* AppDelegate.m */,
 				63FAE3981868CC0200116D73 /* Main.storyboard */,
-				63CE781C18AD6B040069049F /* EboticonViewController.h */,
-				63CE781D18AD6B040069049F /* EboticonViewController.m */,
-				97065D761B6BAC87004B149A /* EboticonView.xib */,
 				6384DAF419AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.h */,
 				6384DAF519AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m */,
 				63D643971984579B0056AC0B /* EBOActivityTypePostToFacebook.h */,
@@ -2148,8 +2163,8 @@
 				97065D721B6A7543004B149A /* Detail View */,
 				970DA3C71B6978CF00587CD6 /* Gif Collection View */,
 				97A3830F1B695C12002F5571 /* Home View */,
-				970DA3E01B69CD1000587CD6 /* Shop View */,
 				97A383061B67E07F002F5571 /* Whats-New */,
+				970DA3E01B69CD1000587CD6 /* Shop View */,
 				970DA3EB1B69CD9100587CD6 /* Keyboard Tutorial View */,
 				970DA3F11B69D01700587CD6 /* More View Controller */,
 				97065D751B6A8705004B149A /* Right Side Menu */,
@@ -2218,11 +2233,10 @@
 		97035A8B1B6C191E004FEDC5 /* Keyboard Tutorial Images */ = {
 			isa = PBXGroup;
 			children = (
-				97035AA41B6C201A004FEDC5 /* page-5.png */,
-				97035AA51B6C201A004FEDC5 /* page-2.png */,
-				97035A9B1B6C1FB5004FEDC5 /* page-1.png */,
-				97035A9C1B6C1FB5004FEDC5 /* page-4.png */,
-				97035A9E1B6C1FB5004FEDC5 /* page-3.png */,
+				9760B5311B750B6800E75EEC /* page1.png */,
+				9760B5321B750B6800E75EEC /* page2.png */,
+				9760B5331B750B6800E75EEC /* page3.png */,
+				9760B5341B750B6800E75EEC /* page4.png */,
 			);
 			name = "Keyboard Tutorial Images";
 			sourceTree = "<group>";
@@ -2251,6 +2265,9 @@
 				63CE781918AD65090069049F /* GifDetailViewController.h */,
 				63CE781A18AD65090069049F /* GifDetailViewController.m */,
 				97065D701B6A72D7004B149A /* GifDetailView.xib */,
+				63CE781C18AD6B040069049F /* EboticonViewController.h */,
+				63CE781D18AD6B040069049F /* EboticonViewController.m */,
+				97065D761B6BAC87004B149A /* EboticonView.xib */,
 			);
 			name = "Detail View";
 			sourceTree = "<group>";
@@ -2261,6 +2278,9 @@
 				9706586B1B6A54A8004B149A /* RightViewController.h */,
 				9706586C1B6A54A8004B149A /* RightViewController.m */,
 				9706586D1B6A54A8004B149A /* RightViewController.xib */,
+				9760B55F1B754CA800E75EEC /* SidebarCategoryCell.xib */,
+				9760B5611B754E7800E75EEC /* SidebarCategoryTableViewCell.h */,
+				9760B5621B754E7800E75EEC /* SidebarCategoryTableViewCell.m */,
 			);
 			name = "Right Side Menu";
 			sourceTree = "<group>";
@@ -2295,8 +2315,8 @@
 		970DA3E01B69CD1000587CD6 /* Shop View */ = {
 			isa = PBXGroup;
 			children = (
-				970DA3E11B69CD5100587CD6 /* ShopViewController.h */,
 				970DA3E21B69CD5100587CD6 /* ShopViewController.m */,
+				970DA3E11B69CD5100587CD6 /* ShopViewController.h */,
 				970DA3E31B69CD5100587CD6 /* ShopView.xib */,
 				97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */,
 			);
@@ -2306,9 +2326,12 @@
 		970DA3EB1B69CD9100587CD6 /* Keyboard Tutorial View */ = {
 			isa = PBXGroup;
 			children = (
-				970DA3EC1B69CDF700587CD6 /* KeyboardTutorialViewController.h */,
-				970DA3ED1B69CDF700587CD6 /* KeyboardTutorialViewController.m */,
-				970DA3EE1B69CDF700587CD6 /* KeyboardTutorialViewController.xib */,
+				9760B53F1B750D0E00E75EEC /* KeyboardTutorialViewController.h */,
+				9760B5401B750D0E00E75EEC /* KeyboardTutorialViewController.m */,
+				9760B5411B750D0E00E75EEC /* KeyboardTutorialViewController.xib */,
+				9760B5421B750D0E00E75EEC /* TutorialContentViewController.h */,
+				9760B5431B750D0E00E75EEC /* TutorialContentViewController.m */,
+				9760B5441B750D0E00E75EEC /* TutorialContentViewController.xib */,
 			);
 			name = "Keyboard Tutorial View";
 			sourceTree = "<group>";
@@ -3000,6 +3023,7 @@
 				97065D6D1B6A71AA004B149A /* thanks-nocaption.gif in Resources */,
 				97065D6E1B6A71AA004B149A /* dont_mind_me-nocaption.gif in Resources */,
 				97065D6F1B6A71AA004B149A /* shade-caption.gif in Resources */,
+				9760B54E1B75425200E75EEC /* round-switch-thumb-highlight@2x.png in Resources */,
 				97065D681B6A719E004B149A /* dead_female-caption.png in Resources */,
 				97065D691B6A719E004B149A /* oh_crap-caption.png in Resources */,
 				97065D6A1B6A719E004B149A /* omg-caption.png in Resources */,
@@ -3016,6 +3040,7 @@
 				636EE6931A6346E100E43D65 /* i_cant-caption.mov in Resources */,
 				63BCCDBA1920E92200C8508D /* yas-nocaption.gif in Resources */,
 				63BCCDB91920E92200C8508D /* yas-caption.gif in Resources */,
+				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,
 				63BCCD961920E92200C8508D /* have_several_seats-nocaption.gif in Resources */,
 				631DC15E19CE474400B11541 /* bye_felicia-caption.gif in Resources */,
 				6304519F1ABF950A001DC8B2 /* im_flattered-nocaption.png in Resources */,
@@ -3043,6 +3068,7 @@
 				630BF4F51A5EDFCE00F179F5 /* crying-nocaption.mov in Resources */,
 				631DC16619CE474400B11541 /* omg-caption.gif in Resources */,
 				630451A31ABF950A001DC8B2 /* kisses-nocaption.png in Resources */,
+				9760B5371B750B6800E75EEC /* page3.png in Resources */,
 				63BCCD9F1920E92200C8508D /* oh_crap-caption.gif in Resources */,
 				630BF4E91A5EDFCE00F179F5 /* 2015_lets_get_it-caption.mov in Resources */,
 				633278271A82E0F4000557D0 /* girl_gone-caption.mov in Resources */,
@@ -3050,6 +3076,7 @@
 				630451DF1ABF950A001DC8B2 /* turn_up-caption.png in Resources */,
 				630BF4F81A5EDFCE00F179F5 /* dont_mind_me-caption.mov in Resources */,
 				630451631ABF950A001DC8B2 /* crying-caption.png in Resources */,
+				9760B54A1B75425200E75EEC /* round-switch-mask@2x.png in Resources */,
 				6332782B1A82E0F4000557D0 /* im_flattered-caption.mov in Resources */,
 				637078041AC116CD007652E1 /* tried_me-caption.gif in Resources */,
 				630BF4EF1A5EDFCE00F179F5 /* bruh-nocaption.mov in Resources */,
@@ -3077,6 +3104,8 @@
 				63C893B51A3CF985005D5562 /* schmoney_dance-nocaption.gif in Resources */,
 				63A1D30F1A194A0300FC0C45 /* thanks-caption.gif in Resources */,
 				63BCCD981920E92200C8508D /* hey_boo_hey-nocaption.gif in Resources */,
+				9760B54F1B75425200E75EEC /* round-switch-thumb.png in Resources */,
+				9760B54D1B75425200E75EEC /* round-switch-thumb-highlight.png in Resources */,
 				630BF4EE1A5EDFCE00F179F5 /* bruh-caption.mov in Resources */,
 				97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */,
 				63BCCDAB1920E92200C8508D /* that_aint_funny-caption.gif in Resources */,
@@ -3093,7 +3122,6 @@
 				639B13101B46F0A100EF8997 /* dead_female-nocaption.gif in Resources */,
 				63C613361A1AE6A3004D821D /* happy_birthday-caption.gif in Resources */,
 				630BF52D1A5EDFCE00F179F5 /* wait_whet-nocaption.mov in Resources */,
-				97035AA71B6C201A004FEDC5 /* page-2.png in Resources */,
 				630451571ABF950A001DC8B2 /* bruh-caption.png in Resources */,
 				630451F31ABF950A001DC8B2 /* wont_he_do_it_female-caption.png in Resources */,
 				63C893B61A3CF985005D5562 /* where_da_milk_and_cookies-caption.gif in Resources */,
@@ -3102,15 +3130,14 @@
 				63BCCDAD1920E92200C8508D /* thinking_about_you-caption.gif in Resources */,
 				630451F51ABF950A001DC8B2 /* wont_he_do_it_female-nocaption.png in Resources */,
 				630451EF1ABF950A001DC8B2 /* where_they_do_that_at-caption.png in Resources */,
+				9760B5351B750B6800E75EEC /* page1.png in Resources */,
 				63BCCD951920E92200C8508D /* have_several_seats-caption.gif in Resources */,
 				630451971ABF950A001DC8B2 /* i_cant-nocaption.png in Resources */,
 				970DA3C91B6978F200587CD6 /* MainView.xib in Resources */,
-				970DA3F01B69CDF700587CD6 /* KeyboardTutorialViewController.xib in Resources */,
 				630451851ABF950A001DC8B2 /* happy_birthday-nocaption.png in Resources */,
 				63BCCDA41920E92200C8508D /* really_female-nocaption.gif in Resources */,
 				637077FE1AC11628007652E1 /* you_knew-caption.gif in Resources */,
 				63BCCDB71920E92200C8508D /* wth-caption.gif in Resources */,
-				97035AA31B6C1FB5004FEDC5 /* page-3.png in Resources */,
 				631DC16819CE474400B11541 /* operation_skinty-caption.gif in Resources */,
 				63BCCD9A1920E92200C8508D /* i_cant-nocaption.gif in Resources */,
 				6332782C1A82E0F4000557D0 /* im_flattered-nocaption.mov in Resources */,
@@ -3138,7 +3165,6 @@
 				630452011ABF950A001DC8B2 /* yas-nocaption.png in Resources */,
 				637078161AC11714007652E1 /* good_night-caption.mov in Resources */,
 				630BF52B1A5EDFCE00F179F5 /* twerk_team-nocaption.mov in Resources */,
-				97035AA61B6C201A004FEDC5 /* page-5.png in Resources */,
 				6332784E1A82E120000557D0 /* did_that-nocaption.gif in Resources */,
 				633278501A82E120000557D0 /* girl_gone-nocaption.gif in Resources */,
 				63BCCDA01920E92200C8508D /* oh_crap-nocaption.gif in Resources */,
@@ -3160,14 +3186,15 @@
 				63BCCD901920E92200C8508D /* fabulous-nocaption.gif in Resources */,
 				631DC16019CE474400B11541 /* dont_mind_me-caption.gif in Resources */,
 				630BF4F41A5EDFCE00F179F5 /* crying-caption.mov in Resources */,
-				97035AA01B6C1FB5004FEDC5 /* page-1.png in Resources */,
 				639B13461B46F27500EF8997 /* buckets-caption.mov in Resources */,
 				63BCCD881920E92200C8508D /* brb-nocaption.gif in Resources */,
 				636EE68C1A63464800E43D65 /* aint_nobody-nocaption.mov in Resources */,
+				9760B5521B75425200E75EEC /* round-switch-track@2x.png in Resources */,
 				630451ED1ABF950A001DC8B2 /* where_da_milk_and_cookies-nocaption.png in Resources */,
 				637077E81AC11394007652E1 /* you_knew-nocaption.png in Resources */,
 				639B13821B47013900EF8997 /* werk-caption.mov in Resources */,
 				63BCCD9B1920E92200C8508D /* kisses-caption.gif in Resources */,
+				9760B5361B750B6800E75EEC /* page2.png in Resources */,
 				630451931ABF950A001DC8B2 /* hey_boo_hey-nocaption.png in Resources */,
 				630451691ABF950A001DC8B2 /* dead-nocaption.png in Resources */,
 				630451B91ABF950A001DC8B2 /* operation_skinty-caption.png in Resources */,
@@ -3185,6 +3212,7 @@
 				630BF5021A5EDFCE00F179F5 /* have_a_seat-nocaption.mov in Resources */,
 				636EE6A51A63473900E43D65 /* yas-caption.mov in Resources */,
 				637077FA1AC11628007652E1 /* i_give_up-caption.gif in Resources */,
+				9760B54B1B75425200E75EEC /* round-switch-overlay.png in Resources */,
 				637078141AC11714007652E1 /* good_morning-nocaption.mov in Resources */,
 				6304514D1ABF950A001DC8B2 /* 2015_lets_get_it-caption.png in Resources */,
 				63C613371A1AE6A3004D821D /* happy_birthday-nocaption.gif in Resources */,
@@ -3205,8 +3233,10 @@
 				970DA3DD1B69BED700587CD6 /* EboticonGifCell.xib in Resources */,
 				63055FFC1B516C0400A3B7DF /* crying-nocaption.gif in Resources */,
 				63A1D3141A194A0300FC0C45 /* where_they_do_that_at-nocaption.gif in Resources */,
+				9760B5491B75425200E75EEC /* round-switch-mask.png in Resources */,
 				63055FF01B51671A00A3B7DF /* turn_up-nocaption.gif in Resources */,
 				630BF5341A5EDFCE00F179F5 /* wont_he_do_it_male-caption.mov in Resources */,
+				9760B54C1B75425200E75EEC /* round-switch-overlay@2x.png in Resources */,
 				631DC16C19CE474400B11541 /* thank_ya-caption.gif in Resources */,
 				970DA3E51B69CD5100587CD6 /* ShopView.xib in Resources */,
 				632702ED1AB7949800B39B06 /* Images.xcassets in Resources */,
@@ -3214,6 +3244,7 @@
 				63BCCD941920E92200C8508D /* have_a_seat-nocaption.gif in Resources */,
 				639B134A1B46F27500EF8997 /* dead_female-caption.mov in Resources */,
 				630BF5321A5EDFCE00F179F5 /* wont_he_do_it_female-caption.mov in Resources */,
+				9760B5381B750B6800E75EEC /* page4.png in Resources */,
 				636EE6A61A63473900E43D65 /* yas-nocaption.mov in Resources */,
 				630BF51D1A5EDFCE00F179F5 /* shade-nocaption.mov in Resources */,
 				63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */,
@@ -3239,7 +3270,6 @@
 				639B13481B46F27500EF8997 /* buckets-nocaption.mov in Resources */,
 				639B13521B46F27500EF8997 /* uh_hello-caption.mov in Resources */,
 				63BCCD8F1920E92200C8508D /* fabulous-caption.gif in Resources */,
-				97035AA11B6C1FB5004FEDC5 /* page-4.png in Resources */,
 				63BCCDB61920E92200C8508D /* wont_he_do_it_male-nocaption.gif in Resources */,
 				6332782A1A82E0F4000557D0 /* i_love_you-nocaption.mov in Resources */,
 				630BF52C1A5EDFCE00F179F5 /* wait_whet-caption.mov in Resources */,
@@ -3248,6 +3278,7 @@
 				63BCCDA51920E92200C8508D /* really_male-caption.gif in Resources */,
 				630BF5181A5EDFCE00F179F5 /* really_female-nocaption.mov in Resources */,
 				63BCCD9D1920E92200C8508D /* lmao-caption.gif in Resources */,
+				9760B5481B750D0E00E75EEC /* TutorialContentViewController.xib in Resources */,
 				630451C31ABF950A001DC8B2 /* really_male-nocaption.png in Resources */,
 				97065D711B6A72D7004B149A /* GifDetailView.xib in Resources */,
 				637078001AC11628007652E1 /* you_knew-nocaption.gif in Resources */,
@@ -3291,6 +3322,7 @@
 				630451CD1ABF950A001DC8B2 /* slide_through_your_dm-nocaption.png in Resources */,
 				636EE68B1A63464800E43D65 /* aint_nobody-caption.mov in Resources */,
 				6304517B1ABF950A001DC8B2 /* girl_gone-caption.png in Resources */,
+				9760B5601B754CA800E75EEC /* SidebarCategoryCell.xib in Resources */,
 				630BF5161A5EDFCE00F179F5 /* operation_skinty-nocaption.mov in Resources */,
 				63BCCDB21920E92200C8508D /* twerkteam-nocaption.gif in Resources */,
 				636EE69F1A63473900E43D65 /* omg-caption.mov in Resources */,
@@ -3320,12 +3352,14 @@
 				6373A00718C2471200E7ECBD /* linkinpark.ttf in Resources */,
 				63BCCD931920E92200C8508D /* have_a_seat-caption.gif in Resources */,
 				630BF4FE1A5EDFCE00F179F5 /* happy_birthday-caption.mov in Resources */,
+				9760B5511B75425200E75EEC /* round-switch-track.png in Resources */,
 				630451731ABF950A001DC8B2 /* dont_mind_me-caption.png in Resources */,
 				630451671ABF950A001DC8B2 /* dead-caption.png in Resources */,
 				630BF5171A5EDFCE00F179F5 /* really_female-caption.mov in Resources */,
 				63D57F91192FCA2900C00C85 /* congrats-nocaption.gif in Resources */,
 				63BCCDA21920E92200C8508D /* one_sec-nocaption.gif in Resources */,
 				637077D61AC11394007652E1 /* good_morning-caption.png in Resources */,
+				9760B5501B75425200E75EEC /* round-switch-thumb@2x.png in Resources */,
 				630451BB1ABF950A001DC8B2 /* operation_skinty-nocaption.png in Resources */,
 				637078121AC11714007652E1 /* good_morning-caption.mov in Resources */,
 				630451B51ABF950A001DC8B2 /* one_sec-caption.png in Resources */,
@@ -3636,6 +3670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9760B5631B754E7800E75EEC /* SidebarCategoryTableViewCell.m in Sources */,
 				97A383051B67E054002F5571 /* KMXMLParser.m in Sources */,
 				635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */,
 				970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */,
@@ -3643,11 +3678,13 @@
 				63D643991984579B0056AC0B /* EBOActivityTypePostToFacebook.m in Sources */,
 				9706586E1B6A54A8004B149A /* RightViewController.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
+				9760B5471B750D0E00E75EEC /* TutorialContentViewController.m in Sources */,
 				63FAE3971868CC0200116D73 /* AppDelegate.m in Sources */,
 				97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */,
 				63FAE39D1868CC0200116D73 /* MasterViewController.m in Sources */,
 				6337EB3D188B11D200332C75 /* OLImage.m in Sources */,
 				6351833118F6BBA700932C04 /* EboticonGifCell.m in Sources */,
+				9760B5451B750D0E00E75EEC /* KeyboardTutorialViewController.m in Sources */,
 				63A70AB718A6A0F30075B829 /* iTellAFriend.m in Sources */,
 				970658691B6A536A004B149A /* SWRevealViewController.m in Sources */,
 				970DA3D81B69B15C00587CD6 /* MainViewController.m in Sources */,
@@ -3660,7 +3697,6 @@
 				6384DAF619AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m in Sources */,
 				6337EB3E188B11D200332C75 /* OLImageView.m in Sources */,
 				63A70AB018A606540075B829 /* MoreViewController.m in Sources */,
-				970DA3EF1B69CDF700587CD6 /* KeyboardTutorialViewController.m in Sources */,
 				63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

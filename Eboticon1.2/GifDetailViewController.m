@@ -51,41 +51,45 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"GifDetailViewController viewDidLoad");
 	// Do any additional setup after loading the view.
-    
-    EboticonViewController *eboticonViewController =  [[EboticonViewController alloc] initWithNibName:@"EboticonView" bundle:nil];
-    
-    
-    EboticonGif *currGif = self.imageNames[self.index];
-    
-    eboticonViewController.index = self.index;
-    eboticonViewController.eboticonGif = currGif;
-    
     _currentDisplayIndex = self.index;
-
-    
-    DDLogDebug(@"View Load. Index is %lu",(unsigned long)eboticonViewController.index);
-    DDLogDebug(@"View Load. Self Index is %lu",(unsigned long)self.index);
-    DDLogDebug(@"View Load. Eboticon Gif is %@",eboticonViewController.eboticonGif.getFileName);
-    
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
+    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
-    [self.pageViewController setViewControllers:@[eboticonViewController]
-                                      direction:UIPageViewControllerNavigationDirectionForward
-                                       animated:YES
-                                     completion:nil];
     
+    //Add Share Button
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = shareButton;
+    
+    //Create The View that shows the Eboticon Content
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
+    
+    EboticonViewController *initialViewController = [self viewControllerAtIndex:self.index];
+    EboticonGif *currGif = self.imageNames[self.index];
+    initialViewController.index = self.index;
+    initialViewController.eboticonGif = currGif;
+    
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+    
+    NSLog(@"View Load. Index is %lu",(unsigned long)initialViewController.index);
+    NSLog(@"View Load. Self Index is %lu",(unsigned long)self.index);
+    NSLog(@"View Load. Eboticon Gif is %@",initialViewController.eboticonGif.getFileName);
+    
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    //If ioS, set navigationBar
     float currentVersion = 7.0;
-    /**
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
         // iOS 7
         self.navigationBar.frame = CGRectMake(self.navigationBar.frame.origin.x, self.navigationBar.frame.origin.y, self.navigationBar.frame.size.width, 64);
     }
-     **/
-    
     
     //Adds extra color block on top of view to fix overlap
-    
+    /*
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
         UIView *fixbar = [[UIView alloc] init];
         fixbar.frame = CGRectMake(0, 0, 320, 20);
@@ -95,18 +99,23 @@
         //fixbar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:fixbar];
     }
+    */
     
-    [self showSwipeAlert];
     
-}
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:@"embedPageViewController"]){
-        self.pageViewController = segue.destinationViewController;
-        self.pageViewController.dataSource = self;
-        self.pageViewController.delegate = self;
-    }
+    // Create page view controller
+    // Change the size of page view controller
+    //[[self.pageViewController view] setFrame:[[self view] bounds]];
+    NSLog(@"width: %f",self.view.frame.size.width);
+    NSLog(@"%f",self.view.frame.size.width);
+    
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44);
+    
+    [self addChildViewController:self.pageViewController];
+    [[self view] addSubview:[self.pageViewController view]];
+    [self.pageViewController didMoveToParentViewController:self];
+    
+    //[self showSwipeAlert];
+    
 }
 
 -(void) showSwipeAlert
@@ -357,23 +366,29 @@
     }
     //NSUInteger currentIndex = [[self.pageViewController.viewControllers lastObject] index];
     self.currentDisplayIndex = [[self.pageViewController.viewControllers lastObject] index];
-    DDLogDebug(@"didFinishAnimating(), Current index: %lu", (unsigned long)self.currentDisplayIndex);
+    NSLog(@"didFinishAnimating(), Current index: %lu", (unsigned long)self.currentDisplayIndex);
 }
 
-- (UIViewController *)viewControllerAtIndex:(NSUInteger)index
+- (EboticonViewController *)viewControllerAtIndex:(NSUInteger)index
 {
+    
+    NSLog(@"viewControllerAtIndex: %lu", (unsigned long)index);
+    
     if ((index == NSNotFound) || (index >= self.imageNames.count)) {
         return nil;
     }
     
     self.index = index;
-    EboticonViewController *eboticonViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EboticonViewController"];
-    eboticonViewController.index = index;
-    eboticonViewController.eboticonGif = self.imageNames[index];
     
-    DDLogDebug(@"ViewControllerAtIndex(), Current Gif: %@",eboticonViewController.eboticonGif.fileName);
+    // Create a new view controller and pass suitable data.
+    EboticonViewController *pageContentViewController = [[EboticonViewController alloc] initWithNibName:@"EboticonView" bundle:nil];
     
-    return eboticonViewController;
+    pageContentViewController.eboticonGif = self.imageNames[index];
+    pageContentViewController.index = index;
+    
+    NSLog(@"ViewControllerAtIndex(), Current Gif: %@",pageContentViewController.eboticonGif.fileName);
+    
+    return pageContentViewController;
 }
 
 @end

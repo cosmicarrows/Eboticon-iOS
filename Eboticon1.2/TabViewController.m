@@ -20,14 +20,30 @@
 
 @implementation TabViewController
 
+- (id)initWithCategory:(id )identifier {
+     self.gifCategory = identifier;
+    
+    if ( self = [super init] ) {
+
+        if (identifier) {
+            return self;
+        } else {
+            return nil;
+        }
+    } else
+        return nil;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-   // UIViewController *view1 = [[UIViewController alloc] init];
-    
-    
     MainViewController *homeViewController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
+    
+ 
+    
+    homeViewController.gifCategory = _gifCategory;
     UINavigationController* homeNavController = [[UINavigationController alloc]
                                                      initWithRootViewController:homeViewController];
                         

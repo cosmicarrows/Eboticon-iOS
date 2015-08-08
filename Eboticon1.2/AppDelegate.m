@@ -33,7 +33,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
 
     JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
     JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
@@ -83,7 +82,7 @@
     
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         //self.window.rootViewController = self.tabBarController;
-    self.window.rootViewController = self.viewController;
+        self.window.rootViewController = self.viewController;
         
         // Present Window before calling Harpy
         [self.window makeKeyAndVisible];

@@ -36,6 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"EboticonViewController viewDidLoad");
+    
+    
+    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
+    
 	// Do any additional setup after loading the view.
     
     //self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];

@@ -636,10 +636,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
         imageNames = _exclamationImagesCaption;
     }else {
+        _gifCategory = CATEGORY_ALL;
         imageNames = _allImages;
     }
     
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
+    
+    NSLog(@"Row: %ld", (long)indexPath.row);
+    NSLog(@"Passing images count: %ld", (long)[imageNames count]);
+    NSLog(@"Category: %@", _gifCategory);
+    
     
     gifDetailViewController.gifCategory = _gifCategory;
     gifDetailViewController.index = indexPath.row;

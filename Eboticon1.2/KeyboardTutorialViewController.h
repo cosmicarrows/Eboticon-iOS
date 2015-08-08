@@ -1,24 +1,18 @@
 //
-//  KeyboardTutorialViewController.h
-//  Eboticon1.2
+//  APPViewController.h
+//  PageApp
 //
-//  Created by Troy Nunnally on 7/29/15.
-//  Copyright (c) 2015 Incling. All rights reserved.
+//  Created by Rafael Garcia Leiva on 10/06/13.
+//  Copyright (c) 2013 Appcoda. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardTutorialViewController : UIViewController <UIScrollViewDelegate>{
-    UIScrollView* scrollView;
-    UIPageControl* pageControl;
-    
-    BOOL pageControlBeingUsed;
-}
+@interface KeyboardTutorialViewController : UIViewController <UIPageViewControllerDataSource>
 
-@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) IBOutlet UIPageControl* pageControl;
-
-- (IBAction)changePage;
-
+- (IBAction)startWalkthrough:(id)sender;
+@property (strong, nonatomic) UIPageViewController *pageController;
+@property (strong, nonatomic) NSArray *pageTitles;
+@property (strong, nonatomic) NSArray *pageImages;
 
 @end
