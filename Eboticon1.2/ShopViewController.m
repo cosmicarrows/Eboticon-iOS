@@ -8,7 +8,9 @@
 
 #import "ShopViewController.h"
 
-@interface ShopViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
+    IBOutlet KIImagePager *_imagePager;
+}
 
 @end
 
@@ -39,6 +41,8 @@
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
+    
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -65,7 +69,57 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-#pragma mark -
+#pragma mark - KIImagePager DataSource
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    _imagePager.imageCounterDisabled = YES;
+    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    _imagePager.slideshowTimeInterval = 5.5f;
+    _imagePager.slideshowShouldCallScrollToDelegate = YES;
+  
+}
+
+
+- (NSArray *) arrayWithImages:(KIImagePager*)pager
+{
+    return @[
+             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide1.png",
+             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide2.png",
+             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide3.png"
+             ];
+}
+
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager *)pager
+{
+    return UIViewContentModeScaleAspectFill;
+}
+
+- (NSString *) captionForImageAtIndex:(NSUInteger)index inPager:(KIImagePager *)pager
+{
+  /*  return @[
+             @"First screenshot",
+             @"Another screenshot",
+             @"Last one! ;-)"
+             ][index];
+   */
+    
+    return false;
+    
+}
+
+#pragma mark - KIImagePager Delegate
+- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+}
+
+- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+}
+
 
 
 

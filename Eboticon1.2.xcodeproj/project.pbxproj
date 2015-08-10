@@ -813,6 +813,9 @@
 		9760B5521B75425200E75EEC /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B681121B3D9B4F00170446 /* round-switch-track@2x.png */; };
 		9760B5601B754CA800E75EEC /* SidebarCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9760B55F1B754CA800E75EEC /* SidebarCategoryCell.xib */; };
 		9760B5631B754E7800E75EEC /* SidebarCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5621B754E7800E75EEC /* SidebarCategoryTableViewCell.m */; };
+		9760B5691B79343600E75EEC /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5651B79343600E75EEC /* KICamera.png */; };
+		9760B56A1B79343600E75EEC /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5661B79343600E75EEC /* KICamera@2x.png */; };
+		9760B56B1B79343600E75EEC /* KIImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5681B79343600E75EEC /* KIImagePager.m */; };
 		97702BC61B21FB070011F6DE /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BC51B21FB070011F6DE /* KeyboardViewController.m */; };
 		97702BD11B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */; };
 		97702BD21B21FB470011F6DE /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BD01B21FB470011F6DE /* MyCell.m */; };
@@ -1427,6 +1430,10 @@
 		9760B55F1B754CA800E75EEC /* SidebarCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarCategoryCell.xib; sourceTree = "<group>"; };
 		9760B5611B754E7800E75EEC /* SidebarCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarCategoryTableViewCell.h; sourceTree = "<group>"; };
 		9760B5621B754E7800E75EEC /* SidebarCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarCategoryTableViewCell.m; sourceTree = "<group>"; };
+		9760B5651B79343600E75EEC /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
+		9760B5661B79343600E75EEC /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
+		9760B5671B79343600E75EEC /* KIImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIImagePager.h; sourceTree = "<group>"; };
+		9760B5681B79343600E75EEC /* KIImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIImagePager.m; sourceTree = "<group>"; };
 		97702BC01B21FB070011F6DE /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97702BC31B21FB070011F6DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97702BC41B21FB070011F6DE /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
@@ -1679,6 +1686,7 @@
 		6337EB37188B11A500332C75 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				9760B5641B79342600E75EEC /* KIImagePager */,
 				9706586A1B6A5473004B149A /* SWReveal */,
 				63376EAF18E5FB5400DC1204 /* Google Analytics */,
 				6373A00318C2467400E7ECBD /* Fonts */,
@@ -2344,6 +2352,17 @@
 				970DA3F21B69D04A00587CD6 /* MoreView.xib */,
 			);
 			name = "More View Controller";
+			sourceTree = "<group>";
+		};
+		9760B5641B79342600E75EEC /* KIImagePager */ = {
+			isa = PBXGroup;
+			children = (
+				9760B5651B79343600E75EEC /* KICamera.png */,
+				9760B5661B79343600E75EEC /* KICamera@2x.png */,
+				9760B5671B79343600E75EEC /* KIImagePager.h */,
+				9760B5681B79343600E75EEC /* KIImagePager.m */,
+			);
+			name = KIImagePager;
 			sourceTree = "<group>";
 		};
 		97702BC11B21FB070011F6DE /* Keyboard */ = {
@@ -3119,6 +3138,7 @@
 				633278231A82E0F4000557D0 /* deal_with_it-caption.mov in Resources */,
 				637077E61AC11394007652E1 /* you_knew-caption.png in Resources */,
 				6304516F1ABF950A001DC8B2 /* did_that-caption.png in Resources */,
+				9760B56A1B79343600E75EEC /* KICamera@2x.png in Resources */,
 				639B13101B46F0A100EF8997 /* dead_female-nocaption.gif in Resources */,
 				63C613361A1AE6A3004D821D /* happy_birthday-caption.gif in Resources */,
 				630BF52D1A5EDFCE00F179F5 /* wait_whet-nocaption.mov in Resources */,
@@ -3271,6 +3291,7 @@
 				639B13521B46F27500EF8997 /* uh_hello-caption.mov in Resources */,
 				63BCCD8F1920E92200C8508D /* fabulous-caption.gif in Resources */,
 				63BCCDB61920E92200C8508D /* wont_he_do_it_male-nocaption.gif in Resources */,
+				9760B5691B79343600E75EEC /* KICamera.png in Resources */,
 				6332782A1A82E0F4000557D0 /* i_love_you-nocaption.mov in Resources */,
 				630BF52C1A5EDFCE00F179F5 /* wait_whet-caption.mov in Resources */,
 				637078061AC116CD007652E1 /* tried_me-nocaption.gif in Resources */,
@@ -3675,6 +3696,7 @@
 				635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */,
 				970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */,
 				63B6CB4618F07C9600D1F08A /* EboticonGif.m in Sources */,
+				9760B56B1B79343600E75EEC /* KIImagePager.m in Sources */,
 				63D643991984579B0056AC0B /* EBOActivityTypePostToFacebook.m in Sources */,
 				9706586E1B6A54A8004B149A /* RightViewController.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
