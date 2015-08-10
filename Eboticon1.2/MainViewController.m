@@ -114,7 +114,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
     
     //Add background image
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     
     //Add Layout Control
     //self.flowLayout = [[GifCollectionViewFlowLayout alloc]init];
