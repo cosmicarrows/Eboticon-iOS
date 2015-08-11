@@ -85,9 +85,9 @@
 - (NSArray *) arrayWithImages:(KIImagePager*)pager
 {
     return @[
-             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide1.png",
-             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide2.png",
-             @"http://www.inclingconsulting.com/eboticon/shop_slider/slide3.png"
+             @"http://www.inclingconsulting.com/eboticon/store/banner1.png",
+             @"http://www.inclingconsulting.com/eboticon/store/banner2.png",
+             @"http://www.inclingconsulting.com/eboticon/store/banner3.png"
              ];
 }
 

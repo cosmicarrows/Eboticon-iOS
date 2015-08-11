@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopViewController">
@@ -17,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
-                    <rect key="frame" x="0.0" y="205" width="414" height="487"/>
+                    <rect key="frame" x="0.0" y="225" width="414" height="467"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="LU3-sD-uJE"/>
@@ -25,10 +26,10 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7RK-aU-FNo" userLabel="Image Pager" customClass="KIImagePager">
-                    <rect key="frame" x="0.0" y="59" width="414" height="147"/>
+                    <rect key="frame" x="0.0" y="59" width="414" height="167"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="147" id="UUM-GL-nWA"/>
+                        <constraint firstAttribute="width" secondItem="7RK-aU-FNo" secondAttribute="height" multiplier="400:161" id="DOx-aV-91X"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="yhJ-BT-X9L"/>
