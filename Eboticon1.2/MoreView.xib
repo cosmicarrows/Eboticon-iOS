@@ -156,7 +156,7 @@
                     <rect key="frame" x="119" y="330" width="27" height="29"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-62-WCc" userLabel="facebook">
-                    <rect key="frame" x="76" y="399" width="42" height="42"/>
+                    <rect key="frame" x="65" y="399" width="42" height="42"/>
                     <state key="normal" image="facebook-social">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -165,7 +165,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Pv-4kl" userLabel="instagram">
-                    <rect key="frame" x="129" y="399" width="42" height="42"/>
+                    <rect key="frame" x="118" y="399" width="42" height="42"/>
                     <state key="normal" image="instagram-social">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -174,7 +174,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEi-67-XKl" userLabel="twitter">
-                    <rect key="frame" x="181" y="399" width="42" height="42"/>
+                    <rect key="frame" x="170" y="399" width="42" height="42"/>
                     <state key="normal" image="twitter-social">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -183,7 +183,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q7-tf-Jgd" userLabel="youtube">
-                    <rect key="frame" x="233" y="399" width="42" height="42"/>
+                    <rect key="frame" x="222" y="399" width="42" height="42"/>
                     <state key="normal" image="youtube-social">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -192,7 +192,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngg-V3-Aqw" userLabel="vine">
-                    <rect key="frame" x="286" y="399" width="42" height="42"/>
+                    <rect key="frame" x="275" y="399" width="42" height="42"/>
                     <state key="normal" image="vine-social">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -223,7 +223,7 @@
                 <constraint firstAttribute="centerX" secondItem="To6-BL-Nsb" secondAttribute="centerX" constant="-22.5" id="BAp-tf-oBb"/>
                 <constraint firstItem="d4g-Pv-4kl" firstAttribute="top" secondItem="JK1-yx-bkZ" secondAttribute="bottom" constant="40" id="Bkr-hX-GeO"/>
                 <constraint firstItem="4Q7-tf-Jgd" firstAttribute="top" secondItem="SEi-67-XKl" secondAttribute="top" id="DJn-dJ-kev"/>
-                <constraint firstItem="0Xv-62-WCc" firstAttribute="leading" secondItem="W24-ml-ptx" secondAttribute="leading" id="E01-50-4zB"/>
+                <constraint firstItem="0Xv-62-WCc" firstAttribute="leading" secondItem="W24-ml-ptx" secondAttribute="leading" constant="-11" id="E01-50-4zB"/>
                 <constraint firstItem="JK1-yx-bkZ" firstAttribute="leading" secondItem="CK9-OS-36E" secondAttribute="leading" constant="1" id="Ena-bh-htk"/>
                 <constraint firstItem="CK9-OS-36E" firstAttribute="trailing" secondItem="JK1-yx-bkZ" secondAttribute="trailing" constant="-1" id="GRU-Vs-ACD"/>
                 <constraint firstItem="r5o-3i-HVJ" firstAttribute="leading" secondItem="CK9-OS-36E" secondAttribute="leading" constant="1" id="IXf-Cx-lNF"/>
@@ -261,13 +261,13 @@
                 <constraint firstItem="iPf-Ho-5FF" firstAttribute="trailing" secondItem="QBg-Qz-nH8" secondAttribute="trailing" constant="-1" id="pSh-ZH-Hfn"/>
                 <constraint firstItem="CK9-OS-36E" firstAttribute="bottom" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="-2" id="q8L-v6-1yM"/>
                 <constraint firstItem="oh0-Ko-ipj" firstAttribute="top" secondItem="LXV-hg-oXP" secondAttribute="bottom" constant="9" id="rrV-6d-0SI"/>
-                <constraint firstItem="SEi-67-XKl" firstAttribute="trailing" secondItem="Uft-b9-0oo" secondAttribute="trailing" id="s6C-XW-73T"/>
+                <constraint firstItem="SEi-67-XKl" firstAttribute="trailing" secondItem="Uft-b9-0oo" secondAttribute="trailing" constant="-11" id="s6C-XW-73T"/>
                 <constraint firstItem="ngg-V3-Aqw" firstAttribute="leading" secondItem="4Q7-tf-Jgd" secondAttribute="trailing" constant="11" id="sNW-jr-k2M"/>
                 <constraint firstItem="0Xv-62-WCc" firstAttribute="top" secondItem="d4g-Pv-4kl" secondAttribute="top" id="sgU-7F-gs8"/>
                 <constraint firstAttribute="centerX" secondItem="oh0-Ko-ipj" secondAttribute="centerX" constant="-52.5" id="vqE-Pw-1LE"/>
                 <constraint firstItem="Uft-b9-0oo" firstAttribute="top" secondItem="W24-ml-ptx" secondAttribute="bottom" constant="13" id="vrp-6O-aVd"/>
                 <constraint firstAttribute="bottom" secondItem="To6-BL-Nsb" secondAttribute="bottom" constant="69" id="wOT-kf-9cX"/>
-                <constraint firstItem="d4g-Pv-4kl" firstAttribute="leading" secondItem="To6-BL-Nsb" secondAttribute="leading" id="xe0-TI-TLK"/>
+                <constraint firstItem="d4g-Pv-4kl" firstAttribute="leading" secondItem="To6-BL-Nsb" secondAttribute="leading" constant="-11" id="xe0-TI-TLK"/>
                 <constraint firstItem="CK9-OS-36E" firstAttribute="top" secondItem="r5o-3i-HVJ" secondAttribute="bottom" constant="12" id="yo2-y0-6b5"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

@@ -818,6 +818,9 @@
 		9760B56B1B79343600E75EEC /* KIImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5681B79343600E75EEC /* KIImagePager.m */; };
 		9760B56D1B7A54D600E75EEC /* more_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B56C1B7A54D600E75EEC /* more_bg.png */; };
 		9760B5711B7A672B00E75EEC /* avenirltstd-book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5701B7A66FE00E75EEC /* avenirltstd-book.otf */; };
+		9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B5731B7A76F300E75EEC /* ShopTableCell.m */; };
+		9760B5761B7A849F00E75EEC /* shopCostBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5751B7A849F00E75EEC /* shopCostBorder.png */; };
+		9760B57B1B7A87E700E75EEC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B57A1B7A87E700E75EEC /* Reachability.m */; };
 		97702BC61B21FB070011F6DE /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BC51B21FB070011F6DE /* KeyboardViewController.m */; };
 		97702BD11B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BCE1B21FB470011F6DE /* KeyboardCollectionViewFlowLayout.m */; };
 		97702BD21B21FB470011F6DE /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97702BD01B21FB470011F6DE /* MyCell.m */; };
@@ -1438,6 +1441,11 @@
 		9760B5681B79343600E75EEC /* KIImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIImagePager.m; sourceTree = "<group>"; };
 		9760B56C1B7A54D600E75EEC /* more_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_bg.png; sourceTree = "<group>"; };
 		9760B5701B7A66FE00E75EEC /* avenirltstd-book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "avenirltstd-book.otf"; sourceTree = "<group>"; };
+		9760B5721B7A76F300E75EEC /* ShopTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableCell.h; sourceTree = "<group>"; };
+		9760B5731B7A76F300E75EEC /* ShopTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableCell.m; sourceTree = "<group>"; };
+		9760B5751B7A849F00E75EEC /* shopCostBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopCostBorder.png; sourceTree = "<group>"; };
+		9760B5791B7A87E700E75EEC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9760B57A1B7A87E700E75EEC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		97702BC01B21FB070011F6DE /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97702BC31B21FB070011F6DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97702BC41B21FB070011F6DE /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
@@ -1690,6 +1698,7 @@
 		6337EB37188B11A500332C75 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				9760B5781B7A87D900E75EEC /* Reachability */,
 				9760B5641B79342600E75EEC /* KIImagePager */,
 				9706586A1B6A5473004B149A /* SWReveal */,
 				63376EAF18E5FB5400DC1204 /* Google Analytics */,
@@ -2243,7 +2252,7 @@
 			name = Media;
 			sourceTree = "<group>";
 		};
-		97035A8B1B6C191E004FEDC5 /* Keyboard Tutorial Images */ = {
+		97035A8B1B6C191E004FEDC5 /* keyboard */ = {
 			isa = PBXGroup;
 			children = (
 				9760B5311B750B6800E75EEC /* page1.png */,
@@ -2251,7 +2260,7 @@
 				9760B5331B750B6800E75EEC /* page3.png */,
 				9760B5341B750B6800E75EEC /* page4.png */,
 			);
-			name = "Keyboard Tutorial Images";
+			name = keyboard;
 			sourceTree = "<group>";
 		};
 		9706585F1B6A4C38004B149A /* Tab Bar */ = {
@@ -2315,8 +2324,8 @@
 		970DA3CA1B6979A400587CD6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				97035A8B1B6C191E004FEDC5 /* Keyboard Tutorial Images */,
-				97065D731B6A85B1004B149A /* shop-slider.png */,
+				9760B5771B7A84A600E75EEC /* shop */,
+				97035A8B1B6C191E004FEDC5 /* keyboard */,
 				9760B56E1B7A54EE00E75EEC /* More */,
 				970658701B6A570A004B149A /* reveal-icon.png */,
 				970658711B6A570A004B149A /* reveal-icon@2x.png */,
@@ -2333,6 +2342,8 @@
 				970DA3E11B69CD5100587CD6 /* ShopViewController.h */,
 				970DA3E31B69CD5100587CD6 /* ShopView.xib */,
 				97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */,
+				9760B5721B7A76F300E75EEC /* ShopTableCell.h */,
+				9760B5731B7A76F300E75EEC /* ShopTableCell.m */,
 			);
 			name = "Shop View";
 			sourceTree = "<group>";
@@ -2385,6 +2396,24 @@
 				9760B5701B7A66FE00E75EEC /* avenirltstd-book.otf */,
 			);
 			name = Font;
+			sourceTree = "<group>";
+		};
+		9760B5771B7A84A600E75EEC /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				97065D731B6A85B1004B149A /* shop-slider.png */,
+				9760B5751B7A849F00E75EEC /* shopCostBorder.png */,
+			);
+			name = shop;
+			sourceTree = "<group>";
+		};
+		9760B5781B7A87D900E75EEC /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				9760B5791B7A87E700E75EEC /* Reachability.h */,
+				9760B57A1B7A87E700E75EEC /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		97702BC11B21FB070011F6DE /* Keyboard */ = {
@@ -3258,6 +3287,7 @@
 				9760B54B1B75425200E75EEC /* round-switch-overlay.png in Resources */,
 				637078141AC11714007652E1 /* good_morning-nocaption.mov in Resources */,
 				6304514D1ABF950A001DC8B2 /* 2015_lets_get_it-caption.png in Resources */,
+				9760B5761B7A849F00E75EEC /* shopCostBorder.png in Resources */,
 				63C613371A1AE6A3004D821D /* happy_birthday-nocaption.gif in Resources */,
 				630BF4FC1A5EDFCE00F179F5 /* glory-caption.mov in Resources */,
 				630451E51ABF950A001DC8B2 /* twerkteam-nocaption.png in Resources */,
@@ -3726,6 +3756,7 @@
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
 				9760B5471B750D0E00E75EEC /* TutorialContentViewController.m in Sources */,
 				63FAE3971868CC0200116D73 /* AppDelegate.m in Sources */,
+				9760B57B1B7A87E700E75EEC /* Reachability.m in Sources */,
 				97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */,
 				63FAE39D1868CC0200116D73 /* MasterViewController.m in Sources */,
 				6337EB3D188B11D200332C75 /* OLImage.m in Sources */,
@@ -3739,6 +3770,7 @@
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,
+				9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */,
 				63CE781E18AD6B040069049F /* EboticonViewController.m in Sources */,
 				6384DAF619AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m in Sources */,
 				6337EB3E188B11D200332C75 /* OLImageView.m in Sources */,

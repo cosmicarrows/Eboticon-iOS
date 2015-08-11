@@ -15,5 +15,8 @@
 
 @property (retain, nonatomic) IBOutlet UITableView *inAppPurchaseTable;
 
+@property (strong, nonatomic) NSArray *packTitles;
+@property (strong, nonatomic) NSArray *packImages;
+@property (strong, nonatomic) NSArray *packCosts;
 
 @end

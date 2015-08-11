@@ -8,6 +8,8 @@
 
 #import "ShopViewController.h"
 
+#import "ShopTableCell.h"
+
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
     IBOutlet KIImagePager *_imagePager;
 }
@@ -22,7 +24,10 @@
     
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
-    
+    // Create the data model
+    _packTitles = @[@"CHURCH PACK", @"GREEK PACK"];
+    _packImages = @[@"PackChurchIcon", @"PackGreekIcon"];
+    _packCosts  = @[@"$0.99", @"$0.99"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,30 +50,59 @@
     
 }
 
+
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    if (! cell) {
-        NSArray *parts = [[NSBundle mainBundle] loadNibNamed:@"ShopTableCell" owner:nil options:nil];
-        cell = [parts objectAtIndex:0];
+    ShopTableCell * cell = [tableView dequeueReusableCellWithIdentifier:@"shopCell"];
+    if (!cell)
+    {
+        [tableView registerNib:[UINib nibWithNibName:@"ShopTableCell" bundle:nil] forCellReuseIdentifier:@"shopCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"shopCell"];
     }
     
+    NSLog(@"packImages: %@", [_packImages objectAtIndex:indexPath.row]);
+    NSLog(@"packTitles: %@", [_packTitles objectAtIndex:indexPath.row]);
+    
     return cell;
+    
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ShopTableCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Configure Cell
+    cell.packTitle.text = [_packTitles objectAtIndex:indexPath.row];
+    cell.packCost.text  = [_packCosts objectAtIndex:indexPath.row];
+    cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:indexPath.row]];
+}
+
+
 #pragma mark -
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self shopKeyPressed:indexPath.row];
 }
+
+
+#pragma mark -
+
+
+- (void) shopKeyPressed:(NSInteger)tag {
+    
+    NSLog(@"The shop category name is %ld",(long)tag);
+    
+}
+
 #pragma mark - KIImagePager DataSource
 - (void) viewDidAppear:(BOOL)animated
 {

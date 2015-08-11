@@ -174,7 +174,7 @@
         
         CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
         animationGroup.animations = @[keyAnimation,basicAnimation];
-        animationGroup.duration = 1.0;
+        animationGroup.duration = 0.5;
         animationGroup.removedOnCompletion = NO;
         animationGroup.fillMode = kCAFillModeForwards;
         [self.moveView.layer addAnimation:animationGroup forKey:nil];

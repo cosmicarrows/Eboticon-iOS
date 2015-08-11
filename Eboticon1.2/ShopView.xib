@@ -17,16 +17,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
-                    <rect key="frame" x="0.0" y="225" width="414" height="467"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="LU3-sD-uJE"/>
-                        <outlet property="delegate" destination="-1" id="aum-ui-pOO"/>
-                    </connections>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7RK-aU-FNo" userLabel="Image Pager" customClass="KIImagePager">
-                    <rect key="frame" x="0.0" y="59" width="414" height="167"/>
+                    <rect key="frame" x="0.0" y="63" width="414" height="167"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="7RK-aU-FNo" secondAttribute="height" multiplier="400:161" id="DOx-aV-91X"/>
@@ -36,24 +28,26 @@
                         <outlet property="delegate" destination="-1" id="Eno-mg-pQQ"/>
                     </connections>
                 </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
+                    <rect key="frame" x="0.0" y="230" width="414" height="460"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LU3-sD-uJE"/>
+                        <outlet property="delegate" destination="-1" id="aum-ui-pOO"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="59" id="4bd-JA-auk"/>
-                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="44" id="SQb-5V-L6Z"/>
+                <constraint firstItem="7RK-aU-FNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="4bd-JA-auk"/>
+                <constraint firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="7B4-5p-EMm"/>
+                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="46" id="OXO-aU-qiX"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="7RK-aU-FNo" secondAttribute="bottom" id="XAU-02-5tV"/>
                 <constraint firstItem="7RK-aU-FNo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Xiq-rn-1dv"/>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="leading" secondItem="zid-fh-oG3" secondAttribute="leading" id="Z97-IQ-ese"/>
                 <constraint firstAttribute="trailing" secondItem="7RK-aU-FNo" secondAttribute="trailing" id="cbx-lq-POU"/>
-                <constraint firstAttribute="bottom" secondItem="7RK-aU-FNo" secondAttribute="bottom" constant="370" id="f3A-SJ-pIC"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="7RK-aU-FNo" secondAttribute="bottom" constant="-1" id="jAQ-6f-Nht"/>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="yuO-iJ-62H"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kto-8b-3A3"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="f3A-SJ-pIC"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>
