@@ -17,6 +17,7 @@
 #define TWITTER @"twitter"
 #define FACEBOOK @"facebook"
 #define INSTAGRAM @"instagram"
+#define VINE @"vine"
 #define YOUTUBE @"youtube"
 #define EBOLOGO @"eboticonLogo"
 
@@ -51,6 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 	// Do any additional setup after loading the view.
     [_eboticonLogo setImage:[UIImage imageNamed:@"Eboticon_Final.png"] forState:UIControlStateNormal];
     
+    /*
     [_facebookLogo setImage:[UIImage imageNamed:@"facebook-social.png"] forState:UIControlStateNormal];
     _facebookLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
     _facebookLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
@@ -66,6 +68,19 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [_youtubeLogo setImage:[UIImage imageNamed:@"youtube-social.png"] forState:UIControlStateNormal];
     _youtubeLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
     _youtubeLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    */
+    
+    
+    for (NSString* family in [UIFont familyNames])
+    {
+        NSLog(@"%@", family);
+        
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+        {
+            NSLog(@"  %@", name);
+        }
+    }
+    
     
     //GOOGLE ANALYTICS
     @try {
@@ -236,6 +251,19 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     
     [self sendAlertToGoogleAnalytics:YOUTUBE];
+}
+
+- (IBAction)vineLogo:(id)sender {
+    NSURL *vineURL = [NSURL URLWithString:@"https://vine.co/tags/eboticon"];
+    NSURL *vineWebURL = [NSURL URLWithString:@"https://vine.co/tags/eboticon"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:vineURL]) {
+        [[UIApplication sharedApplication] openURL:vineURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:vineWebURL];
+    }
+    
+    [self sendAlertToGoogleAnalytics:VINE];
 }
 
 -(void) sendAlertToGoogleAnalytics:(NSString*) eventLabel

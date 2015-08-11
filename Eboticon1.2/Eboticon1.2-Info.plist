@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>33</string>
+	<string>34</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -54,6 +54,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>linkinpark.ttf</string>
+		<string>avenirltstd-book.otf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

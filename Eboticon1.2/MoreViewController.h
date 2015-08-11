@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *instagramLogo;
 @property (strong, nonatomic) IBOutlet UIButton *twitterLogo;
 @property (strong, nonatomic) IBOutlet UIButton *youtubeLogo;
+@property (strong, nonatomic) IBOutlet UIButton *vineLogo;
 
 - (IBAction)eboticonLogo:(id)sender;
 - (IBAction)contactUsEmail:(id)sender;

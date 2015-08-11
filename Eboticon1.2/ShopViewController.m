@@ -112,12 +112,12 @@
 #pragma mark - KIImagePager Delegate
 - (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
 {
-    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+    //NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
 - (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
-    NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+   // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
 
