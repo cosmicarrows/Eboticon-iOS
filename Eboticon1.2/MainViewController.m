@@ -41,12 +41,13 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CATEGORY_EXCLAMATION @"exclamation"
 
 @interface MainViewController (){
-     NSInteger _captionState;
-     UIToolbar *_toolbar;
-     NSMutableArray *_toolbarButtons;
-     NSMutableArray *_eboticonGifs;
+    UIToolbar *_toolbar;
+    NSMutableArray *_toolbarButtons;
+    NSMutableArray *_eboticonGifs;
     
     NSMutableArray *_allImages;
+    NSMutableArray *_allImagesCaption;
+    NSMutableArray *_allImagesNoCaption;
     NSMutableArray *_exclamationImagesCaption;
     NSMutableArray *_exclamationImagesNoCaption;
     NSMutableArray *_smileImagesCaption;
@@ -99,8 +100,28 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                                         style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(clearRecentGifs)];
-        self.navigationItem.rightBarButtonItem = clearbutton;
+        self.navigationItem.leftBarButtonItem = clearbutton;
     }
+    
+    //Initialize Gifs
+    _currentEboticonGifs         = [[NSMutableArray alloc] init];
+    _allImages                   = [[NSMutableArray alloc] init];
+    _allImagesCaption            = [[NSMutableArray alloc] init];
+    _allImagesNoCaption          = [[NSMutableArray alloc] init];
+    _exclamationImagesCaption    = [[NSMutableArray alloc] init];
+    _exclamationImagesNoCaption  = [[NSMutableArray alloc] init];
+    _smileImagesCaption          = [[NSMutableArray alloc] init];
+    _smileImagesNoCaption        = [[NSMutableArray alloc] init];
+    _nosmileImagesCaption        = [[NSMutableArray alloc] init];
+    _nosmileImagesNoCaption      = [[NSMutableArray alloc] init];
+    _giftImagesCaption           = [[NSMutableArray alloc] init];
+    _giftImagesNoCaption         = [[NSMutableArray alloc] init];
+    _heartImagesCaption          = [[NSMutableArray alloc] init];
+    _heartImagesNoCaption        = [[NSMutableArray alloc] init];
+    
+    //Intialize current tapped image
+    NSLog(@"self.captionState: %lu",(unsigned long)[self.captionState  integerValue]);
+    //self.captionState           = 1;
     
     //Load Gif csv file
     NSLog(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
@@ -343,6 +364,14 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             else {
                 //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
             }
+            
+            if ([gifCaption isEqual:@"Caption"])
+                [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
+            else{
+                [_noCaptionImages addObject:[_eboticonGifs objectAtIndex:i]];
+            }
+            
+            
         }//End for
 
         
@@ -364,6 +393,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          */
         
         //_allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
+        
         _allImages = [_eboticonGifs mutableCopy];
         _recentImages = [self getRecentGifs];
         
@@ -433,26 +463,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    NSIndexPath *indexPath = (NSIndexPath *) sender;
-    NSMutableArray *imageNames;
-    if([_gifCategory isEqual: CATEGORY_CAPTION]){
-        imageNames = _captionImages;
-    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-        imageNames =  _noCaptionImages;
-    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-        imageNames =  _recentImages;
-    } else {
-        imageNames = _allImages;
-    }
-    
-    GifDetailViewController *gifDetailViewController = (GifDetailViewController*) segue.destinationViewController;
-    gifDetailViewController.imageNames = imageNames;
-    gifDetailViewController.index = indexPath.row;
-    
-}
-
 
 #pragma mark-
 #pragma mark UICollectionViewDataSource
@@ -465,37 +475,79 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 {
     
     
-    
     NSLog(@"In NumberofItemsinSection. gifCategory is %@",_gifCategory);
-    if([_gifCategory isEqual: CATEGORY_CAPTION]){
-        DDLogDebug(@"Returning Caption");
-        return _captionImages.count;
-    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-        DDLogDebug(@"Returning No Caption");
+    NSLog(@"In Caption State:  %ld",(long)[_captionState integerValue]);
+     if ([_captionState integerValue]) {
+            if([_gifCategory isEqual: CATEGORY_CAPTION]){
+                DDLogDebug(@"Returning Caption");
+                return _captionImages.count;
+            } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+                DDLogDebug(@"Returning No Caption");
+                return _noCaptionImages.count;
+            } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+                DDLogDebug(@"Returning No Caption");
+                return _recentImages.count;
+            } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+                DDLogDebug(@"Returning Smile");
+                return _smileImagesCaption.count;
+            } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+                DDLogDebug(@"Returning No Smile");
+                return _nosmileImagesCaption.count;
+            } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+                DDLogDebug(@"Returning Heart");
+                return _heartImagesCaption.count;
+            }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+                DDLogDebug(@"Returning Gift");
+                return _giftImagesCaption.count;
+            } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+                DDLogDebug(@"Returning Exclamation");
+                return _exclamationImagesCaption.count;
+            }
+         
+     }
+     else{
+         if([_gifCategory isEqual: CATEGORY_CAPTION]){
+             DDLogDebug(@"Returning Caption");
+             return _captionImages.count;
+         } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+             DDLogDebug(@"Returning No Caption");
+             return _noCaptionImages.count;
+         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+             DDLogDebug(@"Returning No Caption");
+             return _recentImages.count;
+         } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+             DDLogDebug(@"Returning Smile");
+             return _smileImagesNoCaption.count;
+         } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+             DDLogDebug(@"Returning No Smile");
+             return _nosmileImagesNoCaption.count;
+         } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+             DDLogDebug(@"Returning Heart");
+             return _heartImagesNoCaption.count;
+         }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+             DDLogDebug(@"Returning Gift");
+             return _giftImagesNoCaption.count;
+         } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+             DDLogDebug(@"Returning Exclamation");
+             return _exclamationImagesNoCaption.count;
+         }
+         
+         
+         
+     }
+    
+    if ([_captionState integerValue]) {
+    NSLog(@"Caption Images:  %ld",(unsigned long)_captionImages.count);
+    return _captionImages.count;
+    }
+    else{
+         NSLog(@"NoCaption Images:  %ld",(unsigned long)_noCaptionImages.count);
         return _noCaptionImages.count;
-    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-        DDLogDebug(@"Returning No Caption");
-        return _recentImages.count;
-    } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-        DDLogDebug(@"Returning Smile");
-        return _smileImagesCaption.count;
-    } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-        DDLogDebug(@"Returning No Smile");
-        return _nosmileImagesCaption.count;
-    } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-        DDLogDebug(@"Returning Heart");
-        return _heartImagesCaption.count;
-    }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-        DDLogDebug(@"Returning Gift");
-        return _giftImagesCaption.count;
-    } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-        DDLogDebug(@"Returning Exclamation");
-        return _exclamationImagesCaption.count;
+        
     }
     
-    
     DDLogDebug(@"Returning All");
-    return _allImages.count;
+
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -516,29 +568,54 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 -(UIImage *) getCellImage: (long)row
 {
     UIImage *image;
-    
-    if([_gifCategory isEqual: CATEGORY_CAPTION]){
-        image = [UIImage imageNamed:_captionImages[row]];
-    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-        image = [UIImage imageNamed:_noCaptionImages[row]];
-    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-        image = [UIImage imageNamed:_recentImages[row]];
-    }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-        image = [UIImage imageNamed:_smileImagesCaption[row]];
-    } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-        image = [UIImage imageNamed:_nosmileImagesCaption[row]];
-    } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-        image = [UIImage imageNamed:_heartImagesCaption[row]];
-    }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-        DDLogDebug(@"Returning Gift");
-        image = [UIImage imageNamed:_giftImagesCaption[row]];
-    } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-        image = [UIImage imageNamed:_exclamationImagesCaption[row]];
+    //Load Gifs depending on caption
+    if ([_captionState integerValue]) {
+        if([_gifCategory isEqual: CATEGORY_CAPTION]){
+            image = [UIImage imageNamed:_captionImages[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+            image = [UIImage imageNamed:_noCaptionImages[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+            image = [UIImage imageNamed:_recentImages[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+            image = [UIImage imageNamed:_smileImagesCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+            image = [UIImage imageNamed:_nosmileImagesCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+            image = [UIImage imageNamed:_heartImagesCaption[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+            DDLogDebug(@"Returning Gift");
+            image = [UIImage imageNamed:_giftImagesCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+            image = [UIImage imageNamed:_exclamationImagesCaption[row]];
+        }
+        else {
+            image = [UIImage imageNamed:_captionImages[row]];
+        }
     }
-    else {
-        image = [UIImage imageNamed:_allImages[row]];
+    else{
+        if([_gifCategory isEqual: CATEGORY_CAPTION]){
+            image = [UIImage imageNamed:_captionImages[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+            image = [UIImage imageNamed:_noCaptionImages[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+            image = [UIImage imageNamed:_recentImages[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+            image = [UIImage imageNamed:_smileImagesNoCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+            image = [UIImage imageNamed:_nosmileImagesNoCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+            image = [UIImage imageNamed:_heartImagesNoCaption[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+            DDLogDebug(@"Returning Gift");
+            image = [UIImage imageNamed:_giftImagesNoCaption[row]];
+        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+            image = [UIImage imageNamed:_exclamationImagesNoCaption[row]];
+        }
+        else {
+            image = [UIImage imageNamed:_noCaptionImages[row]];
+        }
+        
     }
-    
     return image;
 }
 
@@ -568,29 +645,60 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 {
     EboticonGif *currentGifObject = [[EboticonGif alloc]init];
     
+    
+    //Load Gifs depending on caption
+    if ([_captionState integerValue]) {
+        if([_gifCategory isEqual: CATEGORY_CAPTION]){
+            currentGifObject = _captionImages[row];
+        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+            currentGifObject = _noCaptionImages[row];
+        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+            currentGifObject = _recentImages[row];
+        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+            //  NSLog(@"smile images");
+            currentGifObject = _smileImagesCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+            currentGifObject = _nosmileImagesCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+            currentGifObject = _heartImagesCaption[row];
+        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+            currentGifObject = _giftImagesCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+            currentGifObject = _exclamationImagesCaption[row];
+        }
+        else {
+            // NSLog(@"all images");
+            currentGifObject = _captionImages[row];
+        }
+    }
+    else{
+        if([_gifCategory isEqual: CATEGORY_CAPTION]){
+            currentGifObject = _captionImages[row];
+        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+            currentGifObject = _noCaptionImages[row];
+        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+            currentGifObject = _recentImages[row];
+        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+            //  NSLog(@"smile images");
+            currentGifObject = _smileImagesNoCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+            currentGifObject = _nosmileImagesNoCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+            currentGifObject = _heartImagesNoCaption[row];
+        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+            currentGifObject = _giftImagesNoCaption[row];
+        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+            currentGifObject = _exclamationImagesNoCaption[row];
+        }
+        else {
+            // NSLog(@"all images");
+            currentGifObject = _noCaptionImages[row];
+        }
+    }
+    
+    
    // NSLog(@"%@",_gifCategory);
-    if([_gifCategory isEqual: CATEGORY_CAPTION]){
-        currentGifObject = _captionImages[row];
-    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-        currentGifObject = _noCaptionImages[row];
-    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-        currentGifObject = _recentImages[row];
-    }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-      //  NSLog(@"smile images");
-        currentGifObject = _smileImagesCaption[row];
-    } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-        currentGifObject = _nosmileImagesCaption[row];
-    } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-        currentGifObject = _heartImagesCaption[row];
-    }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-        currentGifObject = _giftImagesCaption[row];
-    } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-        currentGifObject = _exclamationImagesCaption[row];
-    }
-    else {
-       // NSLog(@"all images");
-        currentGifObject = _allImages[row];
-    }
+
     
     return currentGifObject;
 }
@@ -619,28 +727,53 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
     NSMutableArray *imageNames;
     
-    if([_gifCategory isEqual: CATEGORY_CAPTION]){
-        imageNames = _captionImages;
-    } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-        imageNames = _noCaptionImages;
-    } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-        imageNames = _recentImages;
-    }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-        //  NSLog(@"smile images");
-        imageNames = _smileImagesCaption;
-    } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-        imageNames = _nosmileImagesCaption;
-    } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-        imageNames = _heartImagesCaption;
-    }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-        imageNames = _giftImagesCaption;
-    } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-        imageNames = _exclamationImagesCaption;
-    }else {
-        _gifCategory = CATEGORY_ALL;
-        imageNames = _allImages;
-    }
-    
+     if ([_captionState integerValue]) {
+        if([_gifCategory isEqual: CATEGORY_CAPTION]){
+            imageNames = _captionImages;
+        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+            imageNames = _noCaptionImages;
+        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+            imageNames = _recentImages;
+        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+            //  NSLog(@"smile images");
+            imageNames = _smileImagesCaption;
+        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+            imageNames = _nosmileImagesCaption;
+        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+            imageNames = _heartImagesCaption;
+        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+            imageNames = _giftImagesCaption;
+        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+            imageNames = _exclamationImagesCaption;
+        }else {
+            _gifCategory = CATEGORY_ALL;
+            imageNames = _allImages;
+        }
+     }
+     else{
+         if([_gifCategory isEqual: CATEGORY_CAPTION]){
+             imageNames = _captionImages;
+         } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
+             imageNames = _noCaptionImages;
+         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
+             imageNames = _recentImages;
+         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+             //  NSLog(@"smile images");
+             imageNames = _smileImagesNoCaption;
+         } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
+             imageNames = _nosmileImagesNoCaption;
+         } else if ([_gifCategory isEqual: CATEGORY_HEART]){
+             imageNames = _heartImagesNoCaption;
+         }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
+             imageNames = _giftImagesNoCaption;
+         } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
+             imageNames = _exclamationImagesNoCaption;
+         }else {
+             _gifCategory = CATEGORY_ALL;
+             imageNames = _allImages;
+         }
+         
+     }
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
     NSLog(@"Row: %ld", (long)indexPath.row);

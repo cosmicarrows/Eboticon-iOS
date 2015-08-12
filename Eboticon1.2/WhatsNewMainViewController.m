@@ -6,9 +6,24 @@
 #import "WhatsNewMainViewController.h"
 #import "WhatsNewWebViewController.h"
 
+#import "Reachability.h"
+
+
+
 @interface WhatsNewMainViewController ()
 
+
+// Reachability
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
+
+// No connection
+@property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
+
 @end
+
+
 
 @implementation NSString (mycategory)
 
@@ -63,7 +78,22 @@
     
     //Parse feed
     [self parseRssFeed];
-
+    
+    
+    //Internet Reachability
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    //Start Internet Reachability Notifier
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    
+    //Check Internet Connection
+    if(![self doesInternetExists]){
+        //add Internet connection view and remove caption button
+        [self showNoConnectionAlert];
+    }
+    
+    //Ads
     self.canDisplayBannerAds = NO;
     
 }
@@ -117,6 +147,13 @@
 }
 
 - (void)reloadFeed {
+    
+    //Check Internet Connection
+    if(![self doesInternetExists]){
+        //add Internet connection view and remove caption button
+        [self showNoConnectionAlert];
+    }
+    
     [self.spinner startAnimating];
     dispatch_async( dispatch_get_global_queue(0, 0), ^{
         
@@ -131,6 +168,59 @@
         });
     });
 }
+
+#pragma mark-
+#pragma mark Reachability
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    NetworkStatus internetStatus = [self.internetReachability currentReachabilityStatus];
+    NSLog(@"Network status: %li", (long)internetStatus);
+    
+    if (internetStatus != NotReachable) {
+        
+        //Reload Feed
+        NSLog(@"Internet connection exists");
+        [self reloadFeed];
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        [self showNoConnectionAlert];
+    }
+    
+}
+
+- (void) showNoConnectionAlert
+{
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"No connection"
+                                                       message:@"No internet connection affects data on this page. Please check internet connection and try again."
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    [theAlert show];
+    
+}
+
+- (BOOL) doesInternetExists {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        //my web-dependent code
+        NSLog(@"Internet connection exists");
+        return YES;
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        return NO;
+    }
+}
+
 
 #pragma mark - Table view data source
 

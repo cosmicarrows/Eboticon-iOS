@@ -32,6 +32,7 @@
 
 //Name of Categories in the CSV File
 #define CATEGORY_ALL @"all"
+#define CATEGORY_RECENT @"Recent"
 #define CATEGORY_SMILE @"happy"
 #define CATEGORY_NOSMILE @"not_happy"
 #define CATEGORY_HEART @"love"
@@ -40,6 +41,9 @@
 
 
 @interface RightViewController ()
+{
+    NSNumber *_captionState;
+}
 
 //Caption Switch
 @property (strong, nonatomic) TTSwitch *captionSwitch;
@@ -66,19 +70,11 @@
 {
     [super viewDidLoad];
     
-    // Create the data model
+    // Create the data model for Table
     _categoryTitles = @[@"ALL", @"LOVE", @"HAPPY", @"UNHAPPY", @"EXCLAMATION", @"GREETING"];
     _categoryImages = @[@"", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller"];
     
-    // Set a random -not too dark- background color.
-    //CGFloat r = 0.001f*(250+arc4random_uniform(750));
-    //CGFloat g = 0.001f*(250+arc4random_uniform(750));
-    //CGFloat b = 0.001f*(250+arc4random_uniform(750));
-    //UIColor *color = [UIColor colorWithRed:r green:g blue:b alpha:1.0f];
-    //self.view.backgroundColor = color;
-    
-    //The switch size should be the size of the overlay.
-    
+    //Create Caption/No Caption Switch
     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 100.0f, 125.0f, 100.0f, 20.0f }];
     [[TTSwitch appearance] setTrackImage:[UIImage imageNamed:@"round-switch-track"]];
     [[TTSwitch appearance] setOverlayImage:[UIImage imageNamed:@"round-switch-overlay"]];
@@ -88,28 +84,41 @@
     [[TTSwitch appearance] setThumbMaskImage:[UIImage imageNamed:@"round-switch-mask"]];
     [[TTSwitch appearance] setThumbInsetX:-6.0f];
     [[TTSwitch appearance] setThumbOffsetY:-6.0f];
-    
     [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
     
-    
+    //Set Caption Switch to On
     self.captionSwitch.on = true;
+     _captionState = @(1);
     
+    //Show Caption Switch
     [self.view addSubview: self.captionSwitch];
     
-    
 }
+
+
+#pragma mark - Key methods
 
 - (void)changeCaptionSwitch:(id)sender{
-    
+    if([sender isOn]){
+        // Execute any code when the switch is ON
+        NSLog(@"Switch is ON");
+        _captionState = @(1);
+    } else{
+        // Execute any code when the switch is OFF
+        NSLog(@"Switch is OFF");
+        _captionState = @(0);
+    }
 }
 
 
+#pragma mark -
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #define TestStatusBarStyle 0   // <-- set this to 1 to test status bar style
 #if TestStatusBarStyle
@@ -154,14 +163,25 @@
 
 - (IBAction) recentKeyPressed:(UIButton*)sender {
     
+    //Change category
+    SWRevealViewController *revealController = self.revealViewController;
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    NSString *categoryName = CATEGORY_RECENT;
+    
+    NSLog(@"The Category name is %@",categoryName);
+    mainViewController.gifCategory = categoryName;
+    
+    TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
+    
+    //UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    [revealController pushFrontViewController:tabBarController animated:YES];
+    
 }
 
 
 - (IBAction) purchasedKeyPressed:(UIButton*)sender {
     
 }
-
-
 
 
 - (void) categoryKeyPressed:(NSInteger)tag {
@@ -208,13 +228,14 @@
              categoryName = CATEGORY_GIFT;
              break;
         }
-          
     }
         
-         NSLog(@"The Category name is %@",categoryName);
-         mainViewController.gifCategory = categoryName;
+        NSLog(@"The Category name is %@",categoryName);
+        NSLog(@"The Caption state is %ld",(long)_captionState);
+        mainViewController.gifCategory = categoryName;
+        mainViewController.captionState = _captionState;
     
-        TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
+        TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName caption:_captionState];
     
         //UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
         [revealController pushFrontViewController:tabBarController animated:YES];

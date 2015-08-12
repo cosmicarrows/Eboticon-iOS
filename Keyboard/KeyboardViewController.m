@@ -22,8 +22,6 @@
 #define CATEGORY_GIFT @"Greeting"
 #define CATEGORY_EXCLAMATION @"Exclamation"
 
-
-
 @interface KeyboardViewController () {
     
     NSInteger _currentCategory;

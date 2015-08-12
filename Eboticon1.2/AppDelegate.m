@@ -34,11 +34,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
-    JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
-    JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
-    JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
+   // JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
+   // JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
+   // JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
+   // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+   // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
    // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
    // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
     
@@ -62,11 +62,16 @@
     
     
     
-    //Sidebar Items
-         self.tabBarController = [[TabViewController alloc] init];
+    //Tabbar With sidebar Items
+        NSNumber *caption = @(1); //initialize caption to on
+        self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
+  
+    
+    
         RightViewController *rightViewController = [[RightViewController alloc] init];
     
-        
+    
+    
         SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
                                                         initWithRearViewController:rightViewController frontViewController:self.tabBarController];
     
@@ -79,7 +84,6 @@
     
     
     //Add Tab Bar
-    
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         //self.window.rootViewController = self.tabBarController;
         self.window.rootViewController = self.viewController;
@@ -260,6 +264,8 @@
 
 
 
+#pragma mark -
+#pragma mark Reveal Controller Delegate
 
 - (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
 {
@@ -270,10 +276,6 @@
     if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
     return str;
 }
-
-#pragma mark -
-#pragma mark Reveal Controller Delegate
-
 
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
 {
@@ -325,8 +327,5 @@
 {
     NSLog( @"%@", NSStringFromSelector(_cmd));
 }
-
-
-
 
 @end

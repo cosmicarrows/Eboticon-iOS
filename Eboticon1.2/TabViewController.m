@@ -38,6 +38,37 @@
         return nil;
 }
 
+- (id)initWithCaption:(NSNumber*)caption{
+    self.caption = caption;
+    
+    if ( self = [super init] ) {
+        
+        if (caption) {
+            return self;
+        } else {
+            return nil;
+        }
+    } else
+        return nil;
+}
+
+
+- (id)initWithCategory:(id )identifier caption:(NSNumber*)caption{
+    self.gifCategory = identifier;
+    self.caption = caption;
+    
+    if ( self = [super init] ) {
+        
+        if (identifier && caption) {
+            return self;
+        } else {
+            return nil;
+        }
+    } else
+        return nil;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,9 +76,11 @@
     
     MainViewController *homeViewController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
     
- 
+    //
+    NSLog(@"caption state %ld",(long)self.caption);
+    homeViewController.gifCategory = self.gifCategory;
+    homeViewController.captionState = self.caption;
     
-    homeViewController.gifCategory = _gifCategory;
     UINavigationController* homeNavController = [[UINavigationController alloc]
                                                      initWithRootViewController:homeViewController];
                         

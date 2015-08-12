@@ -17,5 +17,6 @@
 
 
     @property (strong, nonatomic) id gifCategory;
+    @property (nonatomic, assign) NSNumber* captionState;
 
 @end
