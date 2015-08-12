@@ -6,9 +6,24 @@
 #import "WhatsNewMainViewController.h"
 #import "WhatsNewWebViewController.h"
 
+#import "Reachability.h"
+
+
+
 @interface WhatsNewMainViewController ()
 
+
+// Reachability
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
+
+// No connection
+@property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
+
 @end
+
+
 
 @implementation NSString (mycategory)
 
@@ -35,6 +50,11 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+     //Sets the navigation bar title
+    [self.navigationController.navigationBar.topItem setTitle:@"What's New"];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,19 +62,62 @@
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadFeed)];
     self.navigationItem.rightBarButtonItem = refreshButton;
     
-    //Sets the navigation bar title
-    self.title = @"What's New";
+    //Load Spinner
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    NSLog(@"center x: %f", [[UIScreen mainScreen] bounds].size.width/2.0f);
+     NSLog(@"center y: %f", [[UIScreen mainScreen] bounds].size.height/2.0f);
+    
+    self.spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
+    [self.spinner startAnimating];
+    
+   
     //Set table row height so it can fit title & 2 lines of summary
     self.tableView.rowHeight = 85;
     
     //Parse feed
-    KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
-    _parseResults = [parser posts];
-
-    [self stripHTMLFromSummary];
+    [self parseRssFeed];
+    
+    
+    //Internet Reachability
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    //Start Internet Reachability Notifier
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    
+    //Check Internet Connection
+    if(![self doesInternetExists]){
+        //add Internet connection view and remove caption button
+        [self showNoConnectionAlert];
+    }
+    
+    //Ads
     self.canDisplayBannerAds = NO;
+    
 }
 
+- (void)parseRssFeed{
+    
+    dispatch_async( dispatch_get_global_queue(0, 0), ^{
+        
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        // call the result handler block on the main queue (i.e. main thread)
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // running synchronously on the main thread now -- call the handler
+            _parseResults = [parser posts];
+             [self stripHTMLFromSummary];
+             [self.tableView reloadData];
+             [self.spinner stopAnimating];
+        });
+    });
+    
+    
+
+    
+    
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -68,6 +131,8 @@
 }
 
 - (void)stripHTMLFromSummary {
+    NSLog(@"stripHTMLFromSummary");
+    NSLog(@" COUNT: %lu", (unsigned long)self.parseResults.count);
     int i = 0;
     int count = self.parseResults.count;
     //cycles through each 'summary' element stripping HTML
@@ -82,12 +147,80 @@
 }
 
 - (void)reloadFeed {
-    KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://rss.cnn.com/rss/edition.rss" delegate:self];
-    _parseResults = [parser posts];
-
-    [self stripHTMLFromSummary];
-    [self.tableView reloadData];
+    
+    //Check Internet Connection
+    if(![self doesInternetExists]){
+        //add Internet connection view and remove caption button
+        [self showNoConnectionAlert];
+    }
+    
+    [self.spinner startAnimating];
+    dispatch_async( dispatch_get_global_queue(0, 0), ^{
+        
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        // call the result handler block on the main queue (i.e. main thread)
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // running synchronously on the main thread now -- call the handler
+            _parseResults = [parser posts];
+            [self stripHTMLFromSummary];
+            [self.tableView reloadData];
+            [self.spinner stopAnimating];
+        });
+    });
 }
+
+#pragma mark-
+#pragma mark Reachability
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    NetworkStatus internetStatus = [self.internetReachability currentReachabilityStatus];
+    NSLog(@"Network status: %li", (long)internetStatus);
+    
+    if (internetStatus != NotReachable) {
+        
+        //Reload Feed
+        NSLog(@"Internet connection exists");
+        [self reloadFeed];
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        [self showNoConnectionAlert];
+    }
+    
+}
+
+- (void) showNoConnectionAlert
+{
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"No connection"
+                                                       message:@"No internet connection affects data on this page. Please check internet connection and try again."
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    [theAlert show];
+    
+}
+
+- (BOOL) doesInternetExists {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        //my web-dependent code
+        NSLog(@"Internet connection exists");
+        return YES;
+    }
+    else {
+        //there-is-no-connection warning
+        NSLog(@"NO Internet connection exists");
+        return NO;
+    }
+}
+
 
 #pragma mark - Table view data source
 
@@ -142,14 +275,22 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not parse feed. Check your network connection." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     [alert show];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
 }
 
 - (void)parserCompletedSuccessfully {
+    NSLog(@"parserCompletedSuccessfully");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+     NSLog(@"stop animating");
+    
+   
+    
 }
 
 - (void)parserDidBegin {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSLog(@"parserDidBegin");
+    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
 }
 
 @end

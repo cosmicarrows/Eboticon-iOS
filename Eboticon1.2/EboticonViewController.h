@@ -15,4 +15,7 @@
 @property (strong, nonatomic) NSString *imageName;
 @property (strong, nonatomic) EboticonGif *eboticonGif;
 
+
+
+
 @end

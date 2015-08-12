@@ -17,11 +17,13 @@
 #define TWITTER @"twitter"
 #define FACEBOOK @"facebook"
 #define INSTAGRAM @"instagram"
+#define VINE @"vine"
 #define YOUTUBE @"youtube"
 #define EBOLOGO @"eboticonLogo"
 
 #define ABOUT @"about_link"
 #define FAQS @"faqs_link"
+#define PRIVACYPOLICY @"privacy_policy"
 #define CONTACTUS @"contactUs_link"
 #define RATE @"rate_link"
 #define TELLAFRIEND @"tellFriend_link"
@@ -49,10 +51,36 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [_eboticonLogo setImage:[UIImage imageNamed:@"Eboticon_Final.png"] forState:UIControlStateNormal];
+    
+    /*
     [_facebookLogo setImage:[UIImage imageNamed:@"facebook-social.png"] forState:UIControlStateNormal];
+    _facebookLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _facebookLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_instagramLogo setImage:[UIImage imageNamed:@"instagram-social.png"] forState:UIControlStateNormal];
+    _instagramLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _instagramLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_twitterLogo setImage:[UIImage imageNamed:@"twitter-social.png"] forState:UIControlStateNormal];
+    _twitterLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _twitterLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    
     [_youtubeLogo setImage:[UIImage imageNamed:@"youtube-social.png"] forState:UIControlStateNormal];
+    _youtubeLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+    _youtubeLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    */
+    
+    
+    for (NSString* family in [UIFont familyNames])
+    {
+        NSLog(@"%@", family);
+        
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+        {
+            NSLog(@"  %@", name);
+        }
+    }
+    
     
     //GOOGLE ANALYTICS
     @try {
@@ -165,13 +193,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 
-- (IBAction)whatsNew:(id)sender {
+- (IBAction) privacyPolicy:(id)sender {
     
-    NSLog(@"whatsNew");
-
-    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
-    
-    [self.navigationController pushViewController:whatsNewMainViewController animated:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/privacy_policy"]];
+    [self sendAlertToGoogleAnalytics:PRIVACYPOLICY];
     
 }
 
@@ -226,6 +251,19 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     
     [self sendAlertToGoogleAnalytics:YOUTUBE];
+}
+
+- (IBAction)vineLogo:(id)sender {
+    NSURL *vineURL = [NSURL URLWithString:@"https://vine.co/tags/eboticon"];
+    NSURL *vineWebURL = [NSURL URLWithString:@"https://vine.co/tags/eboticon"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:vineURL]) {
+        [[UIApplication sharedApplication] openURL:vineURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:vineWebURL];
+    }
+    
+    [self sendAlertToGoogleAnalytics:VINE];
 }
 
 -(void) sendAlertToGoogleAnalytics:(NSString*) eventLabel

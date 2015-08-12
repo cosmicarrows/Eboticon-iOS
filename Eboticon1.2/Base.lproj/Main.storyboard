@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -162,7 +162,7 @@
                                     <action selector="instagramLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="iGD-Ab-mQR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZW-sa-XLI" userLabel="Twitter">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZW-sa-XLI" userLabel="Twitter">
                                 <rect key="frame" x="174" y="466" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cmg-dy-aJ5"/>
@@ -173,19 +173,6 @@
                                 </state>
                                 <connections>
                                     <action selector="twitterLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="XH7-Ya-hG5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GrB-V3-P1o" userLabel="Youtube">
-                                <rect key="frame" x="234" y="465" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="X9C-Ru-dHI"/>
-                                    <constraint firstAttribute="width" constant="40" id="mZ2-Dp-KxN"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="youtubeLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="5mv-vc-SPq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lp-0a-Z8U" userLabel="Facebook">
@@ -210,11 +197,23 @@
                                     <action selector="whatsNew:" destination="r3n-oC-yF2" eventType="touchUpInside" id="1ir-yW-uIt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GrB-V3-P1o" userLabel="Youtube">
+                                <rect key="frame" x="234" y="466" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="X9C-Ru-dHI"/>
+                                    <constraint firstAttribute="width" constant="40" id="mZ2-Dp-KxN"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="youtubeLogo:" destination="r3n-oC-yF2" eventType="touchUpInside" id="5mv-vc-SPq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="cHU-4J-8OF" secondAttribute="trailing" constant="120" id="0sC-ge-wGS"/>
-                            <constraint firstItem="SZW-sa-XLI" firstAttribute="top" secondItem="7tr-9v-ufr" secondAttribute="bottom" constant="106" id="3zt-ER-Ip4"/>
                             <constraint firstItem="WIs-lj-Xb2" firstAttribute="top" secondItem="cHU-4J-8OF" secondAttribute="bottom" constant="8" id="4fC-wa-gwK"/>
                             <constraint firstItem="GrB-V3-P1o" firstAttribute="leading" secondItem="SZW-sa-XLI" secondAttribute="trailing" constant="20" id="4tA-Sv-nc0"/>
                             <constraint firstAttribute="trailing" secondItem="Gep-eY-jeQ" secondAttribute="trailing" constant="40" id="6Bi-ik-oe7"/>

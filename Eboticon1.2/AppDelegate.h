@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TabViewController.h"
+#import "SWRevealViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) TabViewController *tabBarController;
+@property (strong, nonatomic) SWRevealViewController *viewController;
 
 @end

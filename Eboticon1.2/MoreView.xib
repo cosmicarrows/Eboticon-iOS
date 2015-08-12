@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoreViewController">
+            <connections>
+                <outlet property="facebookLogo" destination="0Xv-62-WCc" id="LIi-ze-oND"/>
+                <outlet property="instagramLogo" destination="d4g-Pv-4kl" id="GR4-E5-a0h"/>
+                <outlet property="view" destination="iN0-l3-epB" id="71n-9W-s3Y"/>
+                <outlet property="vineLogo" destination="ngg-V3-Aqw" id="KbA-Ul-bcy"/>
+                <outlet property="youtubeLogo" destination="4Q7-tf-Jgd" id="BAQ-1K-jTK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="more_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="qKk-py-gTV">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NavBarLogo" translatesAutoresizingMaskIntoConstraints="NO" id="W24-ml-ptx">
+                    <rect key="frame" x="76" y="46" width="224" height="79"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="79" id="24w-89-L2S"/>
+                        <constraint firstAttribute="width" constant="224" id="tk2-F8-AGk"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsQ-6d-XXb">
+                    <rect key="frame" x="159" y="175" width="80" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="1sy-mG-QKW"/>
+                        <constraint firstAttribute="height" constant="30" id="ygp-kK-nmh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="FAQS">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="faqURL:" destination="-1" eventType="touchUpInside" id="PAo-TB-7gK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAU-Z1-Afh">
+                    <rect key="frame" x="159" y="215" width="162" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Aqc-Hn-t4g"/>
+                        <constraint firstAttribute="width" constant="162" id="IdB-tk-Gpa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="CONTACT US">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="contactUsEmail:" destination="-1" eventType="touchUpInside" id="6VS-7m-zMQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXV-hg-oXP">
+                    <rect key="frame" x="159" y="253" width="162" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="162" id="RLJ-mg-IDh"/>
+                        <constraint firstAttribute="height" constant="30" id="jvU-Db-Tev"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="RATE EBOTICON">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="rateEboticon:" destination="-1" eventType="touchUpInside" id="wUx-jw-bbh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oh0-Ko-ipj">
+                    <rect key="frame" x="159" y="292" width="162" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="EJV-If-JRF"/>
+                        <constraint firstAttribute="width" constant="162" id="qMV-6S-WrT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="TELL A FRIEND">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tellAFriend:" destination="-1" eventType="touchUpInside" id="6hN-ej-mb0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2015 Eboticon. All Rights Reserved. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="To6-BL-Nsb">
+                    <rect key="frame" x="129" y="587" width="162" height="11"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="162" id="Zsn-TV-EmJ"/>
+                        <constraint firstAttribute="height" constant="11" id="fVv-MP-HdT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0r-4r-cr6">
+                    <rect key="frame" x="159" y="331" width="180" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="kKD-FO-AaT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="PRIVACY POLICY">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="privacyPolicy:" destination="-1" eventType="touchUpInside" id="eG1-4O-xUl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uft-b9-0oo">
+                    <rect key="frame" x="159" y="140" width="64" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="an2-hx-Lli"/>
+                        <constraint firstAttribute="width" constant="64" id="nIt-0c-sOK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                    <state key="normal" title="ABOUT">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="aboutURL:" destination="-1" eventType="touchUpInside" id="Vf3-xx-KaO"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="QBg-Qz-nH8">
+                    <rect key="frame" x="119" y="142" width="27" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="27" id="3L0-Cg-iaw"/>
+                        <constraint firstAttribute="height" constant="27" id="fL7-Uk-ogo"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="faqs" translatesAutoresizingMaskIntoConstraints="NO" id="r5o-3i-HVJ">
+                    <rect key="frame" x="119" y="177" width="27" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="27" id="CPF-6M-NFE"/>
+                        <constraint firstAttribute="height" constant="27" id="aEr-uf-HWZ"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contactUs" translatesAutoresizingMaskIntoConstraints="NO" id="CK9-OS-36E">
+                    <rect key="frame" x="118" y="216" width="27" height="27"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rate" translatesAutoresizingMaskIntoConstraints="NO" id="iPf-Ho-5FF">
+                    <rect key="frame" x="118" y="253" width="27" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" id="6bE-da-sPk"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tellafriend" translatesAutoresizingMaskIntoConstraints="NO" id="Iu1-0C-W8J">
+                    <rect key="frame" x="118" y="292" width="27" height="27"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="privacy" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-yx-bkZ">
+                    <rect key="frame" x="119" y="330" width="27" height="29"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-62-WCc" userLabel="facebook">
+                    <rect key="frame" x="65" y="399" width="42" height="42"/>
+                    <state key="normal" image="facebook-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="facebookLogo:" destination="-1" eventType="touchUpInside" id="LoS-YM-vdx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Pv-4kl" userLabel="instagram">
+                    <rect key="frame" x="118" y="399" width="42" height="42"/>
+                    <state key="normal" image="instagram-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="instagramLogo:" destination="-1" eventType="touchUpInside" id="9fN-Mg-hib"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEi-67-XKl" userLabel="twitter">
+                    <rect key="frame" x="170" y="399" width="42" height="42"/>
+                    <state key="normal" image="twitter-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="twitterLogo:" destination="-1" eventType="touchUpInside" id="yfI-wX-ktv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q7-tf-Jgd" userLabel="youtube">
+                    <rect key="frame" x="222" y="399" width="42" height="42"/>
+                    <state key="normal" image="youtube-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="youtubeLogo:" destination="-1" eventType="touchUpInside" id="ZCs-Jy-kyp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngg-V3-Aqw" userLabel="vine">
+                    <rect key="frame" x="275" y="399" width="42" height="42"/>
+                    <state key="normal" image="vine-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGG-gV-q3i">
+                    <rect key="frame" x="41" y="568" width="294" height="11"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="294" id="Q9O-DR-79i"/>
+                        <constraint firstAttribute="height" constant="11" id="zcZ-Go-2TJ"/>
+                    </constraints>
+                    <string key="text">Eboticon and All Related Characters are Trademarks of Eboticon LLC.
+2014 Eboticon. All Rights Reserved. </string>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gsQ-6d-XXb" firstAttribute="leading" secondItem="r5o-3i-HVJ" secondAttribute="trailing" constant="13" id="1lE-VO-I7O"/>
+                <constraint firstItem="Iu1-0C-W8J" firstAttribute="bottom" secondItem="oh0-Ko-ipj" secondAttribute="bottom" constant="-3" id="28L-Vl-j04"/>
+                <constraint firstItem="qKk-py-gTV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2tX-wb-syf"/>
+                <constraint firstItem="JK1-yx-bkZ" firstAttribute="bottom" secondItem="g0r-4r-cr6" secondAttribute="bottom" constant="-4" id="3hh-ug-evS"/>
+                <constraint firstItem="Iu1-0C-W8J" firstAttribute="leading" secondItem="iPf-Ho-5FF" secondAttribute="leading" id="4n0-1b-7MA"/>
+                <constraint firstItem="W24-ml-ptx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="46" id="5WR-Iq-Kvn"/>
+                <constraint firstItem="LXV-hg-oXP" firstAttribute="top" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="8" id="62X-6x-zbt"/>
+                <constraint firstItem="LXV-hg-oXP" firstAttribute="top" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="8" symbolic="YES" id="8kJ-my-j3E"/>
+                <constraint firstAttribute="centerX" secondItem="To6-BL-Nsb" secondAttribute="centerX" constant="-22.5" id="BAp-tf-oBb"/>
+                <constraint firstItem="d4g-Pv-4kl" firstAttribute="top" secondItem="JK1-yx-bkZ" secondAttribute="bottom" constant="40" id="Bkr-hX-GeO"/>
+                <constraint firstItem="4Q7-tf-Jgd" firstAttribute="top" secondItem="SEi-67-XKl" secondAttribute="top" id="DJn-dJ-kev"/>
+                <constraint firstItem="0Xv-62-WCc" firstAttribute="leading" secondItem="W24-ml-ptx" secondAttribute="leading" constant="-11" id="E01-50-4zB"/>
+                <constraint firstItem="JK1-yx-bkZ" firstAttribute="leading" secondItem="CK9-OS-36E" secondAttribute="leading" constant="1" id="Ena-bh-htk"/>
+                <constraint firstItem="CK9-OS-36E" firstAttribute="trailing" secondItem="JK1-yx-bkZ" secondAttribute="trailing" constant="-1" id="GRU-Vs-ACD"/>
+                <constraint firstItem="r5o-3i-HVJ" firstAttribute="leading" secondItem="CK9-OS-36E" secondAttribute="leading" constant="1" id="IXf-Cx-lNF"/>
+                <constraint firstItem="qKk-py-gTV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JmR-IY-kdE"/>
+                <constraint firstItem="QBg-Qz-nH8" firstAttribute="top" secondItem="W24-ml-ptx" secondAttribute="bottom" constant="17" id="KwR-cX-QCH"/>
+                <constraint firstAttribute="bottom" secondItem="qKk-py-gTV" secondAttribute="bottom" id="NQD-D6-eEO"/>
+                <constraint firstItem="gsQ-6d-XXb" firstAttribute="top" secondItem="Uft-b9-0oo" secondAttribute="bottom" constant="5" id="OIq-JD-zYQ"/>
+                <constraint firstItem="4Q7-tf-Jgd" firstAttribute="leading" secondItem="SEi-67-XKl" secondAttribute="trailing" constant="10" id="P6i-c9-4r8"/>
+                <constraint firstItem="iPf-Ho-5FF" firstAttribute="trailing" secondItem="Iu1-0C-W8J" secondAttribute="trailing" id="Q2l-Qh-sQu"/>
+                <constraint firstAttribute="centerX" secondItem="g0r-4r-cr6" secondAttribute="centerX" constant="-61.5" id="Qkk-Mg-Kdv"/>
+                <constraint firstAttribute="centerX" secondItem="Uft-b9-0oo" secondAttribute="centerX" constant="-3.5" id="Qyc-3z-2Hb"/>
+                <constraint firstItem="r5o-3i-HVJ" firstAttribute="top" secondItem="QBg-Qz-nH8" secondAttribute="bottom" constant="8" id="UNe-CJ-uwK"/>
+                <constraint firstItem="JK1-yx-bkZ" firstAttribute="top" secondItem="Iu1-0C-W8J" secondAttribute="bottom" constant="11" id="Vfl-pw-rDz"/>
+                <constraint firstAttribute="centerX" secondItem="LXV-hg-oXP" secondAttribute="centerX" constant="-52.5" id="WrY-t3-FUs"/>
+                <constraint firstItem="iPf-Ho-5FF" firstAttribute="leading" secondItem="QBg-Qz-nH8" secondAttribute="leading" constant="-1" id="YUD-Nc-P1c"/>
+                <constraint firstAttribute="centerX" secondItem="gsQ-6d-XXb" secondAttribute="centerX" constant="-11.5" id="ZPI-VK-i0g"/>
+                <constraint firstItem="oh0-Ko-ipj" firstAttribute="top" secondItem="LXV-hg-oXP" secondAttribute="bottom" constant="8" id="ari-Qw-Gkh"/>
+                <constraint firstAttribute="centerX" secondItem="YGG-gV-q3i" secondAttribute="centerX" id="bBK-fe-8IB"/>
+                <constraint firstItem="GAU-Z1-Afh" firstAttribute="top" secondItem="gsQ-6d-XXb" secondAttribute="bottom" constant="10" id="bIL-fP-IFo"/>
+                <constraint firstItem="g0r-4r-cr6" firstAttribute="top" secondItem="oh0-Ko-ipj" secondAttribute="bottom" constant="8" id="cBR-1X-lqe"/>
+                <constraint firstItem="GAU-Z1-Afh" firstAttribute="top" secondItem="gsQ-6d-XXb" secondAttribute="bottom" constant="8" id="cJo-3f-dNE"/>
+                <constraint firstItem="iPf-Ho-5FF" firstAttribute="top" secondItem="CK9-OS-36E" secondAttribute="bottom" constant="10" id="ceq-d0-npO"/>
+                <constraint firstAttribute="centerX" secondItem="W24-ml-ptx" secondAttribute="centerX" id="d8K-5X-5tv"/>
+                <constraint firstItem="g0r-4r-cr6" firstAttribute="top" secondItem="oh0-Ko-ipj" secondAttribute="bottom" constant="9" id="dmp-QT-nAv"/>
+                <constraint firstItem="Iu1-0C-W8J" firstAttribute="top" secondItem="iPf-Ho-5FF" secondAttribute="bottom" constant="12" id="dvj-cK-EzC"/>
+                <constraint firstItem="4Q7-tf-Jgd" firstAttribute="top" secondItem="ngg-V3-Aqw" secondAttribute="top" id="gDE-3p-DKo"/>
+                <constraint firstItem="SEi-67-XKl" firstAttribute="top" secondItem="d4g-Pv-4kl" secondAttribute="top" id="gWa-8y-VMY"/>
+                <constraint firstAttribute="trailing" secondItem="qKk-py-gTV" secondAttribute="trailing" id="gg8-BV-NoU"/>
+                <constraint firstItem="gsQ-6d-XXb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="175" id="iKz-jx-ee8"/>
+                <constraint firstItem="r5o-3i-HVJ" firstAttribute="trailing" secondItem="CK9-OS-36E" secondAttribute="trailing" constant="1" id="jYN-kC-vAz"/>
+                <constraint firstAttribute="centerX" secondItem="GAU-Z1-Afh" secondAttribute="centerX" constant="-52.5" id="kUa-jv-bbk"/>
+                <constraint firstItem="Uft-b9-0oo" firstAttribute="leading" secondItem="QBg-Qz-nH8" secondAttribute="trailing" constant="13" id="nMs-6a-iBG"/>
+                <constraint firstItem="To6-BL-Nsb" firstAttribute="top" secondItem="YGG-gV-q3i" secondAttribute="bottom" constant="8" id="oPb-pf-Aza"/>
+                <constraint firstItem="gsQ-6d-XXb" firstAttribute="top" secondItem="Uft-b9-0oo" secondAttribute="bottom" constant="8" id="owN-MC-hA1"/>
+                <constraint firstItem="iPf-Ho-5FF" firstAttribute="trailing" secondItem="QBg-Qz-nH8" secondAttribute="trailing" constant="-1" id="pSh-ZH-Hfn"/>
+                <constraint firstItem="CK9-OS-36E" firstAttribute="bottom" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="-2" id="q8L-v6-1yM"/>
+                <constraint firstItem="oh0-Ko-ipj" firstAttribute="top" secondItem="LXV-hg-oXP" secondAttribute="bottom" constant="9" id="rrV-6d-0SI"/>
+                <constraint firstItem="SEi-67-XKl" firstAttribute="trailing" secondItem="Uft-b9-0oo" secondAttribute="trailing" constant="-11" id="s6C-XW-73T"/>
+                <constraint firstItem="ngg-V3-Aqw" firstAttribute="leading" secondItem="4Q7-tf-Jgd" secondAttribute="trailing" constant="11" id="sNW-jr-k2M"/>
+                <constraint firstItem="0Xv-62-WCc" firstAttribute="top" secondItem="d4g-Pv-4kl" secondAttribute="top" id="sgU-7F-gs8"/>
+                <constraint firstAttribute="centerX" secondItem="oh0-Ko-ipj" secondAttribute="centerX" constant="-52.5" id="vqE-Pw-1LE"/>
+                <constraint firstItem="Uft-b9-0oo" firstAttribute="top" secondItem="W24-ml-ptx" secondAttribute="bottom" constant="13" id="vrp-6O-aVd"/>
+                <constraint firstAttribute="bottom" secondItem="To6-BL-Nsb" secondAttribute="bottom" constant="69" id="wOT-kf-9cX"/>
+                <constraint firstItem="d4g-Pv-4kl" firstAttribute="leading" secondItem="To6-BL-Nsb" secondAttribute="leading" constant="-11" id="xe0-TI-TLK"/>
+                <constraint firstItem="CK9-OS-36E" firstAttribute="top" secondItem="r5o-3i-HVJ" secondAttribute="bottom" constant="12" id="yo2-y0-6b5"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="vrp-6O-aVd"/>
+                    <exclude reference="owN-MC-hA1"/>
+                    <exclude reference="cJo-3f-dNE"/>
+                    <exclude reference="62X-6x-zbt"/>
+                    <exclude reference="ari-Qw-Gkh"/>
+                    <exclude reference="cBR-1X-lqe"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="45.5" y="483.5"/>
+        </view>
+        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="gs3-2r-FRC">
+            <rect key="frame" x="0.0" y="0.0" width="39" height="37"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </pageControl>
+    </objects>
+    <resources>
+        <image name="NavBarLogo" width="270" height="88"/>
+        <image name="about" width="27" height="27"/>
+        <image name="contactUs" width="27" height="27"/>
+        <image name="facebook-social" width="42" height="42"/>
+        <image name="faqs" width="27" height="27"/>
+        <image name="instagram-social" width="42" height="42"/>
+        <image name="more_bg.png" width="750" height="1334"/>
+        <image name="privacy" width="27" height="27"/>
+        <image name="rate" width="27" height="27"/>
+        <image name="tellafriend" width="27" height="27"/>
+        <image name="twitter-social" width="42" height="42"/>
+        <image name="vine-social" width="42" height="42"/>
+        <image name="youtube-social" width="42" height="42"/>
+    </resources>
+</document>

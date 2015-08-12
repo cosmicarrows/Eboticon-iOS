@@ -19,48 +19,81 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
+#import "SWRevealViewController.h"
+#import "RightViewController.h"
 
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+@interface AppDelegate()<SWRevealViewControllerDelegate>
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
-    JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
-    JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
-    JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
-    JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
 
+   // JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
+   // JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
+   // JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
+   // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+   // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
+   // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
+   // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
+    
     
     //Setting up homepage rows
-    NSMutableArray *homepageRows = [NSMutableArray arrayWithObjects:allRow,recentsRow,captionsRow,noCaptionsRow,moreRow,nil];
+    //NSMutableArray *homepageRows = [NSMutableArray arrayWithObjects:allRow,recentsRow,captionsRow,noCaptionsRow,moreRow,nil];
+    
     
     //Setting up Navigation Bar
-    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xFf6c00)];
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-   // [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    [[UINavigationBar appearance] setTranslucent:YES];
+        [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
 
-
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           shadow, NSShadowAttributeName,
-                                                           [UIFont fontWithName:@"LinkinPark-ExtraBold" size:21.0], NSFontAttributeName, nil]];
-    [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
+        NSShadow *shadow = [[NSShadow alloc] init];
+        shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+        shadow.shadowOffset = CGSizeMake(0, 1);
+        [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                               [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                               shadow, NSShadowAttributeName,
+                                                               [UIFont fontWithName:@"LinkinPark-ExtraBold" size:21.0], NSFontAttributeName, nil]];
+        [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
+    
+    
+    
+    
+    //Tabbar With sidebar Items
+        NSNumber *caption = @(1); //initialize caption to on
+        self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
+  
+    
+    
+        RightViewController *rightViewController = [[RightViewController alloc] init];
+    
+    
+    
+        SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
+                                                        initWithRearViewController:rightViewController frontViewController:self.tabBarController];
     
 
-    MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
-    masterController.categories = homepageRows;
+        mainRevealController.rightViewController = rightViewController;
+    
+        mainRevealController.delegate = self;
+        
+        self.viewController = mainRevealController;
+    
+    
+    //Add Tab Bar
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        //self.window.rootViewController = self.tabBarController;
+        self.window.rootViewController = self.viewController;
+        
+        // Present Window before calling Harpy
+        [self.window makeKeyAndVisible];
+    
+
+    //MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
+    //masterController.categories = homepageRows;
     
     //GOOGLE ANALYTICS INITIALIZER
     // Optional: automatically send uncaught exceptions to Google Analytics.
@@ -129,8 +162,6 @@
 - (void) configureHarpy
 {
     @try {
-        // Present Window before calling Harpy
-        [self.window makeKeyAndVisible];
         
         // Set the App ID for your app
 #ifdef FREE
@@ -229,6 +260,72 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+
+#pragma mark -
+#pragma mark Reveal Controller Delegate
+
+- (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
+{
+    NSString *str = nil;
+    if ( position == FrontViewPositionLeft ) str = @"FrontViewPositionLeft";
+    if ( position == FrontViewPositionRight ) str = @"FrontViewPositionRight";
+    if ( position == FrontViewPositionRightMost ) str = @"FrontViewPositionRightMost";
+    if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
+    return str;
+}
+
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
+{
+    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
+{
+    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)rearViewController
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)rearViewController
+
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 @end

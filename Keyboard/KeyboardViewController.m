@@ -22,8 +22,6 @@
 #define CATEGORY_GIFT @"Greeting"
 #define CATEGORY_EXCLAMATION @"Exclamation"
 
-
-
 @interface KeyboardViewController () {
     
     NSInteger _currentCategory;
@@ -378,12 +376,12 @@
             [_allImages addObjectsFromArray:_csvImages];
             
             NSMutableArray *element = [[NSMutableArray alloc]init];
-            
+            /*
             for(int i=0; i<[_csvImages count];i++){
                 element = [_csvImages objectAtIndex: i];
-                //NSLog(@"Element %i = %@", i, element);
-               // NSLog(@"Element Count = %lu", (unsigned long)[element count]);
-            }
+                NSLog(@"Element %i = %@", i, element);
+                NSLog(@"Element Count = %lu", (unsigned long)[element count]);
+            }*/
             
         }
         
