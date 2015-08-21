@@ -8,6 +8,8 @@
             <connections>
                 <outlet property="imageLabel" destination="dl6-S9-uu6" id="5Np-HX-bGn"/>
                 <outlet property="imageView" destination="exY-lr-5qa" id="acH-CZ-Vsv"/>
+                <outlet property="nEboticonConstraintHeight" destination="EPG-c7-bn0" id="uOo-OE-UD8"/>
+                <outlet property="nEboticonConstraintWidth" destination="54v-NG-laz" id="hYf-kF-AJO"/>
                 <outlet property="view" destination="iN0-l3-epB" id="rdC-ml-aAz"/>
             </connections>
         </placeholder>

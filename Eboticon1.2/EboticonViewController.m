@@ -19,6 +19,9 @@
 
 @property (strong, nonatomic) IBOutlet OLImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *imageLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nEboticonConstraintWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nEboticonConstraintHeight;
+
 
 @end
 
@@ -33,11 +36,21 @@
     return self;
 }
 
+- (void)changeDimensionEboticon{
+    CGFloat fScreenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat fScreenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat fSquareSize = MIN(fScreenWidth, fScreenHeight);
+    
+    self.nEboticonConstraintWidth.constant = fSquareSize;
+    self.nEboticonConstraintHeight.constant = fSquareSize;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     NSLog(@"EboticonViewController viewDidLoad");
     
+    [self changeDimensionEboticon];
     
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     

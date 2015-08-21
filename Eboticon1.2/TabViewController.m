@@ -7,7 +7,8 @@
 //
 
 #import "TabViewController.h"
-#import "WhatsNewMainViewController.h"
+//#import "WhatsNewMainViewController.h"
+#import "WhatsNewWebViewController.h"
 #import "GifCollectionViewController.h"
 #import "MainViewController.h"
 #import "ShopViewController.h"
@@ -85,9 +86,10 @@
                                                      initWithRootViewController:homeViewController];
                         
     
-    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
-     UINavigationController* whatsNewNavController = [[UINavigationController alloc]
-     initWithRootViewController:whatsNewMainViewController];
+//    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
+//     UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewMainViewController];
+    WhatsNewWebViewController *whatsNewWebViewController = [[WhatsNewWebViewController alloc] initWithURL:@"http://blog.brainrainsolutions.com" title:@"What's New"];
+    UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewWebViewController];
     
     
     ShopViewController *shopViewController = [[ShopViewController alloc] initWithNibName:@"ShopView" bundle:nil];
