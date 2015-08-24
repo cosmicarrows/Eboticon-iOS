@@ -72,7 +72,7 @@
     
     // Create the data model for Table
     _categoryTitles = @[@"ALL", @"LOVE", @"HAPPY", @"UNHAPPY", @"EXCLAMATION", @"GREETING"];
-    _categoryImages = @[@"", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller"];
+    _categoryImages = @[@"Earth", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller"];
     
     //Create Caption/No Caption Switch
     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 100.0f, 125.0f, 100.0f, 20.0f }];

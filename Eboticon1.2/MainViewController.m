@@ -158,6 +158,20 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self makeNavBarTransparent];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIImageView *imageView = [[UIImageView alloc]
+                              initWithFrame:CGRectMake(0,0,3,44)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = NO;
+    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
+    self.navigationItem.titleView = imageView;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

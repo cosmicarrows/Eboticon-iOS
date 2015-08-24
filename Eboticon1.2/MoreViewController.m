@@ -200,6 +200,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
 }
 
+- (IBAction) restorePurchases:(id)sender {
+  
+    NSLog(@"Restore Purchases");
+}
 
 - (IBAction)facebookLogo:(id)sender {
     NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/826163820808391"];

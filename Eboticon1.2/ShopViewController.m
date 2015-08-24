@@ -7,11 +7,16 @@
 //
 
 #import "ShopViewController.h"
-
 #import "ShopTableCell.h"
+
+//In-app purchases (IAP) libraries
+#import "EboticonIAPHelper.h"
+#import <StoreKit/StoreKit.h>
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
     IBOutlet KIImagePager *_imagePager;
+    NSArray *_products;
+    NSNumberFormatter * _priceFormatter;
 }
 
 @end
@@ -28,7 +33,61 @@
     _packTitles = @[@"CHURCH PACK", @"GREEK PACK"];
     _packImages = @[@"PackChurchIcon", @"PackGreekIcon"];
     _packCosts  = @[@"$0.99", @"$0.99"];
+    
+    //Create Pull to Refresh
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.inAppPurchaseTable;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
+
+    
+    
+    [self reload];
+    [self.refreshControl beginRefreshing];
+    
+    _priceFormatter = [[NSNumberFormatter alloc] init];
+    [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [_priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    
 }
+
+- (void)reload {
+    NSLog(@"Reloading...");
+    _products = nil;
+    [self.inAppPurchaseTable reloadData];
+    [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            [self.inAppPurchaseTable reloadData];
+        }
+        [self.refreshControl endRefreshing];
+    }];
+}
+
+- (void)productPurchased:(NSNotification *)notification {
+    
+    NSString * productIdentifier = notification.object;
+    [_products enumerateObjectsUsingBlock:^(SKProduct * product, NSUInteger idx, BOOL *stop) {
+        if ([product.productIdentifier isEqualToString:productIdentifier]) {
+            [self.inAppPurchaseTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            *stop = YES;
+        }
+    }];
+    
+}
+
+- (void)buyButtonTapped:(id)sender {
+    
+    UIButton *buyButton = (UIButton *)sender;
+    SKProduct *product = _products[buyButton.tag];
+    
+    NSLog(@"Buying %@...", product.productIdentifier);
+    [[EboticonIAPHelper sharedInstance] buyProduct:product];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -53,9 +112,17 @@
 
 
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    NSLog(@"products count: %lu", (unsigned long)_products.count);
+    return _products.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,8 +144,14 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ShopTableCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure Cell
-    cell.packTitle.text = [_packTitles objectAtIndex:indexPath.row];
-    cell.packCost.text  = [_packCosts objectAtIndex:indexPath.row];
+    SKProduct * product = (SKProduct *) _products[indexPath.row];
+    
+    cell.packTitle.text = [product.localizedTitle uppercaseString];
+    
+    [_priceFormatter setLocale:product.priceLocale];
+    cell.packCost.text = [_priceFormatter stringFromNumber:product.price];
+
+    //cell.packCost.text  = [NSString stringWithFormat:@"$%@",[product.price stringValue]];
     cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:indexPath.row]];
 }
 
