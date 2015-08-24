@@ -36,6 +36,7 @@ DEPENDENCIES:
   - CocoaLumberjack (~> 1.9)
   - DFImageManager
   - DFImageManager/GIF
+  - FLAnimatedImage (~> 1.0)
   - GPUImage (~> 0.1)
   - Harpy (~> 3.3)
   - iRate (~> 1.10)

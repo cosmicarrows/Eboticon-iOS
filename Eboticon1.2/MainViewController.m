@@ -10,8 +10,8 @@
 #import "GAITrackedViewController.h"
 #import "JMCategoryData.h"
 #import "JMCategoriesData.h"
-#import "GifCollectionViewController.h"
-#import "GifCollectionViewFlowLayout.h"
+//#import "GifCollectionViewController.h"
+//#import "GifCollectionViewFlowLayout.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
 #import "GAI.h"
@@ -23,6 +23,7 @@
 #import "DDLog.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
+
 
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 
@@ -274,7 +275,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogError(@"Unable to load csv: %@",exception);
     }
     
-    
 }
 
 -(void) populateGifArraysFromCSV
@@ -285,7 +285,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         _noCaptionImages        = [[NSMutableArray alloc]init];
         _allImages              = [[NSMutableArray alloc]init];
         _recentImages           = [[NSMutableArray alloc]init];
-        
         _exclamationImagesCaption   = [[NSMutableArray alloc]init];
         _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
         _smileImagesCaption         = [[NSMutableArray alloc]init];

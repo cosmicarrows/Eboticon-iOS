@@ -8,6 +8,7 @@
 
 #import "ShopViewController.h"
 #import "ShopTableCell.h"
+#import "ShopDetailCollectionViewController.h"
 
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
@@ -150,10 +151,18 @@
     
     [_priceFormatter setLocale:product.priceLocale];
     cell.packCost.text = [_priceFormatter stringFromNumber:product.price];
+    
+    
+    if ([[EboticonIAPHelper sharedInstance] productPurchased:product.productIdentifier]) {
+        cell.packPurchased.text = @"purchased";
+    } else {
+        cell.packPurchased.text = @"";
+    }
 
     //cell.packCost.text  = [NSString stringWithFormat:@"$%@",[product.price stringValue]];
     cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:indexPath.row]];
 }
+
 
 
 #pragma mark -
@@ -164,8 +173,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self shopKeyPressed:indexPath.row];
+    
+    // Configure Cell
+    SKProduct * product = (SKProduct *) _products[indexPath.row];
+    
+    ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
+    shopDetailCollectionViewController.productIdentifier = product.productIdentifier;
+    
+    NSLog(@"The shop productIdentifier is %@",product.productIdentifier);
+    
+    [[self navigationController] pushViewController:shopDetailCollectionViewController animated:YES];
 }
-
 
 #pragma mark -
 
@@ -185,9 +203,7 @@
     _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
     _imagePager.slideshowTimeInterval = 5.5f;
     _imagePager.slideshowShouldCallScrollToDelegate = YES;
-  
 }
-
 
 - (NSArray *) arrayWithImages:(KIImagePager*)pager
 {

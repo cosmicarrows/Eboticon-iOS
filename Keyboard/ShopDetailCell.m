@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Brain Rain Solutions. All rights reserved.
 //
 
-#import "MyCell.h"
+#import "ShopDetailCell.h"
 
-@implementation MyCell
+@implementation ShopDetailCell
 
 @end

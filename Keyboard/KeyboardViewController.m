@@ -7,7 +7,7 @@
 
 #import "KeyboardViewController.h"
 #import "KeyboardCollectionViewFlowLayout.h"
-#import "MyCell.h"
+#import "ShopDetailCell.h"
 #import "UIView+Toast.h"
 #import "CHCSVParser.h"
 
@@ -937,7 +937,7 @@
     NSString *stillname     = [csvRow objectAtIndex: 1];       //Png Still File Name
     
     
-    MyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
+    ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
     
     
     

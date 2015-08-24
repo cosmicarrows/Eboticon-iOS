@@ -32,26 +32,30 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUICollectionViewCell" id="428237940">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">1292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="466993509">
 						<reference key="NSNextResponder" ref="428237940"/>
 						<int key="NSvFlags">1280</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="107173227">
+							<object class="IBUIImageView" id="698815160">
 								<reference key="NSNextResponder" ref="466993509"/>
-								<int key="NSvFlags">1298</int>
-								<string key="NSFrameSize">{100, 100}</string>
+								<int key="NSvFlags">1316</int>
+								<string key="NSFrameSize">{100, 75}</string>
 								<reference key="NSSuperview" ref="466993509"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSHuggingPriority">{251, 251}</string>
+								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{100, 100}</string>
+						<string key="NSFrameSize">{100, 75}</string>
 						<reference key="NSSuperview" ref="428237940"/>
-						<reference key="NSNextKeyView" ref="107173227"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="698815160"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -64,22 +68,24 @@
 					</object>
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
-				<string key="NSFrameSize">{100, 100}</string>
+				<string key="NSFrameSize">{100, 75}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="466993509"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">2</int>
-					<bytes key="NSRGB">MC44OTQxMTc3MTMgMC45NzI1NDkwODA4IDAuOTY0NzA1OTQ0MQA</bytes>
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC44OTM3MjUxOTg0IDAuODkzNzI1MTk4NCAwLjg5MzcyNTE5ODQAA</bytes>
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<int key="IBUIContentMode">4</int>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<string key="IBUIReuseIdentifier">AnimatedGifCell</string>
+				<string key="IBUIReuseIdentifier">ShopDetailCell</string>
 				<object class="NSValue" key="IBUICustomSize">
 					<int key="NS.special">2</int>
-					<string key="NS.sizeval">{155, 167}</string>
+					<string key="NS.sizeval">{137, 96}</string>
 				</object>
 				<reference key="IBUIContentView" ref="466993509"/>
 			</object>
@@ -90,9 +96,9 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">gifImageView</string>
 						<reference key="source" ref="428237940"/>
-						<reference key="destination" ref="107173227"/>
+						<reference key="destination" ref="698815160"/>
 					</object>
-					<int key="connectionID">20</int>
+					<int key="connectionID">17</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -118,35 +124,139 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="428237940"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="107173227"/>
+							<reference ref="698815160"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="107173227"/>
+						<reference key="object" ref="698815160"/>
 						<reference key="parent" ref="428237940"/>
 					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.CustomClassName">EboticonGifCell</string>
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="16.CustomClassName">OLImageView</string>
+				<string key="16.CustomClassName">FLAnimatedImageView</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="2.CustomClassName">EboticonGifCell</string>
+				<string key="2.CustomClassName">ShopDetailCell</string>
 				<reference key="2.IBNSViewMetadataGestureRecognizers" ref="0"/>
+				<string key="2.IBPersistedLastKnownCanvasPosition">{152.5, 221.5}</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">20</int>
+			<int key="maxID">17</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">DFImageView</string>
+					<string key="superclassName">FLAnimatedImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Pods/DFImageManager/DFImageManager/Source/UI/DFImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FLAnimatedImageView</string>
+					<string key="superclassName">UIImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Pods/FLAnimatedImage/FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ShopDetailCell</string>
+					<string key="superclassName">UICollectionViewCell</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">gifImageView</string>
+						<string key="NS.object.0">FLAnimatedImageView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">gifImageView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">gifImageView</string>
+							<string key="candidateClassName">FLAnimatedImageView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Eboticon1.2/ShopDetailCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ShopDetailCell</string>
+					<string key="superclassName">UICollectionViewCell</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">imageView</string>
+						<string key="NS.object.0">DFImageView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">imageView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">imageView</string>
+							<string key="candidateClassName">DFImageView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Keyboard/ShopDetailCell.h</string>
+					</object>
+				</object>
+			</array>
+			<array class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
+				<object class="IBPartialClassDescription">
+					<string key="className">UICollectionReusableView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="65441407">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UICollectionViewCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UICollectionViewCell</string>
+					<string key="superclassName">UICollectionReusableView</string>
+					<reference key="sourceIdentifier" ref="65441407"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIGestureRecognizer</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UIGestureRecognizer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIImageView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UIImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIResponder</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UIResponder.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIView</string>
+					<string key="superclassName">UIResponder</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UIView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>

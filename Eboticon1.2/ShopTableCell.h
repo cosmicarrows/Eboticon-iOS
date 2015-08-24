@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *packImage;
 @property (strong, nonatomic) IBOutlet UILabel *packTitle;
 @property (strong, nonatomic) IBOutlet UILabel *packCost;
+@property (strong, nonatomic) IBOutlet UILabel *packPurchased;
 
 
 @end

@@ -8,6 +8,7 @@ target 'Eboticon1.2' do
     pod 'Harpy', '~> 3.3'
     pod 'GPUImage', '~> 0.1'
     pod 'TTSwitch', '~> 0.0.5'
+    pod 'FLAnimatedImage', '~> 1.0'
 end
 
 target 'EboticonLite' do
