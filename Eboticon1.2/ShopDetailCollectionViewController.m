@@ -34,11 +34,23 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
     _packGifs     = [[NSMutableArray alloc] init];
-    
     [self loadGifsFromCSV];
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     
+    //Create Pack Gifs object
     [self createPackGifs];
+    
+    
+    
+    //Add Buy Button
+    if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
+        DDLogDebug(@"Not purchased");
+        
+    } else {
+        //Add Share Button
+        UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
+        self.navigationItem.rightBarButtonItem = buyButton;
+    }
     
 
     // Uncomment the following line to preserve selection between presentations
@@ -151,7 +163,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
             
              DDLogDebug(@"gifCategory: %@", gifCategory);
             
-            if([self.productIdentifier isEqual:gifCategory]) {
+            if([self.product.productIdentifier isEqual:gifCategory]) {
                 [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
             }
             
@@ -161,6 +173,37 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         DDLogWarn(@"Eboticon Gif array count is less than zero.");
     }
 }
+
+
+#pragma mark IAP Purchases commands
+
+- (void)buyButtonTapped:(id)sender {
+    
+    NSLog(@"Buying %@...", self.product.productIdentifier);
+    [[EboticonIAPHelper sharedInstance] buyProduct:self.product];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)productPurchased:(NSNotification *)notification {
+    
+    NSString * productIdentifier = notification.object;
+ 
+    if ([self.product.productIdentifier isEqualToString:productIdentifier]) {
+        NSLog(@"Purchased %@", self.product.productIdentifier);
+    }
+
+    
+}
+
+
 
 
 #pragma mark <UICollectionViewDataSource>

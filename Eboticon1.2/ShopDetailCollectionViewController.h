@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+//In-app purchases (IAP) libraries
+#import "EboticonIAPHelper.h"
+#import <StoreKit/StoreKit.h>
+
+
 @interface ShopDetailCollectionViewController : UICollectionViewController
 
-@property (strong, nonatomic) id detailItem;
-@property (strong, nonatomic)  NSString *productIdentifier;
+@property (strong, nonatomic) SKProduct *product;
 
 @end

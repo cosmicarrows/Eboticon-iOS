@@ -2765,7 +2765,7 @@
 						DevelopmentTeam = 662TV55PE6;
 					};
 					63FAE3821868CC0200116D73 = {
-						DevelopmentTeam = D64285HJMY;
+						DevelopmentTeam = 662TV55PE6;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -2774,7 +2774,7 @@
 					};
 					97702BBF1B21FB070011F6DE = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = D64285HJMY;
+						DevelopmentTeam = 662TV55PE6;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;

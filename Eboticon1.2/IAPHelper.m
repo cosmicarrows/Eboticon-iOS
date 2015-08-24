@@ -148,7 +148,15 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     NSLog(@"failedTransaction...");
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
+        //Show error dialog
         NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+        UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                           message:transaction.error.localizedDescription
+                                                          delegate:self
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+        [theAlert show];
+        
     }
     
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];

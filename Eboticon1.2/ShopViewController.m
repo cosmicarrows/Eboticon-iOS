@@ -35,6 +35,10 @@
     _packImages = @[@"PackChurchIcon", @"PackGreekIcon"];
     _packCosts  = @[@"$0.99", @"$0.99"];
     
+    //Add Restore Button
+    UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = restoreButton;
+    
     //Create Pull to Refresh
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
     tableViewController.tableView = self.inAppPurchaseTable;
@@ -79,14 +83,10 @@
     
 }
 
-- (void)buyButtonTapped:(id)sender {
+- (void) restoreButtonTapped:(id)sender {
     
-    UIButton *buyButton = (UIButton *)sender;
-    SKProduct *product = _products[buyButton.tag];
-    
-    NSLog(@"Buying %@...", product.productIdentifier);
-    [[EboticonIAPHelper sharedInstance] buyProduct:product];
-    
+    NSLog(@"Restore Purchases");
+    [[EboticonIAPHelper sharedInstance] restoreCompletedTransactions];
 }
 
 
@@ -136,7 +136,6 @@
     }
     
     NSLog(@"packImages: %@", [_packImages objectAtIndex:indexPath.row]);
-    NSLog(@"packTitles: %@", [_packTitles objectAtIndex:indexPath.row]);
     
     return cell;
     
@@ -154,9 +153,7 @@
     
     
     if ([[EboticonIAPHelper sharedInstance] productPurchased:product.productIdentifier]) {
-        cell.packPurchased.text = @"purchased";
-    } else {
-        cell.packPurchased.text = @"";
+        cell.packCost.text = @"Purchased";
     }
 
     //cell.packCost.text  = [NSString stringWithFormat:@"$%@",[product.price stringValue]];
@@ -178,7 +175,7 @@
     SKProduct * product = (SKProduct *) _products[indexPath.row];
     
     ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
-    shopDetailCollectionViewController.productIdentifier = product.productIdentifier;
+    shopDetailCollectionViewController.product = product;
     
     NSLog(@"The shop productIdentifier is %@",product.productIdentifier);
     
