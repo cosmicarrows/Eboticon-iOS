@@ -13,6 +13,9 @@
 #import "DDLog.h"
 #import "WhatsNewMainViewController.h"
 
+//In App Purchases
+#import "EboticonIAPHelper.h"
+
 //Definitions
 #define TWITTER @"twitter"
 #define FACEBOOK @"facebook"
@@ -27,6 +30,8 @@
 #define CONTACTUS @"contactUs_link"
 #define RATE @"rate_link"
 #define TELLAFRIEND @"tellFriend_link"
+
+
 
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
@@ -200,6 +205,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
 }
 
+- (IBAction) restorePurchases:(id)sender {
+  
+    NSLog(@"Restore Purchases");
+    [[EboticonIAPHelper sharedInstance] restoreCompletedTransactions];
+}
 
 - (IBAction)facebookLogo:(id)sender {
     NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/826163820808391"];

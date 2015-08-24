@@ -16,10 +16,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rwb-AZ-LkY">
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rwb-AZ-LkY">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <items>
-                        <navigationItem title="Title" id="vQ1-CV-TLS">
+                        <navigationItem id="vQ1-CV-TLS">
                             <barButtonItem key="rightBarButtonItem" title="Share" id="0Yw-UL-66w">
                                 <connections>
                                     <action selector="shareButtonTapped:" destination="-1" id="r12-2h-eQ8"/>
@@ -28,8 +30,22 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_keyboard.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwk-Xz-yCh">
+                    <rect key="frame" x="-23" y="-3" width="646" height="600"/>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Rwb-AZ-LkY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3bL-Bx-1Uo"/>
+                <constraint firstItem="lwk-Xz-yCh" firstAttribute="top" secondItem="Rwb-AZ-LkY" secondAttribute="top" constant="-3" id="Cb8-Kl-iip"/>
+                <constraint firstItem="lwk-Xz-yCh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-23" id="Ox2-dH-UpS"/>
+                <constraint firstItem="lwk-Xz-yCh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UFr-4T-uAp"/>
+                <constraint firstAttribute="bottom" secondItem="lwk-Xz-yCh" secondAttribute="bottom" constant="3" id="UaS-Pi-F5G"/>
+                <constraint firstItem="lwk-Xz-yCh" firstAttribute="centerX" secondItem="Rwb-AZ-LkY" secondAttribute="centerX" id="XnI-dY-pgG"/>
+                <constraint firstItem="lwk-Xz-yCh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-3" id="thg-Mp-LmZ"/>
+            </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="bg_keyboard.png" width="640" height="1136"/>
+    </resources>
 </document>

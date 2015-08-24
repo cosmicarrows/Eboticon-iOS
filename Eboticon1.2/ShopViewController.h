@@ -18,5 +18,6 @@
 @property (strong, nonatomic) NSArray *packTitles;
 @property (strong, nonatomic) NSArray *packImages;
 @property (strong, nonatomic) NSArray *packCosts;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end

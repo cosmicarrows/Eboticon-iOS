@@ -28,7 +28,13 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0.99" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vr3-ck-ltS">
                         <rect key="frame" x="245" y="18" width="50" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.52821180555555558" green="0.52821180555555558" blue="0.52821180555555558" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.4941176471" green="0.0" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yH-Ri-P3i" userLabel="Pack purchased">
+                        <rect key="frame" x="240" y="46" width="54" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.034909240899999999" green="0.50966840980000006" blue="0.072440341110000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -36,13 +42,14 @@
             <connections>
                 <outlet property="packCost" destination="Vr3-ck-ltS" id="Q3x-kc-GlJ"/>
                 <outlet property="packImage" destination="Ab1-aP-bq0" id="vYe-a8-rY0"/>
+                <outlet property="packPurchased" destination="4yH-Ri-P3i" id="oi0-bJ-QZV"/>
                 <outlet property="packTitle" destination="0ZK-xe-Atb" id="Fs3-Tg-LQx"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
         <image name="AllIcon" width="150" height="150"/>
-        <image name="shopCostBorder.png" width="95" height="52"/>
+        <image name="shopCostBorder.png" width="95" height="51"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

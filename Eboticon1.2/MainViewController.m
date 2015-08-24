@@ -10,8 +10,8 @@
 #import "GAITrackedViewController.h"
 #import "JMCategoryData.h"
 #import "JMCategoriesData.h"
-#import "GifCollectionViewController.h"
-#import "GifCollectionViewFlowLayout.h"
+//#import "GifCollectionViewController.h"
+//#import "GifCollectionViewFlowLayout.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
 #import "GAI.h"
@@ -23,6 +23,7 @@
 #import "DDLog.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
+
 
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 
@@ -75,8 +76,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MasterBackground2.0.png"]];
-    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
+    self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;     //Add Background without repeating
+    //self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
     
     //GOOGLE ANALYTICS
@@ -157,6 +158,20 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Make nav bar transparent
     [self makeNavBarTransparent];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIImageView *imageView = [[UIImageView alloc]
+                              initWithFrame:CGRectMake(0,0,3,44)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = NO;
+    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
+    self.navigationItem.titleView = imageView;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -260,7 +275,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogError(@"Unable to load csv: %@",exception);
     }
     
-    
 }
 
 -(void) populateGifArraysFromCSV
@@ -271,7 +285,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         _noCaptionImages        = [[NSMutableArray alloc]init];
         _allImages              = [[NSMutableArray alloc]init];
         _recentImages           = [[NSMutableArray alloc]init];
-        
         _exclamationImagesCaption   = [[NSMutableArray alloc]init];
         _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
         _smileImagesCaption         = [[NSMutableArray alloc]init];

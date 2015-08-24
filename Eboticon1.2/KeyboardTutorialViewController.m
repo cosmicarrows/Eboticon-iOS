@@ -27,8 +27,8 @@
     pageControl.currentPageIndicatorTintColor = UIColorFromRGB(0xFf6c00);
     
     // Create the data model
-    _pageTitles = @[@"Go to Settings", @"Click on General, then Keyboard", @"Add Eboticon", @"Enjoy"];
-    _pageImages = @[@"page1.png", @"page2.png", @"page3.png", @"page4.png"];
+    _pageTitles = @[@"Keyboard Instructions", @"Keyboard Instructions", @"Keyboard Instructions"];
+    _pageImages = @[@"page1.png", @"page2.png", @"page3.png"];
     
     
     // Create page view controller
@@ -42,11 +42,13 @@
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
-    self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50);
+    self.pageController.view.frame = CGRectMake(0, 30, self.view.frame.size.width, self.view.frame.size.height);
     
     [self addChildViewController:self.pageController];
     [[self view] addSubview:[self.pageController view]];
     [self.pageController didMoveToParentViewController:self];
+    
+    //[[self view] bringSubviewToFront:pageControl];
     
 }
 
@@ -78,7 +80,7 @@
     TutorialContentViewController *pageContentViewController = [[TutorialContentViewController alloc] initWithNibName:@"TutorialContentViewController" bundle:nil];
     
     pageContentViewController.imageFile = self.pageImages[index];
-    pageContentViewController.titleText = self.pageTitles[index];
+    pageContentViewController.titleText = [self.pageTitles[index] uppercaseString];
     pageContentViewController.pageIndex = index;
     pageContentViewController.index = index;
     

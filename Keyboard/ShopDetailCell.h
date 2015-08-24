@@ -10,7 +10,7 @@
 #import <DFImageManager/DFImageManagerKit.h>
 #import <UIKit/UIKit.h>
 
-@interface MyCell : UICollectionViewCell
+@interface ShopDetailCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet DFImageView *imageView;
 //@property (weak, nonatomic) IBOutlet UIImage *imageView;

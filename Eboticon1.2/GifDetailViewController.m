@@ -55,9 +55,6 @@
     NSLog(@"GifDetailViewController viewDidLoad");
 	// Do any additional setup after loading the view.
     _currentDisplayIndex = self.index;
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x7e00c0)];
-    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
     
     //Add Share Button
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonTapped:)];

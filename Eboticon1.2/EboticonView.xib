@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="361" height="416"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="exY-lr-5qa" customClass="OLImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="exY-lr-5qa" customClass="OLImageView">
                     <rect key="frame" x="56" y="59" width="249" height="249"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="249" id="54v-NG-laz"/>
@@ -32,7 +32,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="dl6-S9-uu6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="CTr-Vg-Cuv"/>
                 <constraint firstItem="dl6-S9-uu6" firstAttribute="top" secondItem="exY-lr-5qa" secondAttribute="bottom" constant="8" id="Lmw-OL-R2G"/>

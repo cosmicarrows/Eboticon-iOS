@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.eboticon.Eboticon2</string>
+	<string>com.eboticon.Eboticon</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>36</string>
+	<string>37</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -49,6 +49,8 @@
 	<string>1538836389672472</string>
 	<key>FacebookDisplayName</key>
 	<string>Eboticon</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
