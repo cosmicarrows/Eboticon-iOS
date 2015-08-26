@@ -1200,8 +1200,10 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
+
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+    isMovedToLeft = FALSE;
     // we know that we will not get here unless the animationQueue is empty because the recognizer
     // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
     // the gesture, so we just enqueue a dummy block to ensure any programatic acctions will be
@@ -1235,6 +1237,10 @@ const int FrontViewPositionNone = 0xff;
     if ( xLocation > 0 )
     {
         if ( _rearViewController == nil ) xLocation = 0;
+        
+        isMovedToLeft = TRUE;
+        xLocation = 0;
+        
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
     }
@@ -1249,6 +1255,7 @@ const int FrontViewPositionNone = 0xff;
     UIView *frontView = _contentView.frontView;
     
     CGFloat xLocation = frontView.frame.origin.x;
+    
     CGFloat velocity = [recognizer velocityInView:_contentView].x;
     //NSLog( @"Velocity:%1.4f", velocity);
     
@@ -1266,6 +1273,14 @@ const int FrontViewPositionNone = 0xff;
     
     // simetric replacement of position
     xLocation = xLocation * symetry;
+    
+    if (isMovedToLeft){
+        revealWidth = 0;
+        revealOverdraw = 0;
+        bounceBack = FALSE;
+        xLocation = 0;
+        velocity = 0;
+    }
     
     // initially we assume drag to left and default duration
     FrontViewPosition frontViewPosition = FrontViewPositionLeft;

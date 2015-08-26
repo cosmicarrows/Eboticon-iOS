@@ -178,7 +178,9 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 };
 
 
-@interface SWRevealViewController : UIViewController
+@interface SWRevealViewController : UIViewController{
+    BOOL isMovedToLeft;
+}
 
 /* Basic API */
 

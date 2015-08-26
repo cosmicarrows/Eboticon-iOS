@@ -10,7 +10,12 @@
 
 
 
-@interface KeyboardTutorialViewController : UIViewController <UIPageViewControllerDataSource>
+@interface KeyboardTutorialViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>{
+    UIButton *btnGoPreviousPage;
+    UIButton *btnGoNextPage;
+    NSInteger currentPageIndex;
+    UIPageControl *pageControl;
+}
 
 - (IBAction)startWalkthrough:(id)sender;
 @property (strong, nonatomic) UIPageViewController *pageController;
