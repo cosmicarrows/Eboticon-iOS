@@ -177,6 +177,8 @@
 
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    [self.revealViewController rightRevealToggleForTapGesture];
+    
     NSLog(@"Did select item: %ld", (long)item.tag);
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width/self.viewControllers.count;

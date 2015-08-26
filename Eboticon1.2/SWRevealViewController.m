@@ -836,6 +836,15 @@ const int FrontViewPositionNone = 0xff;
     [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
 
+- (void)rightRevealToggleForTapGesture{
+    if (_frontViewPosition == FrontViewPositionLeftSide)
+        [self setFrontViewPosition:FrontViewPositionLeft animated:YES];
+}
+
+- (BOOL)wasAnimated{
+    if (_frontViewPosition == FrontViewPositionLeftSide)return TRUE;
+    return FALSE;
+}
 
 - (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition
 {

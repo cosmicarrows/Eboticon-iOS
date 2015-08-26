@@ -178,6 +178,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reverseMenu:(UITapGestureRecognizer *)sender{
+    [self.revealViewController rightRevealToggleForTapGesture];
+}
+
 - (void) setSidebarItems{
     SWRevealViewController *revealController = [self revealViewController];
     
@@ -187,7 +191,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                                                                          style:UIBarButtonItemStylePlain target:revealController action:@selector(rightRevealToggle:)];
     
     self.navigationItem.rightBarButtonItem = revealButtonItem;
-    
 }
 
 - (void) makeNavBarTransparent {
@@ -737,7 +740,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    if ([self.revealViewController wasAnimated]){
+        [self reverseMenu:nil];
+        return;
+    }
+    
     NSMutableArray *imageNames;
     
      if ([_captionState integerValue]) {
@@ -797,6 +804,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     gifDetailViewController.gifCategory = _gifCategory;
     gifDetailViewController.index = indexPath.row;
     gifDetailViewController.imageNames = imageNames;
+    
     
     [[self navigationController] pushViewController:gifDetailViewController animated:YES];
     

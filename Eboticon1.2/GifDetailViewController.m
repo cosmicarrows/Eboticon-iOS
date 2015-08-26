@@ -111,8 +111,14 @@
     [[self view] addSubview:[self.pageViewController view]];
     [self.pageViewController didMoveToParentViewController:self];
     
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reverseMenu:)]];
+    
     //[self showSwipeAlert];
     
+}
+
+- (void)reverseMenu:(UITapGestureRecognizer *)sender{
+    [self.revealViewController rightRevealToggleForTapGesture];
 }
 
 -(void) showSwipeAlert
@@ -157,6 +163,10 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender {
+    if ([self.revealViewController wasAnimated]){
+        [self reverseMenu:nil];
+        return;
+    }    
     
     DDLogDebug(@"Share button Current Index:%ld", (long)self.index);
     //EboticonGif *currGif = self.imageNames[self.index];
