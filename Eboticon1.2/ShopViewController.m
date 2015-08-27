@@ -198,6 +198,7 @@
     _imagePager.imageCounterDisabled = YES;
     _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
     _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"banner1.png"]];
     _imagePager.slideshowTimeInterval = 5.5f;
     _imagePager.slideshowShouldCallScrollToDelegate = YES;
 }
@@ -207,7 +208,8 @@
     return @[
              @"http://www.inclingconsulting.com/eboticon/store/banner1.png",
              @"http://www.inclingconsulting.com/eboticon/store/banner2.png",
-             @"http://www.inclingconsulting.com/eboticon/store/banner3.png"
+             @"http://www.inclingconsulting.com/eboticon/store/banner3.png",
+             @"http://www.inclingconsulting.com/eboticon/store/banner4.png"
              ];
 }
 

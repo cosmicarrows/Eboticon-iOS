@@ -834,6 +834,15 @@
 		977FBD781B8A661200B75C05 /* EboticonIAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 977FBD771B8A661200B75C05 /* EboticonIAPHelper.m */; };
 		977FBD7A1B8A843F00B75C05 /* bg_keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 977FBD791B8A843F00B75C05 /* bg_keyboard.png */; };
 		978F1C921B8F60D600ADA44C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C911B8F60D600ADA44C /* Main.storyboard */; };
+		978F1C951B8F627B00ADA44C /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C931B8F627B00ADA44C /* arrow_left.png */; };
+		978F1C961B8F627B00ADA44C /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C941B8F627B00ADA44C /* arrow_right.png */; };
+		978F1C9C1B8F628E00ADA44C /* page5.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C971B8F628E00ADA44C /* page5.png */; };
+		978F1C9D1B8F628E00ADA44C /* page6.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C981B8F628E00ADA44C /* page6.png */; };
+		978F1C9E1B8F628E00ADA44C /* page7.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C991B8F628E00ADA44C /* page7.png */; };
+		978F1C9F1B8F628E00ADA44C /* page8.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C9A1B8F628E00ADA44C /* page8.png */; };
+		978F1CA01B8F628E00ADA44C /* page9.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C9B1B8F628E00ADA44C /* page9.png */; };
+		978F1CA21B8F62BC00ADA44C /* transparent_bg_keyboard_.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1CA11B8F62BC00ADA44C /* transparent_bg_keyboard_.png */; };
+		978F1CA41B8F63DD00ADA44C /* banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 978F1CA31B8F63DD00ADA44C /* banner1.png */; };
 		979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 979CFF9C1B8AA8720041EE61 /* ShopDetailCollectionViewController.m */; };
 		979CFF9F1B8AA8720041EE61 /* ShopDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979CFF9D1B8AA8720041EE61 /* ShopDetailView.xib */; };
 		979CFFA11B8AAEE30041EE61 /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
@@ -1479,6 +1488,15 @@
 		977FBD771B8A661200B75C05 /* EboticonIAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EboticonIAPHelper.m; sourceTree = "<group>"; };
 		977FBD791B8A843F00B75C05 /* bg_keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_keyboard.png; sourceTree = "<group>"; };
 		978F1C911B8F60D600ADA44C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		978F1C931B8F627B00ADA44C /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
+		978F1C941B8F627B00ADA44C /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
+		978F1C971B8F628E00ADA44C /* page5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page5.png; sourceTree = "<group>"; };
+		978F1C981B8F628E00ADA44C /* page6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page6.png; sourceTree = "<group>"; };
+		978F1C991B8F628E00ADA44C /* page7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page7.png; sourceTree = "<group>"; };
+		978F1C9A1B8F628E00ADA44C /* page8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page8.png; sourceTree = "<group>"; };
+		978F1C9B1B8F628E00ADA44C /* page9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page9.png; sourceTree = "<group>"; };
+		978F1CA11B8F62BC00ADA44C /* transparent_bg_keyboard_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent_bg_keyboard_.png; sourceTree = "<group>"; };
+		978F1CA31B8F63DD00ADA44C /* banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner1.png; sourceTree = "<group>"; };
 		979CFF9B1B8AA8720041EE61 /* ShopDetailCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailCollectionViewController.h; sourceTree = "<group>"; };
 		979CFF9C1B8AA8720041EE61 /* ShopDetailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailCollectionViewController.m; sourceTree = "<group>"; };
 		979CFF9D1B8AA8720041EE61 /* ShopDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailView.xib; sourceTree = "<group>"; };
@@ -2287,6 +2305,14 @@
 		97035A8B1B6C191E004FEDC5 /* keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				978F1CA11B8F62BC00ADA44C /* transparent_bg_keyboard_.png */,
+				978F1C971B8F628E00ADA44C /* page5.png */,
+				978F1C981B8F628E00ADA44C /* page6.png */,
+				978F1C991B8F628E00ADA44C /* page7.png */,
+				978F1C9A1B8F628E00ADA44C /* page8.png */,
+				978F1C9B1B8F628E00ADA44C /* page9.png */,
+				978F1C931B8F627B00ADA44C /* arrow_left.png */,
+				978F1C941B8F627B00ADA44C /* arrow_right.png */,
 				9760B5311B750B6800E75EEC /* page1.png */,
 				9760B5321B750B6800E75EEC /* page2.png */,
 				9760B5331B750B6800E75EEC /* page3.png */,
@@ -2435,6 +2461,7 @@
 		9760B5771B7A84A600E75EEC /* shop */ = {
 			isa = PBXGroup;
 			children = (
+				978F1CA31B8F63DD00ADA44C /* banner1.png */,
 				97065D731B6A85B1004B149A /* shop-slider.png */,
 				9760B5751B7A849F00E75EEC /* shopCostBorder.png */,
 			);
@@ -3180,6 +3207,7 @@
 				630451D11ABF950A001DC8B2 /* thank_ya-nocaption.png in Resources */,
 				636EE6A01A63473900E43D65 /* omg-nocaption.mov in Resources */,
 				630452031ABF950A001DC8B2 /* you_mad-caption.png in Resources */,
+				978F1C951B8F627B00ADA44C /* arrow_left.png in Resources */,
 				631DC15D19CE474400B11541 /* aye_girl-nocaption.gif in Resources */,
 				636EE6A11A63473900E43D65 /* one_sec-caption.mov in Resources */,
 				630BF5271A5EDFCE00F179F5 /* thinking_about_you-nocaption.mov in Resources */,
@@ -3192,6 +3220,7 @@
 				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,
 				63BCCD961920E92200C8508D /* have_several_seats-nocaption.gif in Resources */,
 				631DC15E19CE474400B11541 /* bye_felicia-caption.gif in Resources */,
+				978F1C961B8F627B00ADA44C /* arrow_right.png in Resources */,
 				6304519F1ABF950A001DC8B2 /* im_flattered-nocaption.png in Resources */,
 				639B136A1B46F76100EF8997 /* excuse_me-caption.png in Resources */,
 				636EE6A41A63473900E43D65 /* thanks-nocaption.mov in Resources */,
@@ -3262,6 +3291,7 @@
 				63BCCDBB1920E92200C8508D /* you_mad-caption.gif in Resources */,
 				63BCCD8E1920E92200C8508D /* dead-nocaption.gif in Resources */,
 				63BCCD841920E92200C8508D /* aint_nobody-caption.gif in Resources */,
+				978F1CA41B8F63DD00ADA44C /* banner1.png in Resources */,
 				63BCCDB31920E92200C8508D /* wont_he_do_it_female-caption.gif in Resources */,
 				63BCCD851920E92200C8508D /* aint_nobody-nocaption.gif in Resources */,
 				6332784B1A82E120000557D0 /* deal_with_it-caption.gif in Resources */,
@@ -3302,6 +3332,7 @@
 				631DC16419CE474400B11541 /* none_of_my_business-caption.gif in Resources */,
 				630451FD1ABF950A001DC8B2 /* wth-nocaption.png in Resources */,
 				6304517F1ABF950A001DC8B2 /* glory-caption.png in Resources */,
+				978F1C9E1B8F628E00ADA44C /* page7.png in Resources */,
 				630BF51B1A5EDFCE00F179F5 /* schmoney_dance-nocaption.mov in Resources */,
 				636B4E131B4C1FEC000E2128 /* uh_hello-nocaption.png in Resources */,
 				630BF4F21A5EDFCE00F179F5 /* congrats-caption.mov in Resources */,
@@ -3316,6 +3347,7 @@
 				637078161AC11714007652E1 /* good_night-caption.mov in Resources */,
 				630BF52B1A5EDFCE00F179F5 /* twerk_team-nocaption.mov in Resources */,
 				6332784E1A82E120000557D0 /* did_that-nocaption.gif in Resources */,
+				978F1C9D1B8F628E00ADA44C /* page6.png in Resources */,
 				633278501A82E120000557D0 /* girl_gone-nocaption.gif in Resources */,
 				63BCCDA01920E92200C8508D /* oh_crap-nocaption.gif in Resources */,
 				630BF5241A5EDFCE00F179F5 /* that_aint_funny-caption.mov in Resources */,
@@ -3408,12 +3440,14 @@
 				63A1D3131A194A0300FC0C45 /* where_they_do_that_at-caption.gif in Resources */,
 				630451871ABF950A001DC8B2 /* happy_new_year_boo-caption.png in Resources */,
 				639B13181B46F0A100EF8997 /* uh_hello-nocaption.gif in Resources */,
+				978F1CA01B8F628E00ADA44C /* page9.png in Resources */,
 				6304519B1ABF950A001DC8B2 /* i_love_you-nocaption.png in Resources */,
 				630451B31ABF950A001DC8B2 /* omg-nocaption.png in Resources */,
 				630451751ABF950A001DC8B2 /* dont_mind_me-nocaption.png in Resources */,
 				637077F21AC11628007652E1 /* good_morning-caption.gif in Resources */,
 				630BF5251A5EDFCE00F179F5 /* that_aint_funny-nocaption.mov in Resources */,
 				63A1D3111A194A0300FC0C45 /* wait_whet-caption.gif in Resources */,
+				978F1CA21B8F62BC00ADA44C /* transparent_bg_keyboard_.png in Resources */,
 				637077D81AC11394007652E1 /* good_morning-nocaption.png in Resources */,
 				63BCCDA71920E92200C8508D /* schwam-caption.gif in Resources */,
 				6370781A1AC11714007652E1 /* i_give_up-caption.mov in Resources */,
@@ -3450,9 +3484,11 @@
 				63A1D30E1A194A0300FC0C45 /* bruh-nocaption.gif in Resources */,
 				6304518B1ABF950A001DC8B2 /* have_a_seat-nocaption.png in Resources */,
 				9760B56D1B7A54D600E75EEC /* more_bg.png in Resources */,
+				978F1C9F1B8F628E00ADA44C /* page8.png in Resources */,
 				630451711ABF950A001DC8B2 /* did_that-nocaption.png in Resources */,
 				63BCCD8D1920E92200C8508D /* dead-caption.gif in Resources */,
 				630BF5041A5EDFCE00F179F5 /* have_several_seats-nocaption.mov in Resources */,
+				978F1C9C1B8F628E00ADA44C /* page5.png in Resources */,
 				636EE6941A6346E100E43D65 /* i_cant-nocaption.mov in Resources */,
 				630451A51ABF950A001DC8B2 /* lmao-caption.png in Resources */,
 				630BF5151A5EDFCE00F179F5 /* operation_skinty-caption.mov in Resources */,
