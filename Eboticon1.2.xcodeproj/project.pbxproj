@@ -833,6 +833,7 @@
 		977FBD751B8A648700B75C05 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 977FBD741B8A648700B75C05 /* IAPHelper.m */; };
 		977FBD781B8A661200B75C05 /* EboticonIAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 977FBD771B8A661200B75C05 /* EboticonIAPHelper.m */; };
 		977FBD7A1B8A843F00B75C05 /* bg_keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 977FBD791B8A843F00B75C05 /* bg_keyboard.png */; };
+		978F1C921B8F60D600ADA44C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F1C911B8F60D600ADA44C /* Main.storyboard */; };
 		979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 979CFF9C1B8AA8720041EE61 /* ShopDetailCollectionViewController.m */; };
 		979CFF9F1B8AA8720041EE61 /* ShopDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979CFF9D1B8AA8720041EE61 /* ShopDetailView.xib */; };
 		979CFFA11B8AAEE30041EE61 /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
@@ -1477,6 +1478,7 @@
 		977FBD761B8A661200B75C05 /* EboticonIAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EboticonIAPHelper.h; sourceTree = "<group>"; };
 		977FBD771B8A661200B75C05 /* EboticonIAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EboticonIAPHelper.m; sourceTree = "<group>"; };
 		977FBD791B8A843F00B75C05 /* bg_keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_keyboard.png; sourceTree = "<group>"; };
+		978F1C911B8F60D600ADA44C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		979CFF9B1B8AA8720041EE61 /* ShopDetailCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailCollectionViewController.h; sourceTree = "<group>"; };
 		979CFF9C1B8AA8720041EE61 /* ShopDetailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailCollectionViewController.m; sourceTree = "<group>"; };
 		979CFF9D1B8AA8720041EE61 /* ShopDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailView.xib; sourceTree = "<group>"; };
@@ -2210,6 +2212,7 @@
 				63FAE3BE1868CCCF00116D73 /* Model */,
 				63FAE3951868CC0200116D73 /* AppDelegate.h */,
 				63FAE3961868CC0200116D73 /* AppDelegate.m */,
+				978F1C911B8F60D600ADA44C /* Main.storyboard */,
 				970DA3C71B6978CF00587CD6 /* Old Files */,
 				97A3830F1B695C12002F5571 /* Home View */,
 				97A383061B67E07F002F5571 /* Whats New */,
@@ -3183,6 +3186,7 @@
 				63BCCD871920E92200C8508D /* brb-caption.gif in Resources */,
 				63BCCDAE1920E92200C8508D /* thinking_about_you-nocaption.gif in Resources */,
 				636EE6931A6346E100E43D65 /* i_cant-caption.mov in Resources */,
+				978F1C921B8F60D600ADA44C /* Main.storyboard in Resources */,
 				63BCCDBA1920E92200C8508D /* yas-nocaption.gif in Resources */,
 				63BCCDB91920E92200C8508D /* yas-caption.gif in Resources */,
 				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,

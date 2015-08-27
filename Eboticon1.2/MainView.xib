@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
-                <outlet property="collectionView" destination="R2g-4L-bKQ" id="PY5-tg-hsb"/>
+                <outlet property="collectionView" destination="R2g-4L-bKQ" id="wGo-jN-a53"/>
                 <outlet property="flowLayout" destination="DXR-AQ-EBO" id="TVF-Dw-PIT"/>
                 <outlet property="view" destination="iN0-l3-epB" id="yJP-sE-Ef2"/>
             </connections>
