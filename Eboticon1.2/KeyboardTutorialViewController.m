@@ -39,7 +39,7 @@
     pageControl.backgroundColor = [UIColor clearColor];
     
     // Create the data model
-    _pageTitles = @[@"Go to Settings", @"Click \"General\"", @"Click \"Keyboard\"", @"Click \"Add New Keyboard\"", @"Select \"Eboticon\"", @"Reselect \"Eboticon\"", @"Switch on \"Allow Full Access\"", @"Then you are done!"];
+    _pageTitles = @[@"Go to Settings", @"Click \"General\"", @"Click \"Keyboard\"", @"Click \"Add New Keyboard\"", @"Select \"Eboticon\"", @"Reselect \"Eboticon\"", @"Switch on \"Allow Full Access\"", @"Click \"Allow\" button", @"Then you are done!"];
     _pageImages = @[@"page1.png", @"page2.png", @"page3.png", @"page4.png", @"page5.png", @"page6.png", @"page7.png", @"page8.png", @"page9.png"];
     
     // Create page view controller

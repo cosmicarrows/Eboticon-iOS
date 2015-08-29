@@ -105,6 +105,10 @@
     NSLog(@"width: %f",self.view.frame.size.width);
     NSLog(@"%f",self.view.frame.size.width);
     
+    [self.imvBlurredBackground setImage:self.imgBackground];
+    
+    [self addBlurEffect];
+    
     self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44);
     
     [self addChildViewController:self.pageViewController];
@@ -114,7 +118,22 @@
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reverseMenu:)]];
     
     //[self showSwipeAlert];
-    
+}
+
+- (void)addBlurEffect{
+    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+        self.view.backgroundColor = [UIColor clearColor];
+        
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        blurEffectView.frame = self.view.frame;
+        blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        [self.view addSubview:blurEffectView];
+    }
+    else {
+        self.view.backgroundColor = [UIColor blackColor];
+    }
 }
 
 - (void)reverseMenu:(UITapGestureRecognizer *)sender{

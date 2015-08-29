@@ -794,6 +794,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          }
          
      }
+    
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
     NSLog(@"Row: %ld", (long)indexPath.row);
@@ -805,9 +806,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     gifDetailViewController.index = indexPath.row;
     gifDetailViewController.imageNames = imageNames;
     
-    
+    gifDetailViewController.imgBackground = [self captureView:self.view];
     [[self navigationController] pushViewController:gifDetailViewController animated:YES];
-    
+}
+
+- (UIImage*)captureView:(UIView *)view
+{
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
 }
 
 - (NSURL *) fileToURL:(NSString*)filename
