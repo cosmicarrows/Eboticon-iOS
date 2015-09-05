@@ -66,7 +66,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
     
-    
     NSMutableArray *_currentEboticonGifs;
     
     NSArray *_products;

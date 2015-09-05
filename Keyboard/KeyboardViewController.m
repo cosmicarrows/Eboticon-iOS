@@ -99,9 +99,33 @@
     [super viewDidLoad];
     
     
-    //The switch size should be the size of the overlay.
+}
+
+
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 5.0f, 2.0f, 100.0f, 20.0f }];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+    NSLog(@"Eboticon memory warning");
+    
+}
+
+#pragma mark
+
+#pragma mark - initialization method
+
+
+- (void) initializeExtension {
+    
+    //The switch size should be the size of the overlay.
+    self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 5.0f, 2.0f, 100.0f, 20.0f }];
     //self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ self.keyboardCollectionView.frame.size.width/2.0f-50.0f, 2.0f, 100.0f, 20.0f }];
     [[TTSwitch appearance] setTrackImage:[UIImage imageNamed:@"round-switch-track"]];
     [[TTSwitch appearance] setOverlayImage:[UIImage imageNamed:@"round-switch-overlay"]];
@@ -113,10 +137,7 @@
     [[TTSwitch appearance] setThumbOffsetY:-6.0f];
     
     [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
-    
-    
-     self.captionSwitch.on = true;
-    
+    self.captionSwitch.on = true;
     [self.view addSubview: self.captionSwitch];
     
     
@@ -124,11 +145,10 @@
      Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
      */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    
     self.internetReachability = [Reachability reachabilityForInternetConnection];
     [self.internetReachability startNotifier];
     
-
+    
     // Add a target that will be invoked when the page control is
     // changed by tapping on it
     [self.pageControl
@@ -179,8 +199,6 @@
     //Setup Keyboard
     [self initializeKeyboard];
     
-    
-    
     //Load CSV into Array
     [self loadGifsFromCSV];
     
@@ -192,7 +210,7 @@
         self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
         [self populateGifArraysFromCSV];
-    
+        
     }
     else{
         //add Internet connection view and remove caption button
@@ -215,23 +233,157 @@
     swipeRecognizerLeft.numberOfTouchesRequired = 1;
     [self.keyboardCollectionView addGestureRecognizer:swipeRecognizerLeft];
     
+    
 }
-
-
-
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void) initializeKeyboard {
+    
+    // Configure collection flow layout
+    self.flowLayout = [[KeyboardCollectionViewFlowLayout alloc] init];
+    
+    //collectionView.frame
+    self.keyboardCollectionView.showsHorizontalScrollIndicator = YES;
+    self.keyboardCollectionView.pagingEnabled = NO;
+    [self.keyboardCollectionView setCollectionViewLayout:self.flowLayout];
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void) loadGifsFromCSV
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+    NSError *error = nil;
     
-    NSLog(@"Eboticon memory warning");
+    //Read All Gifs From CSV
+    @try {
+        
+        _csvImages = [NSArray arrayWithContentsOfCSVFile:path];
+        
+        if (_csvImages == nil) {
+            NSLog(@"Error parsing file: %@", error);
+            return;
+        }
+        else {
+            
+            
+            [_allImages addObjectsFromArray:_csvImages];
+            
+            NSMutableArray *element = [[NSMutableArray alloc]init];
+            /*
+             for(int i=0; i<[_csvImages count];i++){
+             element = [_csvImages objectAtIndex: i];
+             NSLog(@"Element %i = %@", i, element);
+             NSLog(@"Element Count = %lu", (unsigned long)[element count]);
+             }*/
+            
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Unable to load csv: %@",exception);
+    }
+    
     
 }
+
+
+-(void) populateGifArraysFromCSV
+{
+    if([_allImages count] > 0){
+        
+        NSMutableArray *currentGif = [[NSMutableArray alloc]init];
+        
+        _exclamationImagesCaption = [[NSMutableArray alloc]init];
+        _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
+        _smileImagesCaption = [[NSMutableArray alloc]init];
+        _smileImagesNoCaption = [[NSMutableArray alloc]init];
+        _nosmileImagesCaption = [[NSMutableArray alloc]init];
+        _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
+        _giftImagesCaption = [[NSMutableArray alloc]init];
+        _giftImagesNoCaption = [[NSMutableArray alloc]init];
+        _heartImagesCaption = [[NSMutableArray alloc]init];
+        _heartImagesNoCaption = [[NSMutableArray alloc]init];
+        
+        for(int i = 0; i < [_allImages count]; i++){
+            currentGif = [_allImages objectAtIndex:i];
+            
+            NSString * gifCategory = [currentGif objectAtIndex:6]; //Category
+            NSString * gifCaption = [currentGif objectAtIndex:3];
+            
+            //  NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
+            if([gifCategory isEqual:CATEGORY_SMILE]) {
+                //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_smileImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_smileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+            } else if([gifCategory isEqual:CATEGORY_NOSMILE]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_nosmileImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_nosmileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+            }
+            else if([gifCategory isEqual:CATEGORY_HEART]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_heartImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_heartImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+                // NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
+                
+            }
+            else if([gifCategory isEqual:CATEGORY_GIFT]) {
+                
+                //Check for Caption
+                if ([gifCaption isEqual:@"Caption"])
+                    [_giftImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_giftImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+                // NSLog(@"Adding eboticon to category CATEGORY_GIFT:%@",[currentGif fileName]);
+            }
+            else if([gifCategory isEqual:CATEGORY_EXCLAMATION]) {
+                
+                
+                if ([gifCaption isEqual:@"Caption"])
+                    [_exclamationImagesCaption addObject:[_allImages objectAtIndex:i]];
+                else{
+                    [_exclamationImagesNoCaption addObject:[_allImages objectAtIndex:i]];
+                }
+                
+                // NSLog(@"Adding eboticon to category CATEGORY_EXCLAMATION:%@",[currentGif fileName]);
+            }
+            else {
+                //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
+            }
+        }//End for
+        
+        //Set currnet gifs
+        _currentEboticonGifs = _heartImagesCaption;
+        [self changeCategory:1];
+        
+        
+        [self.keyboardCollectionView reloadData];       //Relaod the images into view
+        [self changePageControlNum];                    //Change the page control
+        
+        [self changeKeyboardFlowLayout];                //Change flowlayout
+        
+        
+    } else {
+        NSLog(@"Eboticon Gif array count is less than zero.");
+    }
+    
+}
+
 
 
 #pragma mark-
@@ -357,160 +509,6 @@
     }
     
 }
-
-
-
-#pragma mark - initialization method
-
-- (void) initializeKeyboard {
-    
-    // Configure collection flow layout
-    self.flowLayout = [[KeyboardCollectionViewFlowLayout alloc] init];
-    
-    //collectionView.frame
-    self.keyboardCollectionView.showsHorizontalScrollIndicator = YES;
-    self.keyboardCollectionView.pagingEnabled = NO;
-    [self.keyboardCollectionView setCollectionViewLayout:self.flowLayout];
-    
-}
-
-- (void) loadGifsFromCSV
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
-    NSError *error = nil;
-    
-    //Read All Gifs From CSV
-    @try {
-        
-        _csvImages = [NSArray arrayWithContentsOfCSVFile:path];
-        
-        if (_csvImages == nil) {
-            NSLog(@"Error parsing file: %@", error);
-            return;
-        }
-        else {
-            
-            
-            [_allImages addObjectsFromArray:_csvImages];
-            
-            NSMutableArray *element = [[NSMutableArray alloc]init];
-            /*
-            for(int i=0; i<[_csvImages count];i++){
-                element = [_csvImages objectAtIndex: i];
-                NSLog(@"Element %i = %@", i, element);
-                NSLog(@"Element Count = %lu", (unsigned long)[element count]);
-            }*/
-            
-        }
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Unable to load csv: %@",exception);
-    }
-    
-    
-}
-
-
--(void) populateGifArraysFromCSV
-{
-    if([_allImages count] > 0){
-        
-        NSMutableArray *currentGif = [[NSMutableArray alloc]init];
-        
-        _exclamationImagesCaption = [[NSMutableArray alloc]init];
-        _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
-        _smileImagesCaption = [[NSMutableArray alloc]init];
-        _smileImagesNoCaption = [[NSMutableArray alloc]init];
-        _nosmileImagesCaption = [[NSMutableArray alloc]init];
-        _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
-        _giftImagesCaption = [[NSMutableArray alloc]init];
-        _giftImagesNoCaption = [[NSMutableArray alloc]init];
-        _heartImagesCaption = [[NSMutableArray alloc]init];
-        _heartImagesNoCaption = [[NSMutableArray alloc]init];
-        
-        for(int i = 0; i < [_allImages count]; i++){
-            currentGif = [_allImages objectAtIndex:i];
-            
-            NSString * gifCategory = [currentGif objectAtIndex:6]; //Category
-            NSString * gifCaption = [currentGif objectAtIndex:3];
-            
-            //  NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
-            if([gifCategory isEqual:CATEGORY_SMILE]) {
-                //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
-                //Check for Caption
-                if ([gifCaption isEqual:@"Caption"])
-                 [_smileImagesCaption addObject:[_allImages objectAtIndex:i]];
-                else{
-                 [_smileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
-                }
-                
-            } else if([gifCategory isEqual:CATEGORY_NOSMILE]) {
-                
-                //Check for Caption
-                if ([gifCaption isEqual:@"Caption"])
-                    [_nosmileImagesCaption addObject:[_allImages objectAtIndex:i]];
-                else{
-                    [_nosmileImagesNoCaption addObject:[_allImages objectAtIndex:i]];
-                }
-    
-            }
-            else if([gifCategory isEqual:CATEGORY_HEART]) {
-                
-                //Check for Caption
-                if ([gifCaption isEqual:@"Caption"])
-                    [_heartImagesCaption addObject:[_allImages objectAtIndex:i]];
-                else{
-                    [_heartImagesNoCaption addObject:[_allImages objectAtIndex:i]];
-                }
-                
-               // NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
-            
-            }
-            else if([gifCategory isEqual:CATEGORY_GIFT]) {
-                
-                //Check for Caption
-                if ([gifCaption isEqual:@"Caption"])
-                    [_giftImagesCaption addObject:[_allImages objectAtIndex:i]];
-                else{
-                    [_giftImagesNoCaption addObject:[_allImages objectAtIndex:i]];
-                }
-                
-                // NSLog(@"Adding eboticon to category CATEGORY_GIFT:%@",[currentGif fileName]);
-            }
-            else if([gifCategory isEqual:CATEGORY_EXCLAMATION]) {
-                
-                
-                if ([gifCaption isEqual:@"Caption"])
-                    [_exclamationImagesCaption addObject:[_allImages objectAtIndex:i]];
-                else{
-                    [_exclamationImagesNoCaption addObject:[_allImages objectAtIndex:i]];
-                }
-                
-                // NSLog(@"Adding eboticon to category CATEGORY_EXCLAMATION:%@",[currentGif fileName]);
-            }
-            else {
-                //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
-            }
-        }//End for
-        
-        //Set currnet gifs
-        _currentEboticonGifs = _heartImagesCaption;
-        [self changeCategory:1];
-        
-        
-        [self.keyboardCollectionView reloadData];       //Relaod the images into view
-        [self changePageControlNum];                    //Change the page control
-        
-        [self changeKeyboardFlowLayout];                //Change flowlayout
-        
-        
-    } else {
-        NSLog(@"Eboticon Gif array count is less than zero.");
-    }
-    
-}
-
 
 #pragma mark - Key methods
 

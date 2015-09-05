@@ -51,9 +51,9 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    [self showSplashVideo];
+    //[self showSplashVideo];
     
-    //[self initialize];
+    [self initialize];
     // Override point for customization after application launch.
     return YES;
     
@@ -197,14 +197,13 @@
     mainRevealController.delegate = self;
     self.viewController = mainRevealController;
     
-    
     //Add Tab Bar
-    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //self.window.rootViewController = self.tabBarController;
     self.window.rootViewController = self.viewController;
     
     // Present Window before calling Harpy
-    //[self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
     
     
     //GOOGLE ANALYTICS INITIALIZER
