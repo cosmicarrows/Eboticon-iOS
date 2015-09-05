@@ -15,7 +15,6 @@
     @property (strong, nonatomic) NSMutableArray *captionImages;
     @property (strong, nonatomic) NSMutableArray *noCaptionImages;
 
-
     @property (strong, nonatomic) id gifCategory;
     @property (nonatomic, assign) NSNumber* captionState;
 

@@ -82,20 +82,25 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
 //a callback when the products list completes (productsRequest:didReceiveResponse) or fails (request:didFailWithErorr).
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     
-    NSLog(@"Loaded list of products...");
+    //NSLog(@"Loaded list of products...");
     _productsRequest = nil;
     
     NSArray * skProducts = response.products;
     for (SKProduct * skProduct in skProducts) {
-        NSLog(@"Found product: %@ %@ %0.2f",
+      /*  NSLog(@"Found product: %@ %@ %0.2f",
               skProduct.productIdentifier,
               skProduct.localizedTitle,
               skProduct.price.floatValue);
+       */
     }
     
     _completionHandler(YES, skProducts);
     _completionHandler = nil;
     
+}
+
+- (NSMutableSet *)getPurchasedProducts {
+    return _purchasedProductIdentifiers;
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
@@ -173,6 +178,12 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
 
 - (void)restoreCompletedTransactions {
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Restore"
+                                                       message:@"Your Eboticons has been successfully restored."
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    [theAlert show];
 }
 
 @end

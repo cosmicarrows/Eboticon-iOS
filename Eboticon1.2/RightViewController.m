@@ -33,6 +33,7 @@
 //Name of Categories in the CSV File
 #define CATEGORY_ALL @"all"
 #define CATEGORY_RECENT @"Recent"
+#define CATEGORY_PURCHASED @"Purchased"
 #define CATEGORY_SMILE @"happy"
 #define CATEGORY_NOSMILE @"not_happy"
 #define CATEGORY_HEART @"love"
@@ -163,17 +164,14 @@
 
 - (IBAction) recentKeyPressed:(UIButton*)sender {
     
+     NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     //Change category
     SWRevealViewController *revealController = self.revealViewController;
-    MainViewController *mainViewController = [[MainViewController alloc] init];
     NSString *categoryName = CATEGORY_RECENT;
-    
-    NSLog(@"The Category name is %@",categoryName);
-    mainViewController.gifCategory = categoryName;
+    NSLog(@"%s -- category: %@", __PRETTY_FUNCTION__, categoryName);
     
     TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
-    
-    //UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [revealController pushFrontViewController:tabBarController animated:YES];
     
 }
@@ -181,6 +179,18 @@
 
 - (IBAction) purchasedKeyPressed:(UIButton*)sender {
     
+ 
+    
+    //Change category
+    SWRevealViewController *revealController = self.revealViewController;
+    NSString *categoryName = CATEGORY_PURCHASED;
+    NSLog(@"%s -- category: %@", __PRETTY_FUNCTION__, categoryName);
+
+    TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
+    [revealController pushFrontViewController:tabBarController animated:YES];
+    
+    
+
 }
 
 
@@ -261,9 +271,8 @@
 
 
     
-    NSLog(@"categoryImages: %@", [_categoryImages objectAtIndex:indexPath.row]);
-    NSLog(@"categoryTitles: %@", [_categoryTitles objectAtIndex:indexPath.row]);
-    
+    //NSLog(@"categoryImages: %@", [_categoryImages objectAtIndex:indexPath.row]);
+    //NSLog(@"categoryTitles: %@", [_categoryTitles objectAtIndex:indexPath.row]);
 
     
     return cell;

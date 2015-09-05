@@ -37,11 +37,13 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     [self loadGifsFromCSV];
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     
+    //Sets the navigation bar title
+    [self.navigationItem setTitle:[self.product.localizedTitle uppercaseString]];
+    
     //Create Pack Gifs object
     [self createPackGifs];
     
-    
-    
+
     //Add Buy Button
     if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
         DDLogDebug(@"Not purchased");
@@ -198,12 +200,11 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
  
     if ([self.product.productIdentifier isEqualToString:productIdentifier]) {
         NSLog(@"Purchased %@", self.product.productIdentifier);
+        
+        //Remove Buy Button
+        self.navigationItem.rightBarButtonItem = nil;
     }
-
-    
 }
-
-
 
 
 #pragma mark <UICollectionViewDataSource>

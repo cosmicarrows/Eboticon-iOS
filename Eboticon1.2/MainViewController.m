@@ -24,11 +24,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
 
+//In-app purchases (IAP) libraries
+#import "EboticonIAPHelper.h"
+#import <StoreKit/StoreKit.h>
 
 static const int ddLogLevel = LOG_LEVEL_ERROR;
+//static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
+#define CATEGORY_PURCHASED @"Purchased"
 #define CATEGORY_CAPTION @"Caption"
 #define CATEGORY_NO_CAPTION @"No Caption"
 #define CSV_CATEGORY_NO_CAPTION @"NoCaption"
@@ -47,6 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSMutableArray *_eboticonGifs;
     
     NSMutableArray *_allImages;
+    NSMutableArray *_purchasedImages;
     NSMutableArray *_allImagesCaption;
     NSMutableArray *_allImagesNoCaption;
     NSMutableArray *_exclamationImagesCaption;
@@ -60,7 +66,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
     
+    
     NSMutableArray *_currentEboticonGifs;
+    
+    NSArray *_products;
 }
 
 // Collection View
@@ -107,6 +116,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Initialize Gifs
     _currentEboticonGifs         = [[NSMutableArray alloc] init];
     _allImages                   = [[NSMutableArray alloc] init];
+    _purchasedImages             = [[NSMutableArray alloc] init];
     _allImagesCaption            = [[NSMutableArray alloc] init];
     _allImagesNoCaption          = [[NSMutableArray alloc] init];
     _exclamationImagesCaption    = [[NSMutableArray alloc] init];
@@ -124,13 +134,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSLog(@"self.captionState: %lu",(unsigned long)[self.captionState  integerValue]);
     //self.captionState           = 1;
     
+    //Load current products
+     //[self getProducts];
+    
+    
     //Load Gif csv file
-    NSLog(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
+    DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
     [self loadGifsFromCSV];
     
-    NSLog(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
+    DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     [self populateGifArraysFromCSV];
+    
+    [self loadPurchasedProducts];
     
     //Register the Gif Cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
@@ -149,7 +165,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:_gifCategory forKey:kGAIScreenName]build]];
     }
     @catch (NSException *exception) {
-        NSLog(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
     
     //Add sidebar menu button
@@ -255,21 +271,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                 }
                 [_eboticonGifs addObject:currentGif];
                 currentGif = [[EboticonGif alloc] init];
-                DDLogDebug(@"Eboticon: %@", currentGif);
-                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ displayType:%@ emotionCategory%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif displayType], [currentGif emotionCategory]);
-                /**
-                 if(nil != _eboticonGifs){
-                 [_eboticonGifs addObject:currentGif];
-                 } else {
-                 _eboticonGifs = [NSMutableArray arrayWithObject:currentGif];
-                 }
-                 **/
+               
             }
             
-            for (int a = 0; a< [_eboticonGifs count]; a++){
-                DDLogDebug(@"Eboticon filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayname:%@ emotionCategory%@", [[_eboticonGifs objectAtIndex:a] fileName], [[_eboticonGifs objectAtIndex:a] stillName], [[_eboticonGifs objectAtIndex:a] displayName], [[_eboticonGifs objectAtIndex:a] category],[[_eboticonGifs objectAtIndex:a] movFileName], [[_eboticonGifs objectAtIndex:a] displayType], [[_eboticonGifs objectAtIndex:a] emotionCategory]);
-                
-            }
+          
             
         }
         
@@ -391,25 +396,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         }//End for
 
         
-        /*
-        
-        for(int i = 0; i < [_eboticonGifs count]; i++){
-            currentGif = [_eboticonGifs objectAtIndex:i];
-            DDLogDebug(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@ emotionCategory%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType], [currentGif emotionCategory]);
-            if([[currentGif category] isEqual:CATEGORY_CAPTION]) {
-                DDLogDebug(@"Adding eboticon to category Caption:%@",[currentGif fileName]);
-                [_captionImages addObject:[_eboticonGifs objectAtIndex:i]];
-            } else if([[currentGif category] isEqual:CSV_CATEGORY_NO_CAPTION]) {
-                DDLogDebug(@"Adding eboticon to category noCaption:%@",[currentGif fileName]);
-                [_noCaptionImages addObject:[_eboticonGifs objectAtIndex:i]];
-            } else {
-                DDLogDebug(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
-            }
-        }
-         */
-        
-        //_allImages = [[_captionImages arrayByAddingObjectsFromArray:_noCaptionImages] mutableCopy];
-        
         _allImages = [_eboticonGifs mutableCopy];
         _recentImages = [self getRecentGifs];
         
@@ -481,6 +467,122 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 
 #pragma mark-
+#pragma mark In App Products
+
+
+/*
+
+- (void)getProducts {
+    DDLogInfo(@"Reloading Products...");
+    _products = nil;
+    [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+        }
+    }];
+}
+
+ */
+
+- (void)loadPurchasedProducts {
+    NSLog(@"loadPurchasedProducts...");
+    
+    NSMutableSet *purchasedProducts = [[EboticonIAPHelper sharedInstance] getPurchasedProducts];
+    
+    NSLog(@"loading in sharedDefaults...");
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    [sharedDefaults setObject:[purchasedProducts allObjects] forKey:@"purchasedProducts"];
+    [sharedDefaults synchronize];   // (!!) This is crucial.
+
+    for(NSString* productIdentifiers in purchasedProducts) {
+        NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
+        [self loadPurchasedGifsFromCSV:productIdentifiers];
+    }
+
+}
+
+- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
+    
+    
+    @try {
+        
+        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
+        if (csvArray == nil) {
+            NSLog(@"Error parsing file");
+            return;
+        } else {
+            
+            NSMutableArray *element = [[NSMutableArray alloc]init];
+            
+            for(int i=0; i<[csvArray count];i++){
+                EboticonGif *currentGif = [[EboticonGif alloc] init];
+                element = [csvArray objectAtIndex: i];
+                //DDLogDebug(@"Element %i = %@", i, element);
+                // DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
+                
+                for(int j=0; j<[element count];j++) {
+                    NSString *value = [element objectAtIndex: j];
+                    //DDLogDebug(@"Value %i = %@", j, value);
+                    switch (j) {
+                        case 0:
+                            [currentGif setFileName:value];
+                            break;
+                        case 1:
+                            [currentGif setStillName:value];
+                            break;
+                        case 2:
+                            [currentGif setDisplayName:value];
+                            break;
+                        case 3:
+                            [currentGif setCategory:value];
+                            break;
+                        case 4:
+                            [currentGif setMovFileName:value];
+                            break;
+                        case 5:
+                            [currentGif setDisplayType:value];
+                            break;
+                        case 6:
+                            [currentGif setEmotionCategory:value];
+                            break;
+                        default:
+                            //       DDLogWarn(@"Index out of bounds");
+                            break;
+                    }
+         
+                }
+                
+                NSString * gifCategory = [currentGif emotionCategory]; //Category
+                
+                
+                if([productIdentifier isEqual:gifCategory]) {
+                  //  NSLog(@"productIdentifier: %@, ", productIdentifier);
+                    
+                  //  NSLog(@"gifCategory: %@, ", gifCategory);
+                  //  NSLog(@"displayName: %@, ", [currentGif displayName]);
+                  //   NSLog(@"fileName: %@, ", [currentGif fileName]);
+                   
+                    
+                    [_purchasedImages addObject:currentGif];
+                    [_eboticonGifs addObject:currentGif];
+                    
+                    //NSLog(@"%@",[_purchasedImages[i] fileName]);
+                    // NSLog(@"----");
+                }
+                
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"Unable to load csv: %@",exception);
+    }
+    
+    
+}
+
+#pragma mark-
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -503,6 +605,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
                 DDLogDebug(@"Returning No Caption");
                 return _recentImages.count;
+            } else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+                return _purchasedImages.count;
             } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
                 DDLogDebug(@"Returning Smile");
                 return _smileImagesCaption.count;
@@ -531,6 +635,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
              DDLogDebug(@"Returning No Caption");
              return _recentImages.count;
+         } else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+             DDLogDebug(@"Returning No Caption");
+             return _purchasedImages.count;
          } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
              DDLogDebug(@"Returning Smile");
              return _smileImagesNoCaption.count;
@@ -592,6 +699,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             image = [UIImage imageNamed:_noCaptionImages[row]];
         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
             image = [UIImage imageNamed:_recentImages[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+            image = [UIImage imageNamed:_purchasedImages[row]];
         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             image = [UIImage imageNamed:_smileImagesCaption[row]];
         } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
@@ -615,6 +724,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             image = [UIImage imageNamed:_noCaptionImages[row]];
         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
             image = [UIImage imageNamed:_recentImages[row]];
+        }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+            image = [UIImage imageNamed:_purchasedImages[row]];
         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             image = [UIImage imageNamed:_smileImagesNoCaption[row]];
         } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
@@ -648,6 +759,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
         gifName = _recentImages[row];
         DDLogDebug(@"Image name is %@",gifName);
+    } else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+        gifName = _purchasedImages[row];
+        DDLogDebug(@"Image name is %@",gifName);
     } else {
         gifName = _allImages[row];
         DDLogDebug(@"Image name is %@",gifName);
@@ -670,6 +784,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             currentGifObject = _noCaptionImages[row];
         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
             currentGifObject = _recentImages[row];
+        }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+            currentGifObject = _purchasedImages[row];
         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             //  NSLog(@"smile images");
             currentGifObject = _smileImagesCaption[row];
@@ -694,6 +810,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             currentGifObject = _noCaptionImages[row];
         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
             currentGifObject = _recentImages[row];
+        }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+            //NSLog(@"%@",_gifCategory);
+            currentGifObject = _purchasedImages[row];
+            NSLog(@"%@",[currentGifObject fileName]);
         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             //  NSLog(@"smile images");
             currentGifObject = _smileImagesNoCaption[row];
@@ -713,7 +833,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     }
     
     
-   // NSLog(@"%@",_gifCategory);
+   
 
     
     return currentGifObject;
@@ -754,7 +874,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             imageNames = _noCaptionImages;
         } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
             imageNames = _recentImages;
-        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
+        } else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+            imageNames = _purchasedImages;
+        } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             //  NSLog(@"smile images");
             imageNames = _smileImagesCaption;
         } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
@@ -777,6 +899,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
              imageNames = _noCaptionImages;
          } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
              imageNames = _recentImages;
+         }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
+             imageNames = _purchasedImages;
          }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
              //  NSLog(@"smile images");
              imageNames = _smileImagesNoCaption;
@@ -797,9 +921,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
-    NSLog(@"Row: %ld", (long)indexPath.row);
-    NSLog(@"Passing images count: %ld", (long)[imageNames count]);
-    NSLog(@"Category: %@", _gifCategory);
+    DDLogDebug(@"Row: %ld", (long)indexPath.row);
+    DDLogDebug(@"Passing images count: %ld", (long)[imageNames count]);
+    DDLogDebug(@"Category: %@", _gifCategory);
     
     
     gifDetailViewController.gifCategory = _gifCategory;

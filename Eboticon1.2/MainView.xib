@@ -24,7 +24,7 @@
                     </constraints>
                 </imageView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="R2g-4L-bKQ">
-                    <rect key="frame" x="0.0" y="82" width="320" height="399"/>
+                    <rect key="frame" x="0.0" y="67" width="320" height="365"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DXR-AQ-EBO" customClass="GifCollectionViewFlowLayout">
                         <size key="itemSize" width="96" height="100"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -43,9 +43,9 @@
                 <constraint firstItem="R2g-4L-bKQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5eX-j5-FJh"/>
                 <constraint firstAttribute="trailing" secondItem="flY-nj-9Nb" secondAttribute="trailing" id="9F1-vb-Mii"/>
                 <constraint firstAttribute="trailing" secondItem="R2g-4L-bKQ" secondAttribute="trailing" id="DxD-iG-wXV"/>
-                <constraint firstAttribute="bottom" secondItem="R2g-4L-bKQ" secondAttribute="bottom" constant="-1" id="bJG-63-RpO"/>
+                <constraint firstAttribute="bottom" secondItem="R2g-4L-bKQ" secondAttribute="bottom" constant="48" id="bJG-63-RpO"/>
                 <constraint firstItem="flY-nj-9Nb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dcc-tD-BTM"/>
-                <constraint firstItem="R2g-4L-bKQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="82" id="kg2-aT-li9"/>
+                <constraint firstItem="R2g-4L-bKQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="67" id="kg2-aT-li9"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="335" y="336"/>

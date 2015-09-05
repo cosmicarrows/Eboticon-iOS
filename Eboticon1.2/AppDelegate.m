@@ -22,6 +22,9 @@
 #import "SWRevealViewController.h"
 #import "RightViewController.h"
 
+#import "XOSplashVideoController.h"
+
+
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -31,114 +34,14 @@
 
 @implementation AppDelegate
 
+
+#pragma mark -
+#pragma mark AppDelegate Methods
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-   // JMCategoriesData *allRow = [[JMCategoriesData alloc] initWithTitle:@"All" thumbImage:[UIImage imageNamed:@"AllIcon.png"] ];
-   // JMCategoriesData *recentsRow = [[JMCategoriesData alloc] initWithTitle:@"Recent"  thumbImage:[UIImage imageNamed:@"RecentIcon"] ];
-   // JMCategoriesData *captionsRow = [[JMCategoriesData alloc] initWithTitle:@"Caption" thumbImage:[UIImage imageNamed:@"CaptionIcon.png"] ];
-   // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
-   // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
-   // JMCategoriesData *noCaptionsRow = [[JMCategoriesData alloc] initWithTitle:@"No Caption" thumbImage:[UIImage imageNamed:@"NoCaptionIcon.png"] ];
-   // JMCategoriesData *moreRow = [[JMCategoriesData alloc] initWithTitle:@"More" thumbImage:[UIImage imageNamed:@"MoreIcon.png"] ];
-    
-    
-    //Setting up homepage rows
-    //NSMutableArray *homepageRows = [NSMutableArray arrayWithObjects:allRow,recentsRow,captionsRow,noCaptionsRow,moreRow,nil];
-    
-    
-    //Setting up Navigation Bar
-        [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
-
-        NSShadow *shadow = [[NSShadow alloc] init];
-        shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-        shadow.shadowOffset = CGSizeMake(0, 1);
-        [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                               [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                               shadow, NSShadowAttributeName,
-                                                               [UIFont fontWithName:@"LinkinPark-ExtraBold" size:21.0], NSFontAttributeName, nil]];
-        [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
-    
-    
-    
-    
-    //Tabbar With sidebar Items
-        NSNumber *caption = @(1); //initialize caption to on
-        self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
-  
-    
-    
-        RightViewController *rightViewController = [[RightViewController alloc] init];
-    
-    
-    
-        SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
-                                                        initWithRearViewController:rightViewController frontViewController:self.tabBarController];
-    
-
-        mainRevealController.rightViewController = rightViewController;
-    
-        mainRevealController.delegate = self;
-        
-        self.viewController = mainRevealController;
-    
-    
-    //Add Tab Bar
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        //self.window.rootViewController = self.tabBarController;
-        self.window.rootViewController = self.viewController;
-        
-        // Present Window before calling Harpy
-        [self.window makeKeyAndVisible];
-    
-
-    //MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
-    //masterController.categories = homepageRows;
-    
-    //GOOGLE ANALYTICS INITIALIZER
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    
-    // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
-    //[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-
-    
-    // Initialize tracker. Replace with your tracking ID.
-#ifdef FREE
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-3"];
-    DDLogInfo(@"Google Analytics Enabled for Lite Version");
-#else
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
-    DDLogInfo(@"Google Analytics Enabled for Paid Version");
-#endif
-    
-    //Set dry run to yes for testing purposes
-    [[GAI sharedInstance] setDryRun:NO];
-    
-    //Set version for app tracking
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-    [[GAI sharedInstance].defaultTracker set:kGAIAppVersion value:version];
-    [[GAI sharedInstance].defaultTracker set:kGAISampleRate value:@"50.0"];
-    
-    //Cocoalumberjack init files
-    //[DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-    
-    //configure iRate
-    [self configureiRate];
-    
-    //Harpy
-    //TODO: turn on Harpy
-    [self configureHarpy];
-    
-    //FABRIC
-    [Fabric with:@[CrashlyticsKit]];
-    
     // Register for Push Notitications
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
@@ -148,47 +51,11 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    //PARSE
-    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
-                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+    [self showSplashVideo];
     
+    //[self initialize];
     // Override point for customization after application launch.
     return YES;
-}
-
-/**
- *  Setup Harpy update reminder
- */
-- (void) configureHarpy
-{
-    @try {
-        
-        // Set the App ID for your app
-#ifdef FREE
-        [[Harpy sharedInstance] setAppID:@"977505283"];
-#else
-        [[Harpy sharedInstance] setAppID:@"899011953"];
-#endif
-        
-        // Set the UIViewController that will present an instance of UIAlertController
-        [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
-        
-        // (Optional) The tintColor for the alertController
-        //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
-        
-        // (Optional) Set the App Name for your app
-#ifdef FREE
-        [[Harpy sharedInstance] setAppName:@"Eboticon Lite"];
-#else
-        [[Harpy sharedInstance] setAppName:@"Eboticon"];
-#endif
-        
-        // Perform check for new version of your app 
-        [[Harpy sharedInstance] checkVersion];
-    }
-    @catch (NSException *exception) {
-        DDLogError(@"[ERROR] in enabling Harpy: %@", exception.description);
-    }
     
 }
 
@@ -263,6 +130,167 @@
 }
 
 
+#pragma mark -
+#pragma mark Initialize
+
+- (void) showSplashVideo {
+    
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    self.window = [[UIWindow alloc] initWithFrame:frame];
+    
+    NSLog(@"Screen Height %f", self.window.frame.size.height);
+    
+    NSString *portraitVideoName = @"EboticonIntroNEW640x960";
+    NSString *portraitImageName = @"iphone640x960.png";
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && self.window.frame.size.height > 480) {
+        portraitImageName = @"iphone640x1136.png";
+        portraitVideoName = @"EboticonIntroNEW640x1136";
+    }
+    
+    NSString *landscapeVideoName = nil; // n/a
+    NSString *landscapeImageName = nil; // n/a
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        portraitVideoName = @"EboticonIntroNEW768x1024";
+        portraitImageName = @"ipad768x1024.png";
+        landscapeVideoName = @"EboticonIntroNEW768x1024.mp4";
+        landscapeImageName = @"ipad768x1024.png";
+    }
+    
+    // our video
+    NSURL *portraitUrl = [[NSBundle mainBundle] URLForResource:portraitVideoName withExtension:@"mp4"];
+    NSURL *landscapeUrl = [[NSBundle mainBundle] URLForResource:landscapeVideoName withExtension:@"mp4"];
+    
+    // our splash controller
+    XOSplashVideoController *splashVideoController =
+    [[XOSplashVideoController alloc] initWithVideoPortraitUrl:portraitUrl
+                                            portraitImageName:portraitImageName
+                                                 landscapeUrl:landscapeUrl
+                                           landscapeImageName:landscapeImageName
+                                                     delegate:self];
+    // we'll start out with the spash view controller in the window
+    self.window.rootViewController = splashVideoController;
+    
+    [self.window makeKeyAndVisible];
+    
+}
+
+- (void) initialize {
+    //Setting up Navigation Bar
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           shadow, NSShadowAttributeName,
+                                                           [UIFont fontWithName:@"Avenir-Black" size:21.0], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
+    
+    //Tabbar With sidebar Items
+    NSNumber *caption = @(1); //initialize caption to on
+    self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
+    RightViewController *rightViewController = [[RightViewController alloc] init];
+    SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
+                                                    initWithRearViewController:rightViewController frontViewController:self.tabBarController];
+    mainRevealController.rightViewController = rightViewController;
+    mainRevealController.delegate = self;
+    self.viewController = mainRevealController;
+    
+    
+    //Add Tab Bar
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //self.window.rootViewController = self.tabBarController;
+    self.window.rootViewController = self.viewController;
+    
+    // Present Window before calling Harpy
+    //[self.window makeKeyAndVisible];
+    
+    
+    //GOOGLE ANALYTICS INITIALIZER
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
+    
+    
+    // Initialize tracker. Replace with your tracking ID.
+#ifdef FREE
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-3"];
+    DDLogInfo(@"Google Analytics Enabled for Lite Version");
+#else
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
+    DDLogInfo(@"Google Analytics Enabled for Paid Version");
+#endif
+    
+    //Set dry run to yes for testing purposes
+    [[GAI sharedInstance] setDryRun:NO];
+    
+    //Set version for app tracking
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    [[GAI sharedInstance].defaultTracker set:kGAIAppVersion value:version];
+    [[GAI sharedInstance].defaultTracker set:kGAISampleRate value:@"50.0"];
+    
+    //Cocoalumberjack init files
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    
+    //configure iRate
+    [self configureiRate];
+    
+    //Harpy
+    //TODO: turn on Harpy
+    [self configureHarpy];
+    
+    //FABRIC
+    [Fabric with:@[CrashlyticsKit]];
+    
+    
+    //PARSE
+    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
+                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+}
+
+/**
+ *  Setup Harpy update reminder
+ */
+- (void) configureHarpy
+{
+    @try {
+        
+        // Set the App ID for your app
+        #ifdef FREE
+                [[Harpy sharedInstance] setAppID:@"977505283"];
+        #else
+                [[Harpy sharedInstance] setAppID:@"899011953"];
+        #endif
+                
+                // Set the UIViewController that will present an instance of UIAlertController
+                [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
+                
+                // (Optional) The tintColor for the alertController
+                //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
+                
+                // (Optional) Set the App Name for your app
+        #ifdef FREE
+                [[Harpy sharedInstance] setAppName:@"Eboticon Lite"];
+        #else
+                [[Harpy sharedInstance] setAppName:@"Eboticon"];
+        #endif
+        
+        // Perform check for new version of your app
+        [[Harpy sharedInstance] checkVersion];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in enabling Harpy: %@", exception.description);
+    }
+    
+
+    
+}
+
 
 #pragma mark -
 #pragma mark Reveal Controller Delegate
@@ -328,4 +356,23 @@
     NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
+
+#pragma mark Splash Video
+
+- (void)splashVideoLoaded:(XOSplashVideoController *)splashVideo
+{
+    // load up our real view controller, but don't put it in to the window until the video is done
+    // if there's anything expensive to do it should happen in the background now
+    
+   //
+    
+   // self.viewController = [[XOViewController alloc] initWithNibName:@"XOViewController" bundle:nil];
+}
+
+- (void)splashVideoComplete:(XOSplashVideoController *)splashVideo
+{
+    // swap out the splash controller for our app's
+    //self.window.rootViewController = self.viewController;
+    [self initialize];
+}
 @end

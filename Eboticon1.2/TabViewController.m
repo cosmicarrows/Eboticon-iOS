@@ -88,7 +88,7 @@
     
 //    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
 //     UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewMainViewController];
-    WhatsNewWebViewController *whatsNewWebViewController = [[WhatsNewWebViewController alloc] initWithURL:@"http://eboticon.com" title:@"What's New"];
+    WhatsNewWebViewController *whatsNewWebViewController = [[WhatsNewWebViewController alloc] initWithURL:@"http://inclingconsulting.com/eboticon/" title:@"WHAT'S NEW"];
     UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewWebViewController];
     
     

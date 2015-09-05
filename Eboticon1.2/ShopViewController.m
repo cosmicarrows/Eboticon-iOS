@@ -31,9 +31,7 @@
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
     // Create the data model
-    _packTitles = @[@"CHURCH PACK", @"GREEK PACK"];
-    _packImages = @[@"PackChurchIcon", @"PackGreekIcon"];
-    _packCosts  = @[@"$0.99", @"$0.99"];
+    _packImages = @[@"PackChurchIcon", @"PackGreekIcon", @"PackCustomerAppreciation"];
     
     //Add Restore Button
     UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
@@ -72,6 +70,10 @@
 }
 
 - (void)productPurchased:(NSNotification *)notification {
+    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"Restore Purchases");
+    
     
     NSString * productIdentifier = notification.object;
     [_products enumerateObjectsUsingBlock:^(SKProduct * product, NSUInteger idx, BOOL *stop) {
@@ -135,6 +137,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"shopCell"];
     }
     
+    
     NSLog(@"packImages: %@", [_packImages objectAtIndex:indexPath.row]);
     
     return cell;
@@ -149,15 +152,34 @@
     cell.packTitle.text = [product.localizedTitle uppercaseString];
     
     [_priceFormatter setLocale:product.priceLocale];
-    cell.packCost.text = [_priceFormatter stringFromNumber:product.price];
+    NSDecimalNumber *freeCost = [NSDecimalNumber decimalNumberWithDecimal:
+                                 [[NSNumber numberWithFloat:0.0f] decimalValue]];
+    
+    if ([product.price compare:freeCost] == NSOrderedSame)
+    {
+        cell.packCost.text = @"FREE";
+    }else{
+        cell.packCost.text = [_priceFormatter stringFromNumber:product.price];
+    }
     
     
     if ([[EboticonIAPHelper sharedInstance] productPurchased:product.productIdentifier]) {
-        cell.packCost.text = @"Purchased";
+        
+        [cell.packCost setFont: [UIFont systemFontOfSize:7]];
+         cell.packCost.text = @"PURCHASED";
     }
 
-    //cell.packCost.text  = [NSString stringWithFormat:@"$%@",[product.price stringValue]];
-    cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:indexPath.row]];
+    //Set Image
+    if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack1"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
+    }
+    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
+    }
+    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.customerappreciationpack1"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+    }
+ 
 }
 
 

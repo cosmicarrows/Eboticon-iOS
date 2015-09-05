@@ -54,6 +54,8 @@
 {
      //Sets the navigation bar title
     [self.navigationController.navigationBar.topItem setTitle:@"What's New"];
+    //Sets the navigation bar title
+    //[self.navigationItem setTitle:@"What's New"];
 }
 - (void)viewDidLoad
 {
@@ -102,7 +104,7 @@
     
     dispatch_async( dispatch_get_global_queue(0, 0), ^{
         
-        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@" http://inclingconsulting.com/eboticon/" delegate:self];
         // call the result handler block on the main queue (i.e. main thread)
         dispatch_async( dispatch_get_main_queue(), ^{
             // running synchronously on the main thread now -- call the handler
@@ -157,7 +159,7 @@
     [self.spinner startAnimating];
     dispatch_async( dispatch_get_global_queue(0, 0), ^{
         
-        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://blog.brainrainsolutions.com/feed/" delegate:self];
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://inclingconsulting.com/eboticon/" delegate:self];
         // call the result handler block on the main queue (i.e. main thread)
         dispatch_async( dispatch_get_main_queue(), ^{
             // running synchronously on the main thread now -- call the handler

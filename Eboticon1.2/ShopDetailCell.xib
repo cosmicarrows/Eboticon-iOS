@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">2048</int>
-		<string key="IBDocument.SystemVersion">14E46</string>
+		<string key="IBDocument.SystemVersion">14F27</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -42,17 +42,16 @@
 							<object class="IBUIImageView" id="698815160">
 								<reference key="NSNextResponder" ref="466993509"/>
 								<int key="NSvFlags">1316</int>
-								<string key="NSFrameSize">{100, 75}</string>
+								<string key="NSFrame">{{-23, -3}, {141, 106}}</string>
 								<reference key="NSSuperview" ref="466993509"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSHuggingPriority">{251, 251}</string>
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{100, 75}</string>
+						<string key="NSFrameSize">{95, 100}</string>
 						<reference key="NSSuperview" ref="428237940"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="698815160"/>
@@ -68,7 +67,7 @@
 					</object>
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
-				<string key="NSFrameSize">{100, 75}</string>
+				<string key="NSFrameSize">{95, 100}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="466993509"/>
@@ -143,7 +142,7 @@
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.CustomClassName">ShopDetailCell</string>
 				<reference key="2.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="2.IBPersistedLastKnownCanvasPosition">{152.5, 221.5}</string>
+				<string key="2.IBPersistedLastKnownCanvasPosition">{152.5, 221}</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>

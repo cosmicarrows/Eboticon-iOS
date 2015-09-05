@@ -171,6 +171,11 @@
     
     NSLog(@"Keyboard Started");
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDefaultsDidChange:)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
+    
     //Setup Keyboard
     [self initializeKeyboard];
     
@@ -265,6 +270,19 @@
     
 }
 
+
+#pragma mark - TextInput methods
+
+- (void)userDefaultsDidChange:(NSNotification *)notification {
+    [self updateNumberLabelText];
+}
+
+- (void)updateNumberLabelText {
+     NSLog(@"loading in keyboard sharedDefaults...");
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+    //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
+}
 
 
 #pragma mark - TextInput methods
