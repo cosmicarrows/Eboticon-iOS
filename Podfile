@@ -20,7 +20,7 @@ target 'EboticonLite' do
     pod 'GPUImage', '~> 0.1'
 end
 
-target 'Keyboard' do
+target 'EboticonKeyboard' do
     pod 'Toast', '~> 2.4'
     pod 'CHCSVParser', '~> 2.0.7'
     pod 'DFImageManager'
