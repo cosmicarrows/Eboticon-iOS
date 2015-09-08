@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "KIImagePager.h"
+#import "GlobalScope.h"
 
 @interface ShopViewController : UIViewController{
-    
+    NSTimer *myTimer;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *inAppPurchaseTable;

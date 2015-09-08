@@ -175,6 +175,24 @@
 }
 
 - (void) initialize {
+    _products = nil;
+    
+    [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            NSLog(@"--------DONE-------");
+        }
+    }];
+    
+    arrImagePagerImages = [[NSMutableArray alloc]init];
+   
+    for (NSInteger i = 1 ; i <= 4 ; i ++){
+        NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.png", (int)i];
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: sUrl]];
+        if (data == nil)continue;
+        [arrImagePagerImages addObject:[UIImage imageWithData:data]];
+    }
+    
     //Setting up Navigation Bar
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
     

@@ -16,45 +16,12 @@
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
     IBOutlet KIImagePager *_imagePager;
-    NSArray *_products;
     NSNumberFormatter * _priceFormatter;
 }
 
 @end
 
 @implementation ShopViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
-    // Create the data model
-    _packImages = @[@"PackChurchIcon", @"PackGreekIcon", @"PackCustomerAppreciation"];
-    
-    //Add Restore Button
-    UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = restoreButton;
-    
-    //Create Pull to Refresh
-    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-    tableViewController.tableView = self.inAppPurchaseTable;
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = self.refreshControl;
-
-    
-    
-    [self reload];
-    [self.refreshControl beginRefreshing];
-    
-    _priceFormatter = [[NSNumberFormatter alloc] init];
-    [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [_priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    
-    
-}
 
 - (void)reload {
     NSLog(@"Reloading...");
@@ -97,20 +64,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    UIImageView *imageView = [[UIImageView alloc]
-                              initWithFrame:CGRectMake(0,0,3,44)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = NO;
-    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
-    self.navigationItem.titleView = imageView;
-    
-    
-}
 
 
 
@@ -220,19 +173,97 @@
     _imagePager.imageCounterDisabled = YES;
     _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
     _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"banner1.png"]];
+    
+    /******** fit background image to the imagePager's frame *********/
+    
+    UIGraphicsBeginImageContext(_imagePager.frame.size);
+    [[UIImage imageNamed:@"banner1.png"] drawInRect:_imagePager.bounds];
+    UIImage *imageFirstSlider = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:imageFirstSlider];
     _imagePager.slideshowTimeInterval = 5.5f;
     _imagePager.slideshowShouldCallScrollToDelegate = YES;
+    
+    [_imagePager setBounces:NO];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIImageView *imageView = [[UIImageView alloc]
+                              initWithFrame:CGRectMake(0,0,3,44)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = NO;
+    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
+    self.navigationItem.titleView = imageView;
+    
+    
+}
+
+- (NSTimer*)createTimer {
+    // create timer on run loop
+    return [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
+}
+
+- (void)timerTicked:(NSTimer*)timer {
+    NSLog(@"%i", (int)_products.count);
+    if (_products.count > 0){
+        [self actionStop:nil];
+        [self.inAppPurchaseTable reloadData];
+    }
+}
+
+- (void)actionStop:(id)sender {
+    // stop the timer
+    [myTimer invalidate];
+    myTimer = nil;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
+    
+    // Create the data model
+    _packImages = @[@"PackChurchIcon", @"PackGreekIcon", @"PackCustomerAppreciation"];
+    
+    //Add Restore Button
+    UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = restoreButton;
+    
+    //Create Pull to Refresh
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.inAppPurchaseTable;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;       
+    
+    if (_products == nil){
+        _products = [[NSArray alloc]init];
+        myTimer = [self createTimer];
+    } else {        
+        [self.inAppPurchaseTable reloadData];
+    }
+    
+    _priceFormatter = [[NSNumberFormatter alloc] init];
+    [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [_priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
 }
 
 - (NSArray *) arrayWithImages:(KIImagePager*)pager
 {
-    return @[
-             @"http://www.inclingconsulting.com/eboticon/store/banner1.png",
-             @"http://www.inclingconsulting.com/eboticon/store/banner2.png",
-             @"http://www.inclingconsulting.com/eboticon/store/banner3.png",
-             @"http://www.inclingconsulting.com/eboticon/store/banner4.png"
-             ];
+    if (arrImagePagerImages.count == 0){
+        return @[[UIImage imageNamed:@"banner1.png"]];
+    } else {
+        return arrImagePagerImages;
+    }
+    
+    return nil;
 }
 
 - (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager *)pager

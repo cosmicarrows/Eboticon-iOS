@@ -10,6 +10,9 @@
 #import "TabViewController.h"
 #import "SWRevealViewController.h"
 #import "XOSplashVideoController.h"
+#import "GlobalScope.h"
+#import "EboticonIAPHelper.h"
+#import <StoreKit/StoreKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, XOSplashVideoDelegate>
 
