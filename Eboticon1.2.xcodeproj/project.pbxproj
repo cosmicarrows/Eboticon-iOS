@@ -434,7 +434,6 @@
 		632447D11AAB67470057ABB2 /* wont_he_do_it_female-caption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 630BF4DF1A5EDFCE00F179F5 /* wont_he_do_it_female-caption.mov */; };
 		632447D21AAB67470057ABB2 /* yas-nocaption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 636EE69C1A63473900E43D65 /* yas-nocaption.mov */; };
 		632447D31AAB67470057ABB2 /* shade-nocaption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 630BF4CA1A5EDFCE00F179F5 /* shade-nocaption.mov */; };
-		632447D51AAB67470057ABB2 /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
 		632447D61AAB67470057ABB2 /* where_da_milk_and_cookies-nocaption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 630BF4DC1A5EDFCE00F179F5 /* where_da_milk_and_cookies-nocaption.mov */; };
 		632447D91AAB67470057ABB2 /* where_they_do_that_at-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 63A1D30B1A194A0300FC0C45 /* where_they_do_that_at-caption.gif */; };
 		632447DA1AAB67470057ABB2 /* that_aint_funny-nocaption.mov in Resources */ = {isa = PBXBuildFile; fileRef = 630BF4D21A5EDFCE00F179F5 /* that_aint_funny-nocaption.mov */; };
@@ -897,6 +896,8 @@
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
 		97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A3830D1B67E0E4002F5571 /* iAd.framework */; };
 		97A383121B695D7B002F5571 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383111B695D7B002F5571 /* TabViewController.m */; };
+		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
+		97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -2889,7 +2890,6 @@
 				632447D11AAB67470057ABB2 /* wont_he_do_it_female-caption.mov in Resources */,
 				632447D21AAB67470057ABB2 /* yas-nocaption.mov in Resources */,
 				632447D31AAB67470057ABB2 /* shade-nocaption.mov in Resources */,
-				632447D51AAB67470057ABB2 /* eboticon_gifs.csv in Resources */,
 				632447D61AAB67470057ABB2 /* where_da_milk_and_cookies-nocaption.mov in Resources */,
 				630451AA1ABF950A001DC8B2 /* none_of_my_business-caption.png in Resources */,
 				6304515E1ABF950A001DC8B2 /* bye_felicia-nocaption.png in Resources */,
@@ -3482,6 +3482,7 @@
 				976E4F8B1B9BA1B40057D6B2 /* round-switch-overlay.png in Resources */,
 				976E4F8E1B9BA1B40057D6B2 /* round-switch-thumb-highlight@2x.png in Resources */,
 				976E4F921B9BA1B40057D6B2 /* round-switch-track.png in Resources */,
+				97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */,
 				976E4F8C1B9BA1B40057D6B2 /* round-switch-overlay@2x.png in Resources */,
 				976E4F8F1B9BA1B40057D6B2 /* round-switch-thumb.png in Resources */,
 				976E50681B9BA2590057D6B2 /* KeyArt.xcassets in Resources */,
@@ -3490,6 +3491,7 @@
 				976E506C1B9BA2720057D6B2 /* placeholder.png in Resources */,
 				976E4F891B9BA1B40057D6B2 /* round-switch-mask.png in Resources */,
 				976E4F791B9BA1660057D6B2 /* Keyboard.storyboard in Resources */,
+				97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,8 @@
 //  Copyright (c) 2014 BJH Studios. All rights reserved.
 //  questions or comments contact jeff@bjhstudios.com
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "KeyboardViewController.h"
 #import "KeyboardCollectionViewFlowLayout.h"
 #import "ShopDetailCell.h"
@@ -17,6 +19,7 @@
 #import "Reachability.h"
 
 #define CATEGORY_SMILE @"Happy"
+
 #define CATEGORY_NOSMILE @"Sad"
 #define CATEGORY_HEART @"Love"
 #define CATEGORY_GIFT @"Greeting"
@@ -118,8 +121,33 @@
      forControlEvents:UIControlEventValueChanged
      ];
     
-   
+    //Add bottom border
+    self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self. self.topBarView.frame.size.height - 1.0f, self. self.topBarView.frame.size.width, 1)];
+    self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
     
+    [self.topBarView addSubview:self.bottomBorder];
+    
+
+    
+    //Activity Indicator
+    [self createActivityIndicator];
+
+    
+}
+
+
+- (void)createActivityIndicator
+{
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.transform = CGAffineTransformMakeScale(2.0, 2.0);        //Change size
+    
+    [self.view addSubview: self.activityIndicator];
+    [self.activityIndicator startAnimating];
+    
+}
+- (void)createCaptionSwitch
+{
     //Caption Switch
     //The switch size should be the size of the overlay.
     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 5.0f, 2.0f, 100.0f, 20.0f }];
@@ -136,18 +164,12 @@
     self.captionSwitch.on = true;
     [self.view addSubview: self.captionSwitch];
     
-    //Activity Indicator
-    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    
-    [self.view addSubview: self.activityIndicator];
-    [self.activityIndicator startAnimating];
-    
 }
 
 - (void)viewWillLayoutSubviews
 {
     [self.flowLayout invalidateLayout];
-    
+    /*
     NSLog(@"*****");
     NSLog(@"View Size: %f, %f", self.view.frame.size.width, self.view.frame.size.height);
     NSLog(@"View Center: %f, %f", self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
@@ -158,13 +180,17 @@
     NSLog(@"Collection View Size: %f, %f", self.keyboardCollectionView.frame.size.width, self.keyboardCollectionView.frame.size.height);
     NSLog(@"Collection View Center: %f, %f", self.keyboardCollectionView.frame.origin.x, self.keyboardCollectionView.frame.origin.y);
     NSLog(@"*****");
+     */
     
     //Set Keyboard Frame
     self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     //Set activity frame and position
-    self.activityIndicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    self.activityIndicator.frame = CGRectMake(0.0, 0.0, 80.0, 80.0);
     self.activityIndicator.center = self.view.center;
+    
+    //Set Frame Position
+    self.captionSwitch.frame = CGRectMake(5.0f, 2.0f, 100.0f, 20.0f);
 }
 
 
@@ -215,13 +241,6 @@
     _currentImageSelected   = 0;
     _lastImageSelected      = 0;
     _captionState           = 1;
-    
-    //Add bottom border
-    self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self. self.topBarView.frame.size.height - 1.0f, self. self.topBarView.frame.size.width, 1)];
-    self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
-    
-    [self.topBarView addSubview:self.bottomBorder];
-    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
