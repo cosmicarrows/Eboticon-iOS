@@ -21,11 +21,7 @@
 #import <Parse/Parse.h>
 #import "SWRevealViewController.h"
 #import "RightViewController.h"
-
 #import "XOSplashVideoController.h"
-
-
-
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -37,7 +33,6 @@
 
 #pragma mark -
 #pragma mark AppDelegate Methods
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -220,8 +215,20 @@
     //self.window.rootViewController = self.tabBarController;
     self.window.rootViewController = self.viewController;
     
-    // Present Window before calling Harpy
+ 
+    
+    UIImageView *splashScreen = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
+    [self.window addSubview:splashScreen];
     [self.window makeKeyAndVisible];
+    
+    [UIView animateWithDuration:0.3 animations:^{splashScreen.alpha = 0.0;}
+                     completion:(void (^)(BOOL)) ^{
+                         [splashScreen removeFromSuperview];
+                     }
+     ];
+    
+    // Present Window before calling Harpy
+    //[self.window makeKeyAndVisible];
     
     
     //GOOGLE ANALYTICS INITIALIZER

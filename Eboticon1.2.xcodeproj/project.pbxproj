@@ -769,6 +769,7 @@
 		63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C21868CCE900116D73 /* JMCategoriesData.m */; };
 		96D96E5DE14EADA63AEB3A7F /* libPods-EboticonLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BFBD340F30093DBBC485D3 /* libPods-EboticonLite.a */; };
 		97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */; };
+		97044EF51BA32C4E008CA2E1 /* GlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EF41BA32C4E008CA2E1 /* GlobalScope.m */; };
 		970658691B6A536A004B149A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970658681B6A536A004B149A /* SWRevealViewController.m */; };
 		9706586E1B6A54A8004B149A /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9706586C1B6A54A8004B149A /* RightViewController.m */; };
 		9706586F1B6A54A8004B149A /* RightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9706586D1B6A54A8004B149A /* RightViewController.xib */; };
@@ -1354,6 +1355,8 @@
 		8BE3841F46EB28AEBFBC2A2A /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		8F5D28B18F87439D9A4175FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopTableCell.xib; sourceTree = "<group>"; };
+		97044EF31BA32C4E008CA2E1 /* GlobalScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalScope.h; sourceTree = "<group>"; };
+		97044EF41BA32C4E008CA2E1 /* GlobalScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalScope.m; sourceTree = "<group>"; };
 		970658671B6A536A004B149A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		970658681B6A536A004B149A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		9706586B1B6A54A8004B149A /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
@@ -2108,6 +2111,8 @@
 				63FAE3BE1868CCCF00116D73 /* Model */,
 				63FAE3951868CC0200116D73 /* AppDelegate.h */,
 				63FAE3961868CC0200116D73 /* AppDelegate.m */,
+				97044EF31BA32C4E008CA2E1 /* GlobalScope.h */,
+				97044EF41BA32C4E008CA2E1 /* GlobalScope.m */,
 				976E4EEA1B9A95B20057D6B2 /* Main.Storyboard */,
 				970DA3C71B6978CF00587CD6 /* Old Files */,
 				97A3830F1B695C12002F5571 /* Home View */,
@@ -3653,6 +3658,7 @@
 				63B6CB4618F07C9600D1F08A /* EboticonGif.m in Sources */,
 				9760B56B1B79343600E75EEC /* KIImagePager.m in Sources */,
 				63D643991984579B0056AC0B /* EBOActivityTypePostToFacebook.m in Sources */,
+				97044EF51BA32C4E008CA2E1 /* GlobalScope.m in Sources */,
 				9706586E1B6A54A8004B149A /* RightViewController.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
 				9760B5471B750D0E00E75EEC /* TutorialContentViewController.m in Sources */,

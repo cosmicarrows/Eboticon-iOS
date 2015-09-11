@@ -295,10 +295,6 @@
    // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
-
-
-
-
 /*
 #pragma mark - Navigation
 
