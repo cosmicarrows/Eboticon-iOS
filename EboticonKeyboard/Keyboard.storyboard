@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fUV-Mb-PaC">
-                                <rect key="frame" x="0.0" y="31" width="320" height="165"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fUV-Mb-PaC">
+                                <rect key="frame" x="0.0" y="31" width="320" height="141"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7Kc-10-a3X" customClass="KeyboardCollectionViewFlowLayout">
                                     <size key="itemSize" width="75" height="69"/>
@@ -41,10 +41,10 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="C6D-M2-gXk" secondAttribute="trailing" id="UHa-v7-d7V"/>
-                                            <constraint firstItem="C6D-M2-gXk" firstAttribute="top" secondItem="55W-a9-z2G" secondAttribute="top" id="Wfz-id-v1O"/>
-                                            <constraint firstAttribute="bottom" secondItem="C6D-M2-gXk" secondAttribute="bottom" id="qbc-kd-Al6"/>
-                                            <constraint firstItem="C6D-M2-gXk" firstAttribute="leading" secondItem="55W-a9-z2G" secondAttribute="leading" id="rRk-Pz-eXX"/>
+                                            <constraint firstItem="C6D-M2-gXk" firstAttribute="top" secondItem="55W-a9-z2G" secondAttribute="top" id="8Qe-hN-xHZ"/>
+                                            <constraint firstItem="C6D-M2-gXk" firstAttribute="leading" secondItem="55W-a9-z2G" secondAttribute="leading" id="IQU-cG-OsO"/>
+                                            <constraint firstAttribute="bottom" secondItem="C6D-M2-gXk" secondAttribute="bottom" id="SxO-Wi-AIn"/>
+                                            <constraint firstAttribute="trailing" secondItem="C6D-M2-gXk" secondAttribute="trailing" id="lWc-JQ-zXp"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="C6D-M2-gXk" id="oeI-iP-UZZ"/>
@@ -58,6 +58,9 @@
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToZ-BY-5iF">
                                 <rect key="frame" x="0.0" y="172" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="GHC-RC-bsq"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem id="79S-Cg-AoL">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nRZ-gK-Ad1">
@@ -154,30 +157,33 @@
                                 </items>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <pageControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="y3U-SD-rww">
-                                <rect key="frame" x="319" y="-5" width="39" height="37"/>
-                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="currentPageIndicatorTintColor" red="0.88414753339999996" green="0.67717308099999995" blue="0.94689101769999995" alpha="1" colorSpace="calibratedRGB"/>
-                            </pageControl>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aJW-uG-iVp">
                                 <rect key="frame" x="0.0" y="-1" width="329" height="33"/>
                                 <color key="backgroundColor" red="0.9772238756613757" green="0.9772238756613757" blue="0.9772238756613757" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="jYc-MF-ZQr"/>
+                                    <constraint firstAttribute="height" constant="33" id="Abw-kV-v6Y"/>
                                 </constraints>
                             </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="y3U-SD-rww">
+                                <rect key="frame" x="266" y="-4" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.88414753339999996" green="0.67717308099999995" blue="0.94689101769999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="trailing" secondItem="fUV-Mb-PaC" secondAttribute="trailing" id="5Na-dJ-VK3"/>
-                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="aJW-uG-iVp" secondAttribute="leading" id="72V-Za-yzJ"/>
-                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="fUV-Mb-PaC" secondAttribute="leading" id="IYL-2D-Df6"/>
-                            <constraint firstItem="aJW-uG-iVp" firstAttribute="bottom" secondItem="y3U-SD-rww" secondAttribute="bottom" id="JHV-sK-vsG"/>
-                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="bottom" secondItem="dvR-vy-uxf" secondAttribute="top" id="T8E-GQ-Bbr"/>
-                            <constraint firstItem="aJW-uG-iVp" firstAttribute="top" secondItem="2k2-WJ-fML" secondAttribute="topMargin" constant="-1" id="Tqm-8a-akZ"/>
-                            <constraint firstAttribute="trailing" secondItem="ToZ-BY-5iF" secondAttribute="trailing" id="asD-3y-ehU"/>
-                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leading" id="sxb-pP-rWO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aJW-uG-iVp" secondAttribute="trailing" constant="-25" id="xDJ-GV-62R"/>
+                            <constraint firstItem="fUV-Mb-PaC" firstAttribute="top" secondItem="fhD-3P-rBF" secondAttribute="bottom" constant="31" id="1q1-kp-Luv"/>
+                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="top" secondItem="fUV-Mb-PaC" secondAttribute="bottom" id="2k3-bo-TC9"/>
+                            <constraint firstItem="ToZ-BY-5iF" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leading" id="4aT-ye-ZJn"/>
+                            <constraint firstItem="fUV-Mb-PaC" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leading" id="AcS-JG-5LM"/>
+                            <constraint firstItem="dvR-vy-uxf" firstAttribute="top" secondItem="ToZ-BY-5iF" secondAttribute="bottom" id="Fcg-qs-vbc"/>
+                            <constraint firstItem="aJW-uG-iVp" firstAttribute="leading" secondItem="2k2-WJ-fML" secondAttribute="leading" id="Fdn-uT-Wqy"/>
+                            <constraint firstItem="y3U-SD-rww" firstAttribute="leading" secondItem="aJW-uG-iVp" secondAttribute="trailing" constant="-63" id="Jqs-Zf-3n4"/>
+                            <constraint firstAttribute="trailing" secondItem="fUV-Mb-PaC" secondAttribute="trailing" id="ZxR-dx-iEB"/>
+                            <constraint firstItem="aJW-uG-iVp" firstAttribute="top" secondItem="fhD-3P-rBF" secondAttribute="bottom" constant="-1" id="h50-Vr-0b1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aJW-uG-iVp" secondAttribute="trailing" constant="-25" id="myf-lc-9fp"/>
+                            <constraint firstAttribute="trailing" secondItem="ToZ-BY-5iF" secondAttribute="trailing" id="vFI-AR-joW"/>
+                            <constraint firstItem="aJW-uG-iVp" firstAttribute="top" secondItem="y3U-SD-rww" secondAttribute="bottom" constant="-34" id="xO3-de-Le9"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -192,9 +198,10 @@
                         <outlet property="keyboardCollectionView" destination="fUV-Mb-PaC" id="RHF-sS-gtk"/>
                         <outlet property="keyboardView" destination="2k2-WJ-fML" id="SQO-GY-ppI"/>
                         <outlet property="noSmileButton" destination="Nsa-C3-h9U" id="gx5-bC-RWh"/>
-                        <outlet property="pageControl" destination="y3U-SD-rww" id="iZv-VN-e9G"/>
+                        <outlet property="pageControl" destination="y3U-SD-rww" id="UNo-BK-upE"/>
                         <outlet property="purchasedButton" destination="s9E-Uj-rEM" id="7he-ge-Th5"/>
                         <outlet property="smileButton" destination="Nhj-It-Ssn" id="G9R-nB-CH5"/>
+                        <outlet property="toolbar" destination="ToZ-BY-5iF" id="S3M-ho-EPW"/>
                         <outlet property="topBarView" destination="aJW-uG-iVp" id="CPT-S4-F9C"/>
                         <outlet property="view" destination="2k2-WJ-fML" id="z2a-9f-9fV"/>
                     </connections>

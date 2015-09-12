@@ -12,7 +12,7 @@
 
 @interface ShopDetailCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet DFImageView *imageView;
-//@property (weak, nonatomic) IBOutlet UIImage *imageView;
+
+@property (weak, nonatomic) DFImageView *imageView;
 
 @end

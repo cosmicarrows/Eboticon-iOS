@@ -12,18 +12,28 @@
 #import "ShopDetailCell.h"
 #import "UIView+Toast.h"
 #import "CHCSVParser.h"
+#import "LibraryAPI.h"
 
 #import "TTSwitch.h"
 
 //#import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
 
-#define CATEGORY_SMILE @"Happy"
 
-#define CATEGORY_NOSMILE @"Sad"
-#define CATEGORY_HEART @"Love"
-#define CATEGORY_GIFT @"Greeting"
-#define CATEGORY_EXCLAMATION @"Exclamation"
+#define RECENT_GIFS_KEY @"listOfRecentGifs"
+#define CATEGORY_RECENT @"Recent"
+#define CATEGORY_PURCHASED @"Purchased"
+#define CATEGORY_CAPTION @"Caption"
+#define CATEGORY_NO_CAPTION @"No Caption"
+#define CSV_CATEGORY_NO_CAPTION @"NoCaption"
+
+//Name of Categories in the CSV File
+#define CATEGORY_ALL @"all"
+#define CATEGORY_SMILE @"happy"
+#define CATEGORY_NOSMILE @"not_happy"
+#define CATEGORY_HEART @"love"
+#define CATEGORY_GIFT @"greeting"
+#define CATEGORY_EXCLAMATION @"exclamation"
 
 @interface KeyboardViewController () {
     
@@ -37,8 +47,12 @@
     NSArray *_csvImages;
     
     NSMutableArray *_currentEboticonGifs;
+    NSArray *_purchasedProducts;
     
     NSMutableArray *_allImages;
+    NSMutableArray *_purchasedImages;
+    NSMutableArray *_purchasedImagesCaption;
+    NSMutableArray *_purchasedImagesNoCaption;
     NSMutableArray *_exclamationImagesCaption;
     NSMutableArray *_exclamationImagesNoCaption;
     NSMutableArray *_smileImagesCaption;
@@ -49,12 +63,16 @@
     NSMutableArray *_giftImagesNoCaption;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
-    
 }
 
 
 - (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender;
 - (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender;
+
+// Reachability
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
 
 // Categories
 @property (weak, nonatomic) IBOutlet UIButton *globeKey;
@@ -70,13 +88,9 @@
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
-// Reachability
-@property (nonatomic) Reachability *hostReachability;
-@property (nonatomic) Reachability *internetReachability;
-@property (nonatomic) Reachability *wifiReachability;
-
 // No connection
-//@property (nonatomic, nonatomic) IBOutlet UIImageView *noConnectionImageView;
+@property (nonatomic, nonatomic) UIImageView *noConnectionImageView;
+
 
 //Bottom border
 @property (nonatomic, nonatomic) UIView *bottomBorder;
@@ -90,6 +104,8 @@
 //Caption Switch
 @property (strong, nonatomic) IBOutlet TTSwitch *captionSwitch;
 
+//Caption Switch
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
@@ -99,7 +115,6 @@
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    
 }
 
 - (void)viewDidLoad {
@@ -114,7 +129,6 @@
     [self.internetReachability startNotifier];
     
     // Add a target that will be invoked when the page control is
-    // changed by tapping on it
     [self.pageControl
      addTarget:self
      action:@selector(pageControlChanged:)
@@ -124,28 +138,32 @@
     //Add bottom border
     self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self. self.topBarView.frame.size.height - 1.0f, self. self.topBarView.frame.size.width, 1)];
     self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
-    
     [self.topBarView addSubview:self.bottomBorder];
     
-
+    //Show no connection png
+    self.noConnectionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
+    self.noConnectionImageView .image = [UIImage imageNamed:@"no_connection.png"];
+    self.noConnectionImageView.hidden = YES;
+    [self.view addSubview:self.noConnectionImageView ];
     
     //Activity Indicator
     [self createActivityIndicator];
-
+    
+    //Create Caption Switch
+    [self createCaptionSwitch];
+    
+    //Initialize Extension
+    [self initializeExtension];
     
 }
-
-
 - (void)createActivityIndicator
 {
-    
     self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityIndicator.transform = CGAffineTransformMakeScale(2.0, 2.0);        //Change size
-    
     [self.view addSubview: self.activityIndicator];
-    [self.activityIndicator startAnimating];
-    
 }
+
+//- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType emotionCategory:(NSString *)emotionCategory;
 - (void)createCaptionSwitch
 {
     //Caption Switch
@@ -163,24 +181,11 @@
     [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
     self.captionSwitch.on = true;
     [self.view addSubview: self.captionSwitch];
-    
 }
 
 - (void)viewWillLayoutSubviews
 {
     [self.flowLayout invalidateLayout];
-    /*
-    NSLog(@"*****");
-    NSLog(@"View Size: %f, %f", self.view.frame.size.width, self.view.frame.size.height);
-    NSLog(@"View Center: %f, %f", self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    NSLog(@"View Center 2 : %f, %f", self.view.center.x, self.view.center.y);
-    NSLog(@"*****");
-    
-    NSLog(@"*****");
-    NSLog(@"Collection View Size: %f, %f", self.keyboardCollectionView.frame.size.width, self.keyboardCollectionView.frame.size.height);
-    NSLog(@"Collection View Center: %f, %f", self.keyboardCollectionView.frame.origin.x, self.keyboardCollectionView.frame.origin.y);
-    NSLog(@"*****");
-     */
     
     //Set Keyboard Frame
     self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -190,30 +195,20 @@
     self.activityIndicator.center = self.view.center;
     
     //Set Frame Position
-    self.captionSwitch.frame = CGRectMake(5.0f, 2.0f, 100.0f, 20.0f);
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    self.captionSwitch.frame = CGRectMake(5.0f, 5.0f, 100.0f, 20.0f);
     
-}
-
-- (void) viewDidAppear:(BOOL)animated{
+    //Set Page Control
+    //self.topBarView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height);
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    //Set Page Control
+    self.pageControl.frame = CGRectMake(self.view.frame.size.width - 45, 5.0f, 39.0f, 37.0f);
     
-    NSLog(@"Eboticon memory warning");
-    
+    //Set Image View
+    self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
 }
 
 #pragma mark
-
 #pragma mark - initialization method
-
 
 - (void) initializeExtension {
 
@@ -263,11 +258,13 @@
         self.pageControl.hidden = NO;
         [self populateGifArraysFromCSV];
         
+        [self loadPurchasedProducts];
+        
     }
     else{
         //add Internet connection view and remove caption button
-       // self.noConnectionImageView.hidden = NO;
-        self. self.captionSwitch.hidden = YES;
+        self.noConnectionImageView.hidden = NO;
+        self.captionSwitch.hidden = YES;
         self.pageControl.hidden = YES;
     }
     
@@ -298,7 +295,6 @@
     [self.keyboardCollectionView setCollectionViewLayout:self.flowLayout];
     
 }
-
 - (void) loadGifsFromCSV
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
@@ -306,34 +302,19 @@
     
     //Read All Gifs From CSV
     @try {
+        NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
         
-        _csvImages = [NSArray arrayWithContentsOfCSVFile:path];
-        
-        if (_csvImages == nil) {
+        if (csvImages == nil) {
             NSLog(@"Error parsing file: %@", error);
             return;
         }
         else {
-            
-            
-            [_allImages addObjectsFromArray:_csvImages];
-            
-            // NSMutableArray *element = [[NSMutableArray alloc]init];
-            /*
-             for(int i=0; i<[_csvImages count];i++){
-             element = [_csvImages objectAtIndex: i];
-             NSLog(@"Element %i = %@", i, element);
-             NSLog(@"Element Count = %lu", (unsigned long)[element count]);
-             }*/
-            
+            [_allImages addObjectsFromArray:csvImages];
         }
-        
     }
     @catch (NSException *exception) {
         NSLog(@"Unable to load csv: %@",exception);
     }
-    
-    
 }
 
 
@@ -359,8 +340,10 @@
             
             NSString * gifCategory = [currentGif objectAtIndex:6]; //Category
             NSString * gifCaption = [currentGif objectAtIndex:3];
+            NSString * gifFileName = [currentGif objectAtIndex:0];
             
             //  NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
+            //NSLog(@"Eboticon %@ with category:%@ and caption: %@",gifFileName,gifCategory, gifCaption);
             if([gifCategory isEqual:CATEGORY_SMILE]) {
                 //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
                 //Check for Caption
@@ -389,7 +372,7 @@
                     [_heartImagesNoCaption addObject:[_allImages objectAtIndex:i]];
                 }
                 
-                // NSLog(@"Adding eboticon to category CATEGORY_HEART:%@",[currentGif objectAtIndex:0]);
+              
                 
             }
             else if([gifCategory isEqual:CATEGORY_GIFT]) {
@@ -401,7 +384,7 @@
                     [_giftImagesNoCaption addObject:[_allImages objectAtIndex:i]];
                 }
                 
-                // NSLog(@"Adding eboticon to category CATEGORY_GIFT:%@",[currentGif fileName]);
+           
             }
             else if([gifCategory isEqual:CATEGORY_EXCLAMATION]) {
                 
@@ -412,12 +395,19 @@
                     [_exclamationImagesNoCaption addObject:[_allImages objectAtIndex:i]];
                 }
                 
-                // NSLog(@"Adding eboticon to category CATEGORY_EXCLAMATION:%@",[currentGif fileName]);
+                
             }
             else {
-                //  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",[currentGif fileName],[currentGif category]);
+                  NSLog(@"Eboticon category not recognized for eboticon: %@ with category:%@",gifFileName,gifCategory);
             }
         }//End for
+        
+        
+        //Print Counts
+            NSLog(@"smile images caption: %u", _smileImagesCaption.count);
+            NSLog(@"heart images no caption: %u", _smileImagesNoCaption.count);
+            NSLog(@"heart images caption: %u", _heartImagesCaption.count);
+            NSLog(@"heart images no caption: %u", _heartImagesNoCaption.count);
         
         //Set currnet gifs
         _currentEboticonGifs = _heartImagesCaption;
@@ -475,19 +465,6 @@
 }
 
 
-#pragma mark - TextInput methods
-
-- (void)userDefaultsDidChange:(NSNotification *)notification {
-    [self updateNumberLabelText];
-}
-
-- (void)updateNumberLabelText {
-    NSLog(@"loading in keyboard sharedDefaults...");
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
-    NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
-    //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
-}
-
 
 #pragma mark - TextInput methods
 
@@ -515,22 +492,26 @@
         
         //
         NSLog(@"Internet connection exists");
-       // self.noConnectionImageView.hidden = YES;
+        self.noConnectionImageView.hidden = YES;
         self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
         
+
+        
     }
     else {
+        
         //there-is-no-connection warning
         NSLog(@"NO Internet connection exists");
-        //self.noConnectionImageView.hidden = NO;
+        //Set Image View
+        self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
+        self.noConnectionImageView.hidden = NO;
         self. self.captionSwitch.hidden = YES;
         self.pageControl.hidden = YES;
         
     }
     
 }
-
 
 - (BOOL) doesInternetExists {
     
@@ -546,7 +527,6 @@
         NSLog(@"NO Internet connection exists");
         return NO;
     }
-    
 }
 
 
@@ -658,16 +638,11 @@
     [self changePageControlNum];
 }
 
-
-
-
 - (IBAction) globeKeyPressed:(UIButton*)sender {
     
     //switches to user's next keyboard
     [self advanceToNextInputMode];
-    
 }
-
 
 - (IBAction) categoryKeyPressed:(UIButton*)sender {
     
@@ -706,6 +681,7 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -726,6 +702,7 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -746,6 +723,7 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"HLNotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -767,6 +745,7 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"HLGiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -789,7 +768,7 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"HLExclamationSmaller.png"] forState:UIControlStateNormal];
-            //[self.exclamationButton setImage:[UIImage imageNamed:@"Exclamation2.jpg"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -797,6 +776,27 @@
             }
             else{
                 _currentEboticonGifs = _exclamationImagesNoCaption;
+            }
+            
+        }
+            break;
+            
+        case 6: {
+            
+            //Set Category Button
+            [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
+            [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
+            [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
+            [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
+            [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"HLPurchased.png"] forState:UIControlStateNormal];
+            
+            //Load Gifs depending on caption
+            if (_captionState) {
+                _currentEboticonGifs = _purchasedImages;
+            }
+            else{
+                _currentEboticonGifs = _purchasedImages;
             }
             
         }
@@ -990,6 +990,129 @@
 }
 
 #pragma mark-
+#pragma mark In App Products
+
+
+/*
+ 
+ - (void)getProducts {
+
+ _products = nil;
+ [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+ if (success) {
+ _products = products;
+ }
+ }];
+ }
+ 
+ */
+
+- (void)userDefaultsDidChange:(NSNotification *)notification {
+    [self updateNumberLabelText];
+}
+
+- (void)updateNumberLabelText {
+    NSLog(@"loading in keyboard sharedDefaults...");
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+    //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
+}
+
+
+
+- (void)loadPurchasedProducts {
+    NSLog(@"loadPurchasedProducts...");
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+    
+    for(NSString* productIdentifiers in _purchasedProducts) {
+        NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
+        [self loadPurchasedGifsFromCSV:productIdentifiers];
+    }
+    
+}
+
+- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
+    
+    
+    @try {
+        
+        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
+        if (csvArray == nil) {
+            NSLog(@"Error parsing file");
+            return;
+        } else {
+            
+            NSMutableArray *element = [[NSMutableArray alloc]init];
+            
+            for(int i=0; i<[csvArray count];i++){
+                EboticonGif *currentGif = [[EboticonGif alloc] init];
+                element = [csvArray objectAtIndex: i];
+                //NSLog(@"Element %i = %@", i, element);
+                // NSLog(@"Element Count = %lu", (unsigned long)[element count]);
+                
+                for(int j=0; j<[element count];j++) {
+                    NSString *value = [element objectAtIndex: j];
+                    //NSLog(@"Value %i = %@", j, value);
+                    switch (j) {
+                        case 0:
+                            [currentGif setFileName:value];
+                            break;
+                        case 1:
+                            [currentGif setStillName:value];
+                            break;
+                        case 2:
+                            [currentGif setDisplayName:value];
+                            break;
+                        case 3:
+                            [currentGif setCategory:value];
+                            break;
+                        case 4:
+                            [currentGif setMovFileName:value];
+                            break;
+                        case 5:
+                            [currentGif setDisplayType:value];
+                            break;
+                        case 6:
+                            [currentGif setEmotionCategory:value];
+                            break;
+                        default:
+                
+                            break;
+                    }
+                    
+                }
+                
+                NSString * gifCategory = [currentGif emotionCategory]; //Category
+                
+                
+                if([productIdentifier isEqual:gifCategory]) {
+                    //  NSLog(@"productIdentifier: %@, ", productIdentifier);
+                    
+                    //  NSLog(@"gifCategory: %@, ", gifCategory);
+                    //  NSLog(@"displayName: %@, ", [currentGif displayName]);
+                    //   NSLog(@"fileName: %@, ", [currentGif fileName]);
+                    
+                    [_purchasedImages addObject:currentGif];
+                    
+                    //NSLog(@"%@",[_purchasedImages[i] fileName]);
+                    // NSLog(@"----");
+                }
+                
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Unable to load csv: %@",exception);
+    }
+    
+    
+}
+
+#pragma mark-
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -998,6 +1121,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+     NSLog(@"NUmber of current gifs: %u", [_currentEboticonGifs count]);
     return [_currentEboticonGifs count];
 }
 
@@ -1014,15 +1138,13 @@
     
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
     
-    
-    
     //Change image to gif
     NSString * filePath;
     NSString * urlPath;
     
     if([self isRequestsOpenAccessEnabled]){
         
-        [cell.imageView prepareForReuse];
+       // [cell.imageView prepareForReuse];
         
         //Load Gif File name
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
@@ -1031,11 +1153,18 @@
             urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", filename];
             NSLog(@"Loading gif: %@", urlPath);
             
-            [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
+           [cell.imageView setImage:[UIImage imageNamed:stillname]];
             
         }
         //Load Still Name
         else{
+            
+           // filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
+            
+           // urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", stillname];
+           // NSLog(@"Loading gif: %@", urlPath);
+            
+          //  [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
             
             [cell.imageView setImage:[UIImage imageNamed:stillname]];
         }
@@ -1043,12 +1172,10 @@
     else{
         
         NSURL *imageURL = [[NSBundle mainBundle] URLForResource:@"placeholder" withExtension:@"png"];
-        [cell.imageView setImageWithResource:imageURL targetSize:[self _imageTargetSize] contentMode:DFImageContentModeAspectFill options:nil];
+       // [cell.imageView setImageWithResource:imageURL targetSize:[self _imageTargetSize] contentMode:DFImageContentModeAspectFill options:nil];
         
     }
-    
     return cell;
-    
 }
 
 - (CGSize)_imageTargetSize {
@@ -1292,14 +1419,29 @@
 }
 
 
-
-
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     return UIEdgeInsetsMake(2, 2, 2, 2);
 }
 
+#pragma mark -
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+    NSLog(@"Eboticon memory warning");
+    
+}
 
 
 @end

@@ -17,5 +17,4 @@
 
 @property (strong, nonatomic) id gifCategory;
 
-
 @end

@@ -7,7 +7,16 @@
 //
 
 #import "ShopDetailCell.h"
+#import "EboticonView.h"
+
+
+@interface ShopDetailCell ()
+
+@end
+
 
 @implementation ShopDetailCell
+
+
 
 @end

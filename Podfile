@@ -25,6 +25,7 @@ target 'EboticonKeyboard' do
     pod 'CHCSVParser', '~> 2.0.7'
     pod 'DFImageManager'
     pod 'DFImageManager/GIF'
+    pod 'DFImageManager/AFNetworking'
     pod 'TTSwitch', '~> 0.0.5'
 end
 
