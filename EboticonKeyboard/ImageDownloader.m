@@ -10,14 +10,11 @@
 // This class is utilised to download an image using its url and store it in the model object ImageRecord. We can start and even cancel a
 // particular download in the middle of the process using this class.
 
+
 #import "ImageDownloader.h"
-#import "ImageRecord.h"
 #import "ImageCache.h"
 #import "UIImage+Decode.h"
-
-// USER DEFINED MACROS
-#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? YES : NO)
-#define IS_IPHONE_5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
+#import "EboticonGif.h"
 
 @interface ImageDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
@@ -33,7 +30,7 @@
 {
     self.activeDownload = [NSMutableData data];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imageRecord.imageURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imageRecord.stillUrl]];     //still file name
     
     // alloc+init and start an NSURLConnection; release on completion/failure
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -57,6 +54,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    
 	// Clear the activeDownload property to allow later attempts
     self.activeDownload = nil;
     
@@ -71,14 +69,15 @@
     
     // Resize the downloaded image if its large. This is optional. If u fetching a thumbnail itself, ignore this step.
     image = [self imageWithImage:image
-                scaledToMaxWidth:IS_IPAD?160:90
-                       maxHeight:IS_IPAD?160:90];
+                scaledToMaxWidth:150
+                       maxHeight:150];
     
     // Decode the image before caching
     image = [image decodedImage];
     
     // Add the image to the shared cache
-    [[ImageCache sharedImageCache] AddImage:self.imageRecord.imageURL :image];
+    [[ImageCache sharedImageCache] AddImage:self.imageRecord.stillUrl :image];
+    
     self.imageRecord.thumbImage = image;
     
     self.activeDownload = nil;

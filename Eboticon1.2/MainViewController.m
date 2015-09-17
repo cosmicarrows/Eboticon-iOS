@@ -674,18 +674,22 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     EboticonGifCell *gifCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
     
     //rounded corners
     gifCell.layer.masksToBounds = YES;
     gifCell.layer.cornerRadius = 6;
     
-    
     EboticonGif *eboticonGifName = [self getCurrentEboticonGif:[indexPath row]];
     [gifCell setCellGif:eboticonGifName];
     
     return gifCell;
 }
+
+
+#pragma mark -
 
 -(UIImage *) getCellImage: (long)row
 {

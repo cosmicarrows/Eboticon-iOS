@@ -12,7 +12,12 @@
 #import "ShopDetailCell.h"
 #import "UIView+Toast.h"
 #import "CHCSVParser.h"
-#import "LibraryAPI.h"
+#import "ImageCache.h"
+
+//
+#import "EboticonGif.h"
+#import "ImageDownloader.h"
+#import "ImageCache.h"
 
 #import "TTSwitch.h"
 
@@ -108,6 +113,8 @@
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 
 @end
 
@@ -268,7 +275,6 @@
         self.pageControl.hidden = YES;
     }
     
-    
     // Create and initialize a swipe right gesture
     UISwipeGestureRecognizer *swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeRightGesture:)];
     swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
@@ -295,6 +301,7 @@
     [self.keyboardCollectionView setCollectionViewLayout:self.flowLayout];
     
 }
+
 - (void) loadGifsFromCSV
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
@@ -309,7 +316,24 @@
             return;
         }
         else {
-            [_allImages addObjectsFromArray:csvImages];
+            
+            
+            // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
+            for (int cnt=0; cnt<[csvImages count]; cnt++)
+            {
+                EboticonGif *eboticonObject = [[EboticonGif alloc] init];
+
+                eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
+                eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
+                eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
+                eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
+                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+                eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
+                eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
+                
+                [_allImages addObject:eboticonObject];
+            }
+            
         }
     }
     @catch (NSException *exception) {
@@ -322,7 +346,7 @@
 {
     if([_allImages count] > 0){
         
-        NSMutableArray *currentGif = [[NSMutableArray alloc]init];
+        EboticonGif *currentGif = [[EboticonGif alloc]init];
         
         _exclamationImagesCaption = [[NSMutableArray alloc]init];
         _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
@@ -338,12 +362,12 @@
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
             
-            NSString * gifCategory = [currentGif objectAtIndex:6]; //Category
-            NSString * gifCaption = [currentGif objectAtIndex:3];
-            NSString * gifFileName = [currentGif objectAtIndex:0];
+            NSString * gifCategory = currentGif.emotionCategory; //Category
+            NSString * gifCaption = currentGif.category;
+            NSString * gifFileName = currentGif.fileName;;
             
-            //  NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
             //NSLog(@"Eboticon %@ with category:%@ and caption: %@",gifFileName,gifCategory, gifCaption);
+            
             if([gifCategory isEqual:CATEGORY_SMILE]) {
                 //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
                 //Check for Caption
@@ -404,10 +428,10 @@
         
         
         //Print Counts
-            NSLog(@"smile images caption: %u", _smileImagesCaption.count);
-            NSLog(@"heart images no caption: %u", _smileImagesNoCaption.count);
-            NSLog(@"heart images caption: %u", _heartImagesCaption.count);
-            NSLog(@"heart images no caption: %u", _heartImagesNoCaption.count);
+            NSLog(@"smile images caption: %lu", (unsigned long)_smileImagesCaption.count);
+            NSLog(@"heart images no caption: %lu", (unsigned long)_smileImagesNoCaption.count);
+            NSLog(@"heart images caption: %lu", (unsigned long)_heartImagesCaption.count);
+            NSLog(@"heart images no caption: %lu", (unsigned long)_heartImagesNoCaption.count);
         
         //Set currnet gifs
         _currentEboticonGifs = _heartImagesCaption;
@@ -886,11 +910,11 @@
 
 - (void) changeKeyboardFlowLayout {
     
-    CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+   // CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     CGFloat pageHeight = self.keyboardCollectionView.frame.size.height;
     CGFloat newItemSizeHeight;
     CGFloat newItemSizeWidth;
-    UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
+   // UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
     
     
     //Check for Landscape or Portrait mode
@@ -930,12 +954,23 @@
 
 
 
-#pragma mark-
-#pragma mark UIScrollViewDelegate
+/////////////////////////////////////
+//   Scrollview Delegates
+/////////////////////////////////////
+#pragma mark - Scrollview Delegates
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+        [self loadImagesForOnscreenRows];
+}
 
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    
+    [self loadImagesForOnscreenRows];
+    
+    
     NSLog(@"scrollViewDidEndDecelerating");
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     self.pageControl.currentPage = self.keyboardCollectionView.contentOffset.x / pageWidth;
@@ -1033,6 +1068,9 @@
     
 }
 
+
+
+
 - (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
@@ -1090,16 +1128,7 @@
                 
                 
                 if([productIdentifier isEqual:gifCategory]) {
-                    //  NSLog(@"productIdentifier: %@, ", productIdentifier);
-                    
-                    //  NSLog(@"gifCategory: %@, ", gifCategory);
-                    //  NSLog(@"displayName: %@, ", [currentGif displayName]);
-                    //   NSLog(@"fileName: %@, ", [currentGif fileName]);
-                    
                     [_purchasedImages addObject:currentGif];
-                    
-                    //NSLog(@"%@",[_purchasedImages[i] fileName]);
-                    // NSLog(@"----");
                 }
                 
             }
@@ -1121,60 +1150,73 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-     NSLog(@"NUmber of current gifs: %u", [_currentEboticonGifs count]);
+     NSLog(@"NUmber of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
     return [_currentEboticonGifs count];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //csvRow is the a row of the csv
-    NSMutableArray *csvRow = [[NSMutableArray alloc]init];
-    csvRow = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
-    
-    //Set filename and
-    NSString *filename      = [csvRow objectAtIndex: 0];       //Gif File Name
-    NSString *stillname     = [csvRow objectAtIndex: 1];       //Png Still File Name
-    
-    
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
+    UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)[cell.imageView viewWithTag:505];
     
-    //Change image to gif
-    NSString * filePath;
-    NSString * urlPath;
-    
+    // Set up the cell...
+    // Fetch a image record from the array
+    EboticonGif *currentGif = [[EboticonGif alloc]init];
+    currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+  
+
     if([self isRequestsOpenAccessEnabled]){
-        
-       // [cell.imageView prepareForReuse];
         
         //Load Gif File name
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
-            filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            
-            urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", filename];
-            NSLog(@"Loading gif: %@", urlPath);
-            
-           [cell.imageView setImage:[UIImage imageNamed:stillname]];
-            
+            [cell.imageView setImageWithResource:[NSURL URLWithString:currentGif.gifUrl]];
         }
         //Load Still Name
         else{
             
-           // filePath= [[NSBundle mainBundle] pathForResource:stillname ofType:@""];
-            
-           // urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", stillname];
-           // NSLog(@"Loading gif: %@", urlPath);
-            
-          //  [cell.imageView setImageWithResource:[NSURL URLWithString:urlPath]];
-            
-            [cell.imageView setImage:[UIImage imageNamed:stillname]];
+            // Check if the image exists in cache. If it does exists in cache, directly fetch it and display it in the cell
+            if ([[ImageCache sharedImageCache] DoesExist:currentGif.stillUrl]== true)
+            {
+                [activityIndicator stopAnimating];
+                [activityIndicator removeFromSuperview];
+                
+                cell.imageView.image = [[ImageCache sharedImageCache] GetImage:currentGif.stillUrl];
+            }
+            // If it does not exist in cache, download it
+            else
+            {
+                // Add activity indicator
+                if (activityIndicator) [activityIndicator removeFromSuperview];
+                activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                activityIndicator.hidesWhenStopped = YES;
+                activityIndicator.hidden = NO;
+                [activityIndicator startAnimating];
+                activityIndicator.center = cell.imageView.center;
+                activityIndicator.tag = 505;
+                [cell.imageView addSubview:activityIndicator];
+                
+                
+                // Only load cached images; defer new downloads until scrolling ends
+                if (!currentGif.thumbImage)
+                {
+                    if (self.keyboardCollectionView.dragging == NO && self.keyboardCollectionView.decelerating == NO)
+                    {
+                        [self startIconDownload:currentGif forIndexPath:indexPath];
+                    }
+                    // if a download is deferred or in progress, return a placeholder image
+                    cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+                }
+                else
+                {
+                    cell.imageView.image = currentGif.thumbImage;
+                }
+            }
         }
     }
     else{
-        
-        NSURL *imageURL = [[NSBundle mainBundle] URLForResource:@"placeholder" withExtension:@"png"];
-       // [cell.imageView setImageWithResource:imageURL targetSize:[self _imageTargetSize] contentMode:DFImageContentModeAspectFill options:nil];
-        
+       cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
     }
+    
     return cell;
 }
 
@@ -1184,20 +1226,16 @@
     return CGSizeMake(size.width * scale, size.height * scale);
 }
 
-
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Button Tapped: %ld", (long)[indexPath row]);
     BOOL allowedOpenAccess = [self isRequestsOpenAccessEnabled]; // Can you allow access
     
     //Get current gif
-    NSMutableArray *currentGif = [[NSMutableArray alloc]init];
+    EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    
-    //Set filename
-    NSString *filename      = [currentGif objectAtIndex: 0];       //Gif File Name
-    
+
     //First Tap
     if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
         
@@ -1211,7 +1249,6 @@
                     duration:2.0
                     position:CSToastPositionCenter
          ];
-        
         
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
@@ -1238,7 +1275,6 @@
         NSIndexPath *lastPath = [NSIndexPath indexPathForRow:_lastImageSelected inSection:0];
         [indexPaths addObject:lastPath];
         
-        
     }
     else if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row && allowedOpenAccess){       //Second Tap
         
@@ -1246,14 +1282,12 @@
         _tappedImageCount = 0;
         _currentImageSelected = 0;
         
-        
         if([UIPasteboard generalPasteboard]){
             // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
             // [pasteboard setImage:image];
             
-            
             // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", filename];
+            NSString * urlPath = currentGif.fileName;
             
             NSLog(@"%@",urlPath);
             UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
@@ -1261,9 +1295,6 @@
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
             
             [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-            
-            
-            
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
@@ -1315,7 +1346,6 @@
         
     }
     
-    
     [indexPaths addObject:indexPath];
     [self.keyboardCollectionView  reloadItemsAtIndexPaths:indexPaths];
     
@@ -1324,7 +1354,102 @@
     
 }
 
+/////////////////////////////////////
+//   Helper Methods
+/////////////////////////////////////
+#pragma mark - Helper Methods
+- (void)startIconDownload:(EboticonGif *)currentGif forIndexPath:(NSIndexPath *)indexPath
+{
+    ImageDownloader *imgDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+    if (imgDownloader == nil)
+    {
+        imgDownloader = [[ImageDownloader alloc] init];
+        imgDownloader.imageRecord = currentGif;
+        [imgDownloader setCompletionHandler:^{
+            
+            ShopDetailCell *cell = (ShopDetailCell *)[self.keyboardCollectionView cellForItemAtIndexPath:indexPath];
+            
+            // Display the newly loaded image
+            cell.imageView.image = currentGif.thumbImage;
+            
+            // Remove the IconDownloader from the in progress list.
+            // This will result in it being deallocated.
+            [self.imageDownloadsInProgress removeObjectForKey:indexPath];
+            
+            UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)[cell.imageView viewWithTag:505];
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+        }];
+        [self.imageDownloadsInProgress setObject:imgDownloader forKey:indexPath];
+        [imgDownloader startDownload];
+    }
+}
 
+- (void)loadImagesForOnscreenRows
+{
+    if ([_allImages count] > 0)
+    {
+        NSArray *visiblePaths = [self.keyboardCollectionView indexPathsForVisibleItems];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            EboticonGif *imgRecord = [_allImages objectAtIndex:indexPath.row];
+            
+            if (!imgRecord.thumbImage)
+                // Avoid downloading if the image is already downloaded
+            {
+                [self startIconDownload:imgRecord forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+
+#pragma mark - UICollectionViewDelegateFlowLayout Protocol methods
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+   // CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
+    CGFloat pageHeight = self.keyboardCollectionView.frame.size.height;
+    CGFloat newItemSizeHeight;
+    CGFloat newItemSizeWidth;
+    UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
+
+    //Check for Landscape or Portrait mode
+    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
+        //Create 5x2 grid
+        newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
+    }
+    else{
+        //Keyboard is in Landscape
+        NSLog(@"Landscape");
+        
+        //Create 9x2 grid
+        //newItemSizeWidth = floor(pageWidth/9) - 1;
+        newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
+        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
+        
+        
+    }
+    
+    //NSLog(@"pageHeight %f", pageHeight);
+    //NSLog(@"pageWidth %f", pageWidth);
+    //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
+    //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
+    //NSLog(@"newItemSizeHeight 2: %f", newItemSizeHeight);
+    //NSLog(@"newItemSizeWidth  2: %f", newItemSizeWidth);
+    
+    //Create new item size
+    return CGSizeMake(newItemSizeWidth, newItemSizeHeight);
+}
+
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    return UIEdgeInsetsMake(2, 2, 2, 2);
+}
 
 
 #pragma mark - Orientation Protocol methods
@@ -1369,64 +1494,6 @@
     
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout Protocol methods
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
-    CGFloat pageHeight = self.keyboardCollectionView.frame.size.height;
-    CGFloat newItemSizeHeight;
-    CGFloat newItemSizeWidth;
-    UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
-    
-    
-    //Check for Landscape or Portrait mode
-    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
-        //Keyboard is in Portrait
-        //NSLog(@"Portrait");
-        
-        
-        
-        //Create 5x2 grid
-        //newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
-        newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
-        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
-        
-        
-    }
-    else{
-        //Keyboard is in Landscape
-        NSLog(@"Landscape");
-        
-        //Create 9x2 grid
-        //newItemSizeWidth = floor(pageWidth/9) - 1;
-        newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
-        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
-        
-        
-    }
-    
-    //NSLog(@"pageHeight %f", pageHeight);
-    //NSLog(@"pageWidth %f", pageWidth);
-    //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
-    //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
-    //NSLog(@"newItemSizeHeight 2: %f", newItemSizeHeight);
-    //NSLog(@"newItemSizeWidth  2: %f", newItemSizeWidth);
-    
-    //Create new item size
-    return CGSizeMake(newItemSizeWidth, newItemSizeHeight);
-}
-
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    return UIEdgeInsetsMake(2, 2, 2, 2);
-}
-
-#pragma mark -
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -1436,11 +1503,15 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    
-    NSLog(@"Eboticon memory warning");
-    
+    // Dispose of any resources that can be recreated.
+    // If memory warning is issued, then we can clear the objects to free some memory. Here we are simply removing all the images. But we can use a bit more logic to handle the memory here.
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
+    [self.imageDownloadsInProgress removeAllObjects];
 }
 
 
