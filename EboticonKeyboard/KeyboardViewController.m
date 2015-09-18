@@ -21,7 +21,7 @@
 
 #import "TTSwitch.h"
 
-//#import <DFImageManager/DFImageManagerKit.h>
+#import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
 
 
@@ -1169,6 +1169,8 @@
         
         //Load Gif File name
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
+            
+            cell.imageView.image = [UIImage imageNamed:@"placeholder_loading.png"];
             [cell.imageView setImageWithResource:[NSURL URLWithString:currentGif.gifUrl]];
         }
         //Load Still Name
