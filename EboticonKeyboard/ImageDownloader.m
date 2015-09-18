@@ -18,6 +18,7 @@
 
 @interface ImageDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
+@property (nonatomic, assign) BOOL doesPngExists;
 @property (nonatomic, strong) NSURLConnection *imageConnection;
 @end
 
@@ -28,9 +29,10 @@
 
 - (void)startDownload
 {
+    self.doesPngExists = YES;
     self.activeDownload = [NSMutableData data];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imageRecord.stillUrl]];     //still file name
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imageRecord.stillUrl] ];     //still file name
     
     // alloc+init and start an NSURLConnection; release on completion/failure
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -40,6 +42,7 @@
 
 - (void)cancelDownload
 {
+     NSLog(@"cancelDownload for %@", self.imageRecord.stillUrl);
     [self.imageConnection cancel];
     self.imageConnection = nil;
     self.activeDownload = nil;
@@ -49,11 +52,34 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+   // NSLog(@"didReceiveData for %@", self.imageRecord.stillUrl);
     [self.activeDownload appendData:data];
+}
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    
+    
+    NSString *contentType = nil;
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+    if ([httpResponse respondsToSelector:@selector(allHeaderFields)]) {
+        contentType = [[httpResponse allHeaderFields] objectForKey:@"Content-Type"];
+        //if text/html; charset=UTF-8
+        if (![contentType isEqualToString:@"image/png"]){
+             self.doesPngExists = NO;
+            NSLog(@"Missing Data for %@", self.imageRecord.stillUrl);
+            self.imageRecord.thumbImage = [UIImage imageNamed:@"placeholder.png"];
+        }
+    }
+
+  
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+   // NSLog(@"didFailWithError for %@", self.imageRecord.stillUrl);
+    
+    self.imageRecord.thumbImage = [UIImage imageNamed:@"placeholder.png"];
     
 	// Clear the activeDownload property to allow later attempts
     self.activeDownload = nil;
@@ -64,6 +90,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    //NSLog(@"connectionDidFinishLoading for %@", self.imageRecord.stillUrl);
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
@@ -78,7 +105,13 @@
     // Add the image to the shared cache
     [[ImageCache sharedImageCache] AddImage:self.imageRecord.stillUrl :image];
     
-    self.imageRecord.thumbImage = image;
+    //NSLog(@"does png exists %hhd", self.doesPngExists);
+    if(self.doesPngExists){
+        self.imageRecord.thumbImage = image;
+    }
+    else{
+        self.imageRecord.thumbImage = [UIImage imageNamed:@"placeholder.png"];
+    }
     
     self.activeDownload = nil;
     

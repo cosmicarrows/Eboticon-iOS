@@ -1208,7 +1208,12 @@
                 }
                 else
                 {
+                    [activityIndicator stopAnimating];
+                    [activityIndicator removeFromSuperview];
+                    
                     cell.imageView.image = currentGif.thumbImage;
+                    
+                
                 }
             }
         }
@@ -1369,8 +1374,16 @@
             
             ShopDetailCell *cell = (ShopDetailCell *)[self.keyboardCollectionView cellForItemAtIndexPath:indexPath];
             
+            
             // Display the newly loaded image
-            cell.imageView.image = currentGif.thumbImage;
+            
+            [UIView transitionWithView:cell.imageView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+                                cell.imageView.image = currentGif.thumbImage;
+                            } completion:nil];
+            //cell.imageView.image = currentGif.thumbImage;
             
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
@@ -1387,12 +1400,12 @@
 
 - (void)loadImagesForOnscreenRows
 {
-    if ([_allImages count] > 0)
+    if ([_currentEboticonGifs count] > 0)
     {
         NSArray *visiblePaths = [self.keyboardCollectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            EboticonGif *imgRecord = [_allImages objectAtIndex:indexPath.row];
+            EboticonGif *imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
             
             if (!imgRecord.thumbImage)
                 // Avoid downloading if the image is already downloaded
