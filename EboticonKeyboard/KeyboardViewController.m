@@ -86,6 +86,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *noSmileButton;
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 @property (weak, nonatomic) IBOutlet UIButton *exclamationButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *purchasedButton;
 
 // Collection View
@@ -666,6 +667,12 @@
     
     //switches to user's next keyboard
     [self advanceToNextInputMode];
+}
+
+- (IBAction) backKeyPressed:(UIButton*)sender {
+    
+    //switches to user's next keyboard
+    [self.textDocumentProxy deleteBackward];
 }
 
 - (IBAction) categoryKeyPressed:(UIButton*)sender {
@@ -1294,7 +1301,7 @@
             // [pasteboard setImage:image];
             
             // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = currentGif.fileName;
+            NSString * urlPath = currentGif.gifUrl;
             
             NSLog(@"%@",urlPath);
             UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
@@ -1321,8 +1328,6 @@
              ];
             
         }
-        
-        
     }
     //No image selected
     else if (_tappedImageCount == 0 && _currentImageSelected != indexPath.row && allowedOpenAccess){

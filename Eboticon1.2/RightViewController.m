@@ -97,6 +97,16 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+   // NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
+}
+
+
+
+
+
 #pragma mark - Key methods
 
 - (void)changeCaptionSwitch:(id)sender{
@@ -113,6 +123,8 @@
 
 
 #pragma mark -
+
+
 
 - (void)didReceiveMemoryWarning
 {
