@@ -12,13 +12,17 @@
 #import "CHCSVParser.h"
 #import "DDLog.h"
 #import "OLImage.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 //static const int ddLogLevel = LOG_LEVEL_ERROR;
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
+#define CURRENTSCREEN @"Shop Detail Screen"
 
 @interface ShopDetailCollectionViewController (){
-       NSMutableArray *_eboticonGifs;
-       NSMutableArray *_packGifs;
+    NSMutableArray *_eboticonGifs;
+    NSMutableArray *_packGifs;
 }
 
 @end
@@ -43,7 +47,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     //Create Pack Gifs object
     [self createPackGifs];
     
-
+    
     //Add Buy Button
     if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
         DDLogDebug(@"Not purchased");
@@ -54,7 +58,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         self.navigationItem.rightBarButtonItem = buyButton;
     }
     
-
+    
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -62,6 +66,15 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"ShopDetailCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
+    
+    //GOOGLE ANALYTICS
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:CURRENTSCREEN forKey:kGAIScreenName]build]];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,19 +83,19 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (void) loadGifsFromCSV
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
-
+    
     
     @try {
         
@@ -97,7 +110,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
             for(int i=0; i<[csvArray count];i++){
                 element = [csvArray objectAtIndex: i];
                 DDLogDebug(@"Element %i = %@", i, element);
-               // DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
+                // DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
                 
                 for(int j=0; j<[element count];j++) {
                     NSString *value = [element objectAtIndex: j];
@@ -125,7 +138,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                             [currentGif setEmotionCategory:value];
                             break;
                         default:
-                     //       DDLogWarn(@"Index out of bounds");
+                            //       DDLogWarn(@"Index out of bounds");
                             break;
                     }
                     //[_eboticonGifs addObject:currentGif];
@@ -163,7 +176,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
             
             NSString * gifCategory = [currentGif emotionCategory]; //Category
             
-             DDLogDebug(@"gifCategory: %@", gifCategory);
+            DDLogDebug(@"gifCategory: %@", gifCategory);
             
             if([self.product.productIdentifier isEqual:gifCategory]) {
                 [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
@@ -197,7 +210,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 - (void)productPurchased:(NSNotification *)notification {
     
     NSString * productIdentifier = notification.object;
- 
+    
     if ([self.product.productIdentifier isEqualToString:productIdentifier]) {
         NSLog(@"Purchased %@", self.product.productIdentifier);
         
@@ -218,22 +231,22 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (ShopDetailCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-
+    
     EboticonGif *currentGif = [_packGifs objectAtIndex:indexPath.row];
     NSLog(@"gif filename %@", currentGif.getFileName);
     
     NSString * path = [[NSBundle mainBundle] pathForResource:currentGif.getFileName ofType:nil];
     NSData * data = [NSData dataWithContentsOfFile:path];
     FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:data];
-
+    
     cell.gifImageView.animatedImage = image;
-
+    
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     NSLog(@"Select %ld",(long)indexPath.row);
 }
 
@@ -241,32 +254,32 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 #pragma mark <UICollectionViewDelegate>
 
 /*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+ // Uncomment this method to specify if the specified item should be highlighted during tracking
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
-}
-*/
+ }
+ */
 
 /*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
+ // Uncomment this method to specify if the specified item should be selected
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+ return YES;
+ }
+ */
 
 /*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+ // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
 	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+ }
+ 
+ - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+ }
+ 
+ - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 	
-}
-*/
+ }
+ */
 
 @end

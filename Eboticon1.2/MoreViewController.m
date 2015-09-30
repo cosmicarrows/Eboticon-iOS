@@ -30,6 +30,8 @@
 #define CONTACTUS @"contactUs_link"
 #define RATE @"rate_link"
 #define TELLAFRIEND @"tellFriend_link"
+#define RESTOREPURCHASES @"restorePurchases_link"
+
 
 
 
@@ -54,37 +56,37 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
     [_eboticonLogo setImage:[UIImage imageNamed:@"Eboticon_Final.png"] forState:UIControlStateNormal];
     
     /*
-    [_facebookLogo setImage:[UIImage imageNamed:@"facebook-social.png"] forState:UIControlStateNormal];
-    _facebookLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
-    _facebookLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+     [_facebookLogo setImage:[UIImage imageNamed:@"facebook-social.png"] forState:UIControlStateNormal];
+     _facebookLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+     _facebookLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+     
+     [_instagramLogo setImage:[UIImage imageNamed:@"instagram-social.png"] forState:UIControlStateNormal];
+     _instagramLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+     _instagramLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+     
+     [_twitterLogo setImage:[UIImage imageNamed:@"twitter-social.png"] forState:UIControlStateNormal];
+     _twitterLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+     _twitterLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+     
+     [_youtubeLogo setImage:[UIImage imageNamed:@"youtube-social.png"] forState:UIControlStateNormal];
+     _youtubeLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
+     _youtubeLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+     */
     
-    [_instagramLogo setImage:[UIImage imageNamed:@"instagram-social.png"] forState:UIControlStateNormal];
-    _instagramLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
-    _instagramLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     
-    [_twitterLogo setImage:[UIImage imageNamed:@"twitter-social.png"] forState:UIControlStateNormal];
-    _twitterLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
-    _twitterLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    
-    [_youtubeLogo setImage:[UIImage imageNamed:@"youtube-social.png"] forState:UIControlStateNormal];
-    _youtubeLogo.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;         //Scale button to fit
-    _youtubeLogo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    */
-    
-    
-    for (NSString* family in [UIFont familyNames])
-    {
-        NSLog(@"%@", family);
-        
-        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-        {
-            NSLog(@"  %@", name);
-        }
-    }
+    //    for (NSString* family in [UIFont familyNames])
+    //    {
+    //        NSLog(@"%@", family);
+    //
+    //        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+    //        {
+    //            NSLog(@"  %@", name);
+    //        }
+    //    }
     
     
     //GOOGLE ANALYTICS
@@ -102,7 +104,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #else
     DDLogInfo(@"Paid Version. Not Showing Upgrade Button");
 #endif
-
+    
 }
 
 - (void)upgradeToPaidApp {
@@ -183,9 +185,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&onlyLatestVersion=false&type=Purple+Software"]];
 #endif
     
-   
+    
     [self sendAlertToGoogleAnalytics:RATE];
-
+    
 }
 
 - (IBAction)tellAFriend:(id)sender {
@@ -206,9 +208,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (IBAction) restorePurchases:(id)sender {
-  
+    
     NSLog(@"Restore Purchases");
     [[EboticonIAPHelper sharedInstance] restoreCompletedTransactions];
+    [self sendAlertToGoogleAnalytics:RESTOREPURCHASES];
+    
 }
 
 - (IBAction)facebookLogo:(id)sender {

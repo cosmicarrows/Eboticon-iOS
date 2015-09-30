@@ -9,10 +9,19 @@
 #import "ShopViewController.h"
 #import "ShopTableCell.h"
 #import "ShopDetailCollectionViewController.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+#import "DDLog.h"
 
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
+
+static const int ddLogLevel = LOG_LEVEL_ERROR;
+#define CURRENTSCREEN @"Shop Screen"
+
+
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
     IBOutlet KIImagePager *_imagePager;
@@ -119,9 +128,9 @@
     if ([[EboticonIAPHelper sharedInstance] productPurchased:product.productIdentifier]) {
         
         [cell.packCost setFont: [UIFont systemFontOfSize:7]];
-         cell.packCost.text = @"PURCHASED";
+        cell.packCost.text = @"PURCHASED";
     }
-
+    
     //Set Image
     if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
@@ -132,7 +141,7 @@
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.customerappreciationpack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
     }
- 
+    
 }
 
 
@@ -240,18 +249,27 @@
     tableViewController.tableView = self.inAppPurchaseTable;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = self.refreshControl;       
+    tableViewController.refreshControl = self.refreshControl;
     
     if (_products == nil){
         _products = [[NSArray alloc]init];
         myTimer = [self createTimer];
-    } else {        
+    } else {
         [self.inAppPurchaseTable reloadData];
     }
     
     _priceFormatter = [[NSNumberFormatter alloc] init];
     [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [_priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    //GOOGLE ANALYTICS
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:CURRENTSCREEN forKey:kGAIScreenName]build]];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
     
 }
 
@@ -273,12 +291,12 @@
 
 - (NSString *) captionForImageAtIndex:(NSUInteger)index inPager:(KIImagePager *)pager
 {
-  /*  return @[
-             @"First screenshot",
-             @"Another screenshot",
-             @"Last one! ;-)"
-             ][index];
-   */
+    /*  return @[
+     @"First screenshot",
+     @"Another screenshot",
+     @"Last one! ;-)"
+     ][index];
+     */
     
     return false;
     
@@ -292,17 +310,17 @@
 
 - (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
-   // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+    // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

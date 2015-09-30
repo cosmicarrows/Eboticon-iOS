@@ -8,10 +8,17 @@
 
 #import "KeyboardTutorialViewController.h"
 #import "TutorialContentViewController.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+#import "DDLog.h"
+
+static const int ddLogLevel = LOG_LEVEL_ERROR;
+#define CURRENTSCREEN @"Shop Screen"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface KeyboardTutorialViewController () 
+@interface KeyboardTutorialViewController ()
 
 @end
 
@@ -131,6 +138,15 @@
     [super viewDidLoad];
     [self setContentPages];
     [self addControlButtons];
+    
+    //GOOGLE ANALYTICS
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:CURRENTSCREEN forKey:kGAIScreenName]build]];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
 }
 
 

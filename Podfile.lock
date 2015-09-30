@@ -12,26 +12,22 @@ PODS:
   - CocoaLumberjack/Core (1.9.1)
   - CocoaLumberjack/Extensions (1.9.1):
     - CocoaLumberjack/Core
-  - DFImageManager (0.3.1):
-    - DFImageManager/AssetsLibrary (= 0.3.1)
-    - DFImageManager/Core (= 0.3.1)
-    - DFImageManager/NSURLSession (= 0.3.1)
-    - DFImageManager/PhotosKit (= 0.3.1)
-    - DFImageManager/UI (= 0.3.1)
-  - DFImageManager/AFNetworking (0.3.1):
+  - DFImageManager (0.8.0):
+    - DFImageManager/Core (= 0.8.0)
+    - DFImageManager/NSURLSession (= 0.8.0)
+    - DFImageManager/PhotosKit (= 0.8.0)
+    - DFImageManager/UI (= 0.8.0)
+  - DFImageManager/AFNetworking (0.8.0):
     - AFNetworking/NSURLSession (~> 2.0)
     - DFImageManager/Core
-  - DFImageManager/AssetsLibrary (0.3.1):
-    - DFImageManager/Core
-  - DFImageManager/Core (0.3.1)
-  - DFImageManager/GIF (0.3.1):
-    - DFImageManager/Core
+  - DFImageManager/Core (0.8.0)
+  - DFImageManager/GIF (0.8.0):
     - FLAnimatedImage (~> 1.0)
-  - DFImageManager/NSURLSession (0.3.1):
+  - DFImageManager/NSURLSession (0.8.0):
     - DFImageManager/Core
-  - DFImageManager/PhotosKit (0.3.1):
+  - DFImageManager/PhotosKit (0.8.0):
     - DFImageManager/Core
-  - DFImageManager/UI (0.3.1):
+  - DFImageManager/UI (0.8.0):
     - DFImageManager/Core
   - FLAnimatedImage (1.0.8)
   - GPUImage (0.1.6)
@@ -59,7 +55,7 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
   CocoaLumberjack: e9b828e64142be63c1c130517b33aa5e235d2413
-  DFImageManager: 2ee9701b09a96e7ab4d94f3ca1a6708027587473
+  DFImageManager: 37d75898009b05e49d13e36576677c76847b7d2a
   FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
   GPUImage: 4675ce4a5370ca92fcea8623b2a08b8f0c51b940
   Harpy: 1c3f286473c97db20a19dda87582331e951036bc
@@ -68,4 +64,4 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

@@ -5,8 +5,15 @@
 
 #import "WhatsNewMainViewController.h"
 #import "WhatsNewWebViewController.h"
-
 #import "Reachability.h"
+
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+#import "DDLog.h"
+
+static const int ddLogLevel = LOG_LEVEL_ERROR;
+#define CURRENTSCREEN @"Whats New Screen"
 
 
 
@@ -27,13 +34,13 @@
 
 @implementation NSString (mycategory)
 
-- (NSString *)stringByStrippingHTML 
+- (NSString *)stringByStrippingHTML
 {
     NSRange r;
     NSString *s = [self copy];
     while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
         s = [s stringByReplacingCharactersInRange:r withString:@""];
-    return s; 
+    return s;
 }
 
 @end
@@ -52,7 +59,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-     //Sets the navigation bar title
+    //Sets the navigation bar title
     [self.navigationController.navigationBar.topItem setTitle:@"What's New"];
     //Sets the navigation bar title
     //[self.navigationItem setTitle:@"What's New"];
@@ -67,14 +74,14 @@
     //Load Spinner
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     NSLog(@"center x: %f", [[UIScreen mainScreen] bounds].size.width/2.0f);
-     NSLog(@"center y: %f", [[UIScreen mainScreen] bounds].size.height/2.0f);
+    NSLog(@"center y: %f", [[UIScreen mainScreen] bounds].size.height/2.0f);
     
     self.spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     [self.spinner startAnimating];
     
-   
+    
     //Set table row height so it can fit title & 2 lines of summary
     self.tableView.rowHeight = 85;
     
@@ -98,6 +105,15 @@
     //Ads
     self.canDisplayBannerAds = NO;
     
+    //GOOGLE ANALYTICS
+    @try {
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:CURRENTSCREEN forKey:kGAIScreenName]build]];
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
+    }
+    
 }
 
 - (void)parseRssFeed{
@@ -109,14 +125,14 @@
         dispatch_async( dispatch_get_main_queue(), ^{
             // running synchronously on the main thread now -- call the handler
             _parseResults = [parser posts];
-             [self stripHTMLFromSummary];
-             [self.tableView reloadData];
-             [self.spinner stopAnimating];
+            [self stripHTMLFromSummary];
+            [self.tableView reloadData];
+            [self.spinner stopAnimating];
         });
     });
     
     
-
+    
     
     
 }
@@ -242,7 +258,7 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    
     //Check if cell is nil. If it is create a new instance of it
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -252,7 +268,7 @@
     cell.textLabel.numberOfLines = 2;
     //Configure detailTitleLabel
     cell.detailTextLabel.text = [[self.parseResults objectAtIndex:indexPath.row] objectForKey:@"summary"];
-
+    
     cell.detailTextLabel.numberOfLines = 2;
     
     //Set accessoryType
@@ -277,15 +293,15 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not parse feed. Check your network connection." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     [alert show];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+    
 }
 
 - (void)parserCompletedSuccessfully {
     NSLog(@"parserCompletedSuccessfully");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-     NSLog(@"stop animating");
+    NSLog(@"stop animating");
     
-   
+    
     
 }
 

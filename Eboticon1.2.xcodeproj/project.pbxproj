@@ -280,6 +280,36 @@
 		631DC16B19CE474400B11541 /* slide_through_your_dm-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 631DC15919CE474400B11541 /* slide_through_your_dm-caption.gif */; };
 		631DC16C19CE474400B11541 /* thank_ya-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 631DC15A19CE474400B11541 /* thank_ya-caption.gif */; };
 		631DC16D19CE474400B11541 /* thank_ya-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 631DC15B19CE474400B11541 /* thank_ya-nocaption.gif */; };
+		6322227C1BBC769E0054AB4E /* aka_stance-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6322225E1BBC769E0054AB4E /* aka_stance-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		6322227D1BBC769E0054AB4E /* aka_stance.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6322225F1BBC769E0054AB4E /* aka_stance.gif */; settings = {ASSET_TAGS = (); }; };
+		6322227E1BBC769E0054AB4E /* bravo-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222601BBC769E0054AB4E /* bravo-caption.gif */; settings = {ASSET_TAGS = (); }; };
+		6322227F1BBC769E0054AB4E /* bravo-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222611BBC769E0054AB4E /* bravo-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222801BBC769E0054AB4E /* female_wink-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222621BBC769E0054AB4E /* female_wink-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222811BBC769E0054AB4E /* friend_zone-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222631BBC769E0054AB4E /* friend_zone-caption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222821BBC769E0054AB4E /* miss_you-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222641BBC769E0054AB4E /* miss_you-caption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222831BBC769E0054AB4E /* miss_you-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222651BBC769E0054AB4E /* miss_you-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222841BBC769E0054AB4E /* pleeeaaase-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222661BBC769E0054AB4E /* pleeeaaase-caption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222851BBC769E0054AB4E /* pleeeaaase-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222671BBC769E0054AB4E /* pleeeaaase-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222861BBC769E0054AB4E /* say_that-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222681BBC769E0054AB4E /* say_that-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222871BBC769E0054AB4E /* she_twerk-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632222691BBC769E0054AB4E /* she_twerk-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222881BBC769E0054AB4E /* whaaahhhh-caption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6322226A1BBC769E0054AB4E /* whaaahhhh-caption.gif */; settings = {ASSET_TAGS = (); }; };
+		632222891BBC769E0054AB4E /* whaaahhhh-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6322226B1BBC769E0054AB4E /* whaaahhhh-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		6322228A1BBC769E0054AB4E /* wink_male-nocaption.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6322226C1BBC769E0054AB4E /* wink_male-nocaption.gif */; settings = {ASSET_TAGS = (); }; };
+		6322228B1BBC769E0054AB4E /* bravo-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322226D1BBC769E0054AB4E /* bravo-caption.png */; settings = {ASSET_TAGS = (); }; };
+		6322228C1BBC769E0054AB4E /* bravo-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322226E1BBC769E0054AB4E /* bravo-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		6322228D1BBC769E0054AB4E /* female_wink-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322226F1BBC769E0054AB4E /* female_wink-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		6322228E1BBC769E0054AB4E /* friend_zone-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222701BBC769E0054AB4E /* friend_zone-caption.png */; settings = {ASSET_TAGS = (); }; };
+		6322228F1BBC769E0054AB4E /* kappa_stroll-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222711BBC769E0054AB4E /* kappa_stroll-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222901BBC769E0054AB4E /* male_wink-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222721BBC769E0054AB4E /* male_wink-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222911BBC769E0054AB4E /* miss_you-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222731BBC769E0054AB4E /* miss_you-caption.png */; settings = {ASSET_TAGS = (); }; };
+		632222921BBC769E0054AB4E /* miss_you-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222741BBC769E0054AB4E /* miss_you-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222931BBC769E0054AB4E /* pleeeaaase-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222751BBC769E0054AB4E /* pleeeaaase-caption.png */; settings = {ASSET_TAGS = (); }; };
+		632222941BBC769E0054AB4E /* pleeeaaase-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222761BBC769E0054AB4E /* pleeeaaase-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222951BBC769E0054AB4E /* say_that-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222771BBC769E0054AB4E /* say_that-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222961BBC769E0054AB4E /* she_twerk-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222781BBC769E0054AB4E /* she_twerk-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222971BBC769E0054AB4E /* whaaahhhh-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 632222791BBC769E0054AB4E /* whaaahhhh-caption.png */; settings = {ASSET_TAGS = (); }; };
+		632222981BBC769E0054AB4E /* whaaahhhh-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322227A1BBC769E0054AB4E /* whaaahhhh-nocaption.png */; settings = {ASSET_TAGS = (); }; };
+		632222991BBC769E0054AB4E /* wink_male-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322227B1BBC769E0054AB4E /* wink_male-nocaption.png */; settings = {ASSET_TAGS = (); }; };
 		632446F71AAB67470057ABB2 /* GifCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */; };
 		632446F81AAB67470057ABB2 /* EboticonGif.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B6CB4518F07C9600D1F08A /* EboticonGif.m */; };
 		632446F91AAB67470057ABB2 /* EBOActivityTypePostToFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D643981984579B0056AC0B /* EBOActivityTypePostToFacebook.m */; };
@@ -1135,6 +1165,36 @@
 		631DC15919CE474400B11541 /* slide_through_your_dm-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "slide_through_your_dm-caption.gif"; sourceTree = "<group>"; };
 		631DC15A19CE474400B11541 /* thank_ya-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "thank_ya-caption.gif"; sourceTree = "<group>"; };
 		631DC15B19CE474400B11541 /* thank_ya-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "thank_ya-nocaption.gif"; sourceTree = "<group>"; };
+		6322225E1BBC769E0054AB4E /* aka_stance-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "aka_stance-nocaption.gif"; sourceTree = "<group>"; };
+		6322225F1BBC769E0054AB4E /* aka_stance.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = aka_stance.gif; sourceTree = "<group>"; };
+		632222601BBC769E0054AB4E /* bravo-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "bravo-caption.gif"; sourceTree = "<group>"; };
+		632222611BBC769E0054AB4E /* bravo-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "bravo-nocaption.gif"; sourceTree = "<group>"; };
+		632222621BBC769E0054AB4E /* female_wink-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "female_wink-nocaption.gif"; sourceTree = "<group>"; };
+		632222631BBC769E0054AB4E /* friend_zone-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "friend_zone-caption.gif"; sourceTree = "<group>"; };
+		632222641BBC769E0054AB4E /* miss_you-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "miss_you-caption.gif"; sourceTree = "<group>"; };
+		632222651BBC769E0054AB4E /* miss_you-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "miss_you-nocaption.gif"; sourceTree = "<group>"; };
+		632222661BBC769E0054AB4E /* pleeeaaase-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "pleeeaaase-caption.gif"; sourceTree = "<group>"; };
+		632222671BBC769E0054AB4E /* pleeeaaase-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "pleeeaaase-nocaption.gif"; sourceTree = "<group>"; };
+		632222681BBC769E0054AB4E /* say_that-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "say_that-nocaption.gif"; sourceTree = "<group>"; };
+		632222691BBC769E0054AB4E /* she_twerk-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "she_twerk-nocaption.gif"; sourceTree = "<group>"; };
+		6322226A1BBC769E0054AB4E /* whaaahhhh-caption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "whaaahhhh-caption.gif"; sourceTree = "<group>"; };
+		6322226B1BBC769E0054AB4E /* whaaahhhh-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "whaaahhhh-nocaption.gif"; sourceTree = "<group>"; };
+		6322226C1BBC769E0054AB4E /* wink_male-nocaption.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "wink_male-nocaption.gif"; sourceTree = "<group>"; };
+		6322226D1BBC769E0054AB4E /* bravo-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bravo-caption.png"; sourceTree = "<group>"; };
+		6322226E1BBC769E0054AB4E /* bravo-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bravo-nocaption.png"; sourceTree = "<group>"; };
+		6322226F1BBC769E0054AB4E /* female_wink-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "female_wink-nocaption.png"; sourceTree = "<group>"; };
+		632222701BBC769E0054AB4E /* friend_zone-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend_zone-caption.png"; sourceTree = "<group>"; };
+		632222711BBC769E0054AB4E /* kappa_stroll-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kappa_stroll-nocaption.png"; sourceTree = "<group>"; };
+		632222721BBC769E0054AB4E /* male_wink-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "male_wink-nocaption.png"; sourceTree = "<group>"; };
+		632222731BBC769E0054AB4E /* miss_you-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miss_you-caption.png"; sourceTree = "<group>"; };
+		632222741BBC769E0054AB4E /* miss_you-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miss_you-nocaption.png"; sourceTree = "<group>"; };
+		632222751BBC769E0054AB4E /* pleeeaaase-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pleeeaaase-caption.png"; sourceTree = "<group>"; };
+		632222761BBC769E0054AB4E /* pleeeaaase-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pleeeaaase-nocaption.png"; sourceTree = "<group>"; };
+		632222771BBC769E0054AB4E /* say_that-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "say_that-nocaption.png"; sourceTree = "<group>"; };
+		632222781BBC769E0054AB4E /* she_twerk-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "she_twerk-nocaption.png"; sourceTree = "<group>"; };
+		632222791BBC769E0054AB4E /* whaaahhhh-caption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whaaahhhh-caption.png"; sourceTree = "<group>"; };
+		6322227A1BBC769E0054AB4E /* whaaahhhh-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whaaahhhh-nocaption.png"; sourceTree = "<group>"; };
+		6322227B1BBC769E0054AB4E /* wink_male-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wink_male-nocaption.png"; sourceTree = "<group>"; };
 		632448471AAB67470057ABB2 /* EboticonLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EboticonLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		632448481AAB67470057ABB2 /* EboticonLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EboticonLite-Info.plist"; path = "/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/EboticonLite-Info.plist"; sourceTree = "<absolute>"; };
 		6325FA471A8FCC2300C4CABB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -2527,6 +2587,36 @@
 				976E4F131B9B51A10057D6B2 /* bravo-caption.png */,
 				976E4F141B9B51A10057D6B2 /* bravo-nocaption.gif */,
 				976E4F151B9B51A10057D6B2 /* bravo-nocaption.png */,
+				6322225E1BBC769E0054AB4E /* aka_stance-nocaption.gif */,
+				6322225F1BBC769E0054AB4E /* aka_stance.gif */,
+				632222601BBC769E0054AB4E /* bravo-caption.gif */,
+				632222611BBC769E0054AB4E /* bravo-nocaption.gif */,
+				632222621BBC769E0054AB4E /* female_wink-nocaption.gif */,
+				632222631BBC769E0054AB4E /* friend_zone-caption.gif */,
+				632222641BBC769E0054AB4E /* miss_you-caption.gif */,
+				632222651BBC769E0054AB4E /* miss_you-nocaption.gif */,
+				632222661BBC769E0054AB4E /* pleeeaaase-caption.gif */,
+				632222671BBC769E0054AB4E /* pleeeaaase-nocaption.gif */,
+				632222681BBC769E0054AB4E /* say_that-nocaption.gif */,
+				632222691BBC769E0054AB4E /* she_twerk-nocaption.gif */,
+				6322226A1BBC769E0054AB4E /* whaaahhhh-caption.gif */,
+				6322226B1BBC769E0054AB4E /* whaaahhhh-nocaption.gif */,
+				6322226C1BBC769E0054AB4E /* wink_male-nocaption.gif */,
+				6322226D1BBC769E0054AB4E /* bravo-caption.png */,
+				6322226E1BBC769E0054AB4E /* bravo-nocaption.png */,
+				6322226F1BBC769E0054AB4E /* female_wink-nocaption.png */,
+				632222701BBC769E0054AB4E /* friend_zone-caption.png */,
+				632222711BBC769E0054AB4E /* kappa_stroll-nocaption.png */,
+				632222721BBC769E0054AB4E /* male_wink-nocaption.png */,
+				632222731BBC769E0054AB4E /* miss_you-caption.png */,
+				632222741BBC769E0054AB4E /* miss_you-nocaption.png */,
+				632222751BBC769E0054AB4E /* pleeeaaase-caption.png */,
+				632222761BBC769E0054AB4E /* pleeeaaase-nocaption.png */,
+				632222771BBC769E0054AB4E /* say_that-nocaption.png */,
+				632222781BBC769E0054AB4E /* she_twerk-nocaption.png */,
+				632222791BBC769E0054AB4E /* whaaahhhh-caption.png */,
+				6322227A1BBC769E0054AB4E /* whaaahhhh-nocaption.png */,
+				6322227B1BBC769E0054AB4E /* wink_male-nocaption.png */,
 				976E4F171B9B51A10057D6B2 /* female_wink-nocaption.gif */,
 				976E4F181B9B51A10057D6B2 /* female_wink-nocaption.png */,
 				976E4F191B9B51A10057D6B2 /* friend_zone-caption.gif */,
@@ -3184,6 +3274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632222911BBC769E0054AB4E /* miss_you-caption.png in Resources */,
 				9760B5711B7A672B00E75EEC /* avenirltstd-book.otf in Resources */,
 				97065D6C1B6A71AA004B149A /* im_flattered-nocaption.gif in Resources */,
 				97065D6D1B6A71AA004B149A /* thanks-nocaption.gif in Resources */,
@@ -3210,9 +3301,11 @@
 				63BCCDB91920E92200C8508D /* yas-caption.gif in Resources */,
 				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,
 				63BCCD961920E92200C8508D /* have_several_seats-nocaption.gif in Resources */,
+				632222831BBC769E0054AB4E /* miss_you-nocaption.gif in Resources */,
 				631DC15E19CE474400B11541 /* bye_felicia-caption.gif in Resources */,
 				978F1C961B8F627B00ADA44C /* arrow_right.png in Resources */,
 				6304519F1ABF950A001DC8B2 /* im_flattered-nocaption.png in Resources */,
+				632222851BBC769E0054AB4E /* pleeeaaase-nocaption.gif in Resources */,
 				976E4F4A1B9B51A10057D6B2 /* whaaahhhh-caption.png in Resources */,
 				639B136A1B46F76100EF8997 /* excuse_me-caption.png in Resources */,
 				636EE6A41A63473900E43D65 /* thanks-nocaption.mov in Resources */,
@@ -3253,6 +3346,7 @@
 				630BF4F81A5EDFCE00F179F5 /* dont_mind_me-caption.mov in Resources */,
 				630451631ABF950A001DC8B2 /* crying-caption.png in Resources */,
 				6332782B1A82E0F4000557D0 /* im_flattered-caption.mov in Resources */,
+				632222811BBC769E0054AB4E /* friend_zone-caption.gif in Resources */,
 				637078041AC116CD007652E1 /* tried_me-caption.gif in Resources */,
 				630BF4EF1A5EDFCE00F179F5 /* bruh-nocaption.mov in Resources */,
 				633278291A82E0F4000557D0 /* i_love_you-caption.mov in Resources */,
@@ -3281,6 +3375,7 @@
 				63A1D30F1A194A0300FC0C45 /* thanks-caption.gif in Resources */,
 				63BCCD981920E92200C8508D /* hey_boo_hey-nocaption.gif in Resources */,
 				630BF4EE1A5EDFCE00F179F5 /* bruh-caption.mov in Resources */,
+				6322228D1BBC769E0054AB4E /* female_wink-nocaption.png in Resources */,
 				97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */,
 				971DEDA41BADD26100D2A751 /* round-switch-thumb-highlight@2x.png in Resources */,
 				63BCCDAB1920E92200C8508D /* that_aint_funny-caption.gif in Resources */,
@@ -3298,6 +3393,7 @@
 				6304516F1ABF950A001DC8B2 /* did_that-caption.png in Resources */,
 				9760B56A1B79343600E75EEC /* KICamera@2x.png in Resources */,
 				639B13101B46F0A100EF8997 /* dead_female-nocaption.gif in Resources */,
+				632222891BBC769E0054AB4E /* whaaahhhh-nocaption.gif in Resources */,
 				63C613361A1AE6A3004D821D /* happy_birthday-caption.gif in Resources */,
 				971DEDA21BADD26100D2A751 /* round-switch-overlay@2x.png in Resources */,
 				630BF52D1A5EDFCE00F179F5 /* wait_whet-nocaption.mov in Resources */,
@@ -3318,6 +3414,7 @@
 				63BCCDA41920E92200C8508D /* really_female-nocaption.gif in Resources */,
 				637077FE1AC11628007652E1 /* you_knew-caption.gif in Resources */,
 				63BCCDB71920E92200C8508D /* wth-caption.gif in Resources */,
+				632222951BBC769E0054AB4E /* say_that-nocaption.png in Resources */,
 				631DC16819CE474400B11541 /* operation_skinty-caption.gif in Resources */,
 				63BCCD9A1920E92200C8508D /* i_cant-nocaption.gif in Resources */,
 				6332782C1A82E0F4000557D0 /* im_flattered-nocaption.mov in Resources */,
@@ -3329,6 +3426,7 @@
 				630451F71ABF950A001DC8B2 /* wont_he_do_it_male-caption.png in Resources */,
 				630BF4FD1A5EDFCE00F179F5 /* glory-nocaption.mov in Resources */,
 				976E4F311B9B51A10057D6B2 /* aka_stance.gif in Resources */,
+				6322228A1BBC769E0054AB4E /* wink_male-nocaption.gif in Resources */,
 				637077E21AC11394007652E1 /* tried_me-caption.png in Resources */,
 				976E4F4D1B9B51A10057D6B2 /* wink_male-nocaption.gif in Resources */,
 				63BCCD911920E92200C8508D /* glory-caption.gif in Resources */,
@@ -3357,8 +3455,10 @@
 				63BCCDA01920E92200C8508D /* oh_crap-nocaption.gif in Resources */,
 				971DEDA51BADD26100D2A751 /* round-switch-thumb.png in Resources */,
 				630BF5241A5EDFCE00F179F5 /* that_aint_funny-caption.mov in Resources */,
+				632222971BBC769E0054AB4E /* whaaahhhh-caption.png in Resources */,
 				970DA3F31B69D04A00587CD6 /* MoreView.xib in Resources */,
 				976E4F4C1B9B51A10057D6B2 /* whaaahhhh-nocaption.png in Resources */,
+				632222901BBC769E0054AB4E /* male_wink-nocaption.png in Resources */,
 				63BCCDB11920E92200C8508D /* twerkteam-caption.gif in Resources */,
 				630BF5291A5EDFCE00F179F5 /* turn_up-nocaption.mov in Resources */,
 				63BCCDA31920E92200C8508D /* really_female-caption.gif in Resources */,
@@ -3372,6 +3472,7 @@
 				630BF5101A5EDFCE00F179F5 /* oh_crap-nocaption.mov in Resources */,
 				630BF4EC1A5EDFCE00F179F5 /* aye_girl-caption.mov in Resources */,
 				637078181AC11714007652E1 /* good_night-nocaption.mov in Resources */,
+				632222871BBC769E0054AB4E /* she_twerk-nocaption.gif in Resources */,
 				636EE68F1A63466800E43D65 /* fabulous-caption.mov in Resources */,
 				979CFFA81B8B54E00041EE61 /* ShopDetailCell.xib in Resources */,
 				636EE6A81A63473900E43D65 /* you_mad-nocaption.mov in Resources */,
@@ -3397,9 +3498,11 @@
 				6304516D1ABF950A001DC8B2 /* deal_with_it-nocaption.png in Resources */,
 				630451591ABF950A001DC8B2 /* bruh-nocaption.png in Resources */,
 				633278511A82E120000557D0 /* i_love_you-caption.gif in Resources */,
+				632222921BBC769E0054AB4E /* miss_you-nocaption.png in Resources */,
 				630BF5211A5EDFCE00F179F5 /* thank_ya-nocaption.mov in Resources */,
 				63C893B71A3CF985005D5562 /* where_da_milk_and_cookies-nocaption.gif in Resources */,
 				637077DC1AC11394007652E1 /* good_night-nocaption.png in Resources */,
+				6322227C1BBC769E0054AB4E /* aka_stance-nocaption.gif in Resources */,
 				639B13761B46F77700EF8997 /* excuse_me-caption.mov in Resources */,
 				633278531A82E120000557D0 /* im_flattered-caption.gif in Resources */,
 				630BF5021A5EDFCE00F179F5 /* have_a_seat-nocaption.mov in Resources */,
@@ -3422,6 +3525,7 @@
 				630BF51F1A5EDFCE00F179F5 /* slide_through_your_dm-nocaption.mov in Resources */,
 				639B136C1B46F76100EF8997 /* excuse_me-nocaption.png in Resources */,
 				630451DD1ABF950A001DC8B2 /* thinking_about_you-nocaption.png in Resources */,
+				632222841BBC769E0054AB4E /* pleeeaaase-caption.gif in Resources */,
 				630BF5091A5EDFCE00F179F5 /* kisses_nocaption.mov in Resources */,
 				6370781C1AC11714007652E1 /* i_give_up-nocaption.mov in Resources */,
 				970DA3DD1B69BED700587CD6 /* EboticonGifCell.xib in Resources */,
@@ -3432,6 +3536,7 @@
 				631DC16C19CE474400B11541 /* thank_ya-caption.gif in Resources */,
 				970DA3E51B69CD5100587CD6 /* ShopView.xib in Resources */,
 				632702ED1AB7949800B39B06 /* Images.xcassets in Resources */,
+				6322228F1BBC769E0054AB4E /* kappa_stroll-nocaption.png in Resources */,
 				631DC16719CE474400B11541 /* omg-nocaption.gif in Resources */,
 				63BCCD941920E92200C8508D /* have_a_seat-nocaption.gif in Resources */,
 				639B134A1B46F27500EF8997 /* dead_female-caption.mov in Resources */,
@@ -3441,6 +3546,8 @@
 				630BF51D1A5EDFCE00F179F5 /* shade-nocaption.mov in Resources */,
 				976E4F471B9B51A10057D6B2 /* she_twerk-nocaption.gif in Resources */,
 				63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */,
+				6322228B1BBC769E0054AB4E /* bravo-caption.png in Resources */,
+				632222961BBC769E0054AB4E /* she_twerk-nocaption.png in Resources */,
 				630BF52F1A5EDFCE00F179F5 /* where_da_milk_and_cookies-nocaption.mov in Resources */,
 				630451A91ABF950A001DC8B2 /* none_of_my_business-caption.png in Resources */,
 				6304515D1ABF950A001DC8B2 /* bye_felicia-nocaption.png in Resources */,
@@ -3454,6 +3561,7 @@
 				637077F21AC11628007652E1 /* good_morning-caption.gif in Resources */,
 				630BF5251A5EDFCE00F179F5 /* that_aint_funny-nocaption.mov in Resources */,
 				63A1D3111A194A0300FC0C45 /* wait_whet-caption.gif in Resources */,
+				6322228E1BBC769E0054AB4E /* friend_zone-caption.png in Resources */,
 				978F1CA21B8F62BC00ADA44C /* transparent_bg_keyboard_.png in Resources */,
 				637077D81AC11394007652E1 /* good_morning-nocaption.png in Resources */,
 				63BCCDA71920E92200C8508D /* schwam-caption.gif in Resources */,
@@ -3473,6 +3581,9 @@
 				977FBD7A1B8A843F00B75C05 /* bg_keyboard.png in Resources */,
 				6332782A1A82E0F4000557D0 /* i_love_you-nocaption.mov in Resources */,
 				630BF52C1A5EDFCE00F179F5 /* wait_whet-caption.mov in Resources */,
+				6322227E1BBC769E0054AB4E /* bravo-caption.gif in Resources */,
+				6322227D1BBC769E0054AB4E /* aka_stance.gif in Resources */,
+				632222931BBC769E0054AB4E /* pleeeaaase-caption.png in Resources */,
 				637078061AC116CD007652E1 /* tried_me-nocaption.gif in Resources */,
 				630451DB1ABF950A001DC8B2 /* thinking_about_you-caption.png in Resources */,
 				63BCCDA51920E92200C8508D /* really_male-caption.gif in Resources */,
@@ -3548,7 +3659,9 @@
 				630451E71ABF950A001DC8B2 /* wait_whet-caption.png in Resources */,
 				976E4F021B9AA0BF0057D6B2 /* EboticonIntroNEW640x960.mp4 in Resources */,
 				630BF4F01A5EDFCE00F179F5 /* bye_felicia-caption.mov in Resources */,
+				632222991BBC769E0054AB4E /* wink_male-nocaption.png in Resources */,
 				979CFFA11B8AAEE30041EE61 /* eboticon_purchase_gifs.csv in Resources */,
+				632222941BBC769E0054AB4E /* pleeeaaase-nocaption.png in Resources */,
 				630BF4FF1A5EDFCE00F179F5 /* happy_birthday-nocaption.mov in Resources */,
 				639B137F1B46FBFC00EF8997 /* werk1-caption.png in Resources */,
 				976E4F041B9AA0BF0057D6B2 /* EboticonIntroNEW768x1024.mp4 in Resources */,
@@ -3556,13 +3669,16 @@
 				6304517D1ABF950A001DC8B2 /* girl_gone-nocaption.png in Resources */,
 				63BCCD971920E92200C8508D /* hey_boo_hey-caption.gif in Resources */,
 				639B13281B46F0BD00EF8997 /* buckets-caption.png in Resources */,
+				632222881BBC769E0054AB4E /* whaaahhhh-caption.gif in Resources */,
 				971DEDA71BADD26100D2A751 /* round-switch-thumb@2x.png in Resources */,
 				979CFFAE1B8B71970041EE61 /* ChurchLeanTest.gif in Resources */,
 				630451D51ABF950A001DC8B2 /* thanks-nocaption.png in Resources */,
+				632222861BBC769E0054AB4E /* say_that-nocaption.gif in Resources */,
 				976E4F451B9B51A10057D6B2 /* say_that-nocaption.gif in Resources */,
 				639B13621B46F74600EF8997 /* werk-caption.gif in Resources */,
 				630451D31ABF950A001DC8B2 /* thanks-caption.png in Resources */,
 				630BF5371A5EDFCE00F179F5 /* wth-nocaption.mov in Resources */,
+				632222821BBC769E0054AB4E /* miss_you-caption.gif in Resources */,
 				630451F11ABF950A001DC8B2 /* where_they_do_that_at-nocaption.png in Resources */,
 				630451C91ABF950A001DC8B2 /* shade-nocaption.png in Resources */,
 				63055FFA1B516C0400A3B7DF /* crying-caption.gif in Resources */,
@@ -3597,6 +3713,7 @@
 				637077E41AC11394007652E1 /* tried_me-nocaption.png in Resources */,
 				633278521A82E120000557D0 /* i_love_you-nocaption.gif in Resources */,
 				976E4F441B9B51A10057D6B2 /* pleeeaaase-nocaption.png in Resources */,
+				6322228C1BBC769E0054AB4E /* bravo-nocaption.png in Resources */,
 				630452051ABF950A001DC8B2 /* you_mad-nocaption.png in Resources */,
 				631DC16A19CE474400B11541 /* slide_through_your_dm-nocaption.gif in Resources */,
 				630451651ABF950A001DC8B2 /* crying-nocaption.png in Resources */,
@@ -3608,15 +3725,18 @@
 				631DC16D19CE474400B11541 /* thank_ya-nocaption.gif in Resources */,
 				639B130E1B46F0A100EF8997 /* dead_female-caption.gif in Resources */,
 				637078221AC11714007652E1 /* you_knew-caption.mov in Resources */,
+				632222981BBC769E0054AB4E /* whaaahhhh-nocaption.png in Resources */,
 				639B13781B46F77700EF8997 /* excuse_me-nocaption.mov in Resources */,
 				6332784C1A82E120000557D0 /* deal_with_it-nocaption.gif in Resources */,
 				630451B71ABF950A001DC8B2 /* one_sec-nocaption.png in Resources */,
 				976E4F421B9B51A10057D6B2 /* pleeeaaase-caption.png in Resources */,
 				639B13161B46F0A100EF8997 /* uh_hello-caption.gif in Resources */,
 				630BF5031A5EDFCE00F179F5 /* have_several_seats-caption.mov in Resources */,
+				6322227F1BBC769E0054AB4E /* bravo-nocaption.gif in Resources */,
 				63C613311A1AE5AF004D821D /* bruh-caption.gif in Resources */,
 				63BCCDA81920E92200C8508D /* schwam-nocaption.gif in Resources */,
 				970658731B6A570A004B149A /* reveal-icon@2x.png in Resources */,
+				632222801BBC769E0054AB4E /* female_wink-nocaption.gif in Resources */,
 				630451F91ABF950A001DC8B2 /* wont_he_do_it_male-nocaption.png in Resources */,
 				630451551ABF950A001DC8B2 /* aye_girl-nocaption.png in Resources */,
 				637078241AC11714007652E1 /* you_knew-nocaption.mov in Resources */,
