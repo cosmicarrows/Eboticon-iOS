@@ -7,10 +7,10 @@ PODS:
   - AFNetworking/Security (2.6.0)
   - AFNetworking/Serialization (2.6.0)
   - CHCSVParser (2.0.7)
-  - CocoaLumberjack (1.9.1):
-    - CocoaLumberjack/Extensions (= 1.9.1)
-  - CocoaLumberjack/Core (1.9.1)
-  - CocoaLumberjack/Extensions (1.9.1):
+  - CocoaLumberjack (1.9.2):
+    - CocoaLumberjack/Extensions (= 1.9.2)
+  - CocoaLumberjack/Core (1.9.2)
+  - CocoaLumberjack/Extensions (1.9.2):
     - CocoaLumberjack/Core
   - DFImageManager (0.8.0):
     - DFImageManager/Core (= 0.8.0)
@@ -30,9 +30,9 @@ PODS:
   - DFImageManager/UI (0.8.0):
     - DFImageManager/Core
   - FLAnimatedImage (1.0.8)
-  - GPUImage (0.1.6)
-  - Harpy (3.3.1)
-  - iRate (1.10.3)
+  - GPUImage (0.1.7)
+  - Harpy (3.3.10)
+  - iRate (1.11.4)
   - SIAlertView (1.3)
   - Toast (2.4)
   - TTSwitch (0.0.6)
@@ -54,14 +54,14 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
-  CocoaLumberjack: e9b828e64142be63c1c130517b33aa5e235d2413
+  CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
   DFImageManager: 37d75898009b05e49d13e36576677c76847b7d2a
   FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
-  GPUImage: 4675ce4a5370ca92fcea8623b2a08b8f0c51b940
-  Harpy: 1c3f286473c97db20a19dda87582331e951036bc
-  iRate: 724a3e080d5b0681e50a57d6cef1a81f83c23df3
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  Harpy: 7cb3e32eea8a21af0e89b7f9f7bccd23f9427139
+  iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   SIAlertView: 20c794b55eaf44d888773ea51647cf8907723919
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0.beta.4
