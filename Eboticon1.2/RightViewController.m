@@ -253,7 +253,7 @@
     }
         
         NSLog(@"The Category name is %@",categoryName);
-        NSLog(@"The Caption state is %ld",(long)_captionState);
+        NSLog(@"The Caption state is %ld",(unsigned long)[_captionState  integerValue]);
         mainViewController.gifCategory = categoryName;
         mainViewController.captionState = _captionState;
     

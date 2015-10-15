@@ -19,6 +19,8 @@
 #import "DDLog.h"
 
 static const int ddLogLevel = LOG_LEVEL_ERROR;
+//static const int ddLogLevel = LOG_LEVEL_DEBUG;
+
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"

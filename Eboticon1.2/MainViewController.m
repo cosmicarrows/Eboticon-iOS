@@ -917,7 +917,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
              imageNames = _exclamationImagesNoCaption;
          }else {
              _gifCategory = CATEGORY_ALL;
-             imageNames = _allImages;
+             imageNames = _noCaptionImages;
          }
          
      }
