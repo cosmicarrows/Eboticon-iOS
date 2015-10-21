@@ -48,11 +48,26 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     [self createPackGifs];
     
     
-    //Add Buy Button
+    //Add Buy or Free Button
+    NSNumberFormatter * priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    [priceFormatter setLocale:self.product.priceLocale];
+    NSDecimalNumber *freeCost = [NSDecimalNumber decimalNumberWithDecimal:
+                                 [[NSNumber numberWithFloat:0.0f] decimalValue]];
+    
+    
     if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
-        DDLogDebug(@"Not purchased");
+        DDLogDebug(@"Purchased");
         
-    } else {
+    } else if([self.product.price compare:freeCost] == NSOrderedSame){
+        //Add Share Button
+        UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Free" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
+        self.navigationItem.rightBarButtonItem = buyButton;
+    }
+    else
+    {
         //Add Share Button
         UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
         self.navigationItem.rightBarButtonItem = buyButton;
