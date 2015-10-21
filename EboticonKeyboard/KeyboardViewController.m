@@ -435,7 +435,7 @@
             NSLog(@"heart images no caption: %lu", (unsigned long)_heartImagesNoCaption.count);
         
         //Set currnet gifs
-        _currentEboticonGifs = _heartImagesCaption;
+        _currentEboticonGifs = _smileImagesCaption;
         [self changeCategory:1];
         
         
@@ -703,29 +703,9 @@
     
     switch (tag) {
             
-            //Heart
-        case 1: {
-            
-            //Set Category Button
-            [self.heartButton setImage:[UIImage imageNamed:@"HLHeartSmaller.png"] forState:UIControlStateNormal];
-            [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
-            [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
-            [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
-            [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
-            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
-            
-            //Load Gifs depending on caption
-            if (_captionState) {
-                _currentEboticonGifs = _heartImagesCaption;
-            }
-            else{
-                _currentEboticonGifs = _heartImagesNoCaption;
-            }
-            
-        }
-            break;
+        
             //Smile
-        case 2: {
+        case 1: {
             
             //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
@@ -746,7 +726,7 @@
         }
             break;
             //No Smile
-        case 3: {
+        case 2: {
             
             //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
@@ -768,7 +748,7 @@
         }
             break;
             //Gift
-        case 4: {
+        case 3: {
             
             //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
@@ -791,7 +771,7 @@
         }
             break;
             //Exclamation
-        case 5: {
+        case 4: {
             
             //Set Category Button
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
@@ -807,6 +787,28 @@
             }
             else{
                 _currentEboticonGifs = _exclamationImagesNoCaption;
+            }
+            
+        }
+            break;
+            
+            //Heart
+        case 5: {
+            
+            //Set Category Button
+            [self.heartButton setImage:[UIImage imageNamed:@"HLHeartSmaller.png"] forState:UIControlStateNormal];
+            [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
+            [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
+            [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
+            [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+            [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+            
+            //Load Gifs depending on caption
+            if (_captionState) {
+                _currentEboticonGifs = _heartImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _heartImagesNoCaption;
             }
             
         }

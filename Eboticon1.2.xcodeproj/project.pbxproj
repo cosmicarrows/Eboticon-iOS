@@ -2456,6 +2456,7 @@
 				6325FA461A8FCB4C00C4CABB /* ShellScript */,
 				76FD957D2BCA4748884DC69C /* Copy Pods Resources */,
 				97702BE81B2772070011F6DE /* Embed App Extensions */,
+				35AFC096932134974B4C2067 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2475,6 +2476,7 @@
 				976E4F641B9B9B8E0057D6B2 /* Sources */,
 				976E4F651B9B9B8E0057D6B2 /* Frameworks */,
 				976E4F661B9B9B8E0057D6B2 /* Resources */,
+				3FD11D686C68286B2A8FC030 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3084,6 +3086,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		35AFC096932134974B4C2067 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3FD11D686C68286B2A8FC030 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6325FA461A8FCB4C00C4CABB /* ShellScript */ = {
