@@ -231,6 +231,14 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         
         //Remove Buy Button
         self.navigationItem.rightBarButtonItem = nil;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Pack purchased."
+                                                        message:[NSString stringWithFormat:@"Thank you for purchasing %@. Please click purchased icon on right menu or click on purchased icon in the keyboard to access. Enjoy!",self.product.localizedTitle ]
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+
     }
 }
 
