@@ -14,6 +14,7 @@
 #import "ShopViewController.h"
 #import "KeyboardTutorialViewController.h"
 #import "MoreViewController.h"
+#import "CustomNavigationController.h"
 
 @interface TabViewController ()<UITabBarDelegate>{
         NSInteger currentIndex;
@@ -82,7 +83,7 @@
     homeViewController.gifCategory = self.gifCategory;
     homeViewController.captionState = self.caption;
     
-    UINavigationController* homeNavController = [[UINavigationController alloc]
+    UINavigationController* homeNavController = [[CustomNavigationController alloc]
                                                      initWithRootViewController:homeViewController];
                         
     

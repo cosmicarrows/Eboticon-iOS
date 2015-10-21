@@ -198,12 +198,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     _imagePager.slideshowShouldCallScrollToDelegate = YES;
     
     [_imagePager setBounces:NO];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
     UIImageView *imageView = [[UIImageView alloc]
                               initWithFrame:CGRectMake(0,0,3,44)];
@@ -211,7 +205,12 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
-    
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
 }
 
