@@ -228,6 +228,9 @@
     //Initialize Gifs
     _currentEboticonGifs         = [[NSMutableArray alloc] init];
     _allImages                   = [[NSMutableArray alloc] init];
+    _purchasedImages             = [[NSMutableArray alloc] init];
+    _purchasedImagesCaption      = [[NSMutableArray alloc] init];
+    _purchasedImagesNoCaption    = [[NSMutableArray alloc] init];
     _exclamationImagesCaption    = [[NSMutableArray alloc] init];
     _exclamationImagesNoCaption  = [[NSMutableArray alloc] init];
     _smileImagesCaption          = [[NSMutableArray alloc] init];
@@ -653,6 +656,19 @@
         }
             break;
             
+        case 6: {
+            
+            //Load Gifs depending on caption
+            if (_captionState) {
+                _currentEboticonGifs = _purchasedImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _purchasedImagesNoCaption;
+            }
+            
+        }
+            break;
+            
             //Return or Globe
         default:
             break;
@@ -826,10 +842,10 @@
             
             //Load Gifs depending on caption
             if (_captionState) {
-                _currentEboticonGifs = _purchasedImages;
+                _currentEboticonGifs = _purchasedImagesCaption;
             }
             else{
-                _currentEboticonGifs = _purchasedImages;
+                _currentEboticonGifs = _purchasedImagesNoCaption;
             }
             
         }
@@ -1079,75 +1095,66 @@
 
 
 
-
 - (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
     
+    NSError *error = nil;
     
+    //Read All Gifs From CSV
     @try {
+        NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
         
-        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
-        if (csvArray == nil) {
-            NSLog(@"Error parsing file");
+        if (csvImages == nil) {
+            NSLog(@"Error parsing file: %@", error);
             return;
-        } else {
+        }
+        else {
             
-            NSMutableArray *element = [[NSMutableArray alloc]init];
-            
-            for(int i=0; i<[csvArray count];i++){
-                EboticonGif *currentGif = [[EboticonGif alloc] init];
-                element = [csvArray objectAtIndex: i];
-                //NSLog(@"Element %i = %@", i, element);
-                // NSLog(@"Element Count = %lu", (unsigned long)[element count]);
-                
-                for(int j=0; j<[element count];j++) {
-                    NSString *value = [element objectAtIndex: j];
-                    //NSLog(@"Value %i = %@", j, value);
-                    switch (j) {
-                        case 0:
-                            [currentGif setFileName:value];
-                            break;
-                        case 1:
-                            [currentGif setStillName:value];
-                            break;
-                        case 2:
-                            [currentGif setDisplayName:value];
-                            break;
-                        case 3:
-                            [currentGif setCategory:value];
-                            break;
-                        case 4:
-                            [currentGif setMovFileName:value];
-                            break;
-                        case 5:
-                            [currentGif setDisplayType:value];
-                            break;
-                        case 6:
-                            [currentGif setEmotionCategory:value];
-                            break;
-                        default:
-                
-                            break;
-                    }
-                    
-                }
-                
-                NSString * gifCategory = [currentGif emotionCategory]; //Category
+            NSLog(@"Number purchased gifs: %d", [csvImages count]);
+            // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
+            for (int cnt=0; cnt<[csvImages count]; cnt++)
+            {
                 
                 
+                EboticonGif *eboticonObject = [[EboticonGif alloc] init];
+                
+                eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
+                eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
+                eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
+                eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
+                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+                eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
+                eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
+                
+                
+                NSString * gifCategory = eboticonObject.emotionCategory;
+                NSString * isCaption = eboticonObject.category;
                 if([productIdentifier isEqual:gifCategory]) {
-                    [_purchasedImages addObject:currentGif];
+                    NSLog(@"adding  gif: %d", cnt);
+                    NSLog(@"emotionCategory : %@", gifCategory);
+                    [_purchasedImages addObject:eboticonObject];
                 }
                 
+                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
+                    NSLog(@"adding  gif: %d", cnt);
+                    NSLog(@"emotionCategory : %@", gifCategory);
+                    [_purchasedImagesCaption addObject:eboticonObject];
+                }
+              
+                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
+                    NSLog(@"adding  gif: %d", cnt);
+                    NSLog(@"emotionCategory : %@", gifCategory);
+                    [_purchasedImagesNoCaption addObject:eboticonObject];
+                }
             }
         }
+        
+        
     }
     @catch (NSException *exception) {
         NSLog(@"Unable to load csv: %@",exception);
     }
-    
-    
 }
 
 #pragma mark-
@@ -1260,15 +1267,42 @@
         NSLog(@"tap count %ld", (long)_tappedImageCount);
         NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
-        // Make toast
-        [self.view makeToast:@"Tap again to copy Eboticon."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
         
+        NSLog(@"Button Tapped ");
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
         
+        if([UIPasteboard generalPasteboard]){
+            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+            // [pasteboard setImage:image];
+            
+            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
+            NSString * urlPath = currentGif.gifUrl;
+            
+            NSLog(@"%@",urlPath);
+            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+            //NSData *data = [NSData dataWithContentsOfFile:filePath];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+            
+            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            
+            // Make toast with an image
+            [self.view makeToast:@"Eboticon copied. Now paste it!"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
+        else{
+            
+            // Make toast with an image
+            [self.view makeToast:@"Please allow full access. Go to Settings->General->Keyboard->Eboticons->Allow full access"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
+    
     }
     //Tapped different image
     else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row && allowedOpenAccess){
@@ -1277,15 +1311,40 @@
         NSLog(@"currentImage %ld", (long)_currentImageSelected);
         NSLog(@"tap count %ld", (long)_tappedImageCount);
         NSLog(@"lastImage %ld", (long)_lastImageSelected);
+    
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
         
-        
-        // Make toast
-        [self.view makeToast:@"Tap again to copy Eboticon."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
+        if([UIPasteboard generalPasteboard]){
+            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+            // [pasteboard setImage:image];
+            
+            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
+            NSString * urlPath = currentGif.gifUrl;
+            
+            NSLog(@"%@",urlPath);
+            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+            //NSData *data = [NSData dataWithContentsOfFile:filePath];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+            
+            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            
+            // Make toast with an image
+            [self.view makeToast:@"Eboticon copied. Now paste it!"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
+        else{
+            
+            // Make toast with an image
+            [self.view makeToast:@"Please allow full access. Go to Settings->General->Keyboard->Eboticons->Allow full access"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
         
         
         NSIndexPath *lastPath = [NSIndexPath indexPathForRow:_lastImageSelected inSection:0];
@@ -1317,9 +1376,6 @@
                         duration:3.0
                         position:CSToastPositionCenter
              ];
-            
-            
-            
         }
         else{
             
@@ -1344,10 +1400,36 @@
         _currentImageSelected = indexPath.row;
         
         // Make toast
-        [self.view makeToast:@"Tap again to copy Eboticon."
-                    duration:2.0
-                    position:CSToastPositionCenter
-         ];
+        if([UIPasteboard generalPasteboard]){
+            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+            // [pasteboard setImage:image];
+            
+            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
+            NSString * urlPath = currentGif.gifUrl;
+            
+            NSLog(@"%@",urlPath);
+            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+            //NSData *data = [NSData dataWithContentsOfFile:filePath];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+            
+            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            
+            // Make toast with an image
+            [self.view makeToast:@"Eboticon copied. Now paste it!"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
+        else{
+            
+            // Make toast with an image
+            [self.view makeToast:@"Please allow full access. Go to Settings->General->Keyboard->Eboticons->Allow full access"
+                        duration:3.0
+                        position:CSToastPositionCenter
+             ];
+            
+        }
         
     }
     else {

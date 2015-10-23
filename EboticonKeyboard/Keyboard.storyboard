@@ -129,7 +129,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ufn-7Q-78F"/>
                                     <barButtonItem image="HeartSmaller" style="plain" id="SbA-Oz-Z69">
-                                        <button key="customView" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TFI-aJ-PWG">
+                                        <button key="customView" opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TFI-aJ-PWG">
                                             <rect key="frame" x="193" y="2" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="HeartSmaller">

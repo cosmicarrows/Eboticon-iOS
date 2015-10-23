@@ -27,7 +27,7 @@
 #import "MainViewController.h"
 #import "SidebarCategoryTableViewCell.h"
 #import "TTSwitch.h"
-
+#import "FilterData.h"
 
 
 //Name of Categories in the CSV File
@@ -90,6 +90,8 @@
     //Set Caption Switch to On
     self.captionSwitch.on = true;
      _captionState = @(1);
+    FilterData *sharedFilterData = [FilterData sharedInstance];
+    sharedFilterData.captionState = @(1);
     
     //Show Caption Switch
     [self.view addSubview: self.captionSwitch];
@@ -110,15 +112,22 @@
 #pragma mark - Key methods
 
 - (void)changeCaptionSwitch:(id)sender{
+    FilterData *sharedFilterData = [FilterData sharedInstance];
     if([sender isOn]){
         // Execute any code when the switch is ON
         NSLog(@"Switch is ON");
         _captionState = @(1);
+        sharedFilterData.captionState = @(1);
+     
     } else{
         // Execute any code when the switch is OFF
         NSLog(@"Switch is OFF");
         _captionState = @(0);
+        sharedFilterData.captionState = @(0);
     }
+    
+
+    
 }
 
 
@@ -153,12 +162,14 @@
 
 - (IBAction)replaceMe:(id)sender
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     RightViewController *replacement = [[RightViewController alloc] init];
     [self.revealViewController setRightViewController:replacement animated:YES];
 }
 
 - (IBAction)replaceMeCustom:(id)sender
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     RightViewController *replacement = [[RightViewController alloc] init];
     replacement.wantsCustomAnimation = YES;
     [self.revealViewController setRightViewController:replacement animated:YES];
@@ -190,7 +201,7 @@
 
 
 - (IBAction) purchasedKeyPressed:(UIButton*)sender {
-    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
  
     
     //Change category
@@ -207,6 +218,7 @@
 
 
 - (void) categoryKeyPressed:(NSInteger)tag {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     //switches to user's next category
  

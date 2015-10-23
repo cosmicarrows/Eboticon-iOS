@@ -584,6 +584,7 @@
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
 		97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A3830D1B67E0E4002F5571 /* iAd.framework */; };
 		97A383121B695D7B002F5571 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383111B695D7B002F5571 /* TabViewController.m */; };
+		97E46BF51BDA5F8000A83A05 /* FilterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E46BF41BDA5F8000A83A05 /* FilterData.m */; settings = {ASSET_TAGS = (); }; };
 		97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E64C821BD83BB7009DB493 /* CustomNavigationController.m */; settings = {ASSET_TAGS = (); }; };
 		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
 		97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
@@ -1274,6 +1275,8 @@
 		97A3830D1B67E0E4002F5571 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		97A383101B695D7B002F5571 /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
 		97A383111B695D7B002F5571 /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		97E46BF31BDA5F8000A83A05 /* FilterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterData.h; sourceTree = "<group>"; };
+		97E46BF41BDA5F8000A83A05 /* FilterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterData.m; sourceTree = "<group>"; };
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		97E64C821BD83BB7009DB493 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		9FE1E45EC170D315E412DF3C /* libPods-EboticonKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EboticonKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1916,6 +1919,8 @@
 				63FAE3C21868CCE900116D73 /* JMCategoriesData.m */,
 				63B6CB4418F07C9600D1F08A /* EboticonGif.h */,
 				63B6CB4518F07C9600D1F08A /* EboticonGif.m */,
+				97E46BF31BDA5F8000A83A05 /* FilterData.h */,
+				97E46BF41BDA5F8000A83A05 /* FilterData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3198,6 +3203,7 @@
 				9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */,
 				976E4EF21B9A96660057D6B2 /* XOSplashVideoController.m in Sources */,
 				63CE781E18AD6B040069049F /* EboticonViewController.m in Sources */,
+				97E46BF51BDA5F8000A83A05 /* FilterData.m in Sources */,
 				6384DAF619AD7FEF00CD31BF /* EBOActivityTypePostToInstagram.m in Sources */,
 				6337EB3E188B11D200332C75 /* OLImageView.m in Sources */,
 				63A70AB018A606540075B829 /* MoreViewController.m in Sources */,

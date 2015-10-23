@@ -23,6 +23,7 @@
 #import "DDLog.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
+#import "FilterData.h"
 
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
@@ -196,6 +197,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 }
 
 - (void)reverseMenu:(UITapGestureRecognizer *)sender{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [self.revealViewController rightRevealToggleForTapGesture];
 }
 
@@ -866,6 +868,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.revealViewController wasAnimated]){
+        FilterData *sharedFilterData = [FilterData sharedInstance];
+        _captionState = sharedFilterData.captionState;
+        [self.collectionView reloadData];
         [self reverseMenu:nil];
         return;
     }
