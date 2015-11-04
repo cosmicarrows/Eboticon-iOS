@@ -48,6 +48,11 @@
     
     //[self showSplashVideo];
     
+    //PARSE
+    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
+                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        
     [self initialize];
     // Override point for customization after application launch.
     return YES;
@@ -245,7 +250,7 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-3"];
     DDLogInfo(@"Google Analytics Enabled for Lite Version");
 #else
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-2"];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48552713-4"];
     DDLogInfo(@"Google Analytics Enabled for Paid Version");
 #endif
     
@@ -270,11 +275,6 @@
     
     //FABRIC
     [Fabric with:@[CrashlyticsKit]];
-    
-    
-    //PARSE
-    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
-                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
 }
 
 /**

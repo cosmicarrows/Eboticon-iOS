@@ -22,8 +22,8 @@
 #import "TTSwitch.h"
 
 #import <DFImageManager/DFImageManagerKit.h>
+#import <Parse/Parse.h>
 #import "Reachability.h"
-
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -129,6 +129,12 @@
     [super viewDidLoad];
     
     NSLog(@"Keyboard Started");
+    
+    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
+                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
+    
     /*
      Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
      */
@@ -1111,7 +1117,7 @@
         }
         else {
             
-            NSLog(@"Number purchased gifs: %d", [csvImages count]);
+            NSLog(@"Number purchased gifs: %lu", (unsigned long)[csvImages count]);
             // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
             for (int cnt=0; cnt<[csvImages count]; cnt++)
             {
@@ -1285,6 +1291,16 @@
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
             
             [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            
+            //PARSE ANALYTICS
+            NSDictionary *dimensions = @{
+                                         @"category": @"eboticon_copied",
+                                         // Is it a weekday or the weekend?
+                                         @"eboji": currentGif.getFileName,
+                                         };
+            // Send the dimensions to Parse along with the 'read' event
+            
+            [PFAnalytics trackEvent:@"read" dimensions:dimensions];
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"

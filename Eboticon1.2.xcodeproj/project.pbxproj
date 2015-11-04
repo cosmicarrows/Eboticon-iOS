@@ -236,8 +236,6 @@
 		6322233C1BBCA99D0054AB4E /* alphas-caption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322233A1BBCA99D0054AB4E /* alphas-caption.png */; settings = {ASSET_TAGS = (); }; };
 		6322233D1BBCA99D0054AB4E /* alphas-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322233B1BBCA99D0054AB4E /* alphas-nocaption.png */; settings = {ASSET_TAGS = (); }; };
 		6325FA491A8FCC2300C4CABB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA471A8FCC2300C4CABB /* Crashlytics.framework */; };
-		6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA4C1A8FD29B00C4CABB /* Bolts.framework */; };
-		6325FA4F1A8FD29B00C4CABB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA4D1A8FD29B00C4CABB /* Parse.framework */; };
 		6325FA511A8FD2D600C4CABB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */; };
 		6325FA531A8FD2F000C4CABB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA521A8FD2F000C4CABB /* CFNetwork.framework */; };
 		6325FA551A8FD30400C4CABB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA541A8FD30400C4CABB /* CoreLocation.framework */; };
@@ -272,6 +270,20 @@
 		6337EB3D188B11D200332C75 /* OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337EB3A188B11D200332C75 /* OLImage.m */; };
 		6337EB3E188B11D200332C75 /* OLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337EB3C188B11D200332C75 /* OLImageView.m */; };
 		6351833118F6BBA700932C04 /* EboticonGifCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6351833018F6BBA700932C04 /* EboticonGifCell.m */; };
+		6351D3621BE51A7A00D571D8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */; };
+		6351D3631BE51ABE00D571D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA521A8FD2F000C4CABB /* CFNetwork.framework */; };
+		6351D3641BE51ABE00D571D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAE3881868CC0200116D73 /* CoreGraphics.framework */; };
+		6351D3651BE51ABE00D571D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA541A8FD30400C4CABB /* CoreLocation.framework */; };
+		6351D3661BE51ABE00D571D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA581A8FD33500C4CABB /* QuartzCore.framework */; };
+		6351D3671BE51ABE00D571D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA5A1A8FD34800C4CABB /* Security.framework */; };
+		6351D3681BE51ABE00D571D8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977FBD701B8A61A400B75C05 /* StoreKit.framework */; };
+		6351D3691BE51ABE00D571D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EBD18E5FC5000DC1204 /* SystemConfiguration.framework */; };
+		6351D36B1BE51ABE00D571D8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D36A1BE51ABE00D571D8 /* libz.tbd */; };
+		6351D36D1BE51ADC00D571D8 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */; };
+		6351D3731BE523C300D571D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3711BE523C300D571D8 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		6351D3741BE523C300D571D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3711BE523C300D571D8 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		6351D3751BE523C300D571D8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3721BE523C300D571D8 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		6351D3761BE523C300D571D8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3721BE523C300D571D8 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
 		635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */; };
 		6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368612C186D555C00EF3CC5 /* GifCollectionViewController.m */; };
 		636B4E131B4C1FEC000E2128 /* uh_hello-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 636B4E121B4C1FEC000E2128 /* uh_hello-nocaption.png */; };
@@ -856,8 +868,6 @@
 		6322233B1BBCA99D0054AB4E /* alphas-nocaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphas-nocaption.png"; sourceTree = "<group>"; };
 		632448481AAB67470057ABB2 /* EboticonLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EboticonLite-Info.plist"; path = "/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/EboticonLite-Info.plist"; sourceTree = "<absolute>"; };
 		6325FA471A8FCC2300C4CABB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		6325FA4C1A8FD29B00C4CABB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		6325FA4D1A8FD29B00C4CABB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6325FA521A8FD2F000C4CABB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6325FA541A8FD30400C4CABB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -901,6 +911,10 @@
 		6337EB3C188B11D200332C75 /* OLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLImageView.m; sourceTree = "<group>"; };
 		6351832F18F6BBA700932C04 /* EboticonGifCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EboticonGifCell.h; path = ../EboticonGifCell.h; sourceTree = "<group>"; };
 		6351833018F6BBA700932C04 /* EboticonGifCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EboticonGifCell.m; path = ../EboticonGifCell.m; sourceTree = "<group>"; };
+		6351D36A1BE51ABE00D571D8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		6351D3711BE523C300D571D8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		6351D3721BE523C300D571D8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		635FBC9F18CA6A210054D163 /* GifCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		6368612B186D555C00EF3CC5 /* GifCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewController.h; sourceTree = "<group>"; };
@@ -1295,7 +1309,6 @@
 				977FBD711B8A61A400B75C05 /* StoreKit.framework in Frameworks */,
 				6325FA591A8FD33500C4CABB /* QuartzCore.framework in Frameworks */,
 				97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */,
-				6325FA4E1A8FD29B00C4CABB /* Bolts.framework in Frameworks */,
 				6325FA5B1A8FD34800C4CABB /* Security.framework in Frameworks */,
 				6325FA571A8FD31D00C4CABB /* MobileCoreServices.framework in Frameworks */,
 				6325FA551A8FD30400C4CABB /* CoreLocation.framework in Frameworks */,
@@ -1307,12 +1320,13 @@
 				63376EBE18E5FC5000DC1204 /* SystemConfiguration.framework in Frameworks */,
 				63376EBC18E5FC4300DC1204 /* CoreData.framework in Frameworks */,
 				63376EBA18E5FC3500DC1204 /* AdSupport.framework in Frameworks */,
-				6325FA4F1A8FD29B00C4CABB /* Parse.framework in Frameworks */,
 				6325FA491A8FCC2300C4CABB /* Crashlytics.framework in Frameworks */,
 				A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */,
+				6351D3751BE523C300D571D8 /* Parse.framework in Frameworks */,
 				63A70AB218A609970075B829 /* MessageUI.framework in Frameworks */,
 				63FAE3891868CC0200116D73 /* CoreGraphics.framework in Frameworks */,
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
+				6351D3731BE523C300D571D8 /* Bolts.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
 				385DE330CEEAE1743E27C3CC /* libPods-Eboticon1.2.a in Frameworks */,
 			);
@@ -1322,6 +1336,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6351D36D1BE51ADC00D571D8 /* libsqlite3.tbd in Frameworks */,
+				6351D36B1BE51ABE00D571D8 /* libz.tbd in Frameworks */,
+				6351D3631BE51ABE00D571D8 /* CFNetwork.framework in Frameworks */,
+				6351D3741BE523C300D571D8 /* Bolts.framework in Frameworks */,
+				6351D3641BE51ABE00D571D8 /* CoreGraphics.framework in Frameworks */,
+				6351D3651BE51ABE00D571D8 /* CoreLocation.framework in Frameworks */,
+				6351D3761BE523C300D571D8 /* Parse.framework in Frameworks */,
+				6351D3661BE51ABE00D571D8 /* QuartzCore.framework in Frameworks */,
+				6351D3671BE51ABE00D571D8 /* Security.framework in Frameworks */,
+				6351D3681BE51ABE00D571D8 /* StoreKit.framework in Frameworks */,
+				6351D3691BE51ABE00D571D8 /* SystemConfiguration.framework in Frameworks */,
+				6351D3621BE51A7A00D571D8 /* AudioToolbox.framework in Frameworks */,
 				4D1E65B0B139B0051EF5896C /* libPods-EboticonKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1371,12 +1397,12 @@
 		6337EB37188B11A500332C75 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				63376EAF18E5FB5400DC1204 /* Google Analytics */,
 				976E4EEC1B9A964F0057D6B2 /* XOSplash */,
 				977FBD721B8A647900B75C05 /* IAP */,
 				9760B5781B7A87D900E75EEC /* Reachability */,
 				9760B5641B79342600E75EEC /* KIImagePager */,
 				9706586A1B6A5473004B149A /* SWReveal */,
-				63376EAF18E5FB5400DC1204 /* Google Analytics */,
 				6373A00318C2467400E7ECBD /* Fonts */,
 				63A70AB818A6A1000075B829 /* iTellAFriend */,
 				6337EB38188B11AF00332C75 /* OLImage */,
@@ -1817,6 +1843,10 @@
 		63FAE3851868CC0200116D73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6351D3711BE523C300D571D8 /* Bolts.framework */,
+				6351D3721BE523C300D571D8 /* Parse.framework */,
+				6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */,
+				6351D36A1BE51ABE00D571D8 /* libz.tbd */,
 				977FBD701B8A61A400B75C05 /* StoreKit.framework */,
 				97A3830D1B67E0E4002F5571 /* iAd.framework */,
 				A78A244F1B26C6E1007A4931 /* Fabric.framework */,
@@ -1827,8 +1857,6 @@
 				6325FA541A8FD30400C4CABB /* CoreLocation.framework */,
 				6325FA521A8FD2F000C4CABB /* CFNetwork.framework */,
 				6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */,
-				6325FA4C1A8FD29B00C4CABB /* Bolts.framework */,
-				6325FA4D1A8FD29B00C4CABB /* Parse.framework */,
 				6325FA471A8FCC2300C4CABB /* Crashlytics.framework */,
 				63B6CB4218F06D5300D1F08A /* libsqlite3.dylib */,
 				63376EBF18E5FC5B00DC1204 /* libz.dylib */,
@@ -2474,7 +2502,6 @@
 				6325FA461A8FCB4C00C4CABB /* ShellScript */,
 				76FD957D2BCA4748884DC69C /* Copy Pods Resources */,
 				97702BE81B2772070011F6DE /* Embed App Extensions */,
-				35AFC096932134974B4C2067 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2494,7 +2521,6 @@
 				976E4F641B9B9B8E0057D6B2 /* Sources */,
 				976E4F651B9B9B8E0057D6B2 /* Frameworks */,
 				976E4F661B9B9B8E0057D6B2 /* Resources */,
-				3FD11D686C68286B2A8FC030 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3106,36 +3132,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		35AFC096932134974B4C2067 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3FD11D686C68286B2A8FC030 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6325FA461A8FCB4C00C4CABB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3440,7 +3436,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3450,6 +3451,10 @@
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EboticonKeyboard",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3466,12 +3471,21 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EboticonKeyboard",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
