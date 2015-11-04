@@ -3,7 +3,7 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "male-app-icon.png",
+      "filename" : "female-v2-29pt.png",
       "scale" : "2x"
     },
     {
@@ -14,7 +14,7 @@
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "male-app-icon-40pt.png",
+      "filename" : "female-v2-40pt.png",
       "scale" : "2x"
     },
     {
@@ -25,13 +25,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "male-app-icon-120pt.png",
+      "filename" : "female-v2-120pt.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "male-app-icon-60pt3x.png",
+      "filename" : "female-v2-60pt3x.png",
       "scale" : "3x"
     }
   ],
