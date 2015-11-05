@@ -1,11 +1,11 @@
 PODS:
-  - AFNetworking/NSURLSession (2.6.0):
+  - AFNetworking/NSURLSession (2.6.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/Reachability (2.6.1)
+  - AFNetworking/Security (2.6.1)
+  - AFNetworking/Serialization (2.6.1)
   - CHCSVParser (2.0.7)
   - CocoaLumberjack (1.9.2):
     - CocoaLumberjack/Extensions (= 1.9.2)
@@ -52,7 +52,7 @@ DEPENDENCIES:
   - TTSwitch (~> 0.0.5)
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
   CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
   DFImageManager: 37d75898009b05e49d13e36576677c76847b7d2a
@@ -64,4 +64,4 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

@@ -242,10 +242,6 @@
 		6351D3691BE51ABE00D571D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63376EBD18E5FC5000DC1204 /* SystemConfiguration.framework */; };
 		6351D36B1BE51ABE00D571D8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D36A1BE51ABE00D571D8 /* libz.tbd */; };
 		6351D36D1BE51ADC00D571D8 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */; };
-		6351D3731BE523C300D571D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3711BE523C300D571D8 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		6351D3741BE523C300D571D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3711BE523C300D571D8 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		6351D3751BE523C300D571D8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3721BE523C300D571D8 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
-		6351D3761BE523C300D571D8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351D3721BE523C300D571D8 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
 		635FBCA118CA6A210054D163 /* GifCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */; };
 		6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368612C186D555C00EF3CC5 /* GifCollectionViewController.m */; };
 		636B4E131B4C1FEC000E2128 /* uh_hello-nocaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 636B4E121B4C1FEC000E2128 /* uh_hello-nocaption.png */; };
@@ -467,6 +463,10 @@
 		971DEDA71BADD26100D2A751 /* round-switch-thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9C1BADD26100D2A751 /* round-switch-thumb@2x.png */; };
 		971DEDA81BADD26100D2A751 /* round-switch-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9D1BADD26100D2A751 /* round-switch-track.png */; };
 		971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9E1BADD26100D2A751 /* round-switch-track@2x.png */; };
+		975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		975C939C1BEBB5AC00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		975C939D1BEBB6DF00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
+		975C939E1BEBB6F900006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; };
 		9760B5351B750B6800E75EEC /* page1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5311B750B6800E75EEC /* page1.png */; };
 		9760B5361B750B6800E75EEC /* page2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5321B750B6800E75EEC /* page2.png */; };
 		9760B5371B750B6800E75EEC /* page3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9760B5331B750B6800E75EEC /* page3.png */; };
@@ -816,8 +816,6 @@
 		6351833018F6BBA700932C04 /* EboticonGifCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EboticonGifCell.m; path = ../EboticonGifCell.m; sourceTree = "<group>"; };
 		6351D36A1BE51ABE00D571D8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		6351D3711BE523C300D571D8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		6351D3721BE523C300D571D8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		635FBC9F18CA6A210054D163 /* GifCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		635FBCA018CA6A210054D163 /* GifCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		6368612B186D555C00EF3CC5 /* GifCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewController.h; sourceTree = "<group>"; };
@@ -1077,6 +1075,8 @@
 		971DED9C1BADD26100D2A751 /* round-switch-thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-thumb@2x.png"; sourceTree = "<group>"; };
 		971DED9D1BADD26100D2A751 /* round-switch-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-track.png"; sourceTree = "<group>"; };
 		971DED9E1BADD26100D2A751 /* round-switch-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-track@2x.png"; sourceTree = "<group>"; };
+		975C93991BEBB5AC00006823 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		975C939A1BEBB5AC00006823 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9760B5311B750B6800E75EEC /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
 		9760B5321B750B6800E75EEC /* page2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page2.png; sourceTree = "<group>"; };
 		9760B5331B750B6800E75EEC /* page3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page3.png; sourceTree = "<group>"; };
@@ -1203,11 +1203,11 @@
 				63376EBA18E5FC3500DC1204 /* AdSupport.framework in Frameworks */,
 				6325FA491A8FCC2300C4CABB /* Crashlytics.framework in Frameworks */,
 				A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */,
-				6351D3751BE523C300D571D8 /* Parse.framework in Frameworks */,
+				975C939C1BEBB5AC00006823 /* Parse.framework in Frameworks */,
 				63A70AB218A609970075B829 /* MessageUI.framework in Frameworks */,
 				63FAE3891868CC0200116D73 /* CoreGraphics.framework in Frameworks */,
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
-				6351D3731BE523C300D571D8 /* Bolts.framework in Frameworks */,
+				975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
 				385DE330CEEAE1743E27C3CC /* libPods-Eboticon1.2.a in Frameworks */,
 			);
@@ -1217,13 +1217,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				975C939E1BEBB6F900006823 /* Bolts.framework in Frameworks */,
+				975C939D1BEBB6DF00006823 /* Parse.framework in Frameworks */,
 				6351D36D1BE51ADC00D571D8 /* libsqlite3.tbd in Frameworks */,
 				6351D36B1BE51ABE00D571D8 /* libz.tbd in Frameworks */,
 				6351D3631BE51ABE00D571D8 /* CFNetwork.framework in Frameworks */,
-				6351D3741BE523C300D571D8 /* Bolts.framework in Frameworks */,
 				6351D3641BE51ABE00D571D8 /* CoreGraphics.framework in Frameworks */,
 				6351D3651BE51ABE00D571D8 /* CoreLocation.framework in Frameworks */,
-				6351D3761BE523C300D571D8 /* Parse.framework in Frameworks */,
 				6351D3661BE51ABE00D571D8 /* QuartzCore.framework in Frameworks */,
 				6351D3671BE51ABE00D571D8 /* Security.framework in Frameworks */,
 				6351D3681BE51ABE00D571D8 /* StoreKit.framework in Frameworks */,
@@ -1664,10 +1664,10 @@
 		63FAE3851868CC0200116D73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6351D3711BE523C300D571D8 /* Bolts.framework */,
-				6351D3721BE523C300D571D8 /* Parse.framework */,
 				6351D36C1BE51ADC00D571D8 /* libsqlite3.tbd */,
 				6351D36A1BE51ABE00D571D8 /* libz.tbd */,
+				975C93991BEBB5AC00006823 /* Bolts.framework */,
+				975C939A1BEBB5AC00006823 /* Parse.framework */,
 				977FBD701B8A61A400B75C05 /* StoreKit.framework */,
 				97A3830D1B67E0E4002F5571 /* iAd.framework */,
 				A78A244F1B26C6E1007A4931 /* Fabric.framework */,
@@ -2323,6 +2323,7 @@
 				6325FA461A8FCB4C00C4CABB /* ShellScript */,
 				76FD957D2BCA4748884DC69C /* Copy Pods Resources */,
 				97702BE81B2772070011F6DE /* Embed App Extensions */,
+				06035C29F231DEBB6C673D98 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2342,6 +2343,7 @@
 				976E4F641B9B9B8E0057D6B2 /* Sources */,
 				976E4F651B9B9B8E0057D6B2 /* Frameworks */,
 				976E4F661B9B9B8E0057D6B2 /* Resources */,
+				21D9F5665FF312B42A85A303 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2864,6 +2866,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		06035C29F231DEBB6C673D98 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21D9F5665FF312B42A85A303 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		264B82EB419C47B68CD29948 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3105,6 +3137,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3150,6 +3183,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3193,6 +3227,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30BF39BE8C581BB921825C9C /* Pods-EboticonKeyboard.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = EboticonKeyboard/EboticonKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3227,6 +3262,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8BE3841F46EB28AEBFBC2A2A /* Pods-EboticonKeyboard.release.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = EboticonKeyboard/EboticonKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
