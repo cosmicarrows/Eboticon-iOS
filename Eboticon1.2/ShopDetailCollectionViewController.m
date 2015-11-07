@@ -44,6 +44,17 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     //Sets the navigation bar title
     [self.navigationItem setTitle:[self.product.localizedTitle uppercaseString]];
     
+    //Change Title Size
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    
+    NSDictionary *size = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                          shadow, NSShadowAttributeName,
+                          [UIFont fontWithName:@"Avenir-Black" size:14.0], NSFontAttributeName, nil];
+    self.navigationController.navigationBar.titleTextAttributes = size;
+    
+
     //Create Pack Gifs object
     [self createPackGifs];
     
