@@ -48,10 +48,12 @@
     NSInteger _lastImageSelected;
     NSInteger _captionState;
     NSInteger _scrollSwipeState;
+    NSInteger _currentNumberGifs;
     
     NSArray *_csvImages;
     
     NSMutableArray *_currentEboticonGifs;
+  
     NSArray *_purchasedProducts;
     
     NSMutableArray *_allImages;
@@ -203,6 +205,7 @@
     
     //Set Keyboard Frame
     self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+   
     
     //Set activity frame and position
     self.activityIndicator.frame = CGRectMake(0.0, 0.0, 80.0, 80.0);
@@ -219,6 +222,21 @@
     
     //Set Image View
     self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
+    
+    
+    
+    //CGFloat pageWidth    = self.keyboardCollectionView.frame.size.width;
+    CGFloat pageWidth      = self.flowLayout.itemSize.width*4;
+    CGFloat pageHeight     = self.keyboardCollectionView.frame.size.height;
+    CGFloat pageNumber      =    self.pageControl.numberOfPages;
+    //CGFloat contentSize    = self.keyboardCollectionView.contentSize.width;
+
+    [self.keyboardCollectionView setContentSize:CGSizeMake(pageWidth*pageNumber, pageHeight)];
+    
+    NSLog(@"keyboard width %f", self.keyboardView.frame.size.width);
+    NSLog(@"keyboard collection view width %f", self.keyboardCollectionView.frame.size.width);
+    NSLog(@"keyboard collection view content size width %f",  self.keyboardCollectionView.contentSize.width);
+    
 }
 
 #pragma mark
@@ -438,10 +456,10 @@
         
         
         //Print Counts
-            NSLog(@"smile images caption: %lu", (unsigned long)_smileImagesCaption.count);
-            NSLog(@"heart images no caption: %lu", (unsigned long)_smileImagesNoCaption.count);
-            NSLog(@"heart images caption: %lu", (unsigned long)_heartImagesCaption.count);
-            NSLog(@"heart images no caption: %lu", (unsigned long)_heartImagesNoCaption.count);
+           // NSLog(@"smile images caption: %lu", (unsigned long)_smileImagesCaption.count);
+           // NSLog(@"heart images no caption: %lu", (unsigned long)_smileImagesNoCaption.count);
+            //NSLog(@"heart images caption: %lu", (unsigned long)_heartImagesCaption.count);
+           // NSLog(@"heart images no caption: %lu", (unsigned long)_heartImagesNoCaption.count);
         
         //Set currnet gifs
         _currentEboticonGifs = _smileImagesCaption;
@@ -906,20 +924,18 @@
     
     //CGFloat pageWidth    = self.keyboardCollectionView.frame.size.width;
     CGFloat pageWidth      = self.flowLayout.itemSize.width*4;
-    
     CGFloat pageHeight     = self.keyboardCollectionView.frame.size.height;
     //CGFloat contentSize    = self.keyboardCollectionView.contentSize.width;
     
     
     //NSLog(@"%f", numberOfGifs);
-    /*
-     *NSLog(@"*****");
-     NSLog(@"numberOfGifs: %f", numberOfGifs)
-     ;
+    
+     NSLog(@"*****");
+    NSLog(@"page num   : %f", pageNumber);
+     NSLog(@"numberOfGifs: %f", numberOfGifs);
      NSLog(@"page num   calc: %f", ceil(numberOfGifs/8));
-     NSLog(@"page num   2: %f", pageNumber);
      NSLog(@"page width 2: %f", pageWidth);
-     */
+    NSLog(@"*****");
     
     
     //Page Control
@@ -934,7 +950,7 @@
     }
     
     //self.keyboardCollectionView.contentSize.width      = self.flowLayout.itemSize.width*4;
-    //NSLog(@"content size: %f", self.keyboardCollectionView.contentSize.width);
+    NSLog(@"content size: %f", self.keyboardCollectionView.contentSize.width);
     
 }
 
@@ -1178,6 +1194,11 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+   // NSLog(@" Loading row %lu", (long)indexPath.row) ;
+   // NSLog(@" Loading current count %lu", (unsigned long)[_currentEboticonGifs count]);
+    
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
     UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)[cell.imageView viewWithTag:505];
     
@@ -1577,7 +1598,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
     
     //NSLog(@"viewDidLayoutSubviews");
     if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
