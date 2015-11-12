@@ -216,8 +216,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (IBAction)facebookLogo:(id)sender {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/826163820808391"];
-    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com/eboticon"];
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/500704083438567"];
+    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com/eboticons"];
     
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
         [[UIApplication sharedApplication] openURL:facebookURL];
