@@ -611,21 +611,8 @@
     
     //Load the Gifs
     switch (_currentCategory) {
-            //Heart
+       
         case 1: {
-            
-            //Load Gifs depending on caption
-            if (_captionState) {
-                _currentEboticonGifs = _heartImagesCaption;
-            }
-            else{
-                _currentEboticonGifs = _heartImagesNoCaption;
-            }
-            
-        }
-            break;
-            //Smile
-        case 2: {
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -638,7 +625,7 @@
         }
             break;
             //No Smile
-        case 3: {
+        case 2: {
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -652,7 +639,7 @@
         }
             break;
             //Gift
-        case 4: {
+        case 3: {
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -667,7 +654,7 @@
         }
             break;
             //Exclamation
-        case 5: {
+        case 4: {
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -679,6 +666,22 @@
             
         }
             break;
+            
+            //Heart
+        case 5: {
+            
+            //Load Gifs depending on caption
+            if (_captionState) {
+                _currentEboticonGifs = _heartImagesCaption;
+            }
+            else{
+                _currentEboticonGifs = _heartImagesNoCaption;
+            }
+            
+        }
+            break;
+            
+            //Purchased
             
         case 6: {
             
@@ -1164,7 +1167,7 @@
                     [_purchasedImagesCaption addObject:eboticonObject];
                 }
               
-                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
+                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesNoCaption addObject:eboticonObject];
