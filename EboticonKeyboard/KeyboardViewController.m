@@ -944,6 +944,10 @@
     //Page Control
     self.pageControl.numberOfPages = pageNumber;
     
+    if (pageNumber >3) {
+        self.pageControl.frame = CGRectMake(self.view.frame.size.width - 45 - ((pageNumber-3)*10.0), 0.0f, 39.0f, 37.0f);
+    }
+    
     self.keyboardCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
     if(pageNumber == 1 && numberOfGifs>6){
         [self.keyboardCollectionView setContentSize:CGSizeMake(pageWidth*2, pageHeight)];
@@ -1036,13 +1040,13 @@
         // we are at the end
         NSLog(@"At the right end!");
         
-        if(_currentCategory < 5 && _scrollSwipeState == 0){
+        if(_currentCategory < 6 && _scrollSwipeState == 0){
             
             //Change category
             _scrollSwipeState = 1;
             [self changeCategory:_currentCategory+1];
         }
-        else if(_currentCategory == 5 && _scrollSwipeState == 0){
+        else if(_currentCategory == 6 && _scrollSwipeState == 0){
             //Change category
             _scrollSwipeState = 1;
             [self changeCategory:1];
@@ -1065,12 +1069,10 @@
         else if(_currentCategory == 1 && _scrollSwipeState == 0){
             //Change category
             _scrollSwipeState = 1;
-            [self changeCategory:5];
+            [self changeCategory:6];
         }
         
-        
     }
-    
     
 }
 

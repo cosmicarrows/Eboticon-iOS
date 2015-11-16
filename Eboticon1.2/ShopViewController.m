@@ -50,7 +50,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSLog(@"%s", __PRETTY_FUNCTION__);
     NSLog(@"Restore Purchases");
     
-    
     NSString * productIdentifier = notification.object;
     [_products enumerateObjectsUsingBlock:^(SKProduct * product, NSUInteger idx, BOOL *stop) {
         if ([product.productIdentifier isEqualToString:productIdentifier]) {
@@ -60,6 +59,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     }];
     
 }
+
 
 - (void) restoreButtonTapped:(id)sender {
     
@@ -208,11 +208,15 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 - (NSTimer*)createTimer {
     // create timer on run loop

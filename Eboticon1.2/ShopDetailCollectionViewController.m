@@ -244,9 +244,9 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         self.navigationItem.rightBarButtonItem = nil;
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Pack purchased."
-                                                        message:[NSString stringWithFormat:@"Thank you for purchasing %@. Please click purchased icon on right menu or click on purchased icon in the keyboard to access. Enjoy!",self.product.localizedTitle ]
+                                                        message:[NSString stringWithFormat:@"Thank you for purchasing %@. To use the %@ Eboticons, go to main library filter and select \"Purchased\" or click on \"Purchased\" icon in the keyboard. Enjoy!",self.product.localizedTitle,self.product.localizedTitle ]
                                                        delegate:self
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"OK" 
                                               otherButtonTitles:nil];
         [alert show];
 
