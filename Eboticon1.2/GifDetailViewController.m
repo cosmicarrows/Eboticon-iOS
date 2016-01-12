@@ -52,6 +52,15 @@
 {
     [super viewDidLoad];
     
+    // Add an observer that will respond to loginComplete
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(openPostFacebook:)
+                                                 name:@"postToFacebook" object:nil];
+    
+    
+
+
+    
     NSLog(@"GifDetailViewController viewDidLoad");
 	// Do any additional setup after loading the view.
     _currentDisplayIndex = self.index;
@@ -187,20 +196,12 @@
         return;
     }    
     
-    DDLogDebug(@"Share button Current Index:%ld", (long)self.index);
+    NSLog(@"Share button Current Index:%ld", (long)self.index);
     //EboticonGif *currGif = self.imageNames[self.index];
     EboticonGif *currGif = self.imageNames[self.currentDisplayIndex];
-    DDLogDebug(@"Shared Gif is %@",currGif.getFileName);
+    NSLog(@"Shared Gif is %@",currGif.getFileName);
     
-#ifdef FREE
-    if([currGif.getDisplayType isEqualToString:@"f"]) {
-        [self loadShareView:currGif];
-    } else {
-        [self loadUpgradeView];
-    }
-#else
     [self loadShareView:currGif];
-#endif
     
 }
 
@@ -235,23 +236,43 @@
     
     //Send gif share to Google Analytics
     //[self sendShareToGoogleAnalytics:[currGif getFileName]];
-    
     [self showEmailAlert];
     
-    NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
+    // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     
-    NSArray *objectsToShare = @[gifFileURL];
+    NSString *textObject = @"Information that I want to tweet or share";
+    NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+    UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+    
+    //NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+    
+    
+    NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
+    
+   // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
+    
+    NSLog(@"%@",gifUrlName);
+  
+    NSArray *objectsToShare = [NSArray arrayWithObjects:textObject, gifFilename, gifFileURL,  nil];
+    
+   // NSArray *objectsToShare = @[gifFileURL, gifFileImage];
+
     
     NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
     //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
     
+    
+    //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
     
-    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr];
+    
+    //UIActivityTypePostToFacebook
+    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
     controller.excludedActivityTypes = excludedActivities;
     
     
     //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
+    
     [self presentViewController:controller animated:YES completion: nil];
     [controller setCompletionWithItemsHandler:
      ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -261,6 +282,50 @@
          [self promptForRating];
      }];
 }
+
+
+-(void)openPostFacebook:(NSNotification *)notification {
+    
+
+        NSDictionary* userInfo = notification.userInfo;
+        NSString* filepath = (NSString*)userInfo[@"filepath"];
+        NSLog (@"Successfully received test notification! %@", filepath);
+    
+
+    NSLog(@"test");
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewController *fbPost = [SLComposeViewController
+                                           composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+       // [fbPost setInitialText:@"Text You want to Share"];
+       // [fbPost addImage:[UIImage imageNamed:@"Icon_Facebook.png"]];
+        
+        [self presentViewController:fbPost animated:YES completion:nil];
+        
+        [fbPost setCompletionHandler:^(SLComposeViewControllerResult result) {
+            
+            switch (result) {
+                case SLComposeViewControllerResultCancelled:
+                    NSLog(@"Post Canceled");
+                    break;
+                case SLComposeViewControllerResultDone:
+                    NSLog(@"Post Sucessful");
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        }];
+        
+    }
+}
+
+
 
 -(void) promptForRating
 {
@@ -353,6 +418,7 @@
     NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
     
+     NSLog(@"%@",filePath);
     return [NSURL fileURLWithPath:filePath];
 }
 

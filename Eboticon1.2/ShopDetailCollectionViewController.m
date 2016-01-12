@@ -163,6 +163,9 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                         case 6:
                             [currentGif setEmotionCategory:value];
                             break;
+                        case 7:
+                            [currentGif setPurchaseCategory:value];
+                            break;
                         default:
                             //       DDLogWarn(@"Index out of bounds");
                             break;
@@ -200,11 +203,11 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
             
-            NSString * gifCategory = [currentGif emotionCategory]; //Category
+            NSString * purchaseCategory = [currentGif purchaseCategory]; //Category
             
-            DDLogDebug(@"gifCategory: %@", gifCategory);
+            DDLogDebug(@"gifCategory: %@", purchaseCategory);
             
-            if([self.product.productIdentifier isEqual:gifCategory]) {
+            if([self.product.productIdentifier isEqual:purchaseCategory]) {
                 [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
             }
             

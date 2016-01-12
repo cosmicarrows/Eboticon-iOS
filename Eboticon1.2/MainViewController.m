@@ -550,6 +550,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                         case 6:
                             [currentGif setEmotionCategory:value];
                             break;
+                        case 7:
+                            [currentGif setPurchaseCategory:value];
+                            break;
                         default:
                             //       DDLogWarn(@"Index out of bounds");
                             break;
@@ -557,8 +560,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          
                 }
                 
-                NSString * gifCategory = [currentGif emotionCategory]; //Category
-                
+                NSString * gifCategory = [currentGif purchaseCategory]; //Category
                 
                 if([productIdentifier isEqual:gifCategory]) {
                   //  NSLog(@"productIdentifier: %@, ", productIdentifier);
@@ -776,7 +778,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     return gifName;
 }
-
 
 -(EboticonGif *) getCurrentEboticonGif: (long)row
 {

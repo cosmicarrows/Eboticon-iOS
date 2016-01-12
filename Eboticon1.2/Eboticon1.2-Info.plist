@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>65</string>
+	<string>66</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -51,6 +51,11 @@
 	<string>Eboticon</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>fb</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -89,13 +94,13 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSMainNibFile</key>
+	<string>Main</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>linkinpark.ttf</string>
 		<string>avenirltstd-book.otf</string>
 	</array>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -35,7 +35,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (UIImage *)activityImage {
 
-    return [UIImage imageNamed:@"Icon_Instagram"];
+    return [UIImage imageNamed:@"Icon_Instagram.png"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {

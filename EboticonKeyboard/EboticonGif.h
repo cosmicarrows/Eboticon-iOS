@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSString *movFileName;
 @property (strong, nonatomic) NSString *displayType;
 @property (strong, nonatomic) NSString *emotionCategory;
+@property (strong, nonatomic) NSString *purchaseCategory;
 @property (nonatomic, strong) UIImage *thumbImage;
 
 
@@ -31,5 +32,6 @@
 -(NSString *) getMovFileName;
 -(NSString *) getDisplayType;
 -(NSString *) getEmotionCategory;
+-(NSString *) getPurchaseCategory;
 
 @end

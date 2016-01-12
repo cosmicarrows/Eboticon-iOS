@@ -284,6 +284,9 @@
     //Load CSV into Array
     [self loadGifsFromCSV];
     
+    //Load CSV into Array
+    [self loadPurchasedProducts];
+    
     //Setup item size of keyboard layout to fit keyboard.
     [self changeKeyboardFlowLayout];
     
@@ -292,8 +295,6 @@
         self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
         [self populateGifArraysFromCSV];
-        
-        [self loadPurchasedProducts];
         
     }
     else{
@@ -355,7 +356,7 @@
                 eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
                 eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
                 eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
-                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:7];
                 eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
                 eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
                 
@@ -1106,7 +1107,6 @@
 }
 
 
-
 - (void)loadPurchasedProducts {
     NSLog(@"loadPurchasedProducts...");
     
@@ -1119,7 +1119,6 @@
     }
     
 }
-
 
 
 - (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
@@ -1151,28 +1150,34 @@
                 eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
                 eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
                 eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+                eboticonObject.purchaseCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:7];
+                
                 eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
                 eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
                 
                 
+                NSString * purchaseCategory = eboticonObject.purchaseCategory;
                 NSString * gifCategory = eboticonObject.emotionCategory;
                 NSString * isCaption = eboticonObject.category;
-                if([productIdentifier isEqual:gifCategory]) {
+                if([productIdentifier isEqual:purchaseCategory]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImages addObject:eboticonObject];
+                    [_allImages addObject:eboticonObject];
                 }
                 
-                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
+                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesCaption addObject:eboticonObject];
+                    [_allImages addObject:eboticonObject];
                 }
               
-                if([productIdentifier isEqual:gifCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
+                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesNoCaption addObject:eboticonObject];
+                    [_allImages addObject:eboticonObject];
                 }
             }
         }

@@ -17,6 +17,8 @@
 @synthesize movFileName = _movFileName;
 @synthesize displayType = _displayType;
 @synthesize emotionCategory = _emotionCategory;
+@synthesize purchaseCategory = _purchaseCategory;
+
 
 - (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString*)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType emotionCategory:(NSString *)emotionCategory
 {
@@ -65,6 +67,11 @@
 -(NSString *) getEmotionCategory
 {
     return _emotionCategory;
+}
+
+-(NSString *) getPurchaseCategory
+{
+    return _purchaseCategory;
 }
 
 

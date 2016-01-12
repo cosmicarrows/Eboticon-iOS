@@ -38,7 +38,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (UIImage *)activityImage {
     
-    return [UIImage imageNamed:@"Icon_Facebook"];
+    return [UIImage imageNamed:@"Icon_Facebook.png"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
@@ -101,6 +101,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                                         type:SIAlertViewButtonTypeDestructive
                                      handler:^(SIAlertView *alert) {
                                          [self openFacebook];
+                                         //[self openPostFacebook];
                                      }];
         successAlertView.transitionStyle = SIAlertViewTransitionStyleBounce;
         [successAlertView show];
@@ -115,10 +116,27 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return NO;
 }
 
+
+-(void)openPostFacebook
+{
+    
+    NSString * gifName = [self.movItems objectAtIndex:0];
+    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
+    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
+    
+    NSDictionary* userInfo = @{@"filepath": filepath};
+    
+    // Post a notification to loginComplete
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"postToFacebook" object:nil userInfo:userInfo];
+
+}
+
 -(void)openFacebook
 {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://publish"];
-    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com"];
+    
+   NSURL *facebookURL = [NSURL URLWithString:@"fb://publish"];
+   //NSURL *facebookURL = [NSURL URLWithString:@"fb://publish/profile/me"];
+   NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com"];
 
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
         [self sendShareToGoogleAnalytics:@"nativeApp"];
@@ -136,11 +154,14 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                                                 DDLogError(@"Cannot open FB in browser");
                                             };
                                         }];
+        
         fbNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
         [fbNotInstalledAlert show];
     }
     
 }
+
+
 
 -(void) sendShareToGoogleAnalytics:(NSString*) redirectType
 {

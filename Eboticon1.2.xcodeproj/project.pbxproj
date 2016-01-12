@@ -606,6 +606,8 @@
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
 		97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A3830D1B67E0E4002F5571 /* iAd.framework */; };
 		97A383121B695D7B002F5571 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383111B695D7B002F5571 /* TabViewController.m */; };
+		97CC16CA1C332865000E01D6 /* Icon_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C81C332865000E01D6 /* Icon_Facebook.png */; };
+		97CC16CB1C332865000E01D6 /* Icon_Instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C91C332865000E01D6 /* Icon_Instagram.png */; };
 		97E46BF51BDA5F8000A83A05 /* FilterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E46BF41BDA5F8000A83A05 /* FilterData.m */; };
 		97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E64C821BD83BB7009DB493 /* CustomNavigationController.m */; };
 		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
@@ -1305,6 +1307,8 @@
 		97A3830D1B67E0E4002F5571 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		97A383101B695D7B002F5571 /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
 		97A383111B695D7B002F5571 /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		97CC16C81C332865000E01D6 /* Icon_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Facebook.png; sourceTree = "<group>"; };
+		97CC16C91C332865000E01D6 /* Icon_Instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Instagram.png; sourceTree = "<group>"; };
 		97E46BF31BDA5F8000A83A05 /* FilterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterData.h; sourceTree = "<group>"; };
 		97E46BF41BDA5F8000A83A05 /* FilterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterData.m; sourceTree = "<group>"; };
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
@@ -2052,6 +2056,8 @@
 				970DA3DE1B69C75E00587CD6 /* nav_bg.png */,
 				977FBD791B8A843F00B75C05 /* bg_keyboard.png */,
 				63FAE3A11868CC0200116D73 /* Images.xcassets */,
+				97CC16C81C332865000E01D6 /* Icon_Facebook.png */,
+				97CC16C91C332865000E01D6 /* Icon_Instagram.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -2700,6 +2706,7 @@
 				975C95A91BEE803100006823 /* kappa_swag-caption.gif in Resources */,
 				975C958A1BEE803100006823 /* alpha_swag-caption.png in Resources */,
 				976E4F031B9AA0BF0057D6B2 /* EboticonIntroNEW640x1136.mp4 in Resources */,
+				97CC16CB1C332865000E01D6 /* Icon_Instagram.png in Resources */,
 				975C959E1BEE803100006823 /* hey_spec_aka-caption.png in Resources */,
 				630BF5361A5EDFCE00F179F5 /* wth-caption.mov in Resources */,
 				630BF50F1A5EDFCE00F179F5 /* oh_crap-caption.mov in Resources */,
@@ -3046,6 +3053,7 @@
 				630451831ABF950A001DC8B2 /* happy_birthday-caption.png in Resources */,
 				630451CD1ABF950A001DC8B2 /* slide_through_your_dm-nocaption.png in Resources */,
 				636EE68B1A63464800E43D65 /* aint_nobody-caption.mov in Resources */,
+				97CC16CA1C332865000E01D6 /* Icon_Facebook.png in Resources */,
 				6304517B1ABF950A001DC8B2 /* girl_gone-caption.png in Resources */,
 				9760B5601B754CA800E75EEC /* SidebarCategoryCell.xib in Resources */,
 				63BCCDB21920E92200C8508D /* twerkteam-nocaption.gif in Resources */,
@@ -3548,7 +3556,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3580,7 +3588,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
