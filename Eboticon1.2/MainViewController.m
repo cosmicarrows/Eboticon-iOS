@@ -143,10 +143,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     _eboticonGifs = [[NSMutableArray alloc] init];
     [self loadGifsFromCSV];
     
+    [self loadPurchasedProducts];
+    
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     [self populateGifArraysFromCSV];
-    
-    [self loadPurchasedProducts];
     
     //Register the Gif Cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
@@ -315,8 +315,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             NSString * gifCategory = [currentGif emotionCategory]; //Category
             NSString * gifCaption = [currentGif category];          //Caption
             
-            //NSLog(@"Category: %@", gifCategory);
-            // NSLog(@"Caption: %@", gifCaption);
+
             
              // NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
             if([gifCategory isEqual:CATEGORY_SMILE]) {
@@ -666,7 +665,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     if ([_captionState integerValue]) {
     NSLog(@"Caption Images:  %ld",(unsigned long)_captionImages.count);
-    return _captionImages.count;
+        return _captionImages.count;
     }
     else{
          NSLog(@"NoCaption Images:  %ld",(unsigned long)_noCaptionImages.count);
@@ -807,7 +806,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             currentGifObject = _exclamationImagesCaption[row];
         }
         else {
-            // NSLog(@"all images");
+             NSLog(@"all images");
             currentGifObject = _captionImages[row];
         }
     }
@@ -840,9 +839,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         }
     }
     
-    
-   
-
     
     return currentGifObject;
 }
@@ -899,8 +895,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
             imageNames = _exclamationImagesCaption;
         }else {
-            _gifCategory = CATEGORY_ALL;
-            imageNames = _allImages;
+            _gifCategory = CATEGORY_CAPTION;
+            imageNames = _captionImages;
         }
      }
      else{
@@ -924,7 +920,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
          } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
              imageNames = _exclamationImagesNoCaption;
          }else {
-             _gifCategory = CATEGORY_ALL;
+             _gifCategory = CATEGORY_NO_CAPTION;
              imageNames = _noCaptionImages;
          }
          

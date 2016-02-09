@@ -266,6 +266,22 @@
     _heartImagesCaption          = [[NSMutableArray alloc] init];
     _heartImagesNoCaption        = [[NSMutableArray alloc] init];
     
+    
+    
+
+    
+    
+//    _exclamationImagesCaption = [[NSMutableArray alloc]init];
+//    _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
+//    _smileImagesCaption = [[NSMutableArray alloc]init];
+//    _smileImagesNoCaption = [[NSMutableArray alloc]init];
+//    _nosmileImagesCaption = [[NSMutableArray alloc]init];
+//    _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
+//    _giftImagesCaption = [[NSMutableArray alloc]init];
+//    _giftImagesNoCaption = [[NSMutableArray alloc]init];
+//    _heartImagesCaption = [[NSMutableArray alloc]init];
+//    _heartImagesNoCaption = [[NSMutableArray alloc]init];
+    
     //Intialize current tapped image
     _tappedImageCount       = 0;
     _currentImageSelected   = 0;
@@ -277,6 +293,10 @@
                                              selector:@selector(userDefaultsDidChange:)
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
+    
+    
+
+    
     
     //Setup Keyboard
     [self initializeKeyboard];
@@ -290,18 +310,20 @@
     //Setup item size of keyboard layout to fit keyboard.
     [self changeKeyboardFlowLayout];
     
+    [self populateGifArraysFromCSV];
+    
     if([self doesInternetExists]){
         //Convert CSV to an array
-        self. self.captionSwitch.hidden = NO;
-        self.pageControl.hidden = NO;
-        [self populateGifArraysFromCSV];
+//        self. self.captionSwitch.hidden = NO;
+//        self.pageControl.hidden = NO;
+//        [self populateGifArraysFromCSV];
         
     }
     else{
         //add Internet connection view and remove caption button
-        self.noConnectionImageView.hidden = NO;
-        self.captionSwitch.hidden = YES;
-        self.pageControl.hidden = YES;
+//        self.noConnectionImageView.hidden = NO;
+//        self.captionSwitch.hidden = YES;
+//        self.pageControl.hidden = YES;
     }
     
     // Create and initialize a swipe right gesture
@@ -333,7 +355,31 @@
 
 - (void) loadGifsFromCSV
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+    
+    [_allImages removeAllObjects];
+    [_purchasedImages removeAllObjects];
+    [_purchasedImagesCaption removeAllObjects];
+    [_purchasedImagesNoCaption removeAllObjects];
+    [_exclamationImagesCaption removeAllObjects];
+    [_exclamationImagesNoCaption removeAllObjects];
+    [_smileImagesCaption removeAllObjects];
+    [_smileImagesNoCaption removeAllObjects];
+    [_nosmileImagesCaption removeAllObjects];
+    [_nosmileImagesNoCaption removeAllObjects];
+    [_giftImagesCaption removeAllObjects];
+    [_giftImagesNoCaption removeAllObjects];
+    [_heartImagesCaption removeAllObjects];
+    [_heartImagesNoCaption removeAllObjects];
+    
+    NSString *path;
+    
+    //Set Gifs is no internet exists
+    if([self doesInternetExists]){
+        path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+    }
+    else{
+        path = [[NSBundle mainBundle] pathForResource:@"eboticon_nointernet_gifs" ofType:@"csv"];
+    }
     NSError *error = nil;
     
     //Read All Gifs From CSV
@@ -356,7 +402,7 @@
                 eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
                 eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
                 eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
-                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:7];
+                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
                 eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
                 eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
                 
@@ -377,16 +423,7 @@
         
         EboticonGif *currentGif = [[EboticonGif alloc]init];
         
-        _exclamationImagesCaption = [[NSMutableArray alloc]init];
-        _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
-        _smileImagesCaption = [[NSMutableArray alloc]init];
-        _smileImagesNoCaption = [[NSMutableArray alloc]init];
-        _nosmileImagesCaption = [[NSMutableArray alloc]init];
-        _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
-        _giftImagesCaption = [[NSMutableArray alloc]init];
-        _giftImagesNoCaption = [[NSMutableArray alloc]init];
-        _heartImagesCaption = [[NSMutableArray alloc]init];
-        _heartImagesNoCaption = [[NSMutableArray alloc]init];
+
         
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
@@ -543,25 +580,49 @@
     
     if (internetStatus != NotReachable) {
         
-        //
         NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
         self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
+       
         
-
+        //Load CSV into Array
+        [self loadGifsFromCSV];
+        
+        //Populate Gifs
+        [self populateGifArraysFromCSV];
+        
+        //Reload keyboard data
+        //[self.keyboardCollectionView reloadData];
+        //[self changePageControlNum];
         
     }
     else {
         
+        //Load CSV into Array
+        [self loadGifsFromCSV];
+        
+        [self populateGifArraysFromCSV];
+        
+        
         //there-is-no-connection warning
         NSLog(@"NO Internet connection exists");
         //Set Image View
-        self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
-        self.noConnectionImageView.hidden = NO;
-        self. self.captionSwitch.hidden = YES;
-        self.pageControl.hidden = YES;
+//        self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
+//        self.noConnectionImageView.hidden = NO;
+//        self. self.captionSwitch.hidden = YES;
+//        self.pageControl.hidden = YES;
         
+        
+        // Make toast with an image
+        [self.view makeToast:@"Please turn on internet for full access."
+                    duration:3.0
+                    position:CSToastPositionCenter
+         ];
+        
+        //Reload keyboard data
+//        [self.keyboardCollectionView reloadData];
+//        [self changePageControlNum];
     }
     
 }
@@ -736,6 +797,16 @@
 
 
 - (void) changeCategory: (NSInteger)tag{
+    
+    //Show Toast
+    if(![self doesInternetExists]){
+        // Make toast with an image
+        [self.view makeToast:@"Please turn on internet for full access."
+                    duration:3.0
+                    position:CSToastPositionCenter
+         ];
+    }
+    
     
     //Make sure nothing is animated
     _currentCategory = tag;
@@ -1159,6 +1230,7 @@
                 NSString * purchaseCategory = eboticonObject.purchaseCategory;
                 NSString * gifCategory = eboticonObject.emotionCategory;
                 NSString * isCaption = eboticonObject.category;
+                
                 if([productIdentifier isEqual:purchaseCategory]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
@@ -1170,14 +1242,14 @@
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesCaption addObject:eboticonObject];
-                    [_allImages addObject:eboticonObject];
+                    //[_allImages addObject:eboticonObject];
                 }
               
                 if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
                     NSLog(@"adding  gif: %d", cnt);
                     NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesNoCaption addObject:eboticonObject];
-                    [_allImages addObject:eboticonObject];
+                    //[_allImages addObject:eboticonObject];
                 }
             }
         }
@@ -1224,7 +1296,24 @@
         if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
             
             cell.imageView.image = [UIImage imageNamed:@"placeholder_loading.png"];
-            [cell.imageView setImageWithResource:[NSURL URLWithString:currentGif.gifUrl]];
+            
+            
+            //NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+            
+            //NSLog(@"filePath: %@", filePath);
+            if([self doesInternetExists]){
+                [cell.imageView setImageWithResource:[NSURL URLWithString:currentGif.gifUrl]];
+            }
+            else{
+                
+                NSString *path=[[NSBundle mainBundle]pathForResource:currentGif.fileName ofType:@""];
+                NSURL *url=[[NSURL alloc] initFileURLWithPath:path];
+                [cell.imageView setImageWithResource:url];
+                
+    
+                
+            }
+            
         }
         //Load Still Name
         else{
@@ -1235,7 +1324,10 @@
                 [activityIndicator stopAnimating];
                 [activityIndicator removeFromSuperview];
                 
+                
                 cell.imageView.image = [[ImageCache sharedImageCache] GetImage:currentGif.stillUrl];
+               
+                
             }
             // If it does not exist in cache, download it
             else
@@ -1250,31 +1342,43 @@
                 activityIndicator.tag = 505;
                 [cell.imageView addSubview:activityIndicator];
                 
-                
-                // Only load cached images; defer new downloads until scrolling ends
-                if (!currentGif.thumbImage)
-                {
-                    if (self.keyboardCollectionView.dragging == NO && self.keyboardCollectionView.decelerating == NO)
+                if([self doesInternetExists]){
+                    
+                    // Only load cached images; defer new downloads until scrolling ends
+                    if (!currentGif.thumbImage)
                     {
-                        [self startIconDownload:currentGif forIndexPath:indexPath];
+                        if (self.keyboardCollectionView.dragging == NO && self.keyboardCollectionView.decelerating == NO)
+                        {
+                            [self startIconDownload:currentGif forIndexPath:indexPath];
+                        }
+                        // if a download is deferred or in progress, return a placeholder image
+                        cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
                     }
-                    // if a download is deferred or in progress, return a placeholder image
-                    cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+                    else
+                    {
+                        [activityIndicator stopAnimating];
+                        [activityIndicator removeFromSuperview];
+                        
+                        cell.imageView.image = currentGif.thumbImage;
+                        
+                        
+                    }
                 }
-                else
-                {
+                else{
                     [activityIndicator stopAnimating];
                     [activityIndicator removeFromSuperview];
                     
-                    cell.imageView.image = currentGif.thumbImage;
-                    
-                
+                    cell.imageView.image = [UIImage imageNamed:currentGif.stillName];
                 }
+                
+                
+               
             }
         }
     }
     else{
        cell.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+       //cell.imageView.image = [UIImage imageNamed:currentGif.stillName];
     }
     
     return cell;
@@ -1310,28 +1414,48 @@
         _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
-            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-            // [pasteboard setImage:image];
+
             
-            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = currentGif.gifUrl;
+            if([self doesInternetExists]){
             
-            NSLog(@"%@",urlPath);
-            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-            //NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+
+                NSString * urlPath = currentGif.gifUrl;
+                
+                NSLog(@"urlPath: %@",urlPath);
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                //PARSE ANALYTICS
+                NSDictionary *dimensions = @{
+                                             @"category": @"eboticon_copied",
+                                             // Is it a weekday or the weekend?
+                                             @"eboji": currentGif.getFileName,
+                                             };
+                // Send the dimensions to Parse along with the 'read' event
+                
+                [PFAnalytics trackEvent:@"read" dimensions:dimensions];
             
-            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-            
-            //PARSE ANALYTICS
-            NSDictionary *dimensions = @{
-                                         @"category": @"eboticon_copied",
-                                         // Is it a weekday or the weekend?
-                                         @"eboji": currentGif.getFileName,
-                                         };
-            // Send the dimensions to Parse along with the 'read' event
-            
-            [PFAnalytics trackEvent:@"read" dimensions:dimensions];
+
+            }
+            else{
+                
+                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                
+                NSLog(@"filePath: %@", filePath);
+       
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                // [pasteboard setImage:image];
+                
+            }
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
@@ -1363,18 +1487,35 @@
         _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
-            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-            // [pasteboard setImage:image];
             
-            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = currentGif.gifUrl;
-            
-            NSLog(@"%@",urlPath);
-            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-            //NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-            
-            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+
+            if([self doesInternetExists]){
+                
+                
+                NSString * urlPath = currentGif.gifUrl;
+                NSLog(@"%@",urlPath);
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+            }
+            else{
+                
+                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                
+                NSLog(@"filePath: %@", filePath);
+                
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                // [pasteboard setImage:image];
+                
+            }
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
@@ -1405,24 +1546,41 @@
         _currentImageSelected = 0;
         
         if([UIPasteboard generalPasteboard]){
-            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-            // [pasteboard setImage:image];
             
-            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = currentGif.gifUrl;
-            
-            NSLog(@"%@",urlPath);
-            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-            //NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-            
-            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            if([self doesInternetExists]){
+                
+                NSString * urlPath = currentGif.gifUrl;
+                NSLog(@"%@",urlPath);
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                
+            }
+            else{
+                
+                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                
+                NSLog(@"filePath: %@", filePath);
+                
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                // [pasteboard setImage:image];
+                
+            }
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0
                         position:CSToastPositionCenter
              ];
+           
         }
         else{
             
@@ -1448,24 +1606,43 @@
         
         // Make toast
         if([UIPasteboard generalPasteboard]){
-            // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-            // [pasteboard setImage:image];
             
-            // NSString * filePath= [[NSBundle mainBundle] pathForResource:filename ofType:@""];
-            NSString * urlPath = currentGif.gifUrl;
-            
-            NSLog(@"%@",urlPath);
-            UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-            //NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-            
-            [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+            if([self doesInternetExists]){
+                
+                NSString * urlPath = currentGif.gifUrl;
+                NSLog(@"%@",urlPath);
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+             
+            }
+            else{
+                
+                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                
+                NSLog(@"filePath: %@", filePath);
+                
+                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                
+                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                
+                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                // [pasteboard setImage:image];
+                
+            }
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0
                         position:CSToastPositionCenter
              ];
+            
+            
+    
             
         }
         else{
