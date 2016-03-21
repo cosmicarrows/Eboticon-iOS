@@ -11,6 +11,8 @@
 
 
 //LOGGERS
+//static const int ddLogLevel = LOG_LEVEL_INFO;
+
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
 static const int appStoreID = 899011953;

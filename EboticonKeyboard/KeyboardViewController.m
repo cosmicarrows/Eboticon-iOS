@@ -70,6 +70,10 @@
     NSMutableArray *_giftImagesNoCaption;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
+    
+    int _shiftStatus; //0 = off, 1 = on, 2 = caps lock
+    
+ 
 }
 
 
@@ -90,11 +94,31 @@
 @property (weak, nonatomic) IBOutlet UIButton *exclamationButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *purchasedButton;
+@property (weak, nonatomic) IBOutlet UIButton *keypadButton;
+
+
+
+//keyboard rows
+@property (nonatomic, weak) IBOutlet UIView *numbersRow1View;
+@property (nonatomic, weak) IBOutlet UIView *numbersRow2View;
+@property (nonatomic, weak) IBOutlet UIView *symbolsRow1View;
+@property (nonatomic, weak) IBOutlet UIView *symbolsRow2View;
+@property (nonatomic, weak) IBOutlet UIView *numbersSymbolsRow3View;
+
+//keys
+@property (nonatomic, strong) IBOutletCollection(UIButton) NSArray *letterButtonsArray;
+@property (nonatomic, weak) IBOutlet UIButton *switchModeRow3Button;
+@property (nonatomic, weak) IBOutlet UIButton *switchModeRow4Button;
+@property (nonatomic, weak) IBOutlet UIButton *shiftButton;
+@property (nonatomic, weak) IBOutlet UIButton *spaceButton;
 
 // Collection View
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *keyboardCollectionView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+
+//keypad
+@property (nonatomic, weak) IBOutlet UIView *keypadView;
 
 // No connection
 @property (nonatomic, nonatomic) UIImageView *noConnectionImageView;
@@ -118,6 +142,9 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
+
+
+@property (nonatomic, assign) BOOL isKeypadOn;
 
 @end
 
@@ -170,6 +197,11 @@
     
     //Initialize Extension
     [self initializeExtension];
+    
+    //    Initialize Keypad
+    [self initializeKeypad];
+    
+
     
 }
 - (void)createActivityIndicator
@@ -233,9 +265,9 @@
 
     [self.keyboardCollectionView setContentSize:CGSizeMake(pageWidth*pageNumber, pageHeight)];
     
-    NSLog(@"keyboard width %f", self.keyboardView.frame.size.width);
-    NSLog(@"keyboard collection view width %f", self.keyboardCollectionView.frame.size.width);
-    NSLog(@"keyboard collection view content size width %f",  self.keyboardCollectionView.contentSize.width);
+//    NSLog(@"keyboard width %f", self.keyboardView.frame.size.width);
+//    NSLog(@"keyboard collection view width %f", self.keyboardCollectionView.frame.size.width);
+//    NSLog(@"keyboard collection view content size width %f",  self.keyboardCollectionView.contentSize.width);
     
 }
 
@@ -523,7 +555,7 @@
 
 
 - (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender{
-    NSLog(@"Swipe Right Detected");
+    //NSLog(@"Swipe Right Detected");
     
     if(_currentCategory > 1){
         //Change category
@@ -538,7 +570,7 @@
 }
 
 - (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender{
-    NSLog(@"Swipe Detected Left");
+  //  NSLog(@"Swipe Detected Left");
     
     if(_currentCategory < 5){
         
@@ -556,17 +588,6 @@
 
 
 
-#pragma mark - TextInput methods
-
-- (void)textWillChange:(id<UITextInput>)textInput {
-    
-}
-
-- (void)textDidChange:(id<UITextInput>)textInput {
-    
-}
-
-
 #pragma mark-
 #pragma mark Reachability
 
@@ -576,11 +597,11 @@
 - (void) reachabilityChanged:(NSNotification *)note
 {
     NetworkStatus internetStatus = [self.internetReachability currentReachabilityStatus];
-    NSLog(@"Network status: %li", (long)internetStatus);
+    //NSLog(@"Network status: %li", (long)internetStatus);
     
     if (internetStatus != NotReachable) {
         
-        NSLog(@"Internet connection exists");
+       // NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
         self. self.captionSwitch.hidden = NO;
         self.pageControl.hidden = NO;
@@ -606,7 +627,7 @@
         
         
         //there-is-no-connection warning
-        NSLog(@"NO Internet connection exists");
+        //NSLog(@"NO Internet connection exists");
         //Set Image View
 //        self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
 //        self.noConnectionImageView.hidden = NO;
@@ -633,12 +654,12 @@
     NetworkStatus internetStatus = [reachability currentReachabilityStatus];
     if (internetStatus != NotReachable) {
         //my web-dependent code
-        NSLog(@"Internet connection exists");
+     //   NSLog(@"Internet connection exists");
         return YES;
     }
     else {
         //there-is-no-connection warning
-        NSLog(@"NO Internet connection exists");
+      //  NSLog(@"NO Internet connection exists");
         return NO;
     }
 }
@@ -662,11 +683,11 @@
 - (void)changeCaptionSwitch:(id)sender{
     if([sender isOn]){
         // Execute any code when the switch is ON
-        NSLog(@"Switch is ON");
+       // NSLog(@"Switch is ON");
         _captionState = 1;
     } else{
         // Execute any code when the switch is OFF
-        NSLog(@"Switch is OFF");
+        //NSLog(@"Switch is OFF");
         _captionState = 0;
     }
     
@@ -783,7 +804,7 @@
 - (IBAction) categoryKeyPressed:(UIButton*)sender {
     
     //switches to user's next category
-    NSLog(@"Category %ld Pressed", (long)sender.tag);
+    //NSLog(@"Category %ld Pressed", (long)sender.tag);
     
     //Change category
     [self changeCategory:sender.tag];
@@ -807,14 +828,22 @@
          ];
     }
     
-    
+
     //Make sure nothing is animated
     _currentCategory = tag;
     _tappedImageCount = 0;
     _currentImageSelected = 0;
     
+    //Make sure keypad is hidden
+    self.keyboardCollectionView.hidden = NO;
+    self.captionSwitch.hidden = NO;
+    self.pageControl.hidden = NO;
+    self.topBarView.hidden = NO;
+    self.keypadView.hidden = YES;
+    self.isKeypadOn = false;
+    
     //Change the toolbar
-    NSLog(@"tag: %ld", (long)tag);
+    //NSLog(@"tag: %ld", (long)tag);
     
     switch (tag) {
             
@@ -829,6 +858,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -850,6 +880,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -872,6 +903,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"HLGiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -895,6 +927,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"HLExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -917,6 +950,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -938,6 +972,7 @@
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
             [self.purchasedButton setImage:[UIImage imageNamed:@"HLPurchased.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
             if (_captionState) {
@@ -948,8 +983,8 @@
             }
             
         }
-            break;
-            
+        break;
+       
             //Return or Globe
         default:
             [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
@@ -957,8 +992,9 @@
             [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
             [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
             [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             break;
-    }
+    }//end switch
     
     [self.keyboardCollectionView reloadData];
     [self changePageControlNum];
@@ -971,7 +1007,7 @@
 - (void)pageControlChanged:(id)sender
 {
     
-    NSLog(@"pageControlChanged");
+    //NSLog(@"pageControlChanged");
     //UIPageControl *pageControl = sender;
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     CGPoint scrollTo = CGPointMake(pageWidth * self.pageControl.currentPage, 0);
@@ -980,7 +1016,7 @@
 
 - (void) changePageControlNum {
     
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+   // NSLog(@"%s", __PRETTY_FUNCTION__);
     
     CGFloat numberOfGifs = [_currentEboticonGifs count];
     CGFloat pageNumber;
@@ -1005,12 +1041,12 @@
     
     //NSLog(@"%f", numberOfGifs);
     
-     NSLog(@"*****");
-    NSLog(@"page num   : %f", pageNumber);
-     NSLog(@"numberOfGifs: %f", numberOfGifs);
-     NSLog(@"page num   calc: %f", ceil(numberOfGifs/8));
-     NSLog(@"page width 2: %f", pageWidth);
-    NSLog(@"*****");
+//     NSLog(@"*****");
+//    NSLog(@"page num   : %f", pageNumber);
+//     NSLog(@"numberOfGifs: %f", numberOfGifs);
+//     NSLog(@"page num   calc: %f", ceil(numberOfGifs/8));
+//     NSLog(@"page width 2: %f", pageWidth);
+//    NSLog(@"*****");
     
     
     //Page Control
@@ -1029,7 +1065,7 @@
     }
     
     //self.keyboardCollectionView.contentSize.width      = self.flowLayout.itemSize.width*4;
-    NSLog(@"content size: %f", self.keyboardCollectionView.contentSize.width);
+   // NSLog(@"content size: %f", self.keyboardCollectionView.contentSize.width);
     
 }
 
@@ -1057,7 +1093,7 @@
     }
     else{
         //Keyboard is in Landscape
-        NSLog(@"Landscape");
+       // NSLog(@"Landscape");
         
         //Create 9x2 grid
         //newItemSizeWidth = floor(pageWidth/9) - 1;
@@ -1069,8 +1105,8 @@
     //NSLog(@"pageWidth %f", pageWidth);
     //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
     //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
-    NSLog(@"newItemSizeHeight 1: %f", newItemSizeHeight);
-    NSLog(@"newItemSizeWidth  1: %f", newItemSizeWidth);
+//    NSLog(@"newItemSizeHeight 1: %f", newItemSizeHeight);
+//    NSLog(@"newItemSizeWidth  1: %f", newItemSizeWidth);
     
     //Create new item size
     self.flowLayout.itemSize = CGSizeMake(newItemSizeWidth, newItemSizeHeight);
@@ -1097,7 +1133,7 @@
     [self loadImagesForOnscreenRows];
     
     
-    NSLog(@"scrollViewDidEndDecelerating");
+   // NSLog(@"scrollViewDidEndDecelerating");
     CGFloat pageWidth = self.keyboardCollectionView.frame.size.width;
     self.pageControl.currentPage = self.keyboardCollectionView.contentOffset.x / pageWidth;
     
@@ -1110,7 +1146,7 @@
     float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width - 75;
     if (rightEdge >= scrollView.contentSize.width) {
         // we are at the end
-        NSLog(@"At the right end!");
+       // NSLog(@"At the right end!");
         
         if(_currentCategory < 6 && _scrollSwipeState == 0){
             
@@ -1131,7 +1167,7 @@
     // NSLog(@"scrollView.contentOffset: %f", scrollView.contentOffset.x);
     if (leftEdge <= -75) {
         // we are at the en d
-        NSLog(@"At the left Edge end!");
+       // NSLog(@"At the left Edge end!");
         
         if(_currentCategory > 1 && _scrollSwipeState == 0){
             //Change category
@@ -1171,7 +1207,7 @@
 }
 
 - (void)updateNumberLabelText {
-    NSLog(@"loading in keyboard sharedDefaults...");
+  //  NSLog(@"loading in keyboard sharedDefaults...");
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
@@ -1179,13 +1215,13 @@
 
 
 - (void)loadPurchasedProducts {
-    NSLog(@"loadPurchasedProducts...");
+  //  NSLog(@"loadPurchasedProducts...");
     
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     
     for(NSString* productIdentifiers in _purchasedProducts) {
-        NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
+    //    NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
         [self loadPurchasedGifsFromCSV:productIdentifiers];
     }
     
@@ -1203,12 +1239,12 @@
         NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
         
         if (csvImages == nil) {
-            NSLog(@"Error parsing file: %@", error);
+     //       NSLog(@"Error parsing file: %@", error);
             return;
         }
         else {
             
-            NSLog(@"Number purchased gifs: %lu", (unsigned long)[csvImages count]);
+     //       NSLog(@"Number purchased gifs: %lu", (unsigned long)[csvImages count]);
             // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
             for (int cnt=0; cnt<[csvImages count]; cnt++)
             {
@@ -1232,22 +1268,22 @@
                 NSString * isCaption = eboticonObject.category;
                 
                 if([productIdentifier isEqual:purchaseCategory]) {
-                    NSLog(@"adding  gif: %d", cnt);
-                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    NSLog(@"adding  gif: %d", cnt);
+//                    NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImages addObject:eboticonObject];
                     [_allImages addObject:eboticonObject];
                 }
                 
                 if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
-                    NSLog(@"adding  gif: %d", cnt);
-                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    NSLog(@"adding  gif: %d", cnt);
+//                    NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesCaption addObject:eboticonObject];
                     //[_allImages addObject:eboticonObject];
                 }
               
                 if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
-                    NSLog(@"adding  gif: %d", cnt);
-                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    NSLog(@"adding  gif: %d", cnt);
+//                    NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesNoCaption addObject:eboticonObject];
                     //[_allImages addObject:eboticonObject];
                 }
@@ -1270,7 +1306,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-     NSLog(@"NUmber of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
+    // NSLog(@"NUmber of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
     return [_currentEboticonGifs count];
 }
 
@@ -1403,13 +1439,13 @@
     //First Tap
     if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
         
-        NSLog(@"Button Tapped once");
-        NSLog(@"currentImage %ld", (long)_currentImageSelected);
-        NSLog(@"tap count %ld", (long)_tappedImageCount);
-        NSLog(@"lastImage %ld", (long)_lastImageSelected);
+//        NSLog(@"Button Tapped once");
+//        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+//        NSLog(@"tap count %ld", (long)_tappedImageCount);
+//        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         
-        NSLog(@"Button Tapped ");
+     //   NSLog(@"Button Tapped ");
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
         
@@ -1421,7 +1457,7 @@
 
                 NSString * urlPath = currentGif.gifUrl;
                 
-                NSLog(@"urlPath: %@",urlPath);
+             //   NSLog(@"urlPath: %@",urlPath);
                 UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
                 //NSData *data = [NSData dataWithContentsOfFile:filePath];
                 NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
@@ -1444,7 +1480,7 @@
                 
                 NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
                 
-                NSLog(@"filePath: %@", filePath);
+             //   NSLog(@"filePath: %@", filePath);
        
                 UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
                 //NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -1478,10 +1514,10 @@
     //Tapped different image
     else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
-        NSLog(@"Button Tapped once different");
-        NSLog(@"currentImage %ld", (long)_currentImageSelected);
-        NSLog(@"tap count %ld", (long)_tappedImageCount);
-        NSLog(@"lastImage %ld", (long)_lastImageSelected);
+//        NSLog(@"Button Tapped once different");
+//        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+//        NSLog(@"tap count %ld", (long)_tappedImageCount);
+//        NSLog(@"lastImage %ld", (long)_lastImageSelected);
     
         _tappedImageCount = 1;
         _currentImageSelected = indexPath.row;
@@ -1504,7 +1540,7 @@
                 
                 NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
                 
-                NSLog(@"filePath: %@", filePath);
+            //    NSLog(@"filePath: %@", filePath);
                 
                 UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
                 //NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -1541,7 +1577,7 @@
     }
     else if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row && allowedOpenAccess){       //Second Tap
         
-        NSLog(@"Button Tapped twice");
+    //    NSLog(@"Button Tapped twice");
         _tappedImageCount = 0;
         _currentImageSelected = 0;
         
@@ -1595,10 +1631,10 @@
     //No image selected
     else if (_tappedImageCount == 0 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
-        NSLog(@"Button Tapped once");
-        NSLog(@"currentImage %ld", (long)_currentImageSelected);
-        NSLog(@"tap count %ld", (long)_tappedImageCount);
-        NSLog(@"lastImage %ld", (long)_lastImageSelected);
+//        NSLog(@"Button Tapped once");
+//        NSLog(@"currentImage %ld", (long)_currentImageSelected);
+//        NSLog(@"tap count %ld", (long)_tappedImageCount);
+//        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         
         _tappedImageCount = 1;
@@ -1775,7 +1811,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+   // NSLog(@"%s", __PRETTY_FUNCTION__);
     return UIEdgeInsetsMake(2, 2, 2, 2);
 }
 
@@ -1806,7 +1842,7 @@
     }
     else{
         //Keyboard is in Landscape
-        NSLog(@"Landscape");
+       // NSLog(@"Landscape");
         
         //Change the bottom border
         CGRect newFrame = self.bottomBorder.frame;
@@ -1840,6 +1876,230 @@
     NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
     [self.imageDownloadsInProgress removeAllObjects];
+}
+
+
+#pragma mark - TextInput methods
+
+- (void)textWillChange:(id<UITextInput>)textInput {
+    
+}
+
+- (void)textDidChange:(id<UITextInput>)textInput {
+    
+}
+
+#pragma mark - initialization method
+
+- (void) initializeKeypad{
+    
+    //start with shift on
+    _shiftStatus = 1;
+    
+    //initialize space key double tap
+    UITapGestureRecognizer *spaceDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(spaceKeyDoubleTapped:)];
+    
+    spaceDoubleTap.numberOfTapsRequired = 2;
+    [spaceDoubleTap setDelaysTouchesEnded:NO];
+    
+    [self.spaceButton addGestureRecognizer:spaceDoubleTap];
+    
+    //initialize shift key double and triple tap
+    UITapGestureRecognizer *shiftDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shiftKeyDoubleTapped:)];
+    UITapGestureRecognizer *shiftTripleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shiftKeyPressed:)];
+    
+    shiftDoubleTap.numberOfTapsRequired = 2;
+    shiftTripleTap.numberOfTapsRequired = 3;
+    
+    [shiftDoubleTap setDelaysTouchesEnded:NO];
+    [shiftTripleTap setDelaysTouchesEnded:NO];
+    
+    [self.shiftButton addGestureRecognizer:shiftDoubleTap];
+    [self.shiftButton addGestureRecognizer:shiftTripleTap];
+    
+    self.keypadView.hidden = YES;
+    self.isKeypadOn = false;
+    
+}
+
+#pragma mark - key methods
+
+
+- (IBAction)keypadPressed:(id)sender {
+    
+    //Set Category Button
+    [self.heartButton setImage:[UIImage imageNamed:@"HeartSmaller.png"] forState:UIControlStateNormal];
+    [self.smileButton setImage:[UIImage imageNamed:@"HappySmaller.png"] forState:UIControlStateNormal];
+    [self.noSmileButton setImage:[UIImage imageNamed:@"NotHappySmaller.png"] forState:UIControlStateNormal];
+    [self.giftButton setImage:[UIImage imageNamed:@"GiftBoxSmaller.png"] forState:UIControlStateNormal];
+    [self.exclamationButton setImage:[UIImage imageNamed:@"ExclamationSmaller.png"] forState:UIControlStateNormal];
+    [self.purchasedButton setImage:[UIImage imageNamed:@"Purchased.png"] forState:UIControlStateNormal];
+    [self.keypadButton setImage:[UIImage imageNamed:@"HLKeypad.png"] forState:UIControlStateNormal];
+    
+    if(!self.isKeypadOn){
+
+
+    self.pageControl.hidden = YES;
+    self.topBarView.hidden = YES;
+    self.captionSwitch.hidden = YES;
+    self.keyboardCollectionView.hidden = YES;
+    self.keypadView.hidden = NO;
+    self.isKeypadOn = true;
+    
+        
+    }
+    else{
+        
+       
+        
+        self.pageControl.hidden = NO;
+        self.topBarView.hidden = NO;
+        self.captionSwitch.hidden = NO;
+        self.keyboardCollectionView.hidden = NO;
+        self.keypadView.hidden = YES;
+        self.isKeypadOn = false;
+    }
+    
+}
+
+- (IBAction) keyPressed:(UIButton*)sender {
+    
+    //inserts the pressed character into the text document
+    [self.textDocumentProxy insertText:sender.titleLabel.text];
+    
+    //if shiftStatus is 1, reset it to 0 by pressing the shift key
+    if (_shiftStatus == 1) {
+        [self shiftKeyPressed:self.shiftButton];
+    }
+    
+}
+
+-(IBAction) backspaceKeyPressed: (UIButton*) sender {
+    
+    [self.textDocumentProxy deleteBackward];
+}
+
+
+
+-(IBAction) spaceKeyPressed: (UIButton*) sender {
+    
+    [self.textDocumentProxy insertText:@" "];
+    
+}
+
+
+-(void) spaceKeyDoubleTapped: (UIButton*) sender {
+    
+    //double tapping the space key automatically inserts a period and a space
+    //if necessary, activate the shift button
+    [self.textDocumentProxy deleteBackward];
+    [self.textDocumentProxy insertText:@". "];
+    
+    if (_shiftStatus == 0) {
+        [self shiftKeyPressed:self.shiftButton];
+    }
+}
+
+
+-(IBAction) returnKeyPressed: (UIButton*) sender {
+    
+    [self.textDocumentProxy insertText:@"\n"];
+}
+
+
+-(IBAction) shiftKeyPressed: (UIButton*) sender {
+    
+    //if shift is on or in caps lock mode, turn it off. Otherwise, turn it on
+    _shiftStatus = _shiftStatus > 0 ? 0 : 1;
+    
+    [self shiftKeys];
+}
+
+
+
+-(void) shiftKeyDoubleTapped: (UIButton*) sender {
+    
+    //set shift to caps lock and set all letters to uppercase
+    _shiftStatus = 2;
+    
+    [self shiftKeys];
+    
+}
+
+
+- (void) shiftKeys {
+    
+    //if shift is off, set letters to lowercase, otherwise set them to uppercase
+    if (_shiftStatus == 0) {
+        for (UIButton* letterButton in self.letterButtonsArray) {
+            [letterButton setTitle:letterButton.titleLabel.text.lowercaseString forState:UIControlStateNormal];
+        }
+    } else {
+        for (UIButton* letterButton in self.letterButtonsArray) {
+            [letterButton setTitle:letterButton.titleLabel.text.uppercaseString forState:UIControlStateNormal];
+        }
+    }
+    
+    //adjust the shift button images to match shift mode
+    NSString *shiftButtonImageName = [NSString stringWithFormat:@"shift_%i.png", _shiftStatus];
+    [self.shiftButton setImage:[UIImage imageNamed:shiftButtonImageName] forState:UIControlStateNormal];
+    
+    
+    NSString *shiftButtonHLImageName = [NSString stringWithFormat:@"shift_%iHL.png", _shiftStatus];
+    [self.shiftButton setImage:[UIImage imageNamed:shiftButtonHLImageName] forState:UIControlStateHighlighted];
+    
+}
+
+
+- (IBAction) switchKeyboardMode:(UIButton*)sender {
+    
+    self.numbersRow1View.hidden = YES;
+    self.numbersRow2View.hidden = YES;
+    self.symbolsRow1View.hidden = YES;
+    self.symbolsRow2View.hidden = YES;
+    self.numbersSymbolsRow3View.hidden = YES;
+    
+    //switches keyboard to ABC, 123, or #+= mode
+    //case 1 = 123 mode, case 2 = #+= mode
+    //default case = ABC mode
+    
+    switch (sender.tag) {
+            
+        case 1: {
+            self.numbersRow1View.hidden = NO;
+            self.numbersRow2View.hidden = NO;
+            self.numbersSymbolsRow3View.hidden = NO;
+            
+            //change row 3 switch button image to #+= and row 4 switch button to ABC
+            [self.switchModeRow3Button setImage:[UIImage imageNamed:@"symbols.png"] forState:UIControlStateNormal];
+            [self.switchModeRow3Button setImage:[UIImage imageNamed:@"symbolsHL.png"] forState:UIControlStateHighlighted];
+            self.switchModeRow3Button.tag = 2;
+            [self.switchModeRow4Button setImage:[UIImage imageNamed:@"abc.png"] forState:UIControlStateNormal];
+            [self.switchModeRow4Button setImage:[UIImage imageNamed:@"abcHL.png"] forState:UIControlStateHighlighted];
+            self.switchModeRow4Button.tag = 0;
+        }
+            break;
+            
+        case 2: {
+            self.symbolsRow1View.hidden = NO;
+            self.symbolsRow2View.hidden = NO;
+            self.numbersSymbolsRow3View.hidden = NO;
+            
+            //change row 3 switch button image to 123
+            [self.switchModeRow3Button setImage:[UIImage imageNamed:@"numbers.png"] forState:UIControlStateNormal];
+            [self.switchModeRow3Button setImage:[UIImage imageNamed:@"numbersHL.png"] forState:UIControlStateHighlighted];
+            self.switchModeRow3Button.tag = 1;
+        }
+            break;
+            
+        default:
+            //change the row 4 switch button image to 123
+            [self.switchModeRow4Button setImage:[UIImage imageNamed:@"numbers.png"] forState:UIControlStateNormal];
+            [self.switchModeRow4Button setImage:[UIImage imageNamed:@"numbersHL.png"] forState:UIControlStateHighlighted];
+            self.switchModeRow4Button.tag = 1;
+            break;
+    }
+    
 }
 
 

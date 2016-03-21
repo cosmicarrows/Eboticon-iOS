@@ -66,16 +66,14 @@
 - (void) configureiRate
 {
     @try {
-#ifdef FREE
-        [iRate sharedInstance].appStoreID = appStoreID_lite;
-#else
+
         [iRate sharedInstance].appStoreID = appStoreID;
-#endif
+
         
-        [iRate sharedInstance].daysUntilPrompt = 7;
-        //[iRate sharedInstance].usesUntilPrompt = 5;
+        [iRate sharedInstance].daysUntilPrompt = 10;
+        [iRate sharedInstance].usesUntilPrompt = 5;
         //[iRate sharedInstance].verboseLogging = YES;
-        [iRate sharedInstance].promptAtLaunch = NO;
+        [iRate sharedInstance].promptAtLaunch = YES;
         [iRate sharedInstance].eventsUntilPrompt = 5;
         [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
         [iRate sharedInstance].remindPeriod = 7;
@@ -83,6 +81,9 @@
         [iRate sharedInstance].previewMode = NO;
         
         DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
+        
+        DDLogInfo(@"%@: Number of iRate uses %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].usesCount);
+        
         DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
     }
     @catch (NSException *exception) {
