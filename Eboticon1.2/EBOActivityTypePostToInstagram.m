@@ -18,6 +18,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 @interface EBOActivityTypePostToInstagram()
 
 @property (nonatomic, copy) NSArray *movItems;
+@property (nonatomic, copy) NSString *movName;
 
 @end
 
@@ -38,39 +39,65 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return [UIImage imageNamed:@"Icon_Instagram.png"];
 }
 
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    // Given an array of NSObjects, returns YES if at least one of them can be handled by this activity
-    for (id obj in activityItems) {
-        if ([obj isKindOfClass:[NSURL class]]) {
-            NSURL *filePath = (NSURL *)obj;
-            NSString *gifName = [filePath lastPathComponent];
-            return [self isGifString:gifName];
-        }
+
+-(id)initWithAttributes: (NSString *)movName {
+    if ( self = [super init] ) {
+        self.movName = movName;
     }
-    return NO;
+    return self;
 }
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+    if ([self doesMovieExist:self.movName])
+        return YES;
+    else
+        return NO;
+    
+}
+
+
+//- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+//    // Given an array of NSObjects, returns YES if at least one of them can be handled by this activity
+//    for (id obj in activityItems) {
+//        if ([obj isKindOfClass:[NSURL class]]) {
+//            NSURL *filePath = (NSURL *)obj;
+//            NSString *gifName = [filePath lastPathComponent];
+//            return [self isGifString:gifName];
+//        }
+//    }
+//    return NO;
+//}
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
     // Iterate through the activity items, filtering out the MKMapItem objects
     NSMutableArray *movItems = [NSMutableArray array];
-    for (id obj in activityItems) {
-        if ([obj isKindOfClass:[NSURL class]]) {
-            NSURL *filePath = (NSURL *)obj;
-            NSString *gifName = [filePath lastPathComponent];
-            if([self isGifString:gifName]){
-                gifName = [[gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)] stringByAppendingString:@".mov"];
-            }
-            [movItems addObject:gifName];
-        }
-    }
+    [movItems addObject:self.movName];
     self.movItems = movItems;
 }
 
+
+//- (void)prepareWithActivityItems:(NSArray *)activityItems {
+//    
+//    NSMutableArray *movItems = [NSMutableArray array];
+//    for (id obj in activityItems) {
+//        if ([obj isKindOfClass:[NSURL class]]) {
+//            NSURL *filePath = (NSURL *)obj;
+//            NSString *gifName = [filePath lastPathComponent];
+//            if([self isGifString:gifName]){
+//                gifName = [[gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)] stringByAppendingString:@".mov"];
+//            }
+//            [movItems addObject:gifName];
+//        }
+//    }
+//    self.movItems = movItems;
+//}
+
+
+
 - (void)performActivity {
     
-    NSString * gifName = [self.movItems objectAtIndex:0];
-    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
+    NSString * movName = [self.movItems objectAtIndex:0];
+    NSString *filepath  = [[NSBundle mainBundle] pathForResource:movName ofType:nil];
     //NSData *movData = [NSData dataWithContentsOfFile:filepath];
     
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
@@ -82,6 +109,38 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     
     [self activityDidFinish:YES];
+}
+
+//- (void)performActivity {
+//    
+//    NSString * gifName = [self.movItems objectAtIndex:0];
+//    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
+//    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
+//    //NSData *movData = [NSData dataWithContentsOfFile:filepath];
+//    
+//    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
+//        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
+//            UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+//        }
+//    } else {
+//        DDLogError(@"Video is Not Compatible");
+//    }
+//    
+//    [self activityDidFinish:YES];
+//}
+
+
+-(BOOL)doesMovieExist:(NSString *)movFileName {
+    
+    NSString *filepath  = [[NSBundle mainBundle] pathForResource:self.movName ofType:nil];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+    
+    if(fileExists)
+        return YES;
+    else
+        return NO;
+    
 }
 
 -(void)video:(NSString*)videoPath didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
@@ -102,6 +161,12 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
     }
 }
+
+
+
+
+
+
 
 -(BOOL)isGifString:(NSString *)gifFileName {
     if([gifFileName length] >= 4 && [[gifFileName substringFromIndex: [gifFileName length] - 4] isEqualToString:@".gif"]) {

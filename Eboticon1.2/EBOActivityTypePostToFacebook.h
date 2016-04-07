@@ -16,5 +16,6 @@ SLComposeViewController *mySLComposerSheet;
 
 @interface EBOActivityTypePostToFacebook : UIActivity
 
+- (id)initWithAttributes:(NSString *)movName;
 
 @end

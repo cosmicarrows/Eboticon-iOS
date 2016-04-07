@@ -240,25 +240,29 @@
     
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     
-    NSString *textObject = @"Information that I want to tweet or share";
+   // NSString *textObject = @"Check this out #eboticon";
+    
+    NSString *movName = [currGif movFileName];
     NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
-    UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+    //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+    
+    NSURL *imagePath = [NSURL URLWithString:gifUrlName];
+    NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
+   
     
     //NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
     
     
-    NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
-    
+   // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
    // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
     
     NSLog(@"%@",gifUrlName);
   
-    NSArray *objectsToShare = [NSArray arrayWithObjects:textObject, gifFilename, gifFileURL,  nil];
-    
-   // NSArray *objectsToShare = @[gifFileURL, gifFileImage];
+    // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
 
+    NSArray *objectsToShare = @[animatedGif];
     
-    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] init],[[EBOActivityTypePostToInstagram alloc] init]]; //uncomment to add in facebook instagram capability
+    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
     //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
     
     

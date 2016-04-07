@@ -11,4 +11,7 @@
 @interface EBOActivityTypePostToInstagram : UIActivity
 
 
+- (id)initWithAttributes:(NSString *)movName;
+
+
 @end
