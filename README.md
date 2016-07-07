@@ -2,8 +2,6 @@
 
 
 
-
-
 ### What is this repository for? ###
 
 * Eboticon iOS
@@ -27,6 +25,9 @@ Path: /
 gif url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.gif
 png url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.png
 mov url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.mov
+
+purchased pack url are in the purchased directory (e.g., http://www.inclingconsulting.com/eboticon/purchased/
+
 
 * Eboticon iOS
 
