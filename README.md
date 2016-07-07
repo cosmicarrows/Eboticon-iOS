@@ -1,5 +1,9 @@
 # Eboticon #
 
+
+
+
+
 ### What is this repository for? ###
 
 * Eboticon iOS
@@ -7,9 +11,24 @@
 
 ### How do I get set up? ###
 
-* Checkout the code at [https://bitbucket.org/jmccree/eboticon](https://bitbucket.org/jmccree/eboticon)
 * Install [cocoapods](https://cocoapods.org/) if not already install on machine
 * In terminal window, navigate to eboticon workspace and enter "pod install"
+
+
+### FTP Credentials ###
+
+Server: ftp://ftp.inclingconsulting.com
+Port: 21
+Username: eboticon@inclingconsulting.com
+Password: Qp0H0*B~9Q^?
+Path: /
+
+### Sample URLs
+gif url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.gif
+png url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.png
+mov url: http://www.inclingconsulting.com/eboticon/aint_nobody-caption.mov
+
+* Eboticon iOS
 
 ### Contribution guidelines ###
 
