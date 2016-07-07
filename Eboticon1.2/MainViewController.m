@@ -687,6 +687,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     gifCell.layer.masksToBounds = YES;
     gifCell.layer.cornerRadius = 6;
     
+    // TODO: Fix bug to from the cloud
     EboticonGif *eboticonGifName = [self getCurrentEboticonGif:[indexPath row]];
     [gifCell setCellGif:eboticonGifName];
     
