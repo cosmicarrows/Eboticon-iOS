@@ -47,6 +47,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CATEGORY_GIFT @"greeting"
 #define CATEGORY_EXCLAMATION @"exclamation"
 
+#define BASEURL @"http://www.inclingconsulting.com/eboticon/"
+
 @interface MainViewController (){
     UIToolbar *_toolbar;
     NSMutableArray *_toolbarButtons;
@@ -250,6 +252,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                             break;
                         case 1:
                             [currentGif setStillName:value];
+                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
                             break;
                         case 2:
                             [currentGif setDisplayName:value];
@@ -533,6 +536,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                             break;
                         case 1:
                             [currentGif setStillName:value];
+                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL, value]];
+                            NSLog(@"oruchese %@", currentGif.stillUrl);
                             break;
                         case 2:
                             [currentGif setDisplayName:value];
