@@ -8,6 +8,11 @@
 
 #import "EboticonGifCell.h"
 #import "GPUImage.h"
+#import <DFImageManager/DFImageManagerKit.h>
+#import "ImageDownloader.h"
+#import "ImageCache.h"
+
+
 
 
 @implementation EboticonGifCell
@@ -27,26 +32,58 @@
 -(void) setCellGif:(EboticonGif *) eboticonGif
 {
     if (nil != eboticonGif){
-        _cellGif = eboticonGif;        
-        
-        NSString *gifName = [_cellGif getStillName];
-        
-        gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
-        NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"png"];
-        NSData *GIFDATA = [NSData dataWithContentsOfFile:filepath];
+        _cellGif = eboticonGif;
+        UIImage *image = [[UIImage alloc]init];
+        if ([[ImageCache sharedImageCache] DoesExist:eboticonGif.stillUrl] == true) {
+            image = [[ImageCache sharedImageCache] GetImage:eboticonGif.stillUrl];
 #ifdef FREE
-        //If eboji is free(f), display normally. Else, grayscale
-        if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
-            _gifImageView.image = [UIImage imageWithData:GIFDATA];
-        } else {
-            GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
-            _gifImageView.image = [grayscaleFilter imageByFilteringImage:[UIImage imageWithData:GIFDATA]];
-        }
+            //If eboji is free(f), display normally. Else, grayscale
+            if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
+                _gifImageView.image = image;
+            } else {
+                GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
+                _gifImageView.image = [grayscaleFilter imageByFilteringImage:image];
+            }
 #else
-        _gifImageView.image = [UIImage imageWithData:GIFDATA];
+            _gifImageView.image = image;
 #endif
+        }else {
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            activityIndicator.hidesWhenStopped = YES;
+            activityIndicator.hidden = NO;
+            [activityIndicator startAnimating];
+            activityIndicator.center = self.contentView.center;
+            activityIndicator.tag = 505;
+            [self.contentView addSubview:activityIndicator];
+            [activityIndicator startAnimating];
         
+
+                ImageDownloader *imgDownloader = [[ImageDownloader alloc] init];
+                imgDownloader.imageRecord = eboticonGif;
+                [imgDownloader setCompletionHandler:^{
+
+#ifdef FREE
+                    //If eboji is free(f), display normally. Else, grayscale
+                    if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
+                        _gifImageView.image = eboticonGif.thumbImage;
+                    } else {
+                        GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
+                        _gifImageView.image = [grayscaleFilter imageByFilteringImage:eboticonGif.thumbImage];
+                    }
+#else
+                    _gifImageView.image = eboticonGif.thumbImage;
+#endif
+                    [activityIndicator stopAnimating];
+                    [activityIndicator removeFromSuperview];
+                }];
+                [imgDownloader startDownload];
+            
+        }
     }
+}
+
+- (void)downloadImage:(EboticonGif *)eboticonGif {
+    
 }
 
 -(BOOL)isCellAnimating
