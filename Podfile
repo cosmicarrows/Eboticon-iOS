@@ -9,6 +9,9 @@ target 'Eboticon1.2' do
     pod 'GPUImage', '~> 0.1'
     pod 'TTSwitch', '~> 0.0.5'
     pod 'FLAnimatedImage', '~> 1.0'
+    pod 'DFImageManager'
+    pod 'DFImageManager/GIF'
+    pod 'DFImageManager/AFNetworking'
 end
 
 target 'EboticonKeyboard' do

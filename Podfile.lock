@@ -1,11 +1,11 @@
 PODS:
-  - AFNetworking/NSURLSession (2.6.1):
+  - AFNetworking/NSURLSession (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.1)
-  - AFNetworking/Security (2.6.1)
-  - AFNetworking/Serialization (2.6.1)
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
   - CHCSVParser (2.0.7)
   - CocoaLumberjack (1.9.2):
     - CocoaLumberjack/Extensions (= 1.9.2)
@@ -29,7 +29,7 @@ PODS:
     - DFImageManager/Core
   - DFImageManager/UI (0.8.0):
     - DFImageManager/Core
-  - FLAnimatedImage (1.0.8)
+  - FLAnimatedImage (1.0.12)
   - GPUImage (0.1.7)
   - Harpy (3.3.10)
   - iRate (1.11.4)
@@ -52,11 +52,11 @@ DEPENDENCIES:
   - TTSwitch (~> 0.0.5)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
   CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
   DFImageManager: 37d75898009b05e49d13e36576677c76847b7d2a
-  FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   Harpy: 7cb3e32eea8a21af0e89b7f9f7bccd23f9427139
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
@@ -64,4 +64,6 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 9df1bbfdeeefae88546b8339e8b81d7d29a34cba
+
+COCOAPODS: 1.0.0
