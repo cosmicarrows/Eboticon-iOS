@@ -11,7 +11,7 @@
 #import <DFImageManager/DFImageManagerKit.h>
 #import "ImageDownloader.h"
 #import "ImageCache.h"
-
+#import "Reachability.h"
 
 
 
@@ -56,12 +56,12 @@
             activityIndicator.tag = 505;
             [self.contentView addSubview:activityIndicator];
             [activityIndicator startAnimating];
-        
-
+            
+            if ([self checkConnnectivity]) {
                 ImageDownloader *imgDownloader = [[ImageDownloader alloc] init];
                 imgDownloader.imageRecord = eboticonGif;
                 [imgDownloader setCompletionHandler:^{
-
+                    
 #ifdef FREE
                     //If eboji is free(f), display normally. Else, grayscale
                     if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
@@ -77,13 +77,29 @@
                     [activityIndicator removeFromSuperview];
                 }];
                 [imgDownloader startDownload];
+                
+            }else {
+                [activityIndicator stopAnimating];
+                [activityIndicator removeFromSuperview];
+                _gifImageView.image = [UIImage imageNamed:@"placeholder.png"];
+            }
+            
             
         }
     }
 }
 
-- (void)downloadImage:(EboticonGif *)eboticonGif {
+- (BOOL) checkConnnectivity {
     
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    NSLog(@"inte%ld,",(long)internetStatus);
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 -(BOOL)isCellAnimating
