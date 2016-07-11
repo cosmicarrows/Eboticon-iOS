@@ -93,7 +93,6 @@
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus internetStatus = [reachability currentReachabilityStatus];
-    NSLog(@"inte%ld,",(long)internetStatus);
     if (internetStatus != NotReachable) {
         return YES;
     }
