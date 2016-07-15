@@ -286,7 +286,8 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
     
     if ([[ImageCache sharedImageCache] DoesExist:currentGif.gifUrl] == true) {
-        FLAnimatedImage *image = [[ImageCache sharedImageCache] GetFLAnimatedImage:currentGif.gifUrl];
+        NSData *imageData = [[ImageCache sharedImageCache] GetData:currentGif.gifUrl];
+        FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
         cell.gifImageView.animatedImage = image;
     }else {
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -310,13 +311,14 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                     NSLog(@"error %@", downloadError.localizedDescription);
                     NSLog(@"url %@", currentGif.gifUrl);
                     
+                }else {
+                    [[ImageCache sharedImageCache] AddData:currentGif.gifUrl :imageData];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [activityIndicator stopAnimating];
                     [activityIndicator removeFromSuperview];
                     FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
                     cell.gifImageView.animatedImage = image;
-                    [[ImageCache sharedImageCache] AddFLImage:currentGif.gifUrl :image];
                 });
                 
             });
