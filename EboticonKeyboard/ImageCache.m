@@ -13,6 +13,7 @@
 
 #import "ImageCache.h"
 
+
 @implementation ImageCache
 
 @synthesize imgCache;
@@ -64,9 +65,19 @@ static ImageCache* sharedImageCache = nil;
         [imgCache setObject:image forKey:imageURL];
 }
 
+- (void) AddFLImage:(NSString *)imageURL :(FLAnimatedImage *)image
+{
+    if (image!=nil)
+        [imgCache setObject:image forKey:imageURL];
+}
+
 - (NSString*) GetImage:(NSString *)imageURL
 {
     return [imgCache objectForKey:imageURL];
+}
+
+- (FLAnimatedImage *)GetFLAnimatedImage:(NSString *)FLAnimatedImageURL {
+    return [imgCache objectForKey:FLAnimatedImageURL];
 }
 
 - (BOOL) DoesExist:(NSString *)imageURL
