@@ -249,6 +249,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                     switch (j) {
                         case 0:
                             [currentGif setFileName:value];
+                            [currentGif setGifUrl:[NSString stringWithFormat:@"%@%@", BASEURL,value]];
                             break;
                         case 1:
                             [currentGif setStillName:value];
@@ -262,6 +263,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                             break;
                         case 4:
                             [currentGif setMovFileName:value];
+                            [currentGif setMovUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
                             break;
                         case 5:
                             [currentGif setDisplayType:value];
