@@ -19,8 +19,10 @@
 @property (strong, nonatomic) NSString *emotionCategory;
 @property (strong, nonatomic) NSString *purchaseCategory;
 @property (strong, nonatomic) NSString *stillUrl;
-@property (nonatomic, strong) UIImage *thumbImage;
+@property (strong, nonatomic) NSString *gifUrl;
+@property (strong, nonatomic) NSString *movUrl;
 
+@property (nonatomic, strong) UIImage *thumbImage;
 
 
 
