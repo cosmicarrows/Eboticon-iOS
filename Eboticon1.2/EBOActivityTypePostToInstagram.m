@@ -35,7 +35,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (UIImage *)activityImage {
-
+    
     return [UIImage imageNamed:@"Icon_Instagram.png"];
 }
 
@@ -77,7 +77,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 //- (void)prepareWithActivityItems:(NSArray *)activityItems {
-//    
+//
 //    NSMutableArray *movItems = [NSMutableArray array];
 //    for (id obj in activityItems) {
 //        if ([obj isKindOfClass:[NSURL class]]) {
@@ -97,8 +97,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (void)performActivity {
     
     NSString * movName = [self.movItems objectAtIndex:0];
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:movName ofType:nil];
-    //NSData *movData = [NSData dataWithContentsOfFile:filepath];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
     
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
@@ -112,12 +113,12 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 //- (void)performActivity {
-//    
+//
 //    NSString * gifName = [self.movItems objectAtIndex:0];
 //    gifName = [gifName substringWithRange:NSMakeRange(0, [gifName length] - 4)];
 //    NSString *filepath  = [[NSBundle mainBundle] pathForResource:gifName ofType:@"mov"];
 //    //NSData *movData = [NSData dataWithContentsOfFile:filepath];
-//    
+//
 //    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
 //        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
 //            UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
@@ -125,14 +126,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //    } else {
 //        DDLogError(@"Video is Not Compatible");
 //    }
-//    
+//
 //    [self activityDidFinish:YES];
 //}
 
 
 -(BOOL)doesMovieExist:(NSString *)movFileName {
     
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:self.movName ofType:nil];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", self.movName]];
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
     
@@ -147,18 +150,18 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     if (error) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Eboticon Saving Failed"
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     } else {
         SIAlertView *successAlertView = [[SIAlertView alloc] initWithTitle:@"Instagram Video" andMessage:@"This Eboticon has been saved to your camera roll.  You will need to load it from your camera roll inside Instagram. Make sure to hashtag #eboticons!"];
         [successAlertView addButtonWithTitle:@"OK"
-                                 type:SIAlertViewButtonTypeDestructive
-                              handler:^(SIAlertView *alert) {
-                                  [self openInstagram];
-                              }];
+                                        type:SIAlertViewButtonTypeDestructive
+                                     handler:^(SIAlertView *alert) {
+                                         [self openInstagram];
+                                     }];
         successAlertView.transitionStyle = SIAlertViewTransitionStyleBounce;
         [successAlertView show];
-
+        
     }
 }
 
@@ -185,10 +188,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         [self sendShareToGoogleAnalytics:@"viaWeb"];
         SIAlertView *igNotInstalledAlert = [[SIAlertView alloc] initWithTitle:@"Instagram Error" andMessage:@"Instagram is not installed on your device.  Please install Instagram and try again."];
         [igNotInstalledAlert addButtonWithTitle:@"OK"
-                                        type:SIAlertViewButtonTypeDestructive
-                                     handler:^(SIAlertView *alert) {
-                                         [self openInstagram];
-                                     }];
+                                           type:SIAlertViewButtonTypeDestructive
+                                        handler:^(SIAlertView *alert) {
+                                            [self openInstagram];
+                                        }];
         igNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
         [igNotInstalledAlert show];
     }

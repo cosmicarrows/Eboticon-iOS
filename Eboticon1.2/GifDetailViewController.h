@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
 
-
+typedef void (^CompletionHandler)(NSString *filepath);
 @interface GifDetailViewController : UIViewController
 
 @property (assign, nonatomic) NSInteger index;
@@ -17,6 +17,7 @@
 @property (assign, nonatomic) NSInteger currentDisplayIndex;
 @property (weak, nonatomic) IBOutlet UIImageView *imvBlurredBackground;
 @property (strong, nonatomic) UIImage *imgBackground;
+@property (copy, nonatomic) CompletionHandler finishBlock;
 
 @property (strong, nonatomic) id gifCategory;
 
