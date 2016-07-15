@@ -15,10 +15,16 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import <DFImageManager/DFImageManagerKit.h>
+#import "ImageDownloader.h"
+#import "ImageCache.h"
+#import "Reachability.h"
 
 //static const int ddLogLevel = LOG_LEVEL_ERROR;
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 #define CURRENTSCREEN @"Shop Detail Screen"
+#define BASEURL @"http://www.inclingconsulting.com/eboticon/"
+
 
 @interface ShopDetailCollectionViewController (){
     NSMutableArray *_eboticonGifs;
@@ -144,9 +150,13 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                     switch (j) {
                         case 0:
                             [currentGif setFileName:value];
+                            [currentGif setGifUrl:[NSString stringWithFormat:@"%@%@", BASEURL,value]];
+                            NSLog(@"setfilename %@", currentGif.fileName);
                             break;
                         case 1:
                             [currentGif setStillName:value];
+                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
+                            NSLog(@"setfilename %@", currentGif.stillName);
                             break;
                         case 2:
                             [currentGif setDisplayName:value];
@@ -156,6 +166,8 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                             break;
                         case 4:
                             [currentGif setMovFileName:value];
+                            [currentGif setMovUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
+                            NSLog(@"setfilename %@", currentGif.movFileName);
                             break;
                         case 5:
                             [currentGif setDisplayType:value];
@@ -268,23 +280,70 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (ShopDetailCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.gifImageView.animatedImage = nil;
     
     EboticonGif *currentGif = [_packGifs objectAtIndex:indexPath.row];
-    NSLog(@"gif filename %@", currentGif.getFileName);
-    
-    NSString * path = [[NSBundle mainBundle] pathForResource:currentGif.getFileName ofType:nil];
-    NSData * data = [NSData dataWithContentsOfFile:path];
-    FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:data];
-    
-    cell.gifImageView.animatedImage = image;
     
     
+    if ([[ImageCache sharedImageCache] DoesExist:currentGif.gifUrl] == true) {
+        FLAnimatedImage *image = [[ImageCache sharedImageCache] GetFLAnimatedImage:currentGif.gifUrl];
+        cell.gifImageView.animatedImage = image;
+    }else {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.hidesWhenStopped = YES;
+        activityIndicator.hidden = NO;
+        [activityIndicator startAnimating];
+        activityIndicator.center = cell.contentView.center;
+        activityIndicator.tag = 505;
+        [cell.contentView addSubview:activityIndicator];
+        [activityIndicator startAnimating];
+        
+        if ([self checkConnnectivity]) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSURL *imageURL = [NSURL URLWithString:currentGif.gifUrl];
+                NSError *downloadError = nil;
+                // Create an NSData object from the contents of the given URL.
+                NSData *imageData = [NSData dataWithContentsOfURL:imageURL
+                                                          options:kNilOptions
+                                                            error:&downloadError];
+                if (downloadError) {
+                    NSLog(@"error %@", downloadError.localizedDescription);
+                    NSLog(@"url %@", currentGif.gifUrl);
+                    
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [activityIndicator stopAnimating];
+                    [activityIndicator removeFromSuperview];
+                    FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
+                    cell.gifImageView.animatedImage = image;
+                    [[ImageCache sharedImageCache] AddFLImage:currentGif.gifUrl :image];
+                });
+                
+            });
+            
+        }else {
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+        }
+    }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"Select %ld",(long)indexPath.row);
+}
+
+- (BOOL) checkConnnectivity {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 
