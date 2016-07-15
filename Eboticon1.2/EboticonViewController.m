@@ -70,12 +70,9 @@
             UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             activityIndicator.hidesWhenStopped = YES;
             activityIndicator.hidden = NO;
-            [activityIndicator startAnimating];
-            activityIndicator.center = self.imageView.center;
-            CGRect frame = activityIndicator.frame;
-            frame.size = CGSizeMake(100, 100);
-            activityIndicator.frame = frame;
-            [self.imageView addSubview:activityIndicator];
+            activityIndicator.center = self.view.center;
+            activityIndicator.color = [UIColor blueColor];
+            [self.view addSubview:activityIndicator];
             [activityIndicator startAnimating];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSURL *imageURL = [NSURL URLWithString:self.eboticonGif.gifUrl];

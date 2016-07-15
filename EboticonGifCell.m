@@ -89,6 +89,11 @@
     }
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    _gifImageView.image = nil;
+}
+
 - (BOOL) checkConnnectivity {
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
