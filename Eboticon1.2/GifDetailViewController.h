@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
 
-typedef void (^CompletionHandler)(NSString *filepath);
+typedef void (^CompletionHandler)(NSString *filepath, NSError *error);
 @interface GifDetailViewController : UIViewController
 
 @property (assign, nonatomic) NSInteger index;
