@@ -237,7 +237,7 @@
     if (fileExists) {
         
         NSLog(@"file path %@", file);
-        finishBlock(file);
+        finishBlock(file, nil);
         
         
     }else {
@@ -245,7 +245,16 @@
             NSLog(@"Downloading Started");
             NSString *urlToDownload = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@",movName];
             NSURL  *url = [NSURL URLWithString:urlToDownload];
-            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            
+            NSError *downloadError = nil;
+            // Create an NSData object from the contents of the given URL.
+            NSData *urlData = [NSData dataWithContentsOfURL:url
+                                              options:kNilOptions
+                                                error:&downloadError];
+            if (downloadError) {
+                finishBlock(nil, downloadError);
+            }
+            
             if ( urlData )
             {
                 
@@ -256,7 +265,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [urlData writeToFile:filePath atomically:YES];
                     NSLog(@"File Saved ! %@", filePath);
-                    finishBlock(filePath);
+                    finishBlock(filePath, nil);
                 });
             }
             
@@ -289,54 +298,65 @@
     
     
     //NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
-    [self createPathForMovName:movName completion:^(NSString *filepath) {
-        NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
-        NSLog(@"movname %@", movName);
-        NSLog(@"get file name %@", [currGif getFileName]);
-        //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
-        
-        NSURL *imagePath = [NSURL URLWithString:gifUrlName];
-        
-        NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
-            // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
-            [activityIndicator stopAnimating];
-            [activityIndicator removeFromSuperview];
-            NSLog(@"%@",gifUrlName);
-            
-            
-            // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
-            
-            NSArray *objectsToShare = @[animatedGif];
-            
-            NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
-            //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
-            
-            NSLog(@"activities %@", applicationActivities);
-            
-            //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
-            
-            
-            //UIActivityTypePostToFacebook
-            NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
-            
-            controller.excludedActivityTypes = excludedActivities;
-            
-            
-            //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
-            
-            [self presentViewController:controller animated:YES completion: nil];
-            [controller setCompletionWithItemsHandler:
-             ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-                 DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
-                 [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
-                 [[iRate sharedInstance] logEvent:TRUE];
-                 [self promptForRating];
-             }];
-        });
-    }];
+   [self createPathForMovName:movName completion:^(NSString *filepath, NSError *error) {
+       if (error != nil) {
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [activityIndicator stopAnimating];
+               [activityIndicator removeFromSuperview];
+               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+               [alertController addAction:cancel];
+               [self presentViewController:alertController animated:YES completion:nil];
+               return;
+           });
+       }
+       NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+       NSLog(@"movname %@", movName);
+       NSLog(@"get file name %@", [currGif getFileName]);
+       //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+       
+       NSURL *imagePath = [NSURL URLWithString:gifUrlName];
+       
+       NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
+       dispatch_async(dispatch_get_main_queue(), ^{
+           // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
+           // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
+           [activityIndicator stopAnimating];
+           [activityIndicator removeFromSuperview];
+           NSLog(@"%@",gifUrlName);
+           
+           
+           // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
+           
+           NSArray *objectsToShare = @[animatedGif];
+           
+           NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
+           //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
+           
+           NSLog(@"activities %@", applicationActivities);
+           
+           //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+           UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
+           
+           
+           //UIActivityTypePostToFacebook
+           NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
+           
+           controller.excludedActivityTypes = excludedActivities;
+           
+           
+           //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
+           
+           [self presentViewController:controller animated:YES completion: nil];
+           [controller setCompletionWithItemsHandler:
+            ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+                DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
+                [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
+                [[iRate sharedInstance] logEvent:TRUE];
+                [self promptForRating];
+            }];
+       });
+   }];
     
     
 }
