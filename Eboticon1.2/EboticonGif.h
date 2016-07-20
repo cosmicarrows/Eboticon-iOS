@@ -18,6 +18,12 @@
 @property (strong, nonatomic) NSString *displayType;
 @property (strong, nonatomic) NSString *emotionCategory;
 @property (strong, nonatomic) NSString *purchaseCategory;
+@property (strong, nonatomic) NSString *stillUrl;
+@property (strong, nonatomic) NSString *gifUrl;
+@property (strong, nonatomic) NSString *movUrl;
+
+@property (nonatomic, strong) UIImage *thumbImage;
+
 
 
 - (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType emotionCategory:(NSString *)emotionCategory;

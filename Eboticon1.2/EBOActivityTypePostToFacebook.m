@@ -100,9 +100,12 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (void)performActivity {
     
     NSString * movName = [self.movItems objectAtIndex:0];
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:movName ofType:nil];
+    //    NSString *filepath  = [[NSBundle mainBundle] pathForResource:movName ofType:nil];
     //NSData *movData = [NSData dataWithContentsOfFile:filepath];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
             UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
@@ -134,9 +137,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 -(BOOL)doesMovieExist:(NSString *)movFileName {
+    //
     
-    NSString *filepath  = [[NSBundle mainBundle] pathForResource:self.movName ofType:nil];
-    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", self.movName]];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
     
     if(fileExists)
@@ -185,16 +190,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     // Post a notification to loginComplete
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postToFacebook" object:nil userInfo:userInfo];
-
+    
 }
 
 -(void)openFacebook
 {
     
-   NSURL *facebookURL = [NSURL URLWithString:@"fb://publish"];
-   //NSURL *facebookURL = [NSURL URLWithString:@"fb://publish/profile/me"];
-   NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com"];
-
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://publish"];
+    //NSURL *facebookURL = [NSURL URLWithString:@"fb://publish/profile/me"];
+    NSURL *facebookWebURL = [NSURL URLWithString:@"http://www.facebook.com"];
+    
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
         [self sendShareToGoogleAnalytics:@"nativeApp"];
         [[UIApplication sharedApplication] openURL:facebookURL];

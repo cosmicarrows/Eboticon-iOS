@@ -58,11 +58,11 @@
                                                  name:@"postToFacebook" object:nil];
     
     
-
-
+    
+    
     
     NSLog(@"GifDetailViewController viewDidLoad");
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
     _currentDisplayIndex = self.index;
     
     //Add Share Button
@@ -96,16 +96,16 @@
     
     //Adds extra color block on top of view to fix overlap
     /*
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
-        UIView *fixbar = [[UIView alloc] init];
-        fixbar.frame = CGRectMake(0, 0, 320, 20);
-        //fixbar.backgroundColor = [UIColor colorWithRed:0.973 green:0.973 blue:0.973 alpha:1]; // the default color of iOS7 bacground or any color suits your design
-        //fixbar.backgroundColor = UIColorFromRGB(0xFf6c00); //Eboticon Orange
-        fixbar.backgroundColor = UIColorFromRGB(0x7e00c0); //Eboticon Purple
-        //fixbar.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:fixbar];
-    }
-    */
+     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
+     UIView *fixbar = [[UIView alloc] init];
+     fixbar.frame = CGRectMake(0, 0, 320, 20);
+     //fixbar.backgroundColor = [UIColor colorWithRed:0.973 green:0.973 blue:0.973 alpha:1]; // the default color of iOS7 bacground or any color suits your design
+     //fixbar.backgroundColor = UIColorFromRGB(0xFf6c00); //Eboticon Orange
+     fixbar.backgroundColor = UIColorFromRGB(0x7e00c0); //Eboticon Purple
+     //fixbar.backgroundColor = [UIColor whiteColor];
+     [self.view addSubview:fixbar];
+     }
+     */
     
     
     // Create page view controller
@@ -194,7 +194,7 @@
     if ([self.revealViewController wasAnimated]){
         [self reverseMenu:nil];
         return;
-    }    
+    }
     
     NSLog(@"Share button Current Index:%ld", (long)self.index);
     //EboticonGif *currGif = self.imageNames[self.index];
@@ -210,14 +210,14 @@
     NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id899011953?mt=8";
     NSString *cancelledResponse = @"cancelled";
     NSString *upgradeResponse = @"upgrade";
-
+    
     SIAlertView *upgradeView = [[SIAlertView alloc] initWithTitle:@"Thank you!" andMessage:@"Thanks so much for using Eboticon Lite! Upgrade now to access this Eboji!"];
     [upgradeView addButtonWithTitle:@"Maybe Later"
-                             type:SIAlertViewButtonTypeCancel
-                          handler:^(SIAlertView *alertView) {
-                              DDLogDebug(@"Cancel Clicked");
-                              [self sendUpgradeButtonClickToGoogleAnalytics:cancelledResponse];
-                          }];
+                               type:SIAlertViewButtonTypeCancel
+                            handler:^(SIAlertView *alertView) {
+                                DDLogDebug(@"Cancel Clicked");
+                                [self sendUpgradeButtonClickToGoogleAnalytics:cancelledResponse];
+                            }];
     [upgradeView addButtonWithTitle:@"OK"
                                type:SIAlertViewButtonTypeDestructive
                             handler:^(SIAlertView *alert) {
@@ -229,8 +229,60 @@
     
 }
 
+- (void)createPathForMovName:(NSString *)movName completion:(CompletionHandler)finishBlock {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString *file = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:file];
+    if (fileExists) {
+        
+        NSLog(@"file path %@", file);
+        finishBlock(file, nil);
+        
+        
+    }else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"Downloading Started");
+            NSString *urlToDownload = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@",movName];
+            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            
+            NSError *downloadError = nil;
+            // Create an NSData object from the contents of the given URL.
+            NSData *urlData = [NSData dataWithContentsOfURL:url
+                                              options:kNilOptions
+                                                error:&downloadError];
+            if (downloadError) {
+                finishBlock(nil, downloadError);
+            }
+            
+            if ( urlData )
+            {
+                
+                
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,[NSString stringWithFormat:@"%@.mov", movName]];
+                
+                //saving is done on main thread
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [urlData writeToFile:filePath atomically:YES];
+                    NSLog(@"File Saved ! %@", filePath);
+                    finishBlock(filePath, nil);
+                });
+            }
+            
+        });
+    }
+    
+}
+
 -(void) loadShareView: (EboticonGif*)currGif
 {
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.hidesWhenStopped = YES;
+    activityIndicator.hidden = NO;
+    activityIndicator.color = [UIColor blueColor];
+    activityIndicator.center = self.view.center;
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
     //Save gifs to recents
     [self saveRecentGif:currGif];
     
@@ -238,64 +290,86 @@
     //[self sendShareToGoogleAnalytics:[currGif getFileName]];
     [self showEmailAlert];
     
+    NSString *movName = [currGif movFileName];
+    
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     
-   // NSString *textObject = @"Check this out #eboticon";
+    // NSString *textObject = @"Check this out #eboticon";
     
-    NSString *movName = [currGif movFileName];
-    NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
-    //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
-    
-    NSURL *imagePath = [NSURL URLWithString:gifUrlName];
-    NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
-   
     
     //NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+   [self createPathForMovName:movName completion:^(NSString *filepath, NSError *error) {
+       if (error != nil) {
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [activityIndicator stopAnimating];
+               [activityIndicator removeFromSuperview];
+               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+               [alertController addAction:cancel];
+               [self presentViewController:alertController animated:YES completion:nil];
+               return;
+           });
+       }
+       NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+       NSLog(@"movname %@", movName);
+       NSLog(@"get file name %@", [currGif getFileName]);
+       //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+       
+       NSURL *imagePath = [NSURL URLWithString:gifUrlName];
+       
+       NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
+       dispatch_async(dispatch_get_main_queue(), ^{
+           // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
+           // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
+           [activityIndicator stopAnimating];
+           [activityIndicator removeFromSuperview];
+           NSLog(@"%@",gifUrlName);
+           
+           
+           // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
+           
+           NSArray *objectsToShare = @[animatedGif];
+           
+           NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
+           //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
+           
+           NSLog(@"activities %@", applicationActivities);
+           
+           //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+           UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
+           
+           
+           //UIActivityTypePostToFacebook
+           NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
+           
+           controller.excludedActivityTypes = excludedActivities;
+           
+           
+           //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
+           
+           [self presentViewController:controller animated:YES completion: nil];
+           [controller setCompletionWithItemsHandler:
+            ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+                DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
+                [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
+                [[iRate sharedInstance] logEvent:TRUE];
+                [self promptForRating];
+            }];
+       });
+   }];
     
     
-   // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
-   // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
-    
-    NSLog(@"%@",gifUrlName);
-  
-    // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
-
-    NSArray *objectsToShare = @[animatedGif];
-    
-    NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
-    //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
-    
-    
-    //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
-    
-    
-    //UIActivityTypePostToFacebook
-    NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
-    controller.excludedActivityTypes = excludedActivities;
-    
-    
-    //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
-    
-    [self presentViewController:controller animated:YES completion: nil];
-    [controller setCompletionWithItemsHandler:
-     ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-         DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
-         [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
-         [[iRate sharedInstance] logEvent:TRUE];
-         [self promptForRating];
-     }];
 }
 
 
 -(void)openPostFacebook:(NSNotification *)notification {
     
-
-        NSDictionary* userInfo = notification.userInfo;
-        NSString* filepath = (NSString*)userInfo[@"filepath"];
-        NSLog (@"Successfully received test notification! %@", filepath);
     
-
+    NSDictionary* userInfo = notification.userInfo;
+    NSString* filepath = (NSString*)userInfo[@"filepath"];
+    NSLog (@"Successfully received test notification! %@", filepath);
+    
+    
     NSLog(@"test");
     
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
@@ -303,8 +377,8 @@
         SLComposeViewController *fbPost = [SLComposeViewController
                                            composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-       // [fbPost setInitialText:@"Text You want to Share"];
-       // [fbPost addImage:[UIImage imageNamed:@"Icon_Facebook.png"]];
+        // [fbPost setInitialText:@"Text You want to Share"];
+        // [fbPost addImage:[UIImage imageNamed:@"Icon_Facebook.png"]];
         
         [self presentViewController:fbPost animated:YES completion:nil];
         
@@ -409,7 +483,7 @@
     } else if (![recentGifs containsObject:[currGif fileName]]){
         [recentGifs insertObject:[currGif fileName] atIndex:0];
     }
-
+    
     [defaults setObject:recentGifs forKey:RECENT_GIFS_KEY];
     [defaults synchronize];
     
@@ -422,7 +496,7 @@
     NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
     
-     NSLog(@"%@",filePath);
+    NSLog(@"%@",filePath);
     return [NSURL fileURLWithPath:filePath];
 }
 
@@ -444,7 +518,7 @@
 }
 
 -(UIViewController *) pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{ 
+{
     NSUInteger index = ((EboticonViewController*) viewController).index;
     
     if ((index == 0) || (index == NSNotFound)) {

@@ -12,6 +12,10 @@
 #import "GPUImage.h"
 #import "DDLog.h"
 #import "Constants.h"
+#import <DFImageManager/DFImageManagerKit.h>
+#import "ImageDownloader.h"
+#import "ImageCache.h"
+#import "Reachability.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -21,7 +25,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *imageLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nEboticonConstraintWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nEboticonConstraintHeight;
-
+@property (strong, nonatomic) NSData *data;
 
 @end
 
@@ -58,12 +62,57 @@
     
     //self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];
     
+    if ([[ImageCache sharedImageCache] DoesExist:self.eboticonGif.gifUrl ]) {
+        NSData *imageData = [[ImageCache sharedImageCache] GetData:self.eboticonGif.gifUrl];
+        self.data = imageData;
+    }else {
+        if ([self checkConnnectivity]) {
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            activityIndicator.hidesWhenStopped = YES;
+            activityIndicator.hidden = NO;
+            activityIndicator.center = self.view.center;
+            activityIndicator.color = [UIColor blueColor];
+            [self.view addSubview:activityIndicator];
+            [activityIndicator startAnimating];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSURL *imageURL = [NSURL URLWithString:self.eboticonGif.gifUrl];
+                NSError *downloadError = nil;
+                // Create an NSData object from the contents of the given URL.
+                self.data = [NSData dataWithContentsOfURL:imageURL
+                                                          options:kNilOptions
+                                                            error:&downloadError];
+                if (downloadError) {
+                    NSLog(@"error %@", downloadError.localizedDescription);
+                    NSLog(@"url %@", self.eboticonGif.gifUrl);
+                    
+                }else {
+                    [[ImageCache sharedImageCache] AddData:self.eboticonGif.gifUrl :self.data];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [activityIndicator stopAnimating];
+                    [activityIndicator removeFromSuperview];
+                    [self updateImage];
+                });
+                
+            });
+            
+        }        
+    }
+    
+    [self updateImage];
+    
+}
+
+- (void)updateImage {
 #ifdef FREE
     if([self.eboticonGif.getDisplayType isEqualToString:@"f"]) {
-        self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];
+        self.imageView.image = [OLImage imageWithData:_data];
+        NSLog(@"path %@",eboticonGif.gifUrl);
+        
     } else {
-        self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];
-                
+        self.imageView.image = [OLImage imageWithData:_data];
+        NSLog(@"path %@",eboticonGif.gifUrl);
+        
         DDLogDebug(@"ImageView position x:%f y:%f", self.imageView.frame.origin.x, self.imageView.frame.origin.x);
         DDLogDebug(@"ImageView height: %f, width: %f", self.imageView.image.size.height, self.imageView.image.size.width);
         CGRect overlayFrame = self.imageView.frame;
@@ -77,12 +126,12 @@
         overlayView.backgroundColor = [UIColor blackColor];
         
         overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-                
-        [self.imageView addSubview:overlayView];       
-
+        
+        [self.imageView addSubview:overlayView];
+        
     }
 #else
-    self.imageView.image = [OLImage imageNamed:self.eboticonGif.getFileName];
+    self.imageView.image = [OLImage imageWithData:self.data];
 #endif
     
     NSString *titleString = self.eboticonGif.getDisplayName;
@@ -103,7 +152,18 @@
 #endif
     
     self.imageLabel.attributedText = attributedTitle;
+}
+
+- (BOOL) checkConnnectivity {
     
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 
