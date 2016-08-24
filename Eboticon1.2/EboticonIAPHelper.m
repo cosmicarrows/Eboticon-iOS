@@ -16,6 +16,7 @@
     dispatch_once(&once, ^{
         NSSet * productIdentifiers = [NSSet setWithObjects:
                                       @"com.eboticon.Eboticon.churchpack1",
+                                      @"com.eboticon.Eboticon.churchpack2",
                                       @"com.eboticon.Eboticon.greekpack2",
                                      // @"com.eboticon.Eboticon.customerappreciationpack1",
                                       @"com.eboticon.Eboticon.ratchpack1",

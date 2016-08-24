@@ -1,4 +1,5 @@
 platform :ios, "7.0"
+xcodeproj 'Eboticon1.2.xcodeproj'
 
 target 'Eboticon1.2' do
     pod 'CHCSVParser', '~> 2.0.7'
