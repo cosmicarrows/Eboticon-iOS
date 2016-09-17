@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "NotHappySmaller.png"
+      "filename" : "NotHappySmaller copy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "NotHappySmaller70.png"
+      "filename" : "NotHappySmaller70 copy.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "NotHappySmaller105.png"
+      "filename" : "NotHappySmaller105 copy.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "HappySmaller.png"
+      "filename" : "HappySmaller copy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "HappySmaller-1.png"
+      "filename" : "HappySmaller70 copy.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "happy.png"
+      "filename" : "HappySmaller105 copy.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

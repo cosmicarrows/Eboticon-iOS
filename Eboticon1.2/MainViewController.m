@@ -177,7 +177,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self makeNavBarTransparent];
     
     UIImageView *imageView = [[UIImageView alloc]
-                              initWithFrame:CGRectMake(0,0,3,44)];
+                              initWithFrame:CGRectMake(0,0,3,20)];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];

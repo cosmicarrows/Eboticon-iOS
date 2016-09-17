@@ -14,12 +14,15 @@
 #import "GAIDictionaryBuilder.h"
 #import "DDLog.h"
 
+
+
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
 
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CURRENTSCREEN @"Shop Screen"
+
 
 
 
@@ -147,6 +150,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.baepack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
+    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack3"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+    }
+
     
 }
 
@@ -203,7 +210,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [_imagePager setBounces:NO];
     
     UIImageView *imageView = [[UIImageView alloc]
-                              initWithFrame:CGRectMake(0,0,3,44)];
+                              initWithFrame:CGRectMake(10,0,3,20)];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];

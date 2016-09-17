@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "HLHeartSmaller.png"
+      "filename" : "HLHeartSmaller.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "HLHeartSmaller70.png"
+      "filename" : "HLHeartSmaller70.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "HLHeartSmaller105.png"
+      "filename" : "HLHeartSmaller105.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
