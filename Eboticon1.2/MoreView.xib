@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,7 +10,6 @@
                 <outlet property="facebookLogo" destination="0Xv-62-WCc" id="LIi-ze-oND"/>
                 <outlet property="instagramLogo" destination="d4g-Pv-4kl" id="GR4-E5-a0h"/>
                 <outlet property="view" destination="iN0-l3-epB" id="71n-9W-s3Y"/>
-                <outlet property="vineLogo" destination="ngg-V3-Aqw" id="KbA-Ul-bcy"/>
                 <outlet property="youtubeLogo" destination="4Q7-tf-Jgd" id="BAQ-1K-jTK"/>
             </connections>
         </placeholder>
@@ -100,10 +99,10 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2015 Eboticon. All Rights Reserved. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="To6-BL-Nsb">
-                    <rect key="frame" x="129" y="587" width="162" height="11"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2015 Eboticon. All Rights Reserved. " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="To6-BL-Nsb">
+                    <rect key="frame" x="41" y="587" width="285" height="11"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="162" id="Zsn-TV-EmJ"/>
+                        <constraint firstAttribute="width" constant="285" id="Zsn-TV-EmJ"/>
                         <constraint firstAttribute="height" constant="11" id="fVv-MP-HdT"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
@@ -171,48 +170,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="restore" translatesAutoresizingMaskIntoConstraints="NO" id="qum-dU-K7V">
                     <rect key="frame" x="111" y="333" width="27" height="29"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-62-WCc" userLabel="facebook">
-                    <rect key="frame" x="65" y="383" width="42" height="42"/>
-                    <state key="normal" image="facebook-social">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="facebookLogo:" destination="-1" eventType="touchUpInside" id="LoS-YM-vdx"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Pv-4kl" userLabel="instagram">
-                    <rect key="frame" x="118" y="383" width="42" height="42"/>
-                    <state key="normal" image="instagram-social">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="instagramLogo:" destination="-1" eventType="touchUpInside" id="9fN-Mg-hib"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEi-67-XKl" userLabel="twitter">
-                    <rect key="frame" x="170" y="383" width="42" height="42"/>
-                    <state key="normal" image="twitter-social">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="twitterLogo:" destination="-1" eventType="touchUpInside" id="yfI-wX-ktv"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q7-tf-Jgd" userLabel="youtube">
-                    <rect key="frame" x="222" y="383" width="42" height="42"/>
-                    <state key="normal" image="youtube-social">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="youtubeLogo:" destination="-1" eventType="touchUpInside" id="ZCs-Jy-kyp"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngg-V3-Aqw" userLabel="vine">
-                    <rect key="frame" x="275" y="383" width="42" height="42"/>
-                    <state key="normal" image="vine-social">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfl-yW-nWT">
                     <rect key="frame" x="151" y="335" width="180" height="32"/>
                     <constraints>
@@ -227,6 +184,42 @@
                         <action selector="restorePurchases:" destination="-1" eventType="touchUpInside" id="yMj-23-Tfn"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-62-WCc" userLabel="facebook">
+                    <rect key="frame" x="93" y="383" width="42" height="42"/>
+                    <state key="normal" image="facebook-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="facebookLogo:" destination="-1" eventType="touchUpInside" id="LoS-YM-vdx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Pv-4kl" userLabel="instagram">
+                    <rect key="frame" x="146" y="383" width="42" height="42"/>
+                    <state key="normal" image="instagram-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="instagramLogo:" destination="-1" eventType="touchUpInside" id="9fN-Mg-hib"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEi-67-XKl" userLabel="twitter">
+                    <rect key="frame" x="198" y="383" width="42" height="42"/>
+                    <state key="normal" image="twitter-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="twitterLogo:" destination="-1" eventType="touchUpInside" id="yfI-wX-ktv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q7-tf-Jgd" userLabel="youtube">
+                    <rect key="frame" x="250" y="383" width="42" height="42"/>
+                    <state key="normal" image="youtube-social">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="youtubeLogo:" destination="-1" eventType="touchUpInside" id="ZCs-Jy-kyp"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -238,11 +231,11 @@
                 <constraint firstItem="W24-ml-ptx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="29" id="5WR-Iq-Kvn"/>
                 <constraint firstItem="LXV-hg-oXP" firstAttribute="top" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="8" id="62X-6x-zbt"/>
                 <constraint firstItem="LXV-hg-oXP" firstAttribute="top" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="8" symbolic="YES" id="8kJ-my-j3E"/>
-                <constraint firstAttribute="centerX" secondItem="To6-BL-Nsb" secondAttribute="centerX" constant="-22.5" id="BAp-tf-oBb"/>
+                <constraint firstAttribute="centerX" secondItem="To6-BL-Nsb" secondAttribute="centerX" constant="4" id="BAp-tf-oBb"/>
                 <constraint firstItem="d4g-Pv-4kl" firstAttribute="top" secondItem="JK1-yx-bkZ" secondAttribute="bottom" constant="58" id="Bkr-hX-GeO"/>
                 <constraint firstItem="4Q7-tf-Jgd" firstAttribute="top" secondItem="SEi-67-XKl" secondAttribute="top" id="DJn-dJ-kev"/>
                 <constraint firstItem="qum-dU-K7V" firstAttribute="leading" secondItem="JK1-yx-bkZ" secondAttribute="leading" id="Dpk-jr-q3U"/>
-                <constraint firstItem="0Xv-62-WCc" firstAttribute="leading" secondItem="W24-ml-ptx" secondAttribute="leading" constant="-29" id="E01-50-4zB"/>
+                <constraint firstItem="0Xv-62-WCc" firstAttribute="leading" secondItem="W24-ml-ptx" secondAttribute="leading" constant="-1" id="E01-50-4zB"/>
                 <constraint firstItem="JK1-yx-bkZ" firstAttribute="leading" secondItem="CK9-OS-36E" secondAttribute="leading" constant="1" id="Ena-bh-htk"/>
                 <constraint firstItem="d4g-Pv-4kl" firstAttribute="top" secondItem="qum-dU-K7V" secondAttribute="bottom" constant="21" id="FCU-Kv-cB5"/>
                 <constraint firstItem="CK9-OS-36E" firstAttribute="trailing" secondItem="JK1-yx-bkZ" secondAttribute="trailing" constant="-1" id="GRU-Vs-ACD"/>
@@ -270,7 +263,6 @@
                 <constraint firstAttribute="centerX" secondItem="W24-ml-ptx" secondAttribute="centerX" constant="-1" id="d8K-5X-5tv"/>
                 <constraint firstItem="g0r-4r-cr6" firstAttribute="top" secondItem="oh0-Ko-ipj" secondAttribute="bottom" constant="9" id="dmp-QT-nAv"/>
                 <constraint firstItem="Iu1-0C-W8J" firstAttribute="top" secondItem="iPf-Ho-5FF" secondAttribute="bottom" constant="12" id="dvj-cK-EzC"/>
-                <constraint firstItem="4Q7-tf-Jgd" firstAttribute="top" secondItem="ngg-V3-Aqw" secondAttribute="top" id="gDE-3p-DKo"/>
                 <constraint firstItem="SEi-67-XKl" firstAttribute="top" secondItem="d4g-Pv-4kl" secondAttribute="top" id="gWa-8y-VMY"/>
                 <constraint firstAttribute="trailing" secondItem="qKk-py-gTV" secondAttribute="trailing" id="gg8-BV-NoU"/>
                 <constraint firstItem="qum-dU-K7V" firstAttribute="top" secondItem="JK1-yx-bkZ" secondAttribute="bottom" constant="8" symbolic="YES" id="hfH-hp-UBn"/>
@@ -284,13 +276,12 @@
                 <constraint firstItem="CK9-OS-36E" firstAttribute="bottom" secondItem="GAU-Z1-Afh" secondAttribute="bottom" constant="-2" id="q8L-v6-1yM"/>
                 <constraint firstItem="Sfl-yW-nWT" firstAttribute="top" secondItem="g0r-4r-cr6" secondAttribute="bottom" constant="6" id="r4G-os-V6G"/>
                 <constraint firstItem="oh0-Ko-ipj" firstAttribute="top" secondItem="LXV-hg-oXP" secondAttribute="bottom" constant="9" id="rrV-6d-0SI"/>
-                <constraint firstItem="SEi-67-XKl" firstAttribute="trailing" secondItem="Uft-b9-0oo" secondAttribute="trailing" constant="-3" id="s6C-XW-73T"/>
-                <constraint firstItem="ngg-V3-Aqw" firstAttribute="leading" secondItem="4Q7-tf-Jgd" secondAttribute="trailing" constant="11" id="sNW-jr-k2M"/>
+                <constraint firstItem="SEi-67-XKl" firstAttribute="trailing" secondItem="Uft-b9-0oo" secondAttribute="trailing" constant="25" id="s6C-XW-73T"/>
                 <constraint firstItem="0Xv-62-WCc" firstAttribute="top" secondItem="d4g-Pv-4kl" secondAttribute="top" id="sgU-7F-gs8"/>
                 <constraint firstAttribute="centerX" secondItem="oh0-Ko-ipj" secondAttribute="centerX" constant="-44.5" id="vqE-Pw-1LE"/>
                 <constraint firstItem="Uft-b9-0oo" firstAttribute="top" secondItem="W24-ml-ptx" secondAttribute="bottom" constant="13" id="vrp-6O-aVd"/>
                 <constraint firstAttribute="bottom" secondItem="To6-BL-Nsb" secondAttribute="bottom" constant="69" id="wOT-kf-9cX"/>
-                <constraint firstItem="d4g-Pv-4kl" firstAttribute="leading" secondItem="To6-BL-Nsb" secondAttribute="leading" constant="-11" id="xe0-TI-TLK"/>
+                <constraint firstItem="d4g-Pv-4kl" firstAttribute="leading" secondItem="To6-BL-Nsb" secondAttribute="leading" constant="105" id="xe0-TI-TLK"/>
                 <constraint firstItem="CK9-OS-36E" firstAttribute="top" secondItem="r5o-3i-HVJ" secondAttribute="bottom" constant="12" id="yo2-y0-6b5"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -324,7 +315,6 @@
         <image name="restore" width="27" height="27"/>
         <image name="tellafriend" width="27" height="27"/>
         <image name="twitter-social" width="42" height="42"/>
-        <image name="vine-social" width="42" height="42"/>
         <image name="youtube-social" width="42" height="42"/>
     </resources>
 </document>
