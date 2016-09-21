@@ -124,7 +124,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     {
         cell.packCost.text = @"FREE";
     }else{
-        cell.packCost.text = [_priceFormatter stringFromNumber:product.price];
+        cell.packCost.text = @"PREVIEW";
     }
     
     
