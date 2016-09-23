@@ -221,6 +221,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
