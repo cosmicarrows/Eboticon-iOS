@@ -147,6 +147,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
     }
+    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+    }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.baepack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
