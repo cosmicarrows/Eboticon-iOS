@@ -50,8 +50,8 @@
     //[self showSplashVideo];
     
     //PARSE
-    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
-                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+    //[Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
+                  //clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         
     [self initialize];
@@ -187,12 +187,20 @@
     }];
     
     arrImagePagerImages = [[NSMutableArray alloc]init];
-   
+    
     for (NSInteger i = 1 ; i <= 4 ; i ++){
         NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.png", (int)i];
         NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: sUrl]];
-        if (data == nil)continue;
-        [arrImagePagerImages addObject:[UIImage imageWithData:data]];
+        //The code below was added on 10/10/2016 because the app was crashing when trying to load store banners
+        //new code added ends on line 201.  The lines 202 and 203 were commented out which was the original code.
+        UIImage *image = [UIImage imageWithData:data];
+        if (image != nil) {
+            [arrImagePagerImages addObject:image];
+        } else {
+            NSLog(@"Unable to convert data to image");
+        }
+        //if (data == nil)continue;
+        //[arrImagePagerImages addObject:[UIImage imageWithData:data]];
     }
     
     //Setting up Navigation Bar

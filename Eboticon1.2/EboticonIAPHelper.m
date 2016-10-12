@@ -23,6 +23,7 @@
                                       @"com.eboticon.Eboticon.ratchpack2",
                                       @"com.eboticon.Eboticon.ratchpack3",
                                       @"com.eboticon.Eboticon.baepack1",
+                                      @"com.eboticon.Eboticon.greetingspack1",
                                       nil];
         sharedInstance = [[self alloc] initWithProductIdentifiers:productIdentifiers];
     });
