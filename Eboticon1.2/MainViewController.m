@@ -558,6 +558,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                             [currentGif setEmotionCategory:value];
                             break;
                         case 7:
+                            
                             [currentGif setPurchaseCategory:value];
                             break;
                         default:
@@ -568,6 +569,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                 }
                 
                 NSString * gifCategory = [currentGif purchaseCategory]; //Category
+                
+                
                 
                 if([productIdentifier isEqual:gifCategory]) {
                   //  NSLog(@"productIdentifier: %@, ", productIdentifier);

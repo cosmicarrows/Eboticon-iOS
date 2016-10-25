@@ -136,10 +136,13 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     //Set Image
     if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack1"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
     }
     if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+    }
+    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack1"]){
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
