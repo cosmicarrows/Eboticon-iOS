@@ -139,22 +139,22 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
     }
     if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.baepack1"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:1]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:0]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack3"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:2]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
@@ -262,7 +262,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
     // Create the data model
-    _packImages = @[@"PackChurchIcon", @"PackChurchIcon", @"PackGreekIcon", @"PackRatchIcon", @"PackBaeIcon"];
+    _packImages = @[@"BaePackIcon", @"GreekPackIcons", @"ChurchPackIcon", @"RatchPackIcon", @"GreetingsPackIcon"];
     
     //Add Restore Button
     UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
