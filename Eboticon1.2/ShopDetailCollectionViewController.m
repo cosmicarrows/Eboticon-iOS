@@ -23,7 +23,7 @@
 //static const int ddLogLevel = LOG_LEVEL_ERROR;
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 #define CURRENTSCREEN @"Shop Detail Screen"
-#define BASEURL @"http://www.inclingconsulting.com/eboticon/"
+#define BASEURL @"http://www.inclingconsulting.com/eboticon/purchased/"
 
 
 @interface ShopDetailCollectionViewController (){

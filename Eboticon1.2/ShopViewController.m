@@ -160,7 +160,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
     }
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack1"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:3]];
+        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:4]];
     }
 
     
