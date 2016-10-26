@@ -70,8 +70,8 @@
         [iRate sharedInstance].appStoreID = appStoreID;
 
         
-        [iRate sharedInstance].daysUntilPrompt = 10;
-        [iRate sharedInstance].usesUntilPrompt = 5;
+        [iRate sharedInstance].daysUntilPrompt = 2;
+        [iRate sharedInstance].usesUntilPrompt = 1;
         //[iRate sharedInstance].verboseLogging = YES;
         [iRate sharedInstance].promptAtLaunch = YES;
         [iRate sharedInstance].eventsUntilPrompt = 5;
@@ -80,7 +80,7 @@
         //TODO: Set below to no before deploying!
         [iRate sharedInstance].previewMode = NO;
         
-        DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
+        //DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
         
         DDLogInfo(@"%@: Number of iRate uses %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].usesCount);
         

@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>82</string>
+	<string>84</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -94,6 +94,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Use Camera to access Eboticons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>linkinpark.ttf</string>
