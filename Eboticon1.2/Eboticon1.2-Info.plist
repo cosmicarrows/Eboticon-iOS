@@ -98,6 +98,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Use Camera to access Eboticons</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Usage to share eboticons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>linkinpark.ttf</string>
