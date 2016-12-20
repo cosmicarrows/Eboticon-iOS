@@ -45,6 +45,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CATEGORY_NOSMILE @"not_happy"
 #define CATEGORY_HEART @"love"
 #define CATEGORY_GIFT @"greeting"
+#define CATEGORY_HOLIDAY @"holiday"
 #define CATEGORY_EXCLAMATION @"exclamation"
 
 #define BASEURL @"http://www.inclingconsulting.com/eboticon/"

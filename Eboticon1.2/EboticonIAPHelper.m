@@ -18,7 +18,6 @@
                                       @"com.eboticon.Eboticon.churchpack1",
                                       @"com.eboticon.Eboticon.churchpack2",
                                       @"com.eboticon.Eboticon.greekpack2",
-                                     // @"com.eboticon.Eboticon.customerappreciationpack1",
                                       @"com.eboticon.Eboticon.ratchpack1",
                                       @"com.eboticon.Eboticon.ratchpack2",
                                       @"com.eboticon.Eboticon.ratchpack3",

@@ -38,6 +38,7 @@
 #define CATEGORY_NOSMILE @"not_happy"
 #define CATEGORY_HEART @"love"
 #define CATEGORY_GIFT @"greeting"
+#define CATEGORY_HOLIDAY @"holiday"
 #define CATEGORY_EXCLAMATION @"exclamation"
 
 @interface KeyboardViewController () {
