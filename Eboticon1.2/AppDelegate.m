@@ -292,6 +292,10 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 // [START connect_on_active]
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self connectToFcm];
+    
+    //Clear Badges
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
 }
 // [END connect_on_active]
 

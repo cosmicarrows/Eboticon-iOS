@@ -315,6 +315,14 @@
        NSLog(@"get file name %@", [currGif getFileName]);
        //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
        
+       
+       //Form the URI by adding it to your host:
+       NSLog(@"gifname %@", gifUrlName);
+       
+       //And put it on the .string property of the generalPasteboard:
+       [UIPasteboard generalPasteboard].string = gifUrlName;
+       
+       
        NSURL *imagePath = [NSURL URLWithString:gifUrlName];
        
        NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
