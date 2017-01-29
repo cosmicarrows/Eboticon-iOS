@@ -174,6 +174,8 @@
 		979CFFA81B8B54E00041EE61 /* ShopDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA61B8B54E00041EE61 /* ShopDetailCell.xib */; };
 		979CFFA91B8B54E00041EE61 /* ShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 979CFFA71B8B54E00041EE61 /* ShopDetailCell.m */; };
 		979FE8A41C6667DF00457431 /* eboticon_nointernet_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979FE8A31C6667DE00457431 /* eboticon_nointernet_gifs.csv */; };
+		97A2C8F71E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */; };
+		97A2C8F81E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */; };
 		97A383051B67E054002F5571 /* KMXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383041B67E054002F5571 /* KMXMLParser.m */; };
 		97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */; };
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
@@ -429,6 +431,7 @@
 		979CFFA61B8B54E00041EE61 /* ShopDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailCell.xib; sourceTree = "<group>"; };
 		979CFFA71B8B54E00041EE61 /* ShopDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailCell.m; sourceTree = "<group>"; };
 		979FE8A31C6667DE00457431 /* eboticon_nointernet_gifs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eboticon_nointernet_gifs.csv; sourceTree = "<group>"; };
+		97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97A383031B67E054002F5571 /* KMXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMXMLParser.h; sourceTree = "<group>"; };
 		97A383041B67E054002F5571 /* KMXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMXMLParser.m; sourceTree = "<group>"; };
 		97A383071B67E0AF002F5571 /* WhatsNewMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewMainViewController.h; sourceTree = "<group>"; };
@@ -668,6 +671,7 @@
 		63FAE38D1868CC0200116D73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */,
 				97A383031B67E054002F5571 /* KMXMLParser.h */,
 				97A383041B67E054002F5571 /* KMXMLParser.m */,
 				63FAE38E1868CC0200116D73 /* Eboticon1.2-Info.plist */,
@@ -1231,8 +1235,14 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1303,6 +1313,7 @@
 				978F1C9D1B8F628E00ADA44C /* page6.png in Resources */,
 				971DEDA51BADD26100D2A751 /* round-switch-thumb.png in Resources */,
 				970DA3F31B69D04A00587CD6 /* MoreView.xib in Resources */,
+				97A2C8F71E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */,
 				979CFFA81B8B54E00041EE61 /* ShopDetailCell.xib in Resources */,
 				979CFF9F1B8AA8720041EE61 /* ShopDetailView.xib in Resources */,
 				9760B5361B750B6800E75EEC /* page2.png in Resources */,
@@ -1360,6 +1371,7 @@
 				972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */,
 				979FE8A41C6667DF00457431 /* eboticon_nointernet_gifs.csv in Resources */,
 				976E4F891B9BA1B40057D6B2 /* round-switch-mask.png in Resources */,
+				97A2C8F81E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */,
 				976E4F791B9BA1660057D6B2 /* Keyboard.storyboard in Resources */,
 				97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */,
 			);
@@ -1780,7 +1792,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1791,7 +1803,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1816,7 +1828,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = EboticonKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1827,7 +1839,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
