@@ -258,12 +258,16 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
         return;
     }
     
+    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+    NSLog(@"InstanceID token: %@", refreshedToken);
+    
     // Disconnect previous FCM connection if it exists.
     [[FIRMessaging messaging] disconnect];
     
     [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Unable to connect to FCM. %@", error);
+            
         } else {
             NSLog(@"Connected to FCM.");
         }
