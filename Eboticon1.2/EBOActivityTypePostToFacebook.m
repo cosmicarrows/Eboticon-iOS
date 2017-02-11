@@ -158,7 +158,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                                                             delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     } else {
-        SIAlertView *successAlertView = [[SIAlertView alloc] initWithTitle:@"Facebook Video" andMessage:@"This Eboticon has been copied and saved to your camera roll.  You can load it from your camera roll or paste to comments inside Facebook. Make sure to hashtag #eboticons!"];
+        SIAlertView *successAlertView = [[SIAlertView alloc] initWithTitle:@"Facebook Video" andMessage:@"COPIED! Go to Facebook and PASTE into your comments or load a new post from your camera roll. Don’t forget to hashtag #eboticons!"];
         [successAlertView addButtonWithTitle:@"OK"
                                         type:SIAlertViewButtonTypeDestructive
                                      handler:^(SIAlertView *alert) {
