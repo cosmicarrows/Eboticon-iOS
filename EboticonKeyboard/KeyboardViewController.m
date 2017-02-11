@@ -1233,7 +1233,7 @@
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
     
-    NSError *error = nil;
+   // NSError *error = nil;
     
     //Read All Gifs From CSV
     @try {
@@ -1265,7 +1265,7 @@
                 
                 
                 NSString * purchaseCategory = eboticonObject.purchaseCategory;
-                NSString * gifCategory = eboticonObject.emotionCategory;
+               // NSString * gifCategory = eboticonObject.emotionCategory;
                 NSString * isCaption = eboticonObject.category;
                 
                 if([productIdentifier isEqual:purchaseCategory]) {
@@ -1282,7 +1282,7 @@
                     //[_allImages addObject:eboticonObject];
                 }
               
-                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"No Caption"]) {
+                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
 //                    NSLog(@"adding  gif: %d", cnt);
 //                    NSLog(@"emotionCategory : %@", gifCategory);
                     [_purchasedImagesNoCaption addObject:eboticonObject];

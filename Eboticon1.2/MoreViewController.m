@@ -178,11 +178,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #ifdef FREE
     DDLogInfo(@"Lite Version-Redirecting to Lite Rating");
     //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=977505283&onlyLatestVersion=false&type=Purple+Software"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=7"]];
 #else
     DDLogInfo(@"Paid Version-Redirecting to Paid Rating");
     //[[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&onlyLatestVersion=false&type=Purple+Software"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=899011953&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=7"]];
 #endif
     
     
