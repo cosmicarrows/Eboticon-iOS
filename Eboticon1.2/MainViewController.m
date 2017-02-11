@@ -680,6 +680,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         return _captionImages.count;
     }
     else{
+//        for(int i = 0; i < [_noCaptionImages count]; i++){
+//            NSLog(@"Gif %d: stillname:%@  category:%@", i, [[_noCaptionImages objectAtIndex:i] stillName],  [[_noCaptionImages objectAtIndex:i] category]);
+//        };
+        
          NSLog(@"NoCaption Images:  %ld",(unsigned long)_noCaptionImages.count);
         return _noCaptionImages.count;
         
