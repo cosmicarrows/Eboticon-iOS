@@ -202,7 +202,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (IBAction) privacyPolicy:(id)sender {
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/privacy_policy"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.eboticon.com/privacy"]];
     [self sendAlertToGoogleAnalytics:PRIVACYPOLICY];
     
 }
