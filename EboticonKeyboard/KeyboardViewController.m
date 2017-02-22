@@ -22,7 +22,6 @@
 #import "TTSwitch.h"
 
 #import <DFImageManager/DFImageManagerKit.h>
-#import <Parse/Parse.h>
 #import "Reachability.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
@@ -40,6 +39,10 @@
 #define CATEGORY_GIFT @"greeting"
 #define CATEGORY_HOLIDAY @"holiday"
 #define CATEGORY_EXCLAMATION @"exclamation"
+
+@import Firebase;
+
+#import "EboticonKeyboard-Swift.h"
 
 @interface KeyboardViewController () {
     
@@ -76,7 +79,6 @@
     
  
 }
-
 
 - (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender;
 - (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender;
@@ -160,10 +162,14 @@
     
     NSLog(@"Keyboard Started");
     
-    [Parse setApplicationId:@"gBcNi8fexXd1Uiggm6e2hRFuOPkoEefsbxLDNzO7"
-                  clientKey:@"dKZXWc9CXdksCA7HPVSCp0Yz0tTBQuqnQEvXKwL6"];
+    //Init
     
-    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
+    [FirebaseConfigurator sharedInstance];
+    NSString *string = [[FirebaseConfigurator sharedInstance] test];
+
+    
+    NSLog(@"%@", string);
+    
     
     /*
      Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
@@ -274,6 +280,15 @@
 
 #pragma mark
 #pragma mark - initialization method
+
+
+- (void) initFirebaseAnalytics {
+    
+    // [START configure_firebase]
+    [FIRApp configure];
+    // [END configure_firebase]
+    
+}
 
 - (void) initializeExtension {
 
@@ -1466,16 +1481,14 @@
                 [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
                 
                 //PARSE ANALYTICS
-                NSDictionary *dimensions = @{
-                                             @"category": @"eboticon_copied",
-                                             // Is it a weekday or the weekend?
-                                             @"eboji": currentGif.getFileName,
-                                             };
+//                NSDictionary *dimensions = @{
+//                                             @"category": @"eboticon_copied",
+//                                             // Is it a weekday or the weekend?
+//                                             @"eboji": currentGif.getFileName,
+//                                             };
                 // Send the dimensions to Parse along with the 'read' event
                 
-                [PFAnalytics trackEvent:@"read" dimensions:dimensions];
-            
-
+                
             }
             else{
                 
@@ -1493,6 +1506,11 @@
                 // [pasteboard setImage:image];
                 
             }
+            
+            
+            
+            //Send to Firebase
+            [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
             
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
@@ -1554,6 +1572,9 @@
                 
             }
             
+            // Send to Firebase
+            [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
+
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0
@@ -1612,6 +1633,8 @@
                 
             }
             
+            [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
+
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0
@@ -1672,6 +1695,9 @@
                 
             }
             
+            //Send to Firebase
+            [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
+
             // Make toast with an image
             [self.view makeToast:@"Eboticon copied. Now paste it!"
                         duration:3.0

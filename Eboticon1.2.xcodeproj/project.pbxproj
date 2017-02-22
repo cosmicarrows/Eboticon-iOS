@@ -108,6 +108,8 @@
 		971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9E1BADD26100D2A751 /* round-switch-track@2x.png */; };
 		9722338E1C8796D50069F111 /* KeypadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722338C1C8796D50069F111 /* KeypadViewController.m */; };
 		972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972233901C8797100069F111 /* KeyButtonArt.xcassets */; };
+		973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */; };
+		973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */; };
 		975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; };
 		975C939C1BEBB5AC00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
 		975C939D1BEBB6DF00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
@@ -175,7 +177,6 @@
 		979CFFA91B8B54E00041EE61 /* ShopDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 979CFFA71B8B54E00041EE61 /* ShopDetailCell.m */; };
 		979FE8A41C6667DF00457431 /* eboticon_nointernet_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979FE8A31C6667DE00457431 /* eboticon_nointernet_gifs.csv */; };
 		97A2C8F71E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */; };
-		97A2C8F81E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97A2C8F61E3BCF3600F5BC2D /* GoogleService-Info.plist */; };
 		97A383051B67E054002F5571 /* KMXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383041B67E054002F5571 /* KMXMLParser.m */; };
 		97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */; };
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
@@ -348,6 +349,9 @@
 		9722338B1C8796D50069F111 /* KeypadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeypadViewController.h; sourceTree = "<group>"; };
 		9722338C1C8796D50069F111 /* KeypadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeypadViewController.m; sourceTree = "<group>"; };
 		972233901C8797100069F111 /* KeyButtonArt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = KeyButtonArt.xcassets; sourceTree = "<group>"; };
+		973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EboticonKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
+		973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
+		973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		975C93991BEBB5AC00006823 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		975C939A1BEBB5AC00006823 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9760B5311B750B6800E75EEC /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
@@ -1020,6 +1024,7 @@
 				976E4F781B9BA1660057D6B2 /* Keyboard.storyboard */,
 				976E4F6C1B9B9B8E0057D6B2 /* KeyboardViewController.h */,
 				976E4F6D1B9B9B8E0057D6B2 /* KeyboardViewController.m */,
+				973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */,
 				976E4F751B9BA14C0057D6B2 /* KeyboardCollectionViewFlowLayout.h */,
 				976E4F761B9BA14C0057D6B2 /* KeyboardCollectionViewFlowLayout.m */,
 				9722338B1C8796D50069F111 /* KeypadViewController.h */,
@@ -1028,6 +1033,7 @@
 				97044F021BA348FB008CA2E1 /* API */,
 				97044F031BA34922008CA2E1 /* View */,
 				976E4F6A1B9B9B8E0057D6B2 /* Supporting Files */,
+				973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */,
 			);
 			path = EboticonKeyboard;
 			sourceTree = "<group>";
@@ -1035,6 +1041,7 @@
 		976E4F6A1B9B9B8E0057D6B2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */,
 				976E4F6B1B9B9B8E0057D6B2 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1252,6 +1259,7 @@
 					976E4F671B9B9B8E0057D6B2 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 662TV55PE6;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1371,7 +1379,7 @@
 				972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */,
 				979FE8A41C6667DF00457431 /* eboticon_nointernet_gifs.csv in Resources */,
 				976E4F891B9BA1B40057D6B2 /* round-switch-mask.png in Resources */,
-				97A2C8F81E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */,
+				973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */,
 				976E4F791B9BA1660057D6B2 /* Keyboard.storyboard in Resources */,
 				97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */,
 			);
@@ -1550,6 +1558,7 @@
 				97044F111BA3690F008CA2E1 /* ImageDownloader.m in Sources */,
 				97044F011BA348EF008CA2E1 /* PersistencyManager.m in Sources */,
 				9722338E1C8796D50069F111 /* KeypadViewController.m in Sources */,
+				973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */,
 				976E4F6E1B9B9B8E0057D6B2 /* KeyboardViewController.m in Sources */,
 				976E4F981B9BA1F40057D6B2 /* Reachability.m in Sources */,
 				97044F1E1BA36946008CA2E1 /* UIImage+Decode.m in Sources */,
@@ -1673,6 +1682,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8831077DA941571409CE66E0 /* Pods-Eboticon1.2.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1723,6 +1733,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE901FCFCB60C40182031CF0 /* Pods-Eboticon1.2.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1772,12 +1783,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8491992E336487F2B27D18C1 /* Pods-EboticonKeyboard.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = EboticonKeyboard/EboticonKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 662TV55PE6;
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1803,6 +1817,9 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "EboticonKeyboard/EboticonKeyboard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1811,13 +1828,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = EboticonKeyboard/EboticonKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 662TV55PE6;
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1839,6 +1859,8 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "EboticonKeyboard/EboticonKeyboard-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
