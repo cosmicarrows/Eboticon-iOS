@@ -24,6 +24,8 @@
 #import "XOSplashVideoController.h"
 #import "UIView+Toast.h"
 
+#import "Eboticon-Swift.h"
+
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
@@ -161,8 +163,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         // [END register_for_notifications]
     }
     
-    // [START configure_firebase]
-    [FIRApp configure];
+    // [START configure_firebase];
+    [FirebaseConfigurator sharedInstance];
+
     // [END configure_firebase]
     // Add observer for InstanceID token refresh callback.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)

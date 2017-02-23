@@ -21,6 +21,8 @@
 #import "Constants.h"
 #import "SIAlertView.h"
 
+#import "Eboticon-Swift.h"
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define FIRST_RUN_SWIPE @"firstAppRunSwipe"
@@ -200,6 +202,9 @@
     //EboticonGif *currGif = self.imageNames[self.index];
     EboticonGif *currGif = self.imageNames[self.currentDisplayIndex];
     NSLog(@"Shared Gif is %@",currGif.getFileName);
+    //Send to Firebase
+    
+    [[FirebaseConfigurator sharedInstance] logEvent:currGif.getFileName];
     
     [self loadShareView:currGif];
     

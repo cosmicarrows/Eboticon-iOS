@@ -1,9 +1,14 @@
-platform :ios, "7.0"
+platform :ios, ‘10.0’
+
+inhibit_all_warnings!
+use_frameworks!
+
+
 xcodeproj 'Eboticon1.2.xcodeproj'
 
 target 'Eboticon1.2' do
     pod 'CHCSVParser', '~> 2.0.7'
-    pod "CocoaLumberjack", '~> 1.9'
+    pod 'CocoaLumberjack', '~> 1.9'
     pod 'iRate', '~> 1.10'
     pod 'SIAlertView', '~> 1.3'
     pod 'Harpy', '~> 3.3'
@@ -30,4 +35,12 @@ target 'EboticonKeyboard' do
     pod 'Firebase/Messaging'
 end
 
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
+end
 

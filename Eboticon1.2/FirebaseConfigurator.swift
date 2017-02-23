@@ -2,7 +2,7 @@
 //  FirebaseConfigurator.swift
 //  Eboticon1.2
 //
-//  Created by Troy Nunnally on 2/22/17.
+//  Created by Troy Nunnally on 2/23/17.
 //  Copyright © 2017 Incling. All rights reserved.
 //
 
@@ -46,4 +46,4 @@ import Firebase
     }
 }
 
-    
+

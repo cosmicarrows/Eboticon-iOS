@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B28BDB861DB91CC26757046 /* Pods_Eboticon1_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 976133CBF743ADE44BD415F8 /* Pods_Eboticon1_2.framework */; };
 		1F9F49561D30CAF9006AAC8F /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044F0B1BA3690F008CA2E1 /* ImageCache.m */; };
 		1F9F49571D30CB01006AAC8F /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044F0D1BA3690F008CA2E1 /* ImageDownloader.m */; };
 		1F9F49581D30CB06006AAC8F /* ImageRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044F0F1BA3690F008CA2E1 /* ImageRecord.m */; };
@@ -17,7 +18,6 @@
 		1F9F495D1D30CB21006AAC8F /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EFA1BA348A0008CA2E1 /* LibraryAPI.m */; };
 		1F9F495E1D30CB27006AAC8F /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EFC1BA348EF008CA2E1 /* HTTPClient.m */; };
 		1F9F495F1D30CB2A006AAC8F /* PersistencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EFF1BA348EF008CA2E1 /* PersistencyManager.m */; };
-		28C2F944F51FC7DC8B781404 /* libPods-Eboticon1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EE2DA670F85FE08B1CFB62 /* libPods-Eboticon1.2.a */; };
 		6325FA491A8FCC2300C4CABB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA471A8FCC2300C4CABB /* Crashlytics.framework */; };
 		6325FA511A8FD2D600C4CABB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */; };
 		6325FA531A8FD2F000C4CABB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6325FA521A8FD2F000C4CABB /* CFNetwork.framework */; };
@@ -66,7 +66,7 @@
 		63FAE39D1868CC0200116D73 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE39C1868CC0200116D73 /* MasterViewController.m */; };
 		63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C01868CCE900116D73 /* JMCategoryData.m */; };
 		63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE3C21868CCE900116D73 /* JMCategoriesData.m */; };
-		729C48E2EB5920008EBB4DE3 /* libPods-EboticonKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F779D8E2DF0F90A31C6F12 /* libPods-EboticonKeyboard.a */; };
+		80B39C4834EEEC083AF76020 /* Pods_EboticonKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */; };
 		97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97035AAA1B6C26C7004FEDC5 /* ShopTableCell.xib */; };
 		97044EF51BA32C4E008CA2E1 /* GlobalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EF41BA32C4E008CA2E1 /* GlobalScope.m */; };
 		97044EFB1BA348A0008CA2E1 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 97044EFA1BA348A0008CA2E1 /* LibraryAPI.m */; };
@@ -108,6 +108,7 @@
 		971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9E1BADD26100D2A751 /* round-switch-track@2x.png */; };
 		9722338E1C8796D50069F111 /* KeypadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722338C1C8796D50069F111 /* KeypadViewController.m */; };
 		972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972233901C8797100069F111 /* KeyButtonArt.xcassets */; };
+		9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */; };
 		973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */; };
 		973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */; };
 		975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; };
@@ -180,7 +181,6 @@
 		97A383051B67E054002F5571 /* KMXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383041B67E054002F5571 /* KMXMLParser.m */; };
 		97A3830B1B67E0AF002F5571 /* WhatsNewMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383081B67E0AF002F5571 /* WhatsNewMainViewController.m */; };
 		97A3830C1B67E0AF002F5571 /* WhatsNewWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A3830A1B67E0AF002F5571 /* WhatsNewWebViewController.m */; };
-		97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A3830D1B67E0E4002F5571 /* iAd.framework */; };
 		97A383121B695D7B002F5571 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383111B695D7B002F5571 /* TabViewController.m */; };
 		97CC16CA1C332865000E01D6 /* Icon_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C81C332865000E01D6 /* Icon_Facebook.png */; };
 		97CC16CB1C332865000E01D6 /* Icon_Instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C91C332865000E01D6 /* Icon_Instagram.png */; };
@@ -216,7 +216,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08EE2DA670F85FE08B1CFB62 /* libPods-Eboticon1.2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Eboticon1.2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		632448481AAB67470057ABB2 /* EboticonLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EboticonLite-Info.plist"; path = "/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/EboticonLite-Info.plist"; sourceTree = "<absolute>"; };
 		6325FA471A8FCC2300C4CABB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -349,6 +348,8 @@
 		9722338B1C8796D50069F111 /* KeypadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeypadViewController.h; sourceTree = "<group>"; };
 		9722338C1C8796D50069F111 /* KeypadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeypadViewController.m; sourceTree = "<group>"; };
 		972233901C8797100069F111 /* KeyButtonArt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = KeyButtonArt.xcassets; sourceTree = "<group>"; };
+		9739B57B1E5F196300823EA0 /* Eboticon1.2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Eboticon1.2-Bridging-Header.h"; sourceTree = "<group>"; };
+		9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EboticonKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -378,6 +379,7 @@
 		9760B5751B7A849F00E75EEC /* shopCostBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopCostBorder.png; sourceTree = "<group>"; };
 		9760B5791B7A87E700E75EEC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9760B57A1B7A87E700E75EEC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		976133CBF743ADE44BD415F8 /* Pods_Eboticon1_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eboticon1_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		976E4EC21B99E7710057D6B2 /* page10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page10.png; sourceTree = "<group>"; };
 		976E4EE81B9A49990057D6B2 /* Eboticon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Eboticon.entitlements; sourceTree = "<group>"; };
 		976E4EEA1B9A95B20057D6B2 /* Main1.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main1.Storyboard; sourceTree = "<group>"; };
@@ -452,7 +454,7 @@
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		97E64C821BD83BB7009DB493 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		F3F779D8E2DF0F90A31C6F12 /* libPods-EboticonKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EboticonKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		FE901FCFCB60C40182031CF0 /* Pods-Eboticon1.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eboticon1.2.release.xcconfig"; path = "Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -464,7 +466,6 @@
 			files = (
 				977FBD711B8A61A400B75C05 /* StoreKit.framework in Frameworks */,
 				6325FA591A8FD33500C4CABB /* QuartzCore.framework in Frameworks */,
-				97A3830E1B67E0E4002F5571 /* iAd.framework in Frameworks */,
 				6325FA5B1A8FD34800C4CABB /* Security.framework in Frameworks */,
 				6325FA571A8FD31D00C4CABB /* MobileCoreServices.framework in Frameworks */,
 				6325FA551A8FD30400C4CABB /* CoreLocation.framework in Frameworks */,
@@ -484,7 +485,7 @@
 				63FAE38B1868CC0200116D73 /* UIKit.framework in Frameworks */,
 				975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */,
 				63FAE3871868CC0200116D73 /* Foundation.framework in Frameworks */,
-				28C2F944F51FC7DC8B781404 /* libPods-Eboticon1.2.a in Frameworks */,
+				1B28BDB861DB91CC26757046 /* Pods_Eboticon1_2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +505,7 @@
 				6351D3681BE51ABE00D571D8 /* StoreKit.framework in Frameworks */,
 				6351D3691BE51ABE00D571D8 /* SystemConfiguration.framework in Frameworks */,
 				6351D3621BE51A7A00D571D8 /* AudioToolbox.framework in Frameworks */,
-				729C48E2EB5920008EBB4DE3 /* libPods-EboticonKeyboard.a in Frameworks */,
+				80B39C4834EEEC083AF76020 /* Pods_EboticonKeyboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +557,8 @@
 				6373A00318C2467400E7ECBD /* Fonts */,
 				63A70AB818A6A1000075B829 /* iTellAFriend */,
 				6337EB38188B11AF00332C75 /* OLImage */,
+				9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */,
+				9739B57B1E5F196300823EA0 /* Eboticon1.2-Bridging-Header.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -637,8 +640,8 @@
 				63FAE3881868CC0200116D73 /* CoreGraphics.framework */,
 				63FAE38A1868CC0200116D73 /* UIKit.framework */,
 				63FAE3A81868CC0200116D73 /* XCTest.framework */,
-				08EE2DA670F85FE08B1CFB62 /* libPods-Eboticon1.2.a */,
-				F3F779D8E2DF0F90A31C6F12 /* libPods-EboticonKeyboard.a */,
+				976133CBF743ADE44BD415F8 /* Pods_Eboticon1_2.framework */,
+				F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1237,6 +1240,7 @@
 				TargetAttributes = {
 					63FAE3821868CC0200116D73 = {
 						DevelopmentTeam = 662TV55PE6;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1429,7 +1433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run a9a59c791b6749c4e0bf26ed1771b7aafd2db9cc 09206210effa278b82e0efb0ba7d905db324490ea40915091f8d04789d63b79b";
+			shellScript = "./Fabric.framework/run a9a59c791b6749c4e0bf26ed1771b7aafd2db9cc 09206210effa278b82e0efb0ba7d905db324490ea40915091f8d04789d63b79b\n\ncd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
 		};
 		6FE07306B4F513AE1D97AC84 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1531,6 +1535,7 @@
 				97A383121B695D7B002F5571 /* TabViewController.m in Sources */,
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
+				9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,
 				9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */,
 				976E4EF21B9A96660057D6B2 /* XOSplashVideoController.m in Sources */,
@@ -1686,6 +1691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1702,6 +1708,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Eboticon1.2/Eboticon1.2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Eboticon1.2",
@@ -1723,6 +1730,9 @@
 				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Eboticon1.2/Eboticon1.2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1737,6 +1747,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1753,6 +1764,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Eboticon1.2/Eboticon1.2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Eboticon1.2",
@@ -1773,6 +1785,8 @@
 				);
 				PRODUCT_NAME = Eboticon;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Eboticon1.2/Eboticon1.2-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1783,7 +1797,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8491992E336487F2B27D18C1 /* Pods-EboticonKeyboard.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1813,6 +1827,7 @@
 					"$(PROJECT_DIR)/EboticonKeyboard",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1828,7 +1843,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1855,6 +1870,7 @@
 					"$(PROJECT_DIR)/EboticonKeyboard",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
