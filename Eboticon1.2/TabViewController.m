@@ -220,6 +220,16 @@
     }
 }
 
+-(void)updateMoveView:(int)tag
+{
+    CGFloat width = [UIScreen mainScreen].bounds.size.width/self.viewControllers.count;
+    [self.revealViewController rightRevealToggleForTapGesture];
+    CGRect frame = self.moveView.frame;
+    frame.origin.x = width;
+    self.moveView.frame = frame;
+
+}
+
 /*
 #pragma mark - Navigation
 
