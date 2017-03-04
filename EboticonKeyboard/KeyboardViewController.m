@@ -148,6 +148,7 @@
 
 
 @property (nonatomic, assign) BOOL isKeypadOn;
+@property (nonatomic, assign) BOOL isFacebookButtonOn;
 
 @end
 
@@ -207,6 +208,7 @@
     
     //    Initialize Keypad
     [self initializeKeypad];
+    [self createStoreAndFacebookButton];
     
 
     
@@ -236,6 +238,57 @@
     [self.captionSwitch addTarget:self action:@selector(changeCaptionSwitch:) forControlEvents:UIControlEventValueChanged];
     self.captionSwitch.on = true;
     [self.view addSubview: self.captionSwitch];
+}
+
+- (void)createStoreAndFacebookButton
+{
+    UIButton *storeButton = [[UIButton alloc]init];
+    [storeButton setImage:[UIImage imageNamed:@"Cart-Icon-Highlighted"] forState:UIControlStateNormal];
+    [storeButton addTarget:self action:@selector(openStore:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:storeButton];
+    
+    UIButton *facebookButton = [[UIButton alloc] init];
+    [facebookButton setImage:[UIImage imageNamed:@"FB-Icon-UnHighlighted"] forState:UIControlStateNormal];
+    [facebookButton setImage:[UIImage imageNamed:@"FB-Icon-Highlighted"] forState:UIControlStateSelected];
+    [facebookButton addTarget:self action:@selector(toggleFacebookUpdate:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:facebookButton];
+    
+    storeButton.translatesAutoresizingMaskIntoConstraints = false;
+    facebookButton.translatesAutoresizingMaskIntoConstraints = false;
+    
+    [storeButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
+    [storeButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
+    [storeButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [storeButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    
+    [facebookButton.leadingAnchor constraintEqualToAnchor:storeButton.trailingAnchor constant:10.0f].active = YES;
+    [facebookButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
+    [facebookButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [facebookButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+}
+
+- (void)toggleFacebookUpdate:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    self.isFacebookButtonOn = sender.selected;
+}
+
+- (void)openStore:(UIButton *)sender
+{
+    NSURL *google = [NSURL URLWithString:@"eboticon://cart_page"];
+    [self openURL:google];
+
+}
+
+-(void)openURL:(NSURL*)url{
+    UIResponder* responder = self;
+    while ((responder = [responder nextResponder]) != nil) {
+        NSLog(@"responder = %@", responder);
+        if ([responder respondsToSelector:@selector(openURL:)] == YES) {
+            [responder performSelector:@selector(openURL:)
+                            withObject:url];
+        }
+    }
 }
 
 - (void)viewWillLayoutSubviews
@@ -857,6 +910,7 @@
     self.topBarView.hidden = NO;
     self.keypadView.hidden = YES;
     self.isKeypadOn = false;
+    self.isFacebookButtonOn = NO;
     
     //Change the toolbar
     //NSLog(@"tag: %ld", (long)tag);
@@ -1466,57 +1520,69 @@
         _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
-
-            
-            if([self doesInternetExists]){
-            
-
-                NSString * urlPath = currentGif.gifUrl;
-                
-             //   NSLog(@"urlPath: %@",urlPath);
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-                
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
-                //PARSE ANALYTICS
-//                NSDictionary *dimensions = @{
-//                                             @"category": @"eboticon_copied",
-//                                             // Is it a weekday or the weekend?
-//                                             @"eboji": currentGif.getFileName,
-//                                             };
-                // Send the dimensions to Parse along with the 'read' event
-                
-                
+            NSString * urlPath = currentGif.gifUrl;
+            if (self.isFacebookButtonOn == YES) {
+                UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+                [pasteBoard setURL:[NSURL URLWithString:urlPath]];
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon url copied!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
+            }else {
+                if([self doesInternetExists]){
+                    
+                    
+                    NSString * urlPath = currentGif.gifUrl;
+                    
+                    //   NSLog(@"urlPath: %@",urlPath);
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    //PARSE ANALYTICS
+                    //                NSDictionary *dimensions = @{
+                    //                                             @"category": @"eboticon_copied",
+                    //                                             // Is it a weekday or the weekend?
+                    //                                             @"eboji": currentGif.getFileName,
+                    //                                             };
+                    // Send the dimensions to Parse along with the 'read' event
+                    
+                    
+                }
+                else{
+                    
+                    NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                    
+                    //   NSLog(@"filePath: %@", filePath);
+                    
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                    // [pasteboard setImage:image];
+                    
+                }
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon copied. Now paste it!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
+ 
             }
-            else{
-                
-                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
-                
-             //   NSLog(@"filePath: %@", filePath);
-       
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfFile:filePath];
-                
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
-                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-                // [pasteboard setImage:image];
-                
-            }
+            
             
             
             
             //Send to Firebase
             [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
             
-            // Make toast with an image
-            [self.view makeToast:@"Eboticon copied. Now paste it!"
-                        duration:3.0
-                        position:CSToastPositionCenter
-             ];
+            
             
         }
         else{
@@ -1542,44 +1608,55 @@
         _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
-            
-
-            if([self doesInternetExists]){
+            NSString * urlPath = currentGif.gifUrl;
+            if (self.isFacebookButtonOn == YES) {
+                UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+                [pasteBoard setURL:[NSURL URLWithString:urlPath]];
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon url copied!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
+            } else {
+                if([self doesInternetExists]){
+                    
+                    
+                    NSString * urlPath = currentGif.gifUrl;
+                    NSLog(@"%@",urlPath);
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                }
+                else{
+                    
+                    NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                    
+                    //    NSLog(@"filePath: %@", filePath);
+                    
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                    // [pasteboard setImage:image];
+                    
+                }
                 
+                // Send to Firebase
+                [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
                 
-                NSString * urlPath = currentGif.gifUrl;
-                NSLog(@"%@",urlPath);
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon copied. Now paste it!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
             }
-            else{
-                
-                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
-                
-            //    NSLog(@"filePath: %@", filePath);
-                
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfFile:filePath];
-                
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
-                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-                // [pasteboard setImage:image];
-                
-            }
-            
-            // Send to Firebase
-            [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
 
-            // Make toast with an image
-            [self.view makeToast:@"Eboticon copied. Now paste it!"
-                        duration:3.0
-                        position:CSToastPositionCenter
-             ];
+            
             
         }
         else{
@@ -1605,41 +1682,53 @@
         
         if([UIPasteboard generalPasteboard]){
             
-            if([self doesInternetExists]){
-                
+            if (self.isFacebookButtonOn == YES) {
                 NSString * urlPath = currentGif.gifUrl;
-                NSLog(@"%@",urlPath);
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+                [pasteBoard setURL:[NSURL URLWithString:urlPath]];
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon url copied!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
+            } else {
+                if([self doesInternetExists]){
+                    
+                    NSString * urlPath = currentGif.gifUrl;
+                    NSLog(@"%@",urlPath);
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    
+                }
+                else{
+                    
+                    NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                    
+                    NSLog(@"filePath: %@", filePath);
+                    
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                    // [pasteboard setImage:image];
+                    
+                }
                 
                 
-            }
-            else{
-                
-                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
-                
-                NSLog(@"filePath: %@", filePath);
-                
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfFile:filePath];
-                
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
-                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-                // [pasteboard setImage:image];
-                
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon copied. Now paste it!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
             }
             
             [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
-
-            // Make toast with an image
-            [self.view makeToast:@"Eboticon copied. Now paste it!"
-                        duration:3.0
-                        position:CSToastPositionCenter
-             ];
            
         }
         else{
@@ -1667,46 +1756,55 @@
         // Make toast
         if([UIPasteboard generalPasteboard]){
             
-            if([self doesInternetExists]){
-                
+            if (self.isFacebookButtonOn == YES) {
                 NSString * urlPath = currentGif.gifUrl;
-                NSLog(@"%@",urlPath);
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+                [pasteBoard setURL:[NSURL URLWithString:urlPath]];
+                // Make toast with an image
+                [self.view makeToast:@"Eboticon url copied!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
+            } else {
+                if([self doesInternetExists]){
+                    
+                    NSString * urlPath = currentGif.gifUrl;
+                    NSLog(@"%@",urlPath);
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                }
+                else{
+                    
+                    NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
+                    
+                    NSLog(@"filePath: %@", filePath);
+                    
+                    UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+                    //NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    NSData *data = [NSData dataWithContentsOfFile:filePath];
+                    
+                    [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+                    
+                    // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+                    // [pasteboard setImage:image];
+                    
+                }
                 
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-             
-            }
-            else{
-                
-                NSString * filePath= [[NSBundle mainBundle] pathForResource:currentGif.fileName ofType:@""];
-                
-                NSLog(@"filePath: %@", filePath);
-                
-                UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
-                //NSData *data = [NSData dataWithContentsOfFile:filePath];
-                NSData *data = [NSData dataWithContentsOfFile:filePath];
-                
-                [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
-                
-                // UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
-                // [pasteboard setImage:image];
-                
+                                // Make toast with an image
+                [self.view makeToast:@"Eboticon copied. Now paste it!"
+                            duration:3.0
+                            position:CSToastPositionCenter
+                 ];
             }
             
             //Send to Firebase
             [[FirebaseConfigurator sharedInstance] logEvent:currentGif.fileName];
+            
 
-            // Make toast with an image
-            [self.view makeToast:@"Eboticon copied. Now paste it!"
-                        duration:3.0
-                        position:CSToastPositionCenter
-             ];
-            
-            
-    
-            
         }
         else{
             
@@ -1946,6 +2044,7 @@
     
     self.keypadView.hidden = YES;
     self.isKeypadOn = false;
+    self.isFacebookButtonOn = NO;
     
 }
 
