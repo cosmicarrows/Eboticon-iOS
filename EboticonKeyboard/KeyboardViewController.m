@@ -142,6 +142,9 @@
 //Caption Switch
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 
+@property (strong, nonatomic) UIButton *storeButton;
+@property (strong, nonatomic) UIButton *facebookButton;
+
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
@@ -242,29 +245,29 @@
 
 - (void)createStoreAndFacebookButton
 {
-    UIButton *storeButton = [[UIButton alloc]init];
-    [storeButton setImage:[UIImage imageNamed:@"Cart-Icon-Highlighted"] forState:UIControlStateNormal];
-    [storeButton addTarget:self action:@selector(openStore:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:storeButton];
+    self.storeButton = [[UIButton alloc]init];
+    [self.storeButton setImage:[UIImage imageNamed:@"Cart-Icon-Highlighted"] forState:UIControlStateNormal];
+    [self.storeButton addTarget:self action:@selector(openStore:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.storeButton];
     
-    UIButton *facebookButton = [[UIButton alloc] init];
-    [facebookButton setImage:[UIImage imageNamed:@"FB-Icon-UnHighlighted"] forState:UIControlStateNormal];
-    [facebookButton setImage:[UIImage imageNamed:@"FB-Icon-Highlighted"] forState:UIControlStateSelected];
-    [facebookButton addTarget:self action:@selector(toggleFacebookUpdate:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:facebookButton];
+    self.facebookButton = [[UIButton alloc] init];
+    [self.facebookButton setImage:[UIImage imageNamed:@"FB-Icon-UnHighlighted"] forState:UIControlStateNormal];
+    [self.facebookButton setImage:[UIImage imageNamed:@"FB-Icon-Highlighted"] forState:UIControlStateSelected];
+    [self.facebookButton addTarget:self action:@selector(toggleFacebookUpdate:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.facebookButton];
     
-    storeButton.translatesAutoresizingMaskIntoConstraints = false;
-    facebookButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.storeButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.facebookButton.translatesAutoresizingMaskIntoConstraints = false;
     
-    [storeButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
-    [storeButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
-    [storeButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
-    [storeButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [self.facebookButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
+    [self.facebookButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
+    [self.facebookButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [self.facebookButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
     
-    [facebookButton.leadingAnchor constraintEqualToAnchor:storeButton.trailingAnchor constant:10.0f].active = YES;
-    [facebookButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
-    [facebookButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
-    [facebookButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [self.storeButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-10.0f].active = YES;
+    [self.storeButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
+    [self.storeButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
+    [self.storeButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
 }
 
 - (void)toggleFacebookUpdate:(UIButton *)sender
@@ -673,6 +676,8 @@
        // NSLog(@"Internet connection exists");
         self.noConnectionImageView.hidden = YES;
         self. self.captionSwitch.hidden = NO;
+        self.storeButton.hidden = NO;
+        self.facebookButton.hidden = NO;
         self.pageControl.hidden = NO;
        
         
@@ -906,6 +911,8 @@
     //Make sure keypad is hidden
     self.keyboardCollectionView.hidden = NO;
     self.captionSwitch.hidden = NO;
+    self.storeButton.hidden = NO;
+    self.facebookButton.hidden = NO;
     self.pageControl.hidden = NO;
     self.topBarView.hidden = NO;
     self.keypadView.hidden = YES;
@@ -2071,7 +2078,8 @@
     self.keyboardCollectionView.hidden = YES;
     self.keypadView.hidden = NO;
     self.isKeypadOn = true;
-    
+        self.facebookButton.hidden = YES;
+        self.storeButton.hidden = YES;
         
     }
     else{
@@ -2081,6 +2089,8 @@
         self.pageControl.hidden = NO;
         self.topBarView.hidden = NO;
         self.captionSwitch.hidden = NO;
+        self.storeButton.hidden = NO;
+        self.facebookButton.hidden = NO;
         self.keyboardCollectionView.hidden = NO;
         self.keypadView.hidden = YES;
         self.isKeypadOn = false;
