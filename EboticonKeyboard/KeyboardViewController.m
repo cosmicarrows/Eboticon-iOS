@@ -193,7 +193,6 @@
     self.bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self. self.topBarView.frame.size.height - 1.0f, self. self.topBarView.frame.size.width, 1)];
     self.bottomBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
     [self.topBarView addSubview:self.bottomBorder];
-    
     //Show no connection png
     self.noConnectionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.noConnectionImageView .image = [UIImage imageNamed:@"no_connection.png"];
@@ -313,7 +312,12 @@
     //self.topBarView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height);
     
     //Set Page Control
-    self.pageControl.frame = CGRectMake(self.view.frame.size.width - 45, 5.0f, 39.0f, 37.0f);
+//    self.pageControl.frame = CGRectMake(self.storeButton.frame.size.width - 45, 5.0f, 39.0f, 37.0f);
+    self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.pageControl.trailingAnchor constraintEqualToAnchor:self.storeButton.leadingAnchor constant:-10].active = YES;
+    [self.pageControl.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
+    [self.pageControl.heightAnchor constraintEqualToConstant:37].active = YES;
+    [self.pageControl.widthAnchor constraintEqualToConstant:39].active = YES;
     
     //Set Image View
     self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
@@ -1129,9 +1133,9 @@
     //Page Control
     self.pageControl.numberOfPages = pageNumber;
     
-    if (pageNumber >3) {
-        self.pageControl.frame = CGRectMake(self.view.frame.size.width - 45 - ((pageNumber-3)*10.0), 0.0f, 39.0f, 37.0f);
-    }
+//    if (pageNumber >3) {
+//        self.pageControl.frame = CGRectMake(self.view.frame.size.width - 45 - ((pageNumber-3)*10.0), 0.0f, 39.0f, 37.0f);
+//    }
     
     self.keyboardCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
     if(pageNumber == 1 && numberOfGifs>6){
