@@ -19,5 +19,6 @@
     - (id)initWithCategory:(id )identifier;
     - (id)initWithCategory:(id )identifier caption:(NSNumber*)caption;
     - (id)initWithCaption:(NSNumber*)caption;
+- (void)updateMoveView:(int)tag;
 
 @end

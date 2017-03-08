@@ -92,7 +92,7 @@
     [self addLoadingMessage:@"Loading..."];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:siteUrl]];
-    self.canDisplayBannerAds = NO;
+    //self.canDisplayBannerAds = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated{

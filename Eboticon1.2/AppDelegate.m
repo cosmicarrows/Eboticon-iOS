@@ -65,7 +65,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    
     //[self showSplashVideo];
     
     //Configure PushNotifications
@@ -370,6 +369,15 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([[url host] isEqualToString:@"cart_page"]) {
+        self.tabBarController.selectedIndex = 1;
+        [self.tabBarController updateMoveView:1];
+    }
+    return YES;
 }
 
 
