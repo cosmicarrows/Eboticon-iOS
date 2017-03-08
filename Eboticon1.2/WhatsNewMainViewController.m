@@ -120,7 +120,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     dispatch_async( dispatch_get_global_queue(0, 0), ^{
         
-        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@" http://inclingconsulting.com/eboticon/" delegate:self];
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://www.eboticons.com/blog-2/eboticon-blog/" delegate:self];
         // call the result handler block on the main queue (i.e. main thread)
         dispatch_async( dispatch_get_main_queue(), ^{
             // running synchronously on the main thread now -- call the handler
@@ -175,7 +175,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self.spinner startAnimating];
     dispatch_async( dispatch_get_global_queue(0, 0), ^{
         
-        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://inclingconsulting.com/eboticon/" delegate:self];
+        KMXMLParser *parser = [[KMXMLParser alloc] initWithURL:@"http://www.eboticons.com/blog-2/eboticon-blog/" delegate:self];
         // call the result handler block on the main queue (i.e. main thread)
         dispatch_async( dispatch_get_main_queue(), ^{
             // running synchronously on the main thread now -- call the handler
