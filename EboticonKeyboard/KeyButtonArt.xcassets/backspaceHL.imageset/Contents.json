@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "backspaceHL.png"
+      "filename" : "DeleteHighlighted44px-orange.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "backspaceHL@2x.png"
+      "filename" : "DeleteHighlighted88px-orange.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "backspaceHL@3x.png"
+      "filename" : "DeleteHighlighted132px-orange.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
