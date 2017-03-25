@@ -188,6 +188,7 @@
 		97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E64C821BD83BB7009DB493 /* CustomNavigationController.m */; };
 		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
 		97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
+		A5198F771E86727300BA6E33 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5198F761E86727300BA6E33 /* Webservice.swift */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -453,6 +454,7 @@
 		97E46BF41BDA5F8000A83A05 /* FilterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterData.m; sourceTree = "<group>"; };
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		97E64C821BD83BB7009DB493 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		A5198F761E86727300BA6E33 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				976E4EE81B9A49990057D6B2 /* Eboticon.entitlements */,
+				A5198F751E86721A00BA6E33 /* API */,
 				6337EB37188B11A500332C75 /* Utility */,
 				63FAE3C91868DA8A00116D73 /* Media */,
 				63FAE3BE1868CCCF00116D73 /* Model */,
@@ -1183,6 +1186,14 @@
 			name = "Custom Navigation Controller";
 			sourceTree = "<group>";
 		};
+		A5198F751E86721A00BA6E33 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A5198F761E86727300BA6E33 /* Webservice.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1550,6 +1561,7 @@
 				97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */,
 				979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */,
 				1F9F495F1D30CB2A006AAC8F /* PersistencyManager.m in Sources */,
+				A5198F771E86727300BA6E33 /* Webservice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
