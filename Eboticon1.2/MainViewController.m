@@ -24,7 +24,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
 #import "FilterData.h"
-
+#import "Eboticon-Swift.h"
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
@@ -49,6 +49,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CATEGORY_EXCLAMATION @"exclamation"
 
 #define BASEURL @"http://www.inclingconsulting.com/eboticon/"
+
+#define kPublishedEboticonsURL = "published"
+#define kPublishedPurchasedPackURL = "purchased/published"
 
 @interface MainViewController (){
     UIToolbar *_toolbar;
@@ -144,12 +147,12 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Load Gif csv file
     DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
-    [self loadGifsFromCSV];
+    [self loadEboticon];
     
-    [self loadPurchasedProducts];
+    [self getPurchaseGifs];
     
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
-    [self populateGifArraysFromCSV];
+//    [self populateGifArraysFromCSV];
     
     //Register the Gif Cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
@@ -223,6 +226,17 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
+- (void)loadEboticon
+{    
+    [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_eboticonGifs addObjectsFromArray:eboticons];
+            [self populateGifArraysFromCSV];
+            [self.collectionView reloadData];
+        });
+    }];
+}
+
 
 - (void) loadGifsFromCSV
 {
@@ -251,26 +265,33 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                         case 0:
                             [currentGif setFileName:value];
                             [currentGif setGifUrl:[NSString stringWithFormat:@"%@%@", BASEURL,value]];
+                            NSLog(@"file name and gifurl %@", value);
                             break;
                         case 1:
                             [currentGif setStillName:value];
                             [currentGif setStillUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
+                            NSLog(@"still name %@", value);
                             break;
                         case 2:
                             [currentGif setDisplayName:value];
+                            NSLog(@"display name %@", value);
                             break;
                         case 3:
                             [currentGif setCategory:value];
+                            NSLog(@"category %@", value);
                             break;
                         case 4:
                             [currentGif setMovFileName:value];
                             [currentGif setMovUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
+                            NSLog(@"movfilename and movurl %@", value);
                             break;
                         case 5:
                             [currentGif setDisplayType:value];
+                            NSLog(@"displaytype %@", value);
                             break;
                         case 6:
                             [currentGif setEmotionCategory:value];
+                            NSLog(@"Emotioncategory %@", value);
                             break;
                         default:
                             DDLogWarn(@"Index out of bounds");
@@ -296,6 +317,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 -(void) populateGifArraysFromCSV
 {
+  
+    
     if([_eboticonGifs count] > 0){
         EboticonGif *currentGif = [EboticonGif alloc];
         _captionImages          = [[NSMutableArray alloc]init];
@@ -323,7 +346,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             
 
             
-             // NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
+              NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
             if([gifCategory isEqual:CATEGORY_SMILE]) {
                 //  NSLog(@"Adding eboticon to category CATEGORY_SMILE:%@",[currentGif fileName]);
                 //Check for Caption
@@ -507,6 +530,31 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [self loadPurchasedGifsFromCSV:productIdentifiers];
     }
 
+}
+
+- (void) getPurchaseGifs
+{
+    [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *purchaseEboticons = [[NSArray alloc]initWithArray:eboticons];
+            NSMutableSet *purchasedProducts = [[EboticonIAPHelper sharedInstance] getPurchasedProducts];
+            
+            NSLog(@"loading in sharedDefaults...");
+            NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+            [sharedDefaults setObject:[purchasedProducts allObjects] forKey:@"purchasedProducts"];
+            [sharedDefaults synchronize];   // (!!) This is crucial.
+            
+            for(NSString* productIdentifiers in purchasedProducts) {
+                for (EboticonGif *eboticon in purchaseEboticons) {
+                    if ([productIdentifiers isEqualToString:eboticon.purchaseCategory]) {
+                        [_purchasedImages addObject:eboticon];
+                        [_eboticonGifs addObject:eboticon];
+                    }
+                }
+            }
+            
+        });
+    }];
 }
 
 - (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier

@@ -19,7 +19,7 @@
 #import "ImageDownloader.h"
 #import "ImageCache.h"
 #import "Reachability.h"
-
+#import "Eboticon-Swift.h"
 //static const int ddLogLevel = LOG_LEVEL_ERROR;
 static const int ddLogLevel = LOG_LEVEL_DEBUG;
 #define CURRENTSCREEN @"Shop Detail Screen"
@@ -44,7 +44,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
     _packGifs     = [[NSMutableArray alloc] init];
-    [self loadGifsFromCSV];
+    [self loadPurchaseEboticon];
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     
     //Sets the navigation bar title
@@ -62,7 +62,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
 
     //Create Pack Gifs object
-    [self createPackGifs];
+    
     
     
     //Add Buy or Free Button
@@ -123,6 +123,17 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
  // Pass the selected object to the new view controller.
  }
  */
+
+- (void)loadPurchaseEboticon
+{
+    [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_eboticonGifs addObjectsFromArray:eboticons];
+            [self createPackGifs];
+            [self.collectionView reloadData];
+        });
+    }];
+}
 
 - (void) loadGifsFromCSV
 {
