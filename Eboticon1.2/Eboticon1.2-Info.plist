@@ -76,6 +76,13 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>api.eboticons.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>inclingconsulting.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
