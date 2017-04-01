@@ -248,8 +248,7 @@
     }else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"Downloading Started");
-            NSString *urlToDownload = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@",movName];
-            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            NSURL  *url = [NSURL URLWithString:movName];
             
             NSError *downloadError = nil;
             // Create an NSData object from the contents of the given URL.
@@ -295,7 +294,7 @@
     //[self sendShareToGoogleAnalytics:[currGif getFileName]];
     [self showEmailAlert];
     
-    NSString *movName = [currGif movFileName];
+    NSString *movName = [currGif movUrl];
     
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     
@@ -315,20 +314,20 @@
                return;
            });
        }
-       NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
+       NSString *gifUrl = [currGif gifUrl];
        NSLog(@"movname %@", movName);
-       NSLog(@"get file name %@", [currGif getFileName]);
+       NSLog(@"get file name %@", [currGif gifUrl]);
        //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
        
        
        //Form the URI by adding it to your host:
-       NSLog(@"gifname %@", gifUrlName);
+       NSLog(@"gifname %@", gifUrl);
        
        //And put it on the .string property of the generalPasteboard:
-       [UIPasteboard generalPasteboard].string = gifUrlName;
+       [UIPasteboard generalPasteboard].string = gifUrl;
        
        
-       NSURL *imagePath = [NSURL URLWithString:gifUrlName];
+       NSURL *imagePath = [NSURL URLWithString:gifUrl];
        
        NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
        dispatch_async(dispatch_get_main_queue(), ^{
@@ -336,7 +335,7 @@
            // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
            [activityIndicator stopAnimating];
            [activityIndicator removeFromSuperview];
-           NSLog(@"%@",gifUrlName);
+           NSLog(@"%@",gifUrl);
            
            
            // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
