@@ -410,15 +410,15 @@
     [self initializeKeyboard];
     
     //Load CSV into Array
-    [self loadGifsFromCSV];
+    [self loadGifs];
     
     //Load CSV into Array
-    [self loadPurchasedProducts];
+    [self getPurchaseGifs];
     
     //Setup item size of keyboard layout to fit keyboard.
     [self changeKeyboardFlowLayout];
     
-    [self populateGifArraysFromCSV];
+//    [self populateGifArraysFromCSV];
     
     if([self doesInternetExists]){
         //Convert CSV to an array
@@ -461,7 +461,24 @@
     
 }
 
-- (void) loadGifsFromCSV
+- (void)loadEboticonFromServer
+{
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+        spinner.hidesWhenStopped = YES;
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
+        [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_allImages addObjectsFromArray:eboticons];
+                [self populateGifArraysFromCSV];
+                [spinner stopAnimating];
+            });
+        }];
+    
+}
+
+- (void) loadGifs
 {
     
     [_allImages removeAllObjects];
@@ -479,49 +496,50 @@
     [_heartImagesCaption removeAllObjects];
     [_heartImagesNoCaption removeAllObjects];
     
-    NSString *path;
-    
     //Set Gifs is no internet exists
     if([self doesInternetExists]){
-        path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
+        [self loadEboticonFromServer];
     }
     else{
-        path = [[NSBundle mainBundle] pathForResource:@"eboticon_nointernet_gifs" ofType:@"csv"];
-    }
-    NSError *error = nil;
-    
-    //Read All Gifs From CSV
-    @try {
-        NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
+       NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_nointernet_gifs" ofType:@"csv"];
         
-        if (csvImages == nil) {
-            NSLog(@"Error parsing file: %@", error);
-            return;
-        }
-        else {
+        NSError *error = nil;
+        
+        //Read All Gifs From CSV
+        @try {
+            NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
             
-            
-            // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
-            for (int cnt=0; cnt<[csvImages count]; cnt++)
-            {
-                EboticonGif *eboticonObject = [[EboticonGif alloc] init];
-
-                eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
-                eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
-                eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
-                eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
-                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
-                eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
-                eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
-                
-                [_allImages addObject:eboticonObject];
+            if (csvImages == nil) {
+                NSLog(@"Error parsing file: %@", error);
+                return;
             }
-            
+            else {
+                
+                
+                // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
+                for (int cnt=0; cnt<[csvImages count]; cnt++)
+                {
+                    EboticonGif *eboticonObject = [[EboticonGif alloc] init];
+                    
+                    eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
+                    eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
+                    eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
+                    eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
+                    eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+                    eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
+                    eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
+                    
+                    [_allImages addObject:eboticonObject];
+                    [self populateGifArraysFromCSV];
+                }
+                
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Unable to load csv: %@",exception);
         }
     }
-    @catch (NSException *exception) {
-        NSLog(@"Unable to load csv: %@",exception);
-    }
+    
 }
 
 
@@ -686,10 +704,10 @@
        
         
         //Load CSV into Array
-        [self loadGifsFromCSV];
+        [self loadGifs];
         
         //Populate Gifs
-        [self populateGifArraysFromCSV];
+//        [self populateGifArraysFromCSV];
         
         //Reload keyboard data
         //[self.keyboardCollectionView reloadData];
@@ -699,9 +717,9 @@
     else {
         
         //Load CSV into Array
-        [self loadGifsFromCSV];
+        [self loadGifs];
         
-        [self populateGifArraysFromCSV];
+//        [self populateGifArraysFromCSV];
         
         
         //there-is-no-connection warning
@@ -1295,88 +1313,129 @@
 }
 
 
-- (void)loadPurchasedProducts {
-  //  NSLog(@"loadPurchasedProducts...");
-    
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
-    _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
-    
-    for(NSString* productIdentifiers in _purchasedProducts) {
-    //    NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
-        [self loadPurchasedGifsFromCSV:productIdentifiers];
-    }
-    
-}
+//- (void)loadPurchasedProducts {
+//  //  NSLog(@"loadPurchasedProducts...");
+//    
+//    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+//    _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+//    
+//    for(NSString* productIdentifiers in _purchasedProducts) {
+//    //    NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
+//        [self loadPurchasedGifsFromCSV:productIdentifiers];
+//    }
+//    
+//}
 
-
-- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
+- (void) getPurchaseGifs
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
-    
-   // NSError *error = nil;
-    
-    //Read All Gifs From CSV
-    @try {
-        NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
-        
-        if (csvImages == nil) {
-     //       NSLog(@"Error parsing file: %@", error);
-            return;
-        }
-        else {
+    [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *purchaseEboticons = [[NSArray alloc]initWithArray:eboticons];
+            NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+            _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
             
-     //       NSLog(@"Number purchased gifs: %lu", (unsigned long)[csvImages count]);
-            // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
-            for (int cnt=0; cnt<[csvImages count]; cnt++)
-            {
-                
-                
-                EboticonGif *eboticonObject = [[EboticonGif alloc] init];
-                
-                eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
-                eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
-                eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
-                eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
-                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
-                eboticonObject.purchaseCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:7];
-                
-                eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
-                eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
-                
-                
-                NSString * purchaseCategory = eboticonObject.purchaseCategory;
-               // NSString * gifCategory = eboticonObject.emotionCategory;
-                NSString * isCaption = eboticonObject.category;
-                
-                if([productIdentifier isEqual:purchaseCategory]) {
-//                    NSLog(@"adding  gif: %d", cnt);
-//                    NSLog(@"emotionCategory : %@", gifCategory);
-                    [_purchasedImages addObject:eboticonObject];
-                    [_allImages addObject:eboticonObject];
-                }
-                
-                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
-//                    NSLog(@"adding  gif: %d", cnt);
-//                    NSLog(@"emotionCategory : %@", gifCategory);
-                    [_purchasedImagesCaption addObject:eboticonObject];
-                    //[_allImages addObject:eboticonObject];
-                }
-              
-                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
-//                    NSLog(@"adding  gif: %d", cnt);
-//                    NSLog(@"emotionCategory : %@", gifCategory);
-                    [_purchasedImagesNoCaption addObject:eboticonObject];
-                    //[_allImages addObject:eboticonObject];
+            for(NSString* productIdentifiers in _purchasedProducts) {
+                for (EboticonGif *eboticon in purchaseEboticons) {
+                    NSString * purchaseCategory = eboticon.purchaseCategory;
+                    // NSString * gifCategory = eboticonObject.emotionCategory;
+                    NSString * isCaption = eboticon.category;
+                    
+                    if([productIdentifiers isEqual:purchaseCategory]) {
+                        //                    NSLog(@"adding  gif: %d", cnt);
+                        //                    NSLog(@"emotionCategory : %@", gifCategory);
+                        [_purchasedImages addObject:eboticon];
+                        [_allImages addObject:eboticon];
+                    }
+                    
+                    if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
+                        //                    NSLog(@"adding  gif: %d", cnt);
+                        //                    NSLog(@"emotionCategory : %@", gifCategory);
+                        [_purchasedImagesCaption addObject:eboticon];
+                        //[_allImages addObject:eboticonObject];
+                    }
+                    
+                    if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
+                        //                    NSLog(@"adding  gif: %d", cnt);
+                        //                    NSLog(@"emotionCategory : %@", gifCategory);
+                        [_purchasedImagesNoCaption addObject:eboticon];
+                        //[_allImages addObject:eboticonObject];
+                    }
                 }
             }
-        }
-        
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Unable to load csv: %@",exception);
-    }
+            
+        });
+    }];
 }
+
+
+//- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
+//{
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
+//    
+//   // NSError *error = nil;
+//    
+//    //Read All Gifs From CSV
+//    @try {
+//        NSArray * csvImages = [NSArray arrayWithContentsOfCSVFile:path];
+//        
+//        if (csvImages == nil) {
+//     //       NSLog(@"Error parsing file: %@", error);
+//            return;
+//        }
+//        else {
+//            
+//     //       NSLog(@"Number purchased gifs: %lu", (unsigned long)[csvImages count]);
+//            // Prepare the array for processing in LazyLoadVC. Add each URL into a separate ImageRecord object and store it in the array.
+//            for (int cnt=0; cnt<[csvImages count]; cnt++)
+//            {
+//                
+//                
+//                EboticonGif *eboticonObject = [[EboticonGif alloc] init];
+//                
+//                eboticonObject.fileName = [[csvImages objectAtIndex:cnt] objectAtIndex:0];
+//                eboticonObject.stillName = [[csvImages objectAtIndex:cnt] objectAtIndex:1];
+//                eboticonObject.displayName = [[csvImages objectAtIndex:cnt] objectAtIndex:2];
+//                eboticonObject.category = [[csvImages objectAtIndex:cnt] objectAtIndex:3];         //Caption or No Cation
+//                eboticonObject.emotionCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:6];
+//                eboticonObject.purchaseCategory = [[csvImages objectAtIndex:cnt] objectAtIndex:7];
+//                
+//                eboticonObject.stillUrl        = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:1]];
+//                eboticonObject.gifUrl          = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/purchased/%@", [[csvImages objectAtIndex:cnt] objectAtIndex:0]];
+//                
+//                
+//                NSString * purchaseCategory = eboticonObject.purchaseCategory;
+//               // NSString * gifCategory = eboticonObject.emotionCategory;
+//                NSString * isCaption = eboticonObject.category;
+//                
+//                if([productIdentifier isEqual:purchaseCategory]) {
+////                    NSLog(@"adding  gif: %d", cnt);
+////                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    [_purchasedImages addObject:eboticonObject];
+//                    [_allImages addObject:eboticonObject];
+//                }
+//                
+//                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
+////                    NSLog(@"adding  gif: %d", cnt);
+////                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    [_purchasedImagesCaption addObject:eboticonObject];
+//                    //[_allImages addObject:eboticonObject];
+//                }
+//              
+//                if([productIdentifier isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
+////                    NSLog(@"adding  gif: %d", cnt);
+////                    NSLog(@"emotionCategory : %@", gifCategory);
+//                    [_purchasedImagesNoCaption addObject:eboticonObject];
+//                    //[_allImages addObject:eboticonObject];
+//                }
+//            }
+//        }
+//        
+//        
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"Unable to load csv: %@",exception);
+//    }
+//}
 
 #pragma mark-
 #pragma mark UICollectionViewDataSource
