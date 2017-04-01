@@ -132,10 +132,16 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         [controller addAction:okAction];
         [self presentViewController:controller animated:YES completion:nil];
     }else {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+        spinner.hidesWhenStopped = YES;
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
         [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_eboticonGifs addObjectsFromArray:eboticons];
                 [self createPackGifs];
+                [spinner stopAnimating];
                 [self.collectionView reloadData];
             });
         }];

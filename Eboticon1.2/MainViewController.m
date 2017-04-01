@@ -247,10 +247,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [controller addAction:okAction];
         [self presentViewController:controller animated:YES completion:nil];
     }else {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+        spinner.hidesWhenStopped = YES;
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
         [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_eboticonGifs addObjectsFromArray:eboticons];
                 [self populateGifArraysFromCSV];
+                [spinner stopAnimating];
                 [self.collectionView reloadData];
             });
         }];
