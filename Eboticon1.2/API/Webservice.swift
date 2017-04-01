@@ -19,14 +19,12 @@ let kBaseURL = "http://api.eboticons.com/v1/"
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
-            print(url)
-            print(error)
+
             guard let data = data else {
                 completion(nil)
                 return
             }
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            print("this is json \(json)")
             if let jsonArray = json as? [JSONDictionary] {
                 var eboticons = [EboticonGif]()
                 for eboticonDict in jsonArray {

@@ -26,10 +26,6 @@
 @property (strong, nonatomic) NSString *skinTone;
 @property (nonatomic, strong) UIImage *thumbImage;
 
-
-
-//- (id)initWithAttributes:(NSString *)fileName displayName:(NSString *)displayName stillName:(NSString *)stillName category:(NSString *)category movFileName:(NSString *)movFileName displayType:(NSString *)displayType skinTone:(NSString *)skinTone emotionCategory:(NSString *)emotionCategory;
-
 - (id)initWithAttributes:(NSString *)name gifURL:(NSString *)gifURL captionCategory:(NSString *)captionCategory category:(NSString *)category eboticonID:(NSNumber *)eboticonID movieURL:(NSString *)movieURL stillURL:(NSString *)stillURL skinTone:(NSString *)skinTone displayType:(NSString *)displayType purchaseCategory:(NSString *)purchaseCategory;
 
 -(NSString *) getFileName;
