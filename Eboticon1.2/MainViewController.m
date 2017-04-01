@@ -24,6 +24,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SWRevealViewController.h"
 #import "FilterData.h"
+#import "Reachability.h"
 #import "Eboticon-Swift.h"
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
@@ -226,94 +227,37 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
+- (BOOL) doesInternetExist {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
 - (void)loadEboticon
-{    
-    [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_eboticonGifs addObjectsFromArray:eboticons];
-            [self populateGifArraysFromCSV];
-            [self.collectionView reloadData];
-        });
-    }];
-}
-
-
-- (void) loadGifsFromCSV
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_gifs" ofType:@"csv"];
-    NSError *error = nil;
-    
-    @try {
-        
-        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
-        if (csvArray == nil) {
-            DDLogError(@"Error parsing file: %@", error);
-            return;
-        } else {
-            EboticonGif *currentGif = [[EboticonGif alloc] init];
-            NSMutableArray *element = [[NSMutableArray alloc]init];
-            
-            for(int i=0; i<[csvArray count];i++){
-                element = [csvArray objectAtIndex: i];
-                DDLogDebug(@"Element %i = %@", i, element);
-                DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
-                
-                for(int j=0; j<[element count];j++) {
-                    NSString *value = [element objectAtIndex: j];
-                    DDLogDebug(@"Value %i = %@", j, value);
-                    switch (j) {
-                        case 0:
-                            [currentGif setFileName:value];
-                            [currentGif setGifUrl:[NSString stringWithFormat:@"%@%@", BASEURL,value]];
-                            NSLog(@"file name and gifurl %@", value);
-                            break;
-                        case 1:
-                            [currentGif setStillName:value];
-                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
-                            NSLog(@"still name %@", value);
-                            break;
-                        case 2:
-                            [currentGif setDisplayName:value];
-                            NSLog(@"display name %@", value);
-                            break;
-                        case 3:
-                            [currentGif setCategory:value];
-                            NSLog(@"category %@", value);
-                            break;
-                        case 4:
-                            [currentGif setMovFileName:value];
-                            [currentGif setMovUrl:[NSString stringWithFormat:@"%@%@", BASEURL, value]];
-                            NSLog(@"movfilename and movurl %@", value);
-                            break;
-                        case 5:
-                            [currentGif setDisplayType:value];
-                            NSLog(@"displaytype %@", value);
-                            break;
-                        case 6:
-                            [currentGif setEmotionCategory:value];
-                            NSLog(@"Emotioncategory %@", value);
-                            break;
-                        default:
-                            DDLogWarn(@"Index out of bounds");
-                            break;
-                    }
-                    //[_eboticonGifs addObject:currentGif];
-                }
-                [_eboticonGifs addObject:currentGif];
-                currentGif = [[EboticonGif alloc] init];
-               
-            }
-            
-          
-            
-        }
-        
-    }
-    @catch (NSException *exception) {
-        DDLogError(@"Unable to load csv: %@",exception);
+    if (![self doesInternetExist]) {
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Couldn't connect to the network. Please check your connection settings" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:okAction];
+        [self presentViewController:controller animated:YES completion:nil];
+    }else {
+        [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_eboticonGifs addObjectsFromArray:eboticons];
+                [self populateGifArraysFromCSV];
+                [self.collectionView reloadData];
+            });
+        }];
     }
     
 }
+
 
 -(void) populateGifArraysFromCSV
 {
