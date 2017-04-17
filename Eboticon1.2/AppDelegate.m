@@ -64,12 +64,12 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    
     //[self showSplashVideo];
     
     //Configure PushNotifications
     [self configurePushNotifications];
-   
+    
     
     [self initialize];
     // Override point for customization after application launch.
@@ -83,9 +83,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void) configureiRate
 {
     @try {
-
+        
         [iRate sharedInstance].appStoreID = appStoreID;
-
+        
         
         [iRate sharedInstance].daysUntilPrompt = 2;
         [iRate sharedInstance].usesUntilPrompt = 1;
@@ -105,7 +105,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     @catch (NSException *exception) {
         DDLogError(@"[ERROR] in enabling iRate: %@", exception.description);
     }
-
+    
 }
 
 
@@ -164,7 +164,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     // [START configure_firebase];
     [FirebaseConfigurator sharedInstance];
-
+    
     // [END configure_firebase]
     // Add observer for InstanceID token refresh callback.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)
@@ -196,7 +196,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [self.window.rootViewController.view makeToast:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
                                           duration:5.0
                                           position:CSToastPositionTop];
-
+    
     // Change this to your preferred presentation option
     completionHandler(UNNotificationPresentationOptionNone);
 }
@@ -219,7 +219,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     NSLog(@"%s", __PRETTY_FUNCTION__);
     [self.window.rootViewController.view makeToast:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
                                           duration:5.0
-                                          position:CSToastPositionTop];    
+                                          position:CSToastPositionTop];
     completionHandler();
 }
 #endif
@@ -301,7 +301,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     
     //Clear Badges
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-
+    
 }
 // [END connect_on_active]
 
@@ -344,14 +344,14 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Show Notification Toast
     NSLog(@"Show Toast...");
     [self.window.rootViewController.view makeToast:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
-                duration:5.0
-                position:CSToastPositionTop];
+                                          duration:5.0
+                                          position:CSToastPositionTop];
     
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -479,15 +479,21 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     //self.window.rootViewController = self.tabBarController;
     self.window.rootViewController = self.viewController;
     
- 
+    
     
     UIImageView *splashScreen = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
     [self.window addSubview:splashScreen];
     [self.window makeKeyAndVisible];
     
-    [UIView animateWithDuration:0.3 animations:^{splashScreen.alpha = 0.0;}
+    [UIView animateWithDuration:0.5 animations:^{splashScreen.alpha = 0.0;}
                      completion:(void (^)(BOOL)) ^{
                          [splashScreen removeFromSuperview];
+                         
+                         OnboardingViewController *onboardingVC = [[OnboardingViewController alloc]
+                                                                   initWithNibName:@"OnboardingView" bundle:nil];
+                         self.onboardingViewController = onboardingVC;
+                         [self.window.rootViewController presentViewController:self.onboardingViewController animated:YES completion:nil];
+                         
                      }
      ];
     
@@ -544,24 +550,24 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     @try {
         
         // Set the App ID for your app
-        #ifdef FREE
-                [[Harpy sharedInstance] setAppID:@"977505283"];
-        #else
-                [[Harpy sharedInstance] setAppID:@"899011953"];
-        #endif
-                
-                // Set the UIViewController that will present an instance of UIAlertController
-                [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
-                
-                // (Optional) The tintColor for the alertController
-                //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
-                
-                // (Optional) Set the App Name for your app
-        #ifdef FREE
-                [[Harpy sharedInstance] setAppName:@"Eboticon Lite"];
-        #else
-                [[Harpy sharedInstance] setAppName:@"Eboticon"];
-        #endif
+#ifdef FREE
+        [[Harpy sharedInstance] setAppID:@"977505283"];
+#else
+        [[Harpy sharedInstance] setAppID:@"899011953"];
+#endif
+        
+        // Set the UIViewController that will present an instance of UIAlertController
+        [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
+        
+        // (Optional) The tintColor for the alertController
+        //[[Harpy sharedInstance] setAlertControllerTintColor:@"<#alert_controller_tint_color#>"];
+        
+        // (Optional) Set the App Name for your app
+#ifdef FREE
+        [[Harpy sharedInstance] setAppName:@"Eboticon Lite"];
+#else
+        [[Harpy sharedInstance] setAppName:@"Eboticon"];
+#endif
         
         // Perform check for new version of your app
         [[Harpy sharedInstance] checkVersion];
@@ -570,7 +576,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         DDLogError(@"[ERROR] in enabling Harpy: %@", exception.description);
     }
     
-
+    
     
 }
 
@@ -647,9 +653,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // load up our real view controller, but don't put it in to the window until the video is done
     // if there's anything expensive to do it should happen in the background now
     
-   //
+    //
     
-   // self.viewController = [[XOViewController alloc] initWithNibName:@"XOViewController" bundle:nil];
+    // self.viewController = [[XOViewController alloc] initWithNibName:@"XOViewController" bundle:nil];
 }
 
 - (void)splashVideoComplete:(XOSplashVideoController *)splashVideo

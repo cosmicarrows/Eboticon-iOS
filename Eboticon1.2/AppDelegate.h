@@ -14,11 +14,17 @@
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
 
+#import "Eboticon-Swift.h"
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, XOSplashVideoDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) TabViewController *tabBarController;
 @property (strong, nonatomic) SWRevealViewController *viewController;
+
+@property (strong, nonatomic) OnboardingViewController *onboardingViewController;
+
 
 
 @end

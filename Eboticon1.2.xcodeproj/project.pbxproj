@@ -108,6 +108,8 @@
 		971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED9E1BADD26100D2A751 /* round-switch-track@2x.png */; };
 		9722338E1C8796D50069F111 /* KeypadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722338C1C8796D50069F111 /* KeypadViewController.m */; };
 		972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972233901C8797100069F111 /* KeyButtonArt.xcassets */; };
+		972269B11EA532380065031A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972269B01EA532380065031A /* OnboardingViewController.swift */; };
+		972269B31EA532560065031A /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972269B21EA532560065031A /* OnboardingView.xib */; };
 		9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */; };
 		973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */; };
 		973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */; };
@@ -350,6 +352,8 @@
 		9722338B1C8796D50069F111 /* KeypadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeypadViewController.h; sourceTree = "<group>"; };
 		9722338C1C8796D50069F111 /* KeypadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeypadViewController.m; sourceTree = "<group>"; };
 		972233901C8797100069F111 /* KeyButtonArt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = KeyButtonArt.xcassets; sourceTree = "<group>"; };
+		972269B01EA532380065031A /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		972269B21EA532560065031A /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		9739B57B1E5F196300823EA0 /* Eboticon1.2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Eboticon1.2-Bridging-Header.h"; sourceTree = "<group>"; };
 		9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EboticonKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -664,6 +668,7 @@
 				97044EF41BA32C4E008CA2E1 /* GlobalScope.m */,
 				976E4EEA1B9A95B20057D6B2 /* Main1.Storyboard */,
 				970DA3C71B6978CF00587CD6 /* Old Files */,
+				972269AF1EA531E00065031A /* Onboarding */,
 				97A3830F1B695C12002F5571 /* Home View */,
 				97A383061B67E07F002F5571 /* Whats New */,
 				970DA3E01B69CD1000587CD6 /* Shop View */,
@@ -955,6 +960,15 @@
 				972233901C8797100069F111 /* KeyButtonArt.xcassets */,
 			);
 			name = Keyboard;
+			sourceTree = "<group>";
+		};
+		972269AF1EA531E00065031A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				972269B01EA532380065031A /* OnboardingViewController.swift */,
+				972269B21EA532560065031A /* OnboardingView.xib */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		9760B5641B79342600E75EEC /* KIImagePager */ = {
@@ -1367,6 +1381,7 @@
 				97065D741B6A85B1004B149A /* shop-slider.png in Resources */,
 				97CC16CA1C332865000E01D6 /* Icon_Facebook.png in Resources */,
 				9760B5601B754CA800E75EEC /* SidebarCategoryCell.xib in Resources */,
+				972269B31EA532560065031A /* OnboardingView.xib in Resources */,
 				976E4F0B1B9AA4930057D6B2 /* ipad1536x2048.png in Resources */,
 				979CFFA11B8AAEE30041EE61 /* eboticon_purchase_gifs.csv in Resources */,
 				971DEDA71BADD26100D2A751 /* round-switch-thumb@2x.png in Resources */,
@@ -1548,6 +1563,7 @@
 				977FBD781B8A661200B75C05 /* EboticonIAPHelper.m in Sources */,
 				97A383121B695D7B002F5571 /* TabViewController.m in Sources */,
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
+				972269B11EA532380065031A /* OnboardingViewController.swift in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
 				9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,

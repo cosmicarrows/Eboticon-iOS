@@ -9,7 +9,7 @@
 import Foundation
 
 typealias JSONDictionary = [String: Any]
-let kBaseURL = "http://api.eboticons.com/v1/"
+let kBaseURL = "https://api.eboticons.com/v1/"
 
 
 @objc class Webservice:NSObject {
