@@ -62,7 +62,8 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
 
     //Create Pack Gifs object
-    
+    self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
+
     
     
     //Add Buy or Free Button
@@ -157,13 +158,17 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
+
             
             NSString * purchaseCategory = [currentGif purchaseCategory]; //Category
+            NSString * skinTone = [currentGif skinTone];           //Skin
             
             DDLogDebug(@"gifCategory: %@", purchaseCategory);
             
-            if([self.product.productIdentifier isEqual:purchaseCategory]) {
-                [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
+            if([skinTone isEqual:self.savedSkinTone]){
+                if([self.product.productIdentifier isEqual:purchaseCategory]) {
+                    [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
+                }
             }
             
         }

@@ -16,5 +16,7 @@
 @interface ShopDetailCollectionViewController : UICollectionViewController
 
 @property (strong, nonatomic) SKProduct *product;
+@property (strong, nonatomic) NSString *savedSkinTone;
+
 
 @end

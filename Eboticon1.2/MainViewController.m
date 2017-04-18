@@ -97,7 +97,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
-
+    
     //GOOGLE ANALYTICS
     @try {
         id tracker = [[GAI sharedInstance] defaultTracker];
@@ -156,7 +156,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self getPurchaseGifs];
     
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
-    //    [self populateGifArraysFromCSV];
+    //    [self populateGifArrays];
     
     //Register the Gif Cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
@@ -279,7 +279,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_eboticonGifs addObjectsFromArray:eboticons];
-                [self populateGifArraysFromCSV];
+                [self populateGifArrays];
                 [spinner stopAnimating];
                 [self.collectionView reloadData];
             });
@@ -295,9 +295,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 };
 
 
--(void) populateGifArraysFromCSV
+-(void) populateGifArrays
 {
- 
+    
     
     if([_eboticonGifs count] > 0){
         EboticonGif *currentGif = [EboticonGif alloc];
@@ -317,7 +317,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         _heartImagesNoCaption       = [[NSMutableArray alloc]init];
         
         
-        
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
             
@@ -325,10 +324,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             NSString * gifCaption = [currentGif category];         //Caption
             NSString * skinTone = [currentGif skinTone];           //Skin
             
-            NSLog(@"SKIN TONE %@", skinTone);
             
-            
-            NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
+            // NSLog(@"Current Gif filename:%@ stillname:%@ displayname:%@ category:%@ movie:%@ displayType:%@", [currentGif fileName], [currentGif stillName], [currentGif displayName], [currentGif category], [currentGif movFileName], [currentGif displayType]);
             
             if([skinTone isEqual:self.savedSkinTone]){
                 if([gifCategory isEqual:CATEGORY_SMILE]) {
@@ -419,7 +416,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogWarn(@"Eboticon Gif array count is less than zero.");
     }
     
-       NSLog(@"populateGifArraysFromCSV");
+    NSLog(@"populateGifArrays");
     NSLog(@"%@", self.savedSkinTone);
 }
 
@@ -503,22 +500,22 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
  
  */
 
-- (void)loadPurchasedProducts {
-    NSLog(@"loadPurchasedProducts...");
-    
-    NSMutableSet *purchasedProducts = [[EboticonIAPHelper sharedInstance] getPurchasedProducts];
-    
-    NSLog(@"loading in sharedDefaults...");
-    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
-    [sharedDefaults setObject:[purchasedProducts allObjects] forKey:@"purchasedProducts"];
-    [sharedDefaults synchronize];   // (!!) This is crucial.
-    
-    for(NSString* productIdentifiers in purchasedProducts) {
-        NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
-        [self loadPurchasedGifsFromCSV:productIdentifiers];
-    }
-    
-}
+//- (void)loadPurchasedProducts {
+//    NSLog(@"loadPurchasedProducts...");
+//
+//    NSMutableSet *purchasedProducts = [[EboticonIAPHelper sharedInstance] getPurchasedProducts];
+//
+//    NSLog(@"loading in sharedDefaults...");
+//    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+//    [sharedDefaults setObject:[purchasedProducts allObjects] forKey:@"purchasedProducts"];
+//    [sharedDefaults synchronize];   // (!!) This is crucial.
+//
+//    for(NSString* productIdentifiers in purchasedProducts) {
+//        NSLog(@"loadPurchasedGifsFromCSV: %@", productIdentifiers);
+//    //    [self loadPurchasedGifsFromCSV:productIdentifiers];
+//    }
+//
+//}
 
 - (void) getPurchaseGifs
 {
@@ -532,11 +529,18 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             [sharedDefaults setObject:[purchasedProducts allObjects] forKey:@"purchasedProducts"];
             [sharedDefaults synchronize];   // (!!) This is crucial.
             
+            
+            
             for(NSString* productIdentifiers in purchasedProducts) {
                 for (EboticonGif *eboticon in purchaseEboticons) {
-                    if ([productIdentifiers isEqualToString:eboticon.purchaseCategory]) {
-                        [_purchasedImages addObject:eboticon];
-                        [_eboticonGifs addObject:eboticon];
+                    
+                    NSString * skinTone = [eboticon skinTone];           //Skin
+                    
+                    if([skinTone isEqual:self.savedSkinTone]){
+                        if ([productIdentifiers isEqualToString:eboticon.purchaseCategory]) {
+                            [_purchasedImages addObject:eboticon];
+                            [_eboticonGifs addObject:eboticon];
+                        }
                     }
                 }
             }
@@ -545,94 +549,94 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     }];
 }
 
-- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
-    
-    
-    @try {
-        
-        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
-        if (csvArray == nil) {
-            NSLog(@"Error parsing file");
-            return;
-        } else {
-            
-            NSMutableArray *element = [[NSMutableArray alloc]init];
-            
-            for(int i=0; i<[csvArray count];i++){
-                EboticonGif *currentGif = [[EboticonGif alloc] init];
-                element = [csvArray objectAtIndex: i];
-                //DDLogDebug(@"Element %i = %@", i, element);
-                // DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
-                
-                for(int j=0; j<[element count];j++) {
-                    NSString *value = [element objectAtIndex: j];
-                    //DDLogDebug(@"Value %i = %@", j, value);
-                    switch (j) {
-                        case 0:
-                            [currentGif setFileName:value];
-                            [currentGif setGifUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL,value]];
-                            break;
-                        case 1:
-                            [currentGif setStillName:value];
-                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL, value]];
-                            break;
-                        case 2:
-                            [currentGif setDisplayName:value];
-                            break;
-                        case 3:
-                            [currentGif setCategory:value];
-                            break;
-                        case 4:
-                            [currentGif setMovFileName:value];
-                            [currentGif setMovUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL, value]];
-                            break;
-                        case 5:
-                            [currentGif setDisplayType:value];
-                            break;
-                        case 6:
-                            [currentGif setEmotionCategory:value];
-                            break;
-                        case 7:
-                            
-                            [currentGif setPurchaseCategory:value];
-                            break;
-                        default:
-                            //       DDLogWarn(@"Index out of bounds");
-                            break;
-                    }
-                    
-                }
-                
-                NSString * gifCategory = [currentGif purchaseCategory]; //Category
-                
-                
-                
-                if([productIdentifier isEqual:gifCategory]) {
-                    //  NSLog(@"productIdentifier: %@, ", productIdentifier);
-                    
-                    //  NSLog(@"gifCategory: %@, ", gifCategory);
-                    //  NSLog(@"displayName: %@, ", [currentGif displayName]);
-                    //   NSLog(@"fileName: %@, ", [currentGif fileName]);
-                    
-                    
-                    [_purchasedImages addObject:currentGif];
-                    [_eboticonGifs addObject:currentGif];
-                    
-                    //NSLog(@"%@",[_purchasedImages[i] fileName]);
-                    // NSLog(@"----");
-                }
-                
-            }
-        }
-    }
-    @catch (NSException *exception) {
-        DDLogError(@"Unable to load csv: %@",exception);
-    }
-    
-    
-}
+//- (void) loadPurchasedGifsFromCSV:(NSString*)productIdentifier
+//{
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_purchase_gifs" ofType:@"csv"];
+//
+//
+//    @try {
+//
+//        NSArray *csvArray = [NSArray arrayWithContentsOfCSVFile:path];
+//        if (csvArray == nil) {
+//            NSLog(@"Error parsing file");
+//            return;
+//        } else {
+//
+//            NSMutableArray *element = [[NSMutableArray alloc]init];
+//
+//            for(int i=0; i<[csvArray count];i++){
+//                EboticonGif *currentGif = [[EboticonGif alloc] init];
+//                element = [csvArray objectAtIndex: i];
+//                //DDLogDebug(@"Element %i = %@", i, element);
+//                // DDLogDebug(@"Element Count = %lu", (unsigned long)[element count]);
+//
+//                for(int j=0; j<[element count];j++) {
+//                    NSString *value = [element objectAtIndex: j];
+//                    //DDLogDebug(@"Value %i = %@", j, value);
+//                    switch (j) {
+//                        case 0:
+//                            [currentGif setFileName:value];
+//                            [currentGif setGifUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL,value]];
+//                            break;
+//                        case 1:
+//                            [currentGif setStillName:value];
+//                            [currentGif setStillUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL, value]];
+//                            break;
+//                        case 2:
+//                            [currentGif setDisplayName:value];
+//                            break;
+//                        case 3:
+//                            [currentGif setCategory:value];
+//                            break;
+//                        case 4:
+//                            [currentGif setMovFileName:value];
+//                            [currentGif setMovUrl:[NSString stringWithFormat:@"%@/purchased/%@", BASEURL, value]];
+//                            break;
+//                        case 5:
+//                            [currentGif setDisplayType:value];
+//                            break;
+//                        case 6:
+//                            [currentGif setEmotionCategory:value];
+//                            break;
+//                        case 7:
+//
+//                            [currentGif setPurchaseCategory:value];
+//                            break;
+//                        default:
+//                            //       DDLogWarn(@"Index out of bounds");
+//                            break;
+//                    }
+//
+//                }
+//
+//                NSString * gifCategory = [currentGif purchaseCategory]; //Category
+//
+//
+//
+//                if([productIdentifier isEqual:gifCategory]) {
+//                    //  NSLog(@"productIdentifier: %@, ", productIdentifier);
+//
+//                    //  NSLog(@"gifCategory: %@, ", gifCategory);
+//                    //  NSLog(@"displayName: %@, ", [currentGif displayName]);
+//                    //   NSLog(@"fileName: %@, ", [currentGif fileName]);
+//
+//
+//                    [_purchasedImages addObject:currentGif];
+//                    [_eboticonGifs addObject:currentGif];
+//
+//                    //NSLog(@"%@",[_purchasedImages[i] fileName]);
+//                    // NSLog(@"----");
+//                }
+//
+//            }
+//        }
+//    }
+//    @catch (NSException *exception) {
+//        DDLogError(@"Unable to load csv: %@",exception);
+//    }
+//
+//
+//}
 
 #pragma mark-
 #pragma mark UICollectionViewDataSource
@@ -859,7 +863,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             currentGifObject = _exclamationImagesCaption[row];
         }
         else {
-           // NSLog(@"all images");
+            // NSLog(@"all images");
             currentGifObject = _captionImages[row];
         }
     }

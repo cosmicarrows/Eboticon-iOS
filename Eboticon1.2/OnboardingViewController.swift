@@ -73,8 +73,8 @@ import Foundation
             boyImageView.image = UIImage(named: "OnboardingSelectionAsianBoy")
             
             UserDefaults.standard.set("asian", forKey: "skin_tone") //setObject
-            
-            
+            UserDefaults(suiteName: "group.com.eboticon.eboticon")?.set("asian", forKey: "skin_tone")
+
         }
         
         if self.isWhiteSelected==true {
@@ -89,6 +89,8 @@ import Foundation
             
             //To save the string
             UserDefaults.standard.set("white", forKey: "skin_tone") //setObject
+            UserDefaults(suiteName: "group.com.eboticon.eboticon")?.set("white", forKey: "skin_tone")
+
         }
         
         if self.isBlackSelected==true {
@@ -104,6 +106,8 @@ import Foundation
             
             //To save the string
             UserDefaults.standard.set("black", forKey: "skin_tone") //setObject
+            UserDefaults(suiteName: "group.com.eboticon.eboticon")?.set("black", forKey: "skin_tone")
+
         }
         
     }
