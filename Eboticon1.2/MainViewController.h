@@ -10,12 +10,19 @@
 
 @interface MainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-    @property (strong, nonatomic) NSMutableArray *allImages;
-    @property (strong, nonatomic) NSMutableArray *recentImages;
-    @property (strong, nonatomic) NSMutableArray *captionImages;
-    @property (strong, nonatomic) NSMutableArray *noCaptionImages;
+@property (strong, nonatomic) NSMutableArray *allImages;
+@property (strong, nonatomic) NSMutableArray *recentImages;
+@property (strong, nonatomic) NSMutableArray *captionImages;
+@property (strong, nonatomic) NSMutableArray *noCaptionImages;
 
-    @property (strong, nonatomic) id gifCategory;
-    @property (nonatomic, assign) NSNumber* captionState;
+@property (strong, nonatomic) id gifCategory;
+@property (nonatomic, assign) NSNumber* captionState;
+@property (strong, nonatomic) NSString *savedSkinTone;
+
+
+- (void)loadEboticon;
++ (MainViewController *)sharedInstance;
+
+
 
 @end

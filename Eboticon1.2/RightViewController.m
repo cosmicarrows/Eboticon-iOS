@@ -72,8 +72,8 @@
     [super viewDidLoad];
     
     // Create the data model for Table
-    _categoryTitles = @[@"ALL", @"LOVE", @"HAPPY", @"UNHAPPY", @"EXCLAMATION", @"GREETING"];
-    _categoryImages = @[@"Earth", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller"];
+    _categoryTitles = @[@"ALL", @"LOVE", @"HAPPY", @"UNHAPPY", @"EXCLAMATION", @"GREETING", @"SKIN TONE"];
+    _categoryImages = @[@"Earth", @"HeartSmaller", @"HappySmaller", @"NotHappySmaller", @"ExclamationSmaller", @"GiftBoxSmaller", @"SkinToneIcon"];
     
     //Create Caption/No Caption Switch
     self.captionSwitch = [[TTSwitch alloc] initWithFrame:(CGRect){ 100.0f, 125.0f, 100.0f, 20.0f }];
@@ -280,11 +280,16 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@" %ld", [_categoryTitles count]);
+    return [_categoryTitles count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"***cellForRowAtIndexPath %ld", (long)indexPath.row);
+    
     SidebarCategoryTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     if (!cell)
     {
@@ -318,7 +323,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self categoryKeyPressed:indexPath.row];
+    if(indexPath.row < 6){
+         [self categoryKeyPressed:indexPath.row];
+    }
+    
+    if(indexPath.row == 6){
+        
+        NSLog(@"Change skin tone");
+        // All instances of TestClass will be notified
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"changeSkintone"
+         object:nil];
+    }
+   
 }
 #pragma mark -
 

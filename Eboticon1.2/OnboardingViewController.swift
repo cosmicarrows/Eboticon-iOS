@@ -25,7 +25,7 @@ import Foundation
     var isBlackSelected: Bool! = true
     var isWhiteSelected: Bool! = false
     var isAsianSelected: Bool! = false
-
+    
     override func viewDidLoad(){
         
         let skintone = UserDefaults.standard.string(forKey:"skin_tone")
@@ -52,7 +52,10 @@ import Foundation
             self.isBlackSelected = true
         }
         
+ 
+        
         changedSkinTone()
+        
         
     }
     
@@ -107,9 +110,23 @@ import Foundation
 
     @IBAction func tappedConfirmButton(_ sender: Any){
         
-        self.dismiss(animated: true, completion: nil)
-        
         print(UserDefaults.standard.string(forKey:"skin_tone")!)
+        
+        //Load shared instance
+        if let mainViewController = MainViewController.sharedInstance() {
+            mainViewController.savedSkinTone = UserDefaults.standard.string(forKey:"skin_tone")
+           // mainViewController.loadEboticon()
+        }
+        
+        //Set User Default if confirned for the first time.
+        if UserDefaults.standard.string(forKey:"app_open") != "true" {
+            UserDefaults.standard.set("true", forKey: "app_open")
+        }
+        
+        // Define identifier
+        let notificationName = Notification.Name("reloadEboticons")
+        NotificationCenter.default.post(name:notificationName, object: nil)
+        self.dismiss(animated: true, completion: nil)
         
     }
     

@@ -489,13 +489,20 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                      completion:(void (^)(BOOL)) ^{
                          [splashScreen removeFromSuperview];
                          
-                         OnboardingViewController *onboardingVC = [[OnboardingViewController alloc]
-                                                                   initWithNibName:@"OnboardingView" bundle:nil];
-                         self.onboardingViewController = onboardingVC;
-                         [self.window.rootViewController presentViewController:self.onboardingViewController animated:YES completion:nil];
-                         
+                         NSLog(@" %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]);
+                         //Check to see if the app has been opened
+                         if(![[[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]  isEqual: @"true"])
+                         {
+                             [self showOnboardingView];
+                         }
                      }
      ];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showOnboardingView)
+                                                 name:@"changeSkintone"
+                                               object:nil];
     
     // Present Window before calling Harpy
     //[self.window makeKeyAndVisible];
@@ -540,6 +547,16 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     //FABRIC
     [Fabric with:@[CrashlyticsKit]];
+}
+
+- (void) showOnboardingView
+{
+    OnboardingViewController *onboardingVC = [[OnboardingViewController alloc]
+                                              initWithNibName:@"OnboardingView" bundle:nil];
+    self.onboardingViewController = onboardingVC;
+    [self.window.rootViewController presentViewController:self.onboardingViewController animated:YES completion:nil];
+    
+    
 }
 
 /**
