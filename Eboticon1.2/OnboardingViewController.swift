@@ -63,10 +63,14 @@ import Foundation
         
         if self.isAsianSelected==true {
             //Set Button State
-            asianButton.setImage(UIImage(named:"OnboardingButtonAsianHL"), for: UIControlState.normal)
-            blackButton.setImage(UIImage(named:"OnboardingButtonBlack"), for: UIControlState.normal)
-            whiteButton.setImage(UIImage(named:"OnboardingButtonWhite"), for: UIControlState.normal)
             
+            //Adjust content mode
+            asianButton.imageView?.contentMode = .scaleAspectFit
+            
+            //asianButton.adjustsImageWhenHighlighted = false
+            asianButton.isSelected = true;
+            whiteButton.isSelected = false;
+            blackButton.isSelected = false;
             
             //Switch Selection Images
             girlImageView.image = UIImage(named: "OnboardingSelectionAsianGirl")
@@ -78,10 +82,14 @@ import Foundation
         }
         
         if self.isWhiteSelected==true {
-            //Set Button State
-            asianButton.setImage(UIImage(named:"OnboardingButtonAsian"), for: UIControlState.normal)
-            blackButton.setImage(UIImage(named:"OnboardingButtonBlack"), for: UIControlState.normal)
-            whiteButton.setImage(UIImage(named:"OnboardingButtonWhiteHL"), for: UIControlState.normal)
+            
+            
+            //Adjust content mode
+            whiteButton.imageView?.contentMode = .scaleAspectFit
+
+            asianButton.isSelected = false;
+            whiteButton.isSelected = true;
+            blackButton.isSelected = false;
             
             //Switch Selection Images
             girlImageView.image = UIImage(named: "OnboardingSelectionWhiteGirl")
@@ -95,10 +103,13 @@ import Foundation
         
         if self.isBlackSelected==true {
             
+            //Adjust content mode
+            blackButton.imageView?.contentMode = .scaleAspectFit
+
             //Set Button State
-            asianButton.setImage(UIImage(named:"OnboardingButtonAsian"), for: UIControlState.normal)
-            blackButton.setImage(UIImage(named:"OnboardingButtonBlackHL"), for: UIControlState.normal)
-            whiteButton.setImage(UIImage(named:"OnboardingButtonWhite"), for: UIControlState.normal)
+            asianButton.isSelected = false;
+            whiteButton.isSelected = false;
+            blackButton.isSelected = true;
             
             //Switch Selection Images
             girlImageView.image = UIImage(named: "OnboardingSelectionBlackGirl")
@@ -127,9 +138,11 @@ import Foundation
             UserDefaults.standard.set("true", forKey: "app_open")
         }
         
-        // Define identifier
+        // Notify To Reload Eboticons
         let notificationName = Notification.Name("reloadEboticons")
         NotificationCenter.default.post(name:notificationName, object: nil)
+        
+        //Dismiss
         self.dismiss(animated: true, completion: nil)
         
     }

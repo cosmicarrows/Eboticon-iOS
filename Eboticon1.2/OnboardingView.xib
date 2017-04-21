@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,32 +23,79 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardingBackground" translatesAutoresizingMaskIntoConstraints="NO" id="NmE-zY-bJL">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" red="1" green="0.51903101003077912" blue="0.46857144602639311" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OnboardingHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Yup-gN-0v9">
-                    <rect key="frame" x="87" y="44" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardingHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Yup-gN-0v9">
+                    <rect key="frame" x="88" y="18" width="199" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="Dcc-0K-Ihb"/>
+                    </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OnboardingSubtitle" translatesAutoresizingMaskIntoConstraints="NO" id="2xh-fK-xC4">
-                    <rect key="frame" x="101" y="171" width="213" height="89"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardingSubtitle" translatesAutoresizingMaskIntoConstraints="NO" id="2xh-fK-xC4">
+                    <rect key="frame" x="102" y="124" width="174" height="89"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="89" id="MIE-EU-iVp"/>
+                    </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OnboardingSelectionBlackBoy" translatesAutoresizingMaskIntoConstraints="NO" id="3l2-GT-3jt">
-                    <rect key="frame" x="211" y="279" width="116" height="98"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardingSelectionBlackBoy" translatesAutoresizingMaskIntoConstraints="NO" id="3l2-GT-3jt">
+                    <rect key="frame" x="192" y="221" width="116" height="98"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="116" id="ljv-C9-6Vs"/>
+                    </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OnboardingSelectionBlackGirl" translatesAutoresizingMaskIntoConstraints="NO" id="WYX-xt-35F">
-                    <rect key="frame" x="86" y="279" width="116" height="98"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardingSelectionBlackGirl" translatesAutoresizingMaskIntoConstraints="NO" id="WYX-xt-35F">
+                    <rect key="frame" x="67" y="221" width="116" height="98"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="98" id="CmS-oQ-C7a"/>
+                        <constraint firstAttribute="width" constant="116" id="WnT-fZ-76X"/>
+                    </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNS-Cb-1yc">
-                    <rect key="frame" x="123" y="492" width="170" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wls-8V-tEa">
+                    <rect key="frame" x="228" y="347" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="btz-xK-cQ3"/>
+                    </constraints>
+                    <state key="normal" image="OnboardingButtonBlack"/>
+                    <state key="selected" image="OnboardingButtonBlackHL"/>
+                    <state key="highlighted" image="OnboardingButtonBlackHL"/>
+                    <connections>
+                        <action selector="tappedBlack:" destination="-1" eventType="touchDown" id="TDY-oK-Cwo"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7c-Kj-Ktl">
+                    <rect key="frame" x="166" y="347" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="xAV-H1-Onb"/>
+                    </constraints>
+                    <state key="normal" image="OnboardingButtonWhite"/>
+                    <state key="selected" image="OnboardingButtonWhiteHL"/>
+                    <state key="highlighted" image="OnboardingButtonWhiteHL"/>
+                    <connections>
+                        <action selector="tappedWhite:" destination="-1" eventType="touchDown" id="SxY-Ra-3R5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETX-yc-Htv">
+                    <rect key="frame" x="101" y="347" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="Amb-nB-WeR"/>
+                    </constraints>
+                    <state key="normal" image="OnboardingButtonAsian"/>
+                    <state key="selected" image="OnboardingButtonAsianHL"/>
+                    <state key="highlighted" image="OnboardingButtonAsianHL"/>
+                    <connections>
+                        <action selector="tappedAsian:" destination="-1" eventType="touchDown" id="15D-cO-tIp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNS-Cb-1yc">
+                    <rect key="frame" x="102" y="428" width="170" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="JNS-Cb-1yc" secondAttribute="height" multiplier="5:1" id="DSu-4O-Vfq"/>
+                    </constraints>
                     <state key="normal" title="Confirm" image="OnboardingConfirmation">
                         <color key="titleColor" red="0.95353053856829306" green="0.94363042680453213" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -55,40 +103,33 @@
                         <action selector="tappedConfirmButton:" destination="-1" eventType="touchUpInside" id="QbE-GW-lYc"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wls-8V-tEa">
-                    <rect key="frame" x="248" y="410" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="OnboardingButtonBlack"/>
-                    <state key="highlighted" image="OnboardingButtonBlackHL"/>
-                    <connections>
-                        <action selector="tappedBlack:" destination="-1" eventType="touchDown" id="TDY-oK-Cwo"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7c-Kj-Ktl">
-                    <rect key="frame" x="185" y="410" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="OnboardingButtonWhite"/>
-                    <state key="highlighted" image="OnboardingButtonWhiteHL"/>
-                    <connections>
-                        <action selector="tappedWhite:" destination="-1" eventType="touchDown" id="SxY-Ra-3R5"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETX-yc-Htv">
-                    <rect key="frame" x="122" y="410" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="OnboardingButtonAsian"/>
-                    <state key="highlighted" image="OnboardingButtonAsianHL"/>
-                    <connections>
-                        <action selector="tappedAsian:" destination="-1" eventType="touchDown" id="15D-cO-tIp"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Yup-gN-0v9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="6Z4-cP-BZy"/>
+                <constraint firstItem="JNS-Cb-1yc" firstAttribute="top" secondItem="ETX-yc-Htv" secondAttribute="bottom" constant="36" id="7K9-Vm-Xfh"/>
                 <constraint firstItem="NmE-zY-bJL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8fI-Yu-lSm"/>
+                <constraint firstItem="Yup-gN-0v9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="9Fs-eo-uSu"/>
+                <constraint firstItem="Yup-gN-0v9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="88" id="Dhl-KU-aXZ"/>
+                <constraint firstItem="WYX-xt-35F" firstAttribute="bottom" secondItem="3l2-GT-3jt" secondAttribute="bottom" id="FCE-Gp-F6t"/>
+                <constraint firstItem="e7c-Kj-Ktl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="1" id="LSg-O1-xaR"/>
+                <constraint firstItem="3l2-GT-3jt" firstAttribute="leading" secondItem="WYX-xt-35F" secondAttribute="trailing" constant="9" id="Mll-ji-YB6"/>
+                <constraint firstItem="JNS-Cb-1yc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NBE-uE-pJd"/>
                 <constraint firstAttribute="trailing" secondItem="NmE-zY-bJL" secondAttribute="trailing" id="O2P-Xw-oGD"/>
                 <constraint firstAttribute="bottom" secondItem="NmE-zY-bJL" secondAttribute="bottom" id="Pkl-ND-bWy"/>
+                <constraint firstItem="wls-8V-tEa" firstAttribute="leading" secondItem="e7c-Kj-Ktl" secondAttribute="trailing" constant="17" id="PyV-et-lrw"/>
                 <constraint firstItem="NmE-zY-bJL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q9y-Ds-NAH"/>
+                <constraint firstItem="WYX-xt-35F" firstAttribute="top" secondItem="3l2-GT-3jt" secondAttribute="top" id="QAu-0K-Rjz"/>
+                <constraint firstItem="ETX-yc-Htv" firstAttribute="leading" secondItem="JNS-Cb-1yc" secondAttribute="leading" constant="-1" id="QmH-vU-ifg"/>
+                <constraint firstItem="WYX-xt-35F" firstAttribute="top" secondItem="Yup-gN-0v9" secondAttribute="bottom" constant="75" id="Uyk-jC-qz7"/>
+                <constraint firstItem="ETX-yc-Htv" firstAttribute="top" secondItem="e7c-Kj-Ktl" secondAttribute="top" id="cgP-kK-VdS"/>
+                <constraint firstItem="ETX-yc-Htv" firstAttribute="top" secondItem="WYX-xt-35F" secondAttribute="bottom" constant="28" id="ck8-gL-Vg6"/>
+                <constraint firstItem="3l2-GT-3jt" firstAttribute="centerX" secondItem="wls-8V-tEa" secondAttribute="centerX" id="jKN-bs-iHM"/>
+                <constraint firstItem="2xh-fK-xC4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="1.5" id="lVL-3c-vh9"/>
+                <constraint firstItem="e7c-Kj-Ktl" firstAttribute="leading" secondItem="ETX-yc-Htv" secondAttribute="trailing" constant="20" id="lkA-3r-FYS"/>
+                <constraint firstItem="WYX-xt-35F" firstAttribute="top" secondItem="2xh-fK-xC4" secondAttribute="bottom" constant="8" id="rSz-rb-LC8"/>
+                <constraint firstItem="e7c-Kj-Ktl" firstAttribute="top" secondItem="wls-8V-tEa" secondAttribute="top" id="rXo-EE-9lb"/>
+                <constraint firstItem="2xh-fK-xC4" firstAttribute="leading" secondItem="ETX-yc-Htv" secondAttribute="leading" constant="1" id="rn3-m6-gvt"/>
             </constraints>
             <point key="canvasLocation" x="35" y="75"/>
         </view>

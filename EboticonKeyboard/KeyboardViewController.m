@@ -1336,9 +1336,12 @@
     [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSArray *purchaseEboticons = [[NSArray alloc]initWithArray:eboticons];
-            NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
-            _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
             
+            //Get data from the app
+            NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+            
+            _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+
             NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
             
             
@@ -1356,8 +1359,8 @@
                     if([skinTone isEqual:savedSkinTone]){
                         
                         if([productIdentifiers isEqual:purchaseCategory]) {
-                            //                    NSLog(@"adding  gif: %d", cnt);
-                            //                    NSLog(@"emotionCategory : %@", gifCategory);
+                            //NSLog(@"adding  gif: %d", cnt);
+                            //NSLog(@"emotionCategory : %@", gifCategory);
                             [_purchasedImages addObject:eboticon];
                             [_allImages addObject:eboticon];
                         }

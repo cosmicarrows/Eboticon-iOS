@@ -278,6 +278,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [spinner startAnimating];
         [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [_eboticonGifs removeAllObjects];
                 [_eboticonGifs addObjectsFromArray:eboticons];
                 [self populateGifArrays];
                 [spinner stopAnimating];
