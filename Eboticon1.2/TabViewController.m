@@ -88,9 +88,12 @@
                         
     
 //    WhatsNewMainViewController *whatsNewMainViewController = [[WhatsNewMainViewController alloc] initWithStyle:UITableViewStylePlain];
+    
 //     UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewMainViewController];
-    WhatsNewWebViewController *whatsNewWebViewController = [[WhatsNewWebViewController alloc] initWithURL:@"http://www.eboticons.com/blog-2/eboticon-blog/" title:@"WHAT'S NEW"];
-    UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewWebViewController];
+    
+    //WhatsNewWebViewController *whatsNewWebViewController = [[WhatsNewWebViewController alloc] initWithURL:@"http://www.eboticons.com/blog-2/eboticon-blog/" title:@"WHAT'S NEW"];
+    
+    //UINavigationController* whatsNewNavController = [[UINavigationController alloc] initWithRootViewController:whatsNewWebViewController];
     
     
     ShopViewController *shopViewController = [[ShopViewController alloc] initWithNibName:@"ShopView" bundle:nil];
@@ -108,7 +111,7 @@
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
     [tabViewControllers addObject:homeNavController];
     [tabViewControllers addObject:shopNavController];
-    [tabViewControllers addObject:whatsNewNavController];
+   // [tabViewControllers addObject:whatsNewNavController];
     [tabViewControllers addObject:keyboardTutorialViewController];
     [tabViewControllers addObject:moreViewController];
     
@@ -128,27 +131,27 @@
     shopNavController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     shopNavController.tabBarItem.tag=1;
     
-    whatsNewNavController.tabBarItem =
+   /* whatsNewNavController.tabBarItem =
     [[UITabBarItem alloc] initWithTitle:@""
                                   image:[[UIImage imageNamed:@"tabbar-star-white"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                           selectedImage:[[UIImage imageNamed:@"tabbar-star-orange"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     whatsNewNavController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     whatsNewNavController.tabBarItem.tag=2;
-    
+    */
     
     keyboardTutorialViewController.tabBarItem =
     [[UITabBarItem alloc] initWithTitle:@""
                                   image:[[UIImage imageNamed:@"tabbar-keyboard-white"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                           selectedImage:[[UIImage imageNamed:@"tabbar-keyboard-orange"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     keyboardTutorialViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    keyboardTutorialViewController.tabBarItem.tag=3;
+    keyboardTutorialViewController.tabBarItem.tag=2;
     
     moreViewController.tabBarItem =
     [[UITabBarItem alloc] initWithTitle:@""
                                   image:[[UIImage imageNamed:@"tabbar-gear-white"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                           selectedImage:[[UIImage imageNamed:@"tabbar-gear-orange"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     moreViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    moreViewController.tabBarItem.tag=4;
+    moreViewController.tabBarItem.tag=3;
     
     
     [self.tabBar setBarTintColor:[UIColor colorWithRed:37.0f/255.0f green:21.0f/255.0f blue:48.0f/255.0f alpha:0.5f]]; //
