@@ -4,7 +4,7 @@ inhibit_all_warnings!
 use_frameworks!
 
 
-xcodeproj 'Eboticon1.2.xcodeproj'
+project 'Eboticon1.2.xcodeproj'
 
 target 'Eboticon1.2' do
     pod 'CHCSVParser', '~> 2.0.7'
