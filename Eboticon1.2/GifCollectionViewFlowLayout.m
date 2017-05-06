@@ -13,7 +13,6 @@
 -(id)init
 {
     if (!(self = [super init])) return nil;
-    
     self.itemSize = CGSizeMake(155, 155);
     //self.itemSize = CGSizeMake(100, 100);
     self.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
