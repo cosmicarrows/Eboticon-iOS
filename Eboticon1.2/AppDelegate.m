@@ -438,7 +438,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     arrImagePagerImages = [[NSMutableArray alloc]init];
     
     for (NSInteger i = 1 ; i <= 4 ; i ++){
-        NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.png", (int)i];
+        NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.jpg", (int)i];
         NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: sUrl]];
         //The code below was added on 10/10/2016 because the app was crashing when trying to load store banners
         //new code added ends on line 201.  The lines 202 and 203 were commented out which was the original code.

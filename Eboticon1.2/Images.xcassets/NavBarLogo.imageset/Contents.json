@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "NavBarLogo-1.png",
+      "filename" : "Eboticon-Logo-270x66px.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NavBarLogo.png",
+      "filename" : "Eboticon-Logo-540x132px.png",
       "scale" : "2x"
     },
     {
