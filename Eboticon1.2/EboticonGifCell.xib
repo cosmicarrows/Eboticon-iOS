@@ -24,7 +24,7 @@
                     </imageView>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.87104576826095581" green="0.9676285982131958" blue="0.95551085472106934" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <size key="customSize" width="155" height="167"/>
             <connections>
                 <outlet property="gifImageView" destination="16" id="20"/>
