@@ -31,6 +31,7 @@
 #define RATE @"rate_link"
 #define TELLAFRIEND @"tellFriend_link"
 #define RESTOREPURCHASES @"restorePurchases_link"
+#define SUGGESTEBOTI @"suggestEboti_link"
 
 
 
@@ -213,6 +214,29 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [[EboticonIAPHelper sharedInstance] restoreCompletedTransactions];
     [self sendAlertToGoogleAnalytics:RESTOREPURCHASES];
     
+}
+
+
+- (IBAction)suggestEbotiEmail:(id)sender {
+    
+    //Email Subject
+    NSString *emailTitle = @"Suggest Emoji";
+    
+    //Email Content
+    NSString *messageBody = @"Here is my suggestion:";
+    
+    //To Address
+    NSArray *toRecipients = [NSArray arrayWithObject:@"contactus@eboticon.com"];
+    
+    //MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipients];
+    
+    [self presentViewController:mc animated:YES completion:NULL];
+    [self sendAlertToGoogleAnalytics:SUGGESTEBOTI];
 }
 
 - (IBAction)facebookLogo:(id)sender {

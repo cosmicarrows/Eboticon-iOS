@@ -10,9 +10,10 @@
 #import <DFImageManager/DFImageManagerKit.h>
 #import <UIKit/UIKit.h>
 
-@interface ShopDetailCell : UICollectionViewCell
+@interface KeyboardCell : UICollectionViewCell
 
 
-@property (weak, nonatomic) DFImageView *imageView;
+@property (strong, nonatomic) IBOutlet DFImageView *imageView;
+
 
 @end

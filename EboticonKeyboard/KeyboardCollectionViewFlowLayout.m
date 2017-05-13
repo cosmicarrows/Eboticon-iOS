@@ -12,30 +12,38 @@
 
 -(id)init
 {
+    NSLog(@"KeyboardCollectionViewFlowLayout init");
+    
     if (!(self = [super init])) return nil;
-    
-    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.itemSize = CGSizeMake(75, 69);
-    self.sectionInset = UIEdgeInsetsMake(2, 2, 2, 2);
-    self.minimumInteritemSpacing = 1.0f;
-    self.minimumLineSpacing = 1.0f;
-    
+//    
+//    NSLog(@"UICollectionViewScrollDirectionVertical");
+//
+//    self.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    self.itemSize = CGSizeMake(100, 94);
+//    self.sectionInset = UIEdgeInsetsMake(2, 2, 2, 2);
+//    self.minimumInteritemSpacing = 1.0f;
+//    self.minimumLineSpacing = 1.0f;
+//    
     return self;
 }
 
-- (CGSize)collectionViewContentSize
-{
-    
-    
-    NSInteger itemCount = [self.collectionView numberOfItemsInSection:0];
-    NSInteger pages = ceil(itemCount / 8.0);
-    NSInteger numberInRow = ceil(itemCount / 2.0);
-    
-    return CGSizeMake((self.collectionView.frame.size.width +36) * pages, self.collectionView.frame.size.height);
-    
-    return CGSizeMake(numberInRow * 90 + 30.0, self.collectionView.frame.size.height);
-    
-}
+
+//
+//- (CGSize)collectionViewContentSize
+//{
+//    
+//    NSLog(@"KeyboardCollectionViewFlowLayout collectionViewContentSize");
+//
+//    
+//    NSInteger itemCount = [self.collectionView numberOfItemsInSection:0];
+//    NSInteger pages = ceil(itemCount / 8.0);
+//    NSInteger numberInRow = ceil(itemCount / 2.0);
+//    
+//    return CGSizeMake((self.collectionView.frame.size.width +36) * pages, self.collectionView.frame.size.height);
+//    
+//    return CGSizeMake(numberInRow * 90 + 30.0, self.collectionView.frame.size.height);
+//    
+//}
 
 
 @end

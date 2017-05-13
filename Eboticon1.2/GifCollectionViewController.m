@@ -7,7 +7,6 @@
 //
 
 #import "GifCollectionViewController.h"
-#import "GifCollectionViewFlowLayout.h"
 #import "GifDetailViewController.h"
 #import "OLImage.h"
 #import "GAI.h"
@@ -35,7 +34,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSMutableArray *_eboticonGifs;
 }
 
-@property (nonatomic, strong) GifCollectionViewFlowLayout *layout;
 
 @end
 
@@ -76,10 +74,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     //Add background image
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
-    
-    //Add Layout Control
-    self.layout = [[GifCollectionViewFlowLayout alloc]init];
-    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
     
     //GOOGLE ANALYTICS
     @try {

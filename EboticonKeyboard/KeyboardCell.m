@@ -6,16 +6,15 @@
 //  Copyright (c) 2015 Brain Rain Solutions. All rights reserved.
 //
 
-#import "ShopDetailCell.h"
-#import "EboticonView.h"
+#import "KeyboardCell.h"
 
 
-@interface ShopDetailCell ()
+@interface KeyboardCell ()
 
 @end
 
 
-@implementation ShopDetailCell
+@implementation KeyboardCell
 
 
 

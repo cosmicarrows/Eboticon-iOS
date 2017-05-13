@@ -63,8 +63,6 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 
     //Create Pack Gifs object
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
-
-    
     
     //Add Buy or Free Button
     NSNumberFormatter * priceFormatter = [[NSNumberFormatter alloc] init];

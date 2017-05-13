@@ -158,17 +158,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     //    [self populateGifArrays];
     
-    //Register the Gif Cell
-    [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
+
+    // Configure Collection View
+    [self configureCollectionView];
     
-    //Add background image
-    //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    
-    //Add Layout Control
-    //self.flowLayout = [[GifCollectionViewFlowLayout alloc]init];
-    [self.collectionView setCollectionViewLayout:self.flowLayout animated:YES];
-    
+
     //GOOGLE ANALYTICS
     @try {
         id tracker = [[GAI sharedInstance] defaultTracker];
@@ -242,6 +236,23 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     self.navigationItem.rightBarButtonItem = revealButtonItem;
 }
+
+
+- (void) configureCollectionView {
+    
+    //Register the Gif Cell
+    [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
+    
+    //Add background image
+    //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    //Add Layout Control
+    [self.collectionView setCollectionViewLayout:self.flowLayout animated:YES];
+    
+}
+
+
 
 - (void) makeNavBarTransparent {
     [self.navigationController.navigationBar setTranslucent:YES];
@@ -997,6 +1008,15 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     gifDetailViewController.imgBackground = [self captureView:self.view];
     [[self navigationController] pushViewController:gifDetailViewController animated:YES];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return CGSizeMake(self.view.bounds.size.width/3 - 8, self.view.bounds.size.width/3 - 8);
+    
 }
 
 - (UIImage*)captureView:(UIView *)view

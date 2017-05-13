@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "SuggestNewEmojiAnimButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NKB-FacebookIcon-Gray85x85px.png",
       "scale" : "2x"
     },
     {
