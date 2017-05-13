@@ -294,6 +294,14 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     }
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return CGSizeMake(self.view.bounds.size.width/3 - 8, self.view.bounds.size.width/3 - 8);
+    
+}
 
 #pragma mark <UICollectionViewDelegate>
 
