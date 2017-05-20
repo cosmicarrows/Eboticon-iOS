@@ -201,6 +201,19 @@
     [self initializeKeypad];
     [self createStoreAndFacebookButton];
     
+    // UISwipeGestureRecognizerDirectionLeft
+    UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
+    leftRecognizer.direction=UISwipeGestureRecognizerDirectionLeft;
+    leftRecognizer.numberOfTouchesRequired = 1;
+    leftRecognizer.delegate = self;
+    [self.view addGestureRecognizer:leftRecognizer];
+    
+    UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeRightGesture:)];
+    rightRecognizer.direction=UISwipeGestureRecognizerDirectionRight;
+    rightRecognizer.numberOfTouchesRequired = 1;
+    rightRecognizer.delegate = self;
+    [self.view addGestureRecognizer:rightRecognizer];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -649,41 +662,7 @@
 
 
 
-#pragma mark-
-#pragma mark Gesture Recognizer
 
-
-- (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender{
-    //NSLog(@"Swipe Right Detected");
-    
-    if(_currentCategory > 1){
-        //Change category
-        [self changeCategory:_currentCategory-1];
-    }
-    else{
-        //Change category
-        [self changeCategory:5];
-    }
-    
-    
-}
-
-- (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender{
-    //  NSLog(@"Swipe Detected Left");
-    
-    if(_currentCategory < 5){
-        
-        
-        //Change category
-        [self changeCategory:_currentCategory+1];
-    }
-    else{
-        //Change category
-        [self changeCategory:1];
-    }
-    
-    
-}
 
 
 
@@ -1162,7 +1141,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-        NSLog(@"%s", __PRETTY_FUNCTION__);
+        //NSLog(@"%s", __PRETTY_FUNCTION__);
 
     [self loadImagesForOnscreenRows];
 }
@@ -1170,7 +1149,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     
-        NSLog(@"%s", __PRETTY_FUNCTION__);
+       // NSLog(@"%s", __PRETTY_FUNCTION__);
 
 
 }
@@ -2144,6 +2123,50 @@
             break;
     }
     
+}
+
+#pragma mark-
+#pragma mark Gesture Recognizer
+
+
+- (void)respondToSwipeRightGesture:(UISwipeGestureRecognizer *)sender{
+    //NSLog(@"Swipe Right Detected");
+    
+    if(_currentCategory > 1){
+        //Change category
+        [self changeCategory:_currentCategory-1];
+    }
+    else{
+        //Change category
+        [self changeCategory:6];
+    }
+    
+    
+}
+
+- (void)respondToSwipeLeftGesture:(UISwipeGestureRecognizer *)sender{
+    //  NSLog(@"Swipe Detected Left");
+    
+    if(_currentCategory < 6){
+        
+        //Change category
+        [self changeCategory:_currentCategory+1];
+    }
+    else{
+        //Change category
+        [self changeCategory:1];
+    }
+    
+    
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIView class]])
+    {
+        return YES;
+    }
+    return NO;
 }
 
 
