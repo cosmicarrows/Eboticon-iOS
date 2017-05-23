@@ -190,6 +190,8 @@
 		97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E64C821BD83BB7009DB493 /* CustomNavigationController.m */; };
 		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
 		97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */; };
+		A514F58D1ED4ECF1000EF4F7 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A514F58C1ED4ECF1000EF4F7 /* UnlockView.swift */; };
+		A514F58F1ED4ED16000EF4F7 /* UnlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */; };
 		A5198F771E86727300BA6E33 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5198F761E86727300BA6E33 /* Webservice.swift */; };
 		A53BA5C21E8FA8AC00224FF0 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
@@ -458,6 +460,8 @@
 		97E46BF41BDA5F8000A83A05 /* FilterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterData.m; sourceTree = "<group>"; };
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		97E64C821BD83BB7009DB493 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		A514F58C1ED4ECF1000EF4F7 /* UnlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
+		A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnlockView.xib; sourceTree = "<group>"; };
 		A5198F761E86727300BA6E33 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -1168,6 +1172,8 @@
 				979CFFA51B8B54E00041EE61 /* ShopDetailCell.h */,
 				979CFFA61B8B54E00041EE61 /* ShopDetailCell.xib */,
 				979CFFA71B8B54E00041EE61 /* ShopDetailCell.m */,
+				A514F58C1ED4ECF1000EF4F7 /* UnlockView.swift */,
+				A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */,
 			);
 			name = "Main Shop Detail View";
 			sourceTree = "<group>";
@@ -1362,6 +1368,7 @@
 				632702ED1AB7949800B39B06 /* Images.xcassets in Resources */,
 				9760B5381B750B6800E75EEC /* page4.png in Resources */,
 				63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */,
+				A514F58F1ED4ED16000EF4F7 /* UnlockView.xib in Resources */,
 				978F1CA01B8F628E00ADA44C /* page9.png in Resources */,
 				978F1CA21B8F62BC00ADA44C /* transparent_bg_keyboard_.png in Resources */,
 				971DEDA81BADD26100D2A751 /* round-switch-track.png in Resources */,
@@ -1530,6 +1537,7 @@
 			files = (
 				977FBD751B8A648700B75C05 /* IAPHelper.m in Sources */,
 				9760B5631B754E7800E75EEC /* SidebarCategoryTableViewCell.m in Sources */,
+				A514F58D1ED4ECF1000EF4F7 /* UnlockView.swift in Sources */,
 				97A383051B67E054002F5571 /* KMXMLParser.m in Sources */,
 				1F9F495B1D30CB18006AAC8F /* UIImage+Decode.m in Sources */,
 				970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */,

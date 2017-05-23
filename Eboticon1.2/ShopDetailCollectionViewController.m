@@ -30,7 +30,7 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     NSMutableArray *_eboticonGifs;
     NSMutableArray *_packGifs;
 }
-
+@property (assign) BOOL isAvailable;
 @end
 
 @implementation ShopDetailCollectionViewController
@@ -76,14 +76,16 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
     if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
         DDLogDebug(@"Purchased");
-        
+        _isAvailable = true;
     } else if([self.product.price compare:freeCost] == NSOrderedSame){
+        _isAvailable = true;
         //Add Share Button
         UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Free" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
         self.navigationItem.rightBarButtonItem = buyButton;
     }
     else
     {
+        _isAvailable = false;
         //Add Share Button
         UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
         self.navigationItem.rightBarButtonItem = buyButton;
@@ -214,6 +216,10 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     }
 }
 
+- (void)showUnlockView {
+    
+}
+
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -230,7 +236,10 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
     EboticonGif *currentGif = [_packGifs objectAtIndex:indexPath.row];
     
-    
+    if (!_isAvailable) {
+        [[cell gifImageView] setAlpha:0.4];
+    }
+
     if ([[ImageCache sharedImageCache] DoesExist:currentGif.gifUrl] == true) {
         NSData *imageData = [[ImageCache sharedImageCache] GetData:currentGif.gifUrl];
         FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
