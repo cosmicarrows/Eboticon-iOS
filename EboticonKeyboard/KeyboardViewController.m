@@ -23,6 +23,7 @@
 
 #import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
+#import "EboticonIAPHelper.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -1225,6 +1226,86 @@
     }];
 }
 
+- (BOOL)productPurchased:(NSString *)productIdentifier
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
+}
+
+- (NSString *)packName:(EboticonGif *)eboticon
+{
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        return @"Greek Pack";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        return @"Bae Pack";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        return @"Greeting Pack";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        return @"Church Pack";
+    }
+    else {
+        return @"";
+    }
+}
+
+- (void)showUnlockView:(EboticonGif *)eboticon {
+    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
+    CGFloat boldTextFontSize = 17.0f;
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
+    NSRange range1 = [unlockView.descLabel.text rangeOfString:[self packName:eboticon]];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
+    
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
+                            range:range1];
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
+                            range:range2];
+    
+    unlockView.descLabel.attributedText = attributedText;
+    __weak UnlockView *weakUnlockView = unlockView;
+    [unlockView setCloseButtonBlock:^{
+        [UIView animateWithDuration:0.3 animations:^{
+            [weakUnlockView setAlpha:0];
+        } completion:^(BOOL finished) {
+            [weakUnlockView removeFromSuperview];
+        }];
+        
+    }];
+    __weak KeyboardViewController *weakSelf = self;
+    [unlockView setUnlockButtonBlock:^{
+        [weakUnlockView removeFromSuperview];
+        NSURL *deeplink = [NSURL URLWithString:[NSString stringWithFormat:@"eboticon://cart_page/%@", eboticon.purchaseCategory]];
+        [self openURL:deeplink];
+    }];
+    
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+    }
+    else {
+        unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
+    }
+    
+    [self.view addSubview:unlockView];
+    unlockView.translatesAutoresizingMaskIntoConstraints = false;
+    [unlockView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [unlockView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
+    [unlockView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
+    [unlockView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+
+}
 
 
 
@@ -1257,6 +1338,12 @@
     // Fetch a image record from the array
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    [[cell imageView] setAlpha:1];
+    if (![currentGif.purchaseCategory isEqualToString:@""]) {
+        if (![self productPurchased:currentGif.purchaseCategory]) {
+            [[cell imageView] setAlpha:0.5];
+        }
+    }
     
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
@@ -1375,6 +1462,13 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    
+    if (![currentGif.purchaseCategory isEqualToString:@""]) {
+        if (![self productPurchased:currentGif.purchaseCategory]) {
+            [self showUnlockView:currentGif];
+            return;
+        }
+    }
     
     //First Tap
     if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
