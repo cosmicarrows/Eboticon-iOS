@@ -7,3 +7,42 @@
 //
 
 import Foundation
+
+class UnlockView: UIView {
+    
+    @IBOutlet var contentView: UIView!
+    @IBOutlet var unlockButton: UIButton!
+    @IBOutlet var descLabel: UILabel!
+    @IBOutlet var packImageView: UIImageView!
+    @IBOutlet var closeButton: UIButton!
+    
+    var closeButtonBlock:(()->())?
+    var unlockButtonBlock:(()->())?
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        unlockButton.layer.cornerRadius = 5
+    }
+    
+    private func commonInit() {
+        Bundle.main.loadNibNamed("UnlockView", owner: self, options: nil)
+        self.addSubview(contentView)
+        self.contentView.frame = self.bounds
+    }
+    
+    @IBAction func unlockButtonTapped(_ sender: Any) {
+        unlockButtonBlock?()
+    }
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        closeButtonBlock?()
+    }
+}

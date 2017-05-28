@@ -1,16 +1,95 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UnlockView" customModule="EboticonKeyboard" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="dsf-ue-6zH" id="KGA-QM-9AQ"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="FnS-g7-60s"/>
+                <outlet property="descLabel" destination="olg-34-xqC" id="s5e-sw-bjY"/>
+                <outlet property="packImageView" destination="dC4-jX-rL1" id="Q79-3c-VcS"/>
+                <outlet property="unlockButton" destination="GCJ-2S-UAm" id="Rd8-AN-cfg"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7g-rD-De3">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EboticonBundle" translatesAutoresizingMaskIntoConstraints="NO" id="dC4-jX-rL1">
+                            <rect key="frame" x="87.5" y="42" width="200" height="80"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="SQb-cN-gfF"/>
+                                <constraint firstAttribute="width" secondItem="dC4-jX-rL1" secondAttribute="height" multiplier="2.5" id="ZOJ-zK-qt6"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olg-34-xqC">
+                            <rect key="frame" x="40" y="132" width="295" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsf-ue-6zH">
+                            <rect key="frame" x="329" y="8" width="30" height="30"/>
+                            <state key="normal" image="close"/>
+                            <connections>
+                                <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="xF4-oW-IaX"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCJ-2S-UAm">
+                            <rect key="frame" x="87" y="159" width="200" height="40"/>
+                            <color key="backgroundColor" red="0.14487889409999999" green="0.55815392730000002" blue="0.99000316860000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="nm0-Cs-iuN"/>
+                                <constraint firstAttribute="width" constant="200" id="tx5-g6-VWe"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Unlock">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="unlockButtonTapped:" destination="-1" eventType="touchUpInside" id="vUS-3u-O3k"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="GCJ-2S-UAm" firstAttribute="top" secondItem="olg-34-xqC" secondAttribute="bottom" constant="10" id="9A0-Rk-GY6"/>
+                        <constraint firstAttribute="trailing" secondItem="olg-34-xqC" secondAttribute="trailing" constant="40" id="CP0-2V-C3N"/>
+                        <constraint firstItem="olg-34-xqC" firstAttribute="top" secondItem="dC4-jX-rL1" secondAttribute="bottom" constant="10" id="I73-Ak-vFI"/>
+                        <constraint firstItem="GCJ-2S-UAm" firstAttribute="centerX" secondItem="t7g-rD-De3" secondAttribute="centerX" id="Jre-4e-QWP"/>
+                        <constraint firstItem="olg-34-xqC" firstAttribute="leading" secondItem="t7g-rD-De3" secondAttribute="leading" constant="40" id="hAw-N8-m6Z"/>
+                        <constraint firstItem="dC4-jX-rL1" firstAttribute="top" secondItem="dsf-ue-6zH" secondAttribute="bottom" constant="4" id="inP-Vq-MW6"/>
+                        <constraint firstAttribute="trailing" secondItem="dsf-ue-6zH" secondAttribute="trailing" constant="16" id="qDd-wX-WTi"/>
+                        <constraint firstItem="dsf-ue-6zH" firstAttribute="top" secondItem="t7g-rD-De3" secondAttribute="top" constant="8" id="qzn-o4-VOK"/>
+                        <constraint firstItem="dC4-jX-rL1" firstAttribute="centerX" secondItem="t7g-rD-De3" secondAttribute="centerX" id="tty-Ml-eYJ"/>
+                    </constraints>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="t7g-rD-De3" secondAttribute="trailing" id="5bO-sd-JDg"/>
+                <constraint firstAttribute="bottom" secondItem="t7g-rD-De3" secondAttribute="bottom" id="f8y-xe-EgO"/>
+                <constraint firstItem="t7g-rD-De3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nHu-VQ-520"/>
+                <constraint firstItem="t7g-rD-De3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="w2N-MP-vIr"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="58.5" y="-91.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="EboticonBundle" width="1024" height="411"/>
+        <image name="close" width="30" height="30"/>
+    </resources>
 </document>
