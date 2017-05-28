@@ -23,6 +23,7 @@
 #import "RightViewController.h"
 #import "XOSplashVideoController.h"
 #import "UIView+Toast.h"
+#import "ShopViewController.h"
 
 #import "Eboticon-Swift.h"
 
@@ -53,7 +54,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-
+#define DEEPLINK @"deepLinkNotification";
 
 @implementation AppDelegate
 
@@ -376,6 +377,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if ([[url host] isEqualToString:@"cart_page"]) {
         self.tabBarController.selectedIndex = 1;
         [self.tabBarController updateMoveView:1];
+        if ([url path]) {
+            if ([self.tabBarController.selectedViewController isKindOfClass:[ShopViewController class]]) {
+                ((ShopViewController *)self.tabBarController.selectedViewController).deeplinkProductIdentifier = [[url path] substringFromIndex:1];
+            }
+            
+        }
     }
     return YES;
 }
