@@ -16,6 +16,8 @@ class UnlockView: UIView {
     @IBOutlet var packImageView: UIImageView!
     @IBOutlet var closeButton: UIButton!
     
+    var closeButtonBlock:(()->())?
+    var unlockButtonBlock:(()->())?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -38,7 +40,9 @@ class UnlockView: UIView {
     }
 
     @IBAction func unlockButtonTapped(_ sender: Any) {
+        unlockButtonBlock?()
     }
     @IBAction func closeButtonTapped(_ sender: Any) {
+        closeButtonBlock?()
     }
 }

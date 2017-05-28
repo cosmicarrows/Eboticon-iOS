@@ -25,15 +25,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EboticonBundle" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-QB-4Ij">
-                    <rect key="frame" x="16" y="110" width="343" height="137"/>
+                    <rect key="frame" x="40" y="154" width="295" height="118"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="T6K-QB-4Ij" secondAttribute="height" multiplier="2.5" id="EeC-TI-kQM"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DU-oN-kZ9">
-                    <rect key="frame" x="16" y="307.5" width="343" height="40"/>
+                    <rect key="frame" x="87.5" y="332.5" width="200" height="40"/>
                     <color key="backgroundColor" red="0.14487889409065247" green="0.55815392732620239" blue="0.99000316858291626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="200" id="aEd-qe-tc0"/>
                         <constraint firstAttribute="height" constant="40" id="knv-Ps-lp6"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -41,35 +42,34 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="unlockButtonTapped:" destination="-1" eventType="touchUpInside" id="OjE-aD-DYG"/>
+                        <action selector="unlockButtonTapped:" destination="-1" eventType="touchUpInside" id="YX9-0m-Sb5"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkc-xV-OzY">
-                    <rect key="frame" x="16" y="267" width="343" height="20.5"/>
+                    <rect key="frame" x="40" y="292" width="295" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-TC-JLp">
-                    <rect key="frame" x="320" y="20" width="39" height="30"/>
-                    <state key="normal" title="Close"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-TC-JLp">
+                    <rect key="frame" x="329" y="64" width="30" height="30"/>
+                    <state key="normal" image="close"/>
                     <connections>
-                        <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="n7w-mg-F0f"/>
+                        <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="zk5-LL-qD4"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="1DU-oN-kZ9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="4P9-Pf-YZl"/>
-                <constraint firstItem="AfG-TC-JLp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="5YM-MT-Fkk"/>
+                <constraint firstItem="AfG-TC-JLp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="5YM-MT-Fkk"/>
+                <constraint firstItem="1DU-oN-kZ9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7IN-Qw-INv"/>
                 <constraint firstItem="1DU-oN-kZ9" firstAttribute="top" secondItem="mkc-xV-OzY" secondAttribute="bottom" constant="20" id="BbR-ZA-TzC"/>
-                <constraint firstAttribute="trailing" secondItem="1DU-oN-kZ9" secondAttribute="trailing" constant="16" id="QbX-uM-wVw"/>
-                <constraint firstItem="mkc-xV-OzY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cK5-oN-KGR"/>
+                <constraint firstItem="mkc-xV-OzY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="cK5-oN-KGR"/>
                 <constraint firstAttribute="trailing" secondItem="AfG-TC-JLp" secondAttribute="trailing" constant="16" id="e8A-51-K0h"/>
-                <constraint firstItem="T6K-QB-4Ij" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="mei-u5-qXd"/>
+                <constraint firstItem="T6K-QB-4Ij" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="mei-u5-qXd"/>
                 <constraint firstItem="T6K-QB-4Ij" firstAttribute="top" secondItem="AfG-TC-JLp" secondAttribute="bottom" constant="60" id="pdE-e4-frk"/>
-                <constraint firstAttribute="trailing" secondItem="mkc-xV-OzY" secondAttribute="trailing" constant="16" id="qQr-gS-OsU"/>
-                <constraint firstAttribute="trailing" secondItem="T6K-QB-4Ij" secondAttribute="trailing" constant="16" id="tLn-Bf-GkS"/>
+                <constraint firstAttribute="trailing" secondItem="mkc-xV-OzY" secondAttribute="trailing" constant="40" id="qQr-gS-OsU"/>
+                <constraint firstAttribute="trailing" secondItem="T6K-QB-4Ij" secondAttribute="trailing" constant="40" id="tLn-Bf-GkS"/>
                 <constraint firstItem="mkc-xV-OzY" firstAttribute="top" secondItem="T6K-QB-4Ij" secondAttribute="bottom" constant="20" id="znc-mD-JOG"/>
             </constraints>
             <point key="canvasLocation" x="101.5" y="80.5"/>
@@ -77,5 +77,6 @@
     </objects>
     <resources>
         <image name="EboticonBundle" width="1024" height="411"/>
+        <image name="close" width="30" height="30"/>
     </resources>
 </document>
