@@ -17,6 +17,6 @@
 
 @property (strong, nonatomic) SKProduct *product;
 @property (strong, nonatomic) NSString *savedSkinTone;
-
+@property (assign) BOOL activateBuy;
 
 @end

@@ -30,7 +30,6 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
     NSMutableArray *_eboticonGifs;
     NSMutableArray *_packGifs;
 }
-@property (assign) BOOL isAvailable;
 @end
 
 @implementation ShopDetailCollectionViewController
@@ -76,16 +75,13 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
     if ([[EboticonIAPHelper sharedInstance] productPurchased:self.product.productIdentifier]) {
         DDLogDebug(@"Purchased");
-        _isAvailable = true;
     } else if([self.product.price compare:freeCost] == NSOrderedSame){
-        _isAvailable = true;
         //Add Share Button
         UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Free" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
         self.navigationItem.rightBarButtonItem = buyButton;
     }
     else
     {
-        _isAvailable = false;
         //Add Share Button
         UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStylePlain target:self action:@selector(buyButtonTapped:)];
         self.navigationItem.rightBarButtonItem = buyButton;
@@ -192,6 +188,13 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.activateBuy == true) {
+        [self buyButtonTapped:nil];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -217,9 +220,51 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 }
 
 - (void)showUnlockView {
+    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.collectionView.frame];
+    CGFloat boldTextFontSize = 17.0f;
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[_product.localizedTitle capitalizedString]];
+    NSRange range1 = [unlockView.descLabel.text rangeOfString:[_product.localizedTitle capitalizedString]];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
     
-}
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
+                            range:range1];
+    [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
+                            range:range2];
+    
+    unlockView.descLabel.attributedText = attributedText;
+    __weak UnlockView *weakUnlockView = unlockView;
+    [unlockView setCloseButtonBlock:^{
+        [UIView animateWithDuration:0.3 animations:^{
+            [weakUnlockView setAlpha:0];
+        } completion:^(BOOL finished) {
+            [weakUnlockView removeFromSuperview];
+        }];
+        
+    }];
+    __weak ShopDetailCollectionViewController *weakSelf = self;
+    [unlockView setUnlockButtonBlock:^{
+        [weakSelf buyButtonTapped:weakUnlockView.unlockButton];
+        [weakUnlockView removeFromSuperview];
+    }];
+    
+    //Set Image
+    if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
+    }
+    else if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
+    }
+    else if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
+    }
+    else {
+        unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
+    }
 
+    
+    [self.view addSubview:unlockView];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -236,8 +281,9 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     
     EboticonGif *currentGif = [_packGifs objectAtIndex:indexPath.row];
     
-    if (!_isAvailable) {
-        [[cell gifImageView] setAlpha:0.4];
+    if (![[EboticonIAPHelper sharedInstance] productPurchased:_product.productIdentifier]) {
+        
+        [[cell gifImageView] setAlpha:0.5];
     }
 
     if ([[ImageCache sharedImageCache] DoesExist:currentGif.gifUrl] == true) {
@@ -287,7 +333,10 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (![[EboticonIAPHelper sharedInstance] productPurchased:_product.productIdentifier]) {
+        
+        [self showUnlockView];
+    }
     NSLog(@"Select %ld",(long)indexPath.row);
 }
 
