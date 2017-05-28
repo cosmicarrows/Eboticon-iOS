@@ -193,6 +193,9 @@
 		A514F58D1ED4ECF1000EF4F7 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A514F58C1ED4ECF1000EF4F7 /* UnlockView.swift */; };
 		A514F58F1ED4ED16000EF4F7 /* UnlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */; };
 		A5198F771E86727300BA6E33 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5198F761E86727300BA6E33 /* Webservice.swift */; };
+		A53521181EDB194B0098383A /* UnlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */; };
+		A535211C1EDB2C4B0098383A /* UnlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A535211B1EDB2C4B0098383A /* UnlockView.xib */; };
+		A535211E1EDB2C920098383A /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535211D1EDB2C920098383A /* UnlockView.swift */; };
 		A53BA5C21E8FA8AC00224FF0 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
@@ -463,6 +466,8 @@
 		A514F58C1ED4ECF1000EF4F7 /* UnlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnlockView.xib; sourceTree = "<group>"; };
 		A5198F761E86727300BA6E33 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
+		A535211B1EDB2C4B0098383A /* UnlockView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnlockView.xib; sourceTree = "<group>"; };
+		A535211D1EDB2C920098383A /* UnlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1061,6 +1066,8 @@
 				97044F031BA34922008CA2E1 /* View */,
 				976E4F6A1B9B9B8E0057D6B2 /* Supporting Files */,
 				973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */,
+				A535211B1EDB2C4B0098383A /* UnlockView.xib */,
+				A535211D1EDB2C920098383A /* UnlockView.swift */,
 			);
 			path = EboticonKeyboard;
 			sourceTree = "<group>";
@@ -1271,7 +1278,7 @@
 				ORGANIZATIONNAME = Incling;
 				TargetAttributes = {
 					63FAE3821868CC0200116D73 = {
-						DevelopmentTeam = 662TV55PE6;
+						DevelopmentTeam = D64285HJMY;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1403,11 +1410,13 @@
 				976E506B1B9BA2720057D6B2 /* no_connection.png in Resources */,
 				976E4F8D1B9BA1B40057D6B2 /* round-switch-thumb-highlight.png in Resources */,
 				976E4F8A1B9BA1B40057D6B2 /* round-switch-mask@2x.png in Resources */,
+				A535211C1EDB2C4B0098383A /* UnlockView.xib in Resources */,
 				976E4F8B1B9BA1B40057D6B2 /* round-switch-overlay.png in Resources */,
 				976E4F8E1B9BA1B40057D6B2 /* round-switch-thumb-highlight@2x.png in Resources */,
 				976E4F921B9BA1B40057D6B2 /* round-switch-track.png in Resources */,
 				97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */,
 				976E4F8C1B9BA1B40057D6B2 /* round-switch-overlay@2x.png in Resources */,
+				A53521181EDB194B0098383A /* UnlockView.xib in Resources */,
 				976E4F8F1B9BA1B40057D6B2 /* round-switch-thumb.png in Resources */,
 				976E50681B9BA2590057D6B2 /* KeyArt.xcassets in Resources */,
 				976E4F931B9BA1B40057D6B2 /* round-switch-track@2x.png in Resources */,
@@ -1608,6 +1617,7 @@
 				976E4F771B9BA14C0057D6B2 /* KeyboardCollectionViewFlowLayout.m in Sources */,
 				97044F1D1BA36946008CA2E1 /* UIImage+RoundedCorner.m in Sources */,
 				97044F1C1BA36946008CA2E1 /* UIImage+Alpha.m in Sources */,
+				A535211E1EDB2C920098383A /* UnlockView.swift in Sources */,
 				97044F001BA348EF008CA2E1 /* HTTPClient.m in Sources */,
 				97044F101BA3690F008CA2E1 /* ImageCache.m in Sources */,
 				97044F071BA349D5008CA2E1 /* EboticonGif.m in Sources */,
@@ -1733,7 +1743,7 @@
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 662TV55PE6;
+				DEVELOPMENT_TEAM = D64285HJMY;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1789,7 +1799,7 @@
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 662TV55PE6;
+				DEVELOPMENT_TEAM = D64285HJMY;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
