@@ -18,13 +18,10 @@
 #import "Constants.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-//#import <Parse/Parse.h>
 #import "SWRevealViewController.h"
 #import "RightViewController.h"
-#import "XOSplashVideoController.h"
 #import "UIView+Toast.h"
 #import "ShopViewController.h"
-
 #import "Eboticon-Swift.h"
 
 
@@ -36,6 +33,7 @@
 @import FirebaseInstanceID;
 @import FirebaseMessaging;
 
+
 // Implement UNUserNotificationCenterDelegate to receive display notification via APNS for devices
 // running iOS 10 and above. Implement FIRMessagingDelegate to receive data message via FCM for
 // devices running iOS 10 and above.
@@ -46,6 +44,8 @@
 @interface AppDelegate()<SWRevealViewControllerDelegate>
 @end
 #endif
+
+
 
 // Copied from Apple's header in case it is missing in some cases (e.g. pre-Xcode 8 builds).
 #ifndef NSFoundationVersionNumber_iOS_9_x_Max
@@ -66,48 +66,19 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    //[self showSplashVideo];
-    
     //Configure PushNotifications
     [self configurePushNotifications];
     
     
     [self initialize];
+
+
     // Override point for customization after application launch.
     return YES;
     
 }
 
-/**
- *  Setup iRate rating scheme
- */
-- (void) configureiRate
-{
-    @try {
-        
-        [iRate sharedInstance].appStoreID = appStoreID;
-        
-        
-        [iRate sharedInstance].daysUntilPrompt = 2;
-        [iRate sharedInstance].usesUntilPrompt = 1;
-        //[iRate sharedInstance].verboseLogging = YES;
-        [iRate sharedInstance].promptAtLaunch = YES;
-        [iRate sharedInstance].eventsUntilPrompt = 5;
-        [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
-        [iRate sharedInstance].remindPeriod = 7;
-        [iRate sharedInstance].previewMode = NO;
-        
-        //DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
-        
-        DDLogInfo(@"%@: Number of iRate uses %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].usesCount);
-        
-        DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
-    }
-    @catch (NSException *exception) {
-        DDLogError(@"[ERROR] in enabling iRate: %@", exception.description);
-    }
-    
-}
+
 
 
 
@@ -296,6 +267,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     // [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
 }
 
+
+#pragma mark - App Delegate Function
+
 // [START connect_on_active]
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self connectToFcm];
@@ -357,9 +331,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    
 }
-
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -371,6 +343,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+#pragma mark - Deep Linking Functions
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -391,86 +366,47 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 #pragma mark -
 #pragma mark Initialize
 
-- (void) showSplashVideo {
+- (void) initialize {
     
-    CGRect frame = [[UIScreen mainScreen] bounds];
-    self.window = [[UIWindow alloc] initWithFrame:frame];
+    //Setup the Main View Controller
+    [self setupMainViewController];
     
-    NSLog(@"Screen Height %f", self.window.frame.size.height);
+    // [self animateSplashScreen];
+    [self animateSplash];
     
-    NSString *portraitVideoName = @"EboticonIntroNEW640x960";
-    NSString *portraitImageName = @"iphone640x960.png";
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && self.window.frame.size.height > 480) {
-        portraitImageName = @"iphone640x1136.png";
-        portraitVideoName = @"EboticonIntroNEW640x1136";
-    }
+    //Load the In App Purchase Products
+    [self loadInAppPurchaseProducts];
+
+    //Load the Shop Banner Images
+    //[self loadShopBannerImages];
     
-    NSString *landscapeVideoName = nil; // n/a
-    NSString *landscapeImageName = nil; // n/a
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        portraitVideoName = @"EboticonIntroNEW768x1024";
-        portraitImageName = @"ipad768x1024.png";
-        landscapeVideoName = @"EboticonIntroNEW768x1024.mp4";
-        landscapeImageName = @"ipad768x1024.png";
-    }
+    //Setup the Navigation Bar
+    [self setupNavigationBar];
     
-    // our video
-    NSURL *portraitUrl = [[NSBundle mainBundle] URLForResource:portraitVideoName withExtension:@"mp4"];
-    NSURL *landscapeUrl = [[NSBundle mainBundle] URLForResource:landscapeVideoName withExtension:@"mp4"];
+    // Add Notifications
+    [self setupNotifications];
     
-    // our splash controller
-    XOSplashVideoController *splashVideoController =
-    [[XOSplashVideoController alloc] initWithVideoPortraitUrl:portraitUrl
-                                            portraitImageName:portraitImageName
-                                                 landscapeUrl:landscapeUrl
-                                           landscapeImageName:landscapeImageName
-                                                     delegate:self];
-    // we'll start out with the spash view controller in the window
-    self.window.rootViewController = splashVideoController;
+    //Setup Google Analytics
+    [self setupGAI];
     
-    [self.window makeKeyAndVisible];
+    //Setup Logger
+    [self setupLogger];
     
+    //configure iRate
+    [self configureiRate];
+    
+    //Harpy - update reminder
+    //TODO: turn on Harpy
+    [self configureHarpy];
+    
+    //FABRIC
+    [Fabric with:@[CrashlyticsKit]];
 }
 
-- (void) initialize {
-    _products = nil;
-    
-    [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-        if (success) {
-            _products = products;
-            NSLog(@"--------DONE-------");
-        }
-    }];
-    
-    arrImagePagerImages = [[NSMutableArray alloc]init];
-    
-    for (NSInteger i = 1 ; i <= 4 ; i ++){
-        NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.jpg", (int)i];
-        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: sUrl]];
-        //The code below was added on 10/10/2016 because the app was crashing when trying to load store banners
-        //new code added ends on line 201.  The lines 202 and 203 were commented out which was the original code.
-        UIImage *image = [UIImage imageWithData:data];
-        if (image != nil) {
-            [arrImagePagerImages addObject:image];
-        } else {
-            NSLog(@"Unable to convert data to image");
-        }
-        //if (data == nil)continue;
-        //[arrImagePagerImages addObject:[UIImage imageWithData:data]];
-    }
-    
-    //Setting up Navigation Bar
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
-    
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           shadow, NSShadowAttributeName,
-                                                           [UIFont fontWithName:@"Avenir-Black" size:21.0], NSFontAttributeName, nil]];
-    [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
-    
+#pragma mark - Setup (Configuration)
+
+
+- (void) setupMainViewController{
     //Tabbar With sidebar Items
     NSNumber *caption = @(1); //initialize caption to on
     self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
@@ -485,36 +421,106 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //self.window.rootViewController = self.tabBarController;
     self.window.rootViewController = self.viewController;
+}
+
+
+
+/**
+ *  Setup iRate rating scheme
+ */
+- (void) configureiRate
+{
     
+    @try {
+        
+        [iRate sharedInstance].appStoreID = appStoreID;
+        
+        
+        [iRate sharedInstance].daysUntilPrompt = 2;
+        [iRate sharedInstance].usesUntilPrompt = 1;
+        //[iRate sharedInstance].verboseLogging = YES;
+        [iRate sharedInstance].promptAtLaunch = YES;
+        [iRate sharedInstance].eventsUntilPrompt = 5;
+        [iRate sharedInstance].promptForNewVersionIfUserRated = YES;
+        [iRate sharedInstance].remindPeriod = 7;
+        [iRate sharedInstance].previewMode = NO;
+        
+        //DDLogInfo(@"%@: Number of events until iRate launch %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].eventCount);
+        
+        DDLogInfo(@"%@: Number of iRate uses %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].usesCount);
+        
+        DDLogInfo(@"%@: Prompt for rating criteria met: %lu", NSStringFromClass(self.class), (unsigned long)[iRate sharedInstance].shouldPromptForRating);
+    }
+    @catch (NSException *exception) {
+        DDLogError(@"[ERROR] in enabling iRate: %@", exception.description);
+    }
     
-    
-    UIImageView *splashScreen = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
-    [self.window addSubview:splashScreen];
-    [self.window makeKeyAndVisible];
-    
-    [UIView animateWithDuration:0.5 animations:^{splashScreen.alpha = 0.0;}
-                     completion:(void (^)(BOOL)) ^{
-                         [splashScreen removeFromSuperview];
-                         
-                         NSLog(@" %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]);
-                         //Check to see if the app has been opened
-                         if(![[[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]  isEqual: @"true"])
-                         {
-                             [self showOnboardingView];
-                         }
-                     }
-     ];
-    
-    
+}
+
+
+//Sore the Shp Banner Images for when the app loads.
+- (void) loadShopBannerImages
+{
+    arrImagePagerImages = [[NSMutableArray alloc]init];
+    for (NSInteger i = 1 ; i <= 4 ; i ++){
+        NSString *sUrl = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/store/banner%i.jpg", (int)i];
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: sUrl]];
+        //The code below was added on 10/10/2016 because the app was crashing when trying to load store banners
+        //new code added ends on line 201.  The lines 202 and 203 were commented out which was the original code.
+        UIImage *image = [UIImage imageWithData:data];
+        if (image != nil) {
+            [arrImagePagerImages addObject:image];
+        } else {
+            NSLog(@"Unable to convert data to image");
+        }
+        //if (data == nil)continue;
+        //[arrImagePagerImages addObject:[UIImage imageWithData:data]];
+    }
+}
+
+-(void) setupNotifications{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showOnboardingView)
                                                  name:@"changeSkintone"
                                                object:nil];
+}
+
+- (void) setupLogger {
+    //Cocoalumberjack init files
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+}
+
+
+-(void) loadInAppPurchaseProducts
+{
+    _products = nil;
+    [[EboticonIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            NSLog(@"--------DONE-------");
+        }
+    }];
+}
+
+
+- (void) setupNavigationBar{
+    //Setting up Navigation Bar
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
     
-    // Present Window before calling Harpy
-    //[self.window makeKeyAndVisible];
-    
-    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           shadow, NSShadowAttributeName,
+                                                           [UIFont fontWithName:@"Avenir-Black" size:21.0], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xFf6c00)]; //Color of back button
+}
+
+
+- (void) setupGAI
+{
     //GOOGLE ANALYTICS INITIALIZER
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -540,20 +546,23 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
     [[GAI sharedInstance].defaultTracker set:kGAIAppVersion value:version];
     [[GAI sharedInstance].defaultTracker set:kGAISampleRate value:@"50.0"];
+}
+
+#pragma mark - Splash Screen
+
+
+- (void) animateSplash
+{
+    //Ping style splash
+    SKSplashIcon *pingSplashIcon = [[SKSplashIcon alloc] initWithImage:[UIImage imageNamed:@"head.png"] animationType:SKIconAnimationTypePing];
+    _splashView = [[SKSplashView alloc] initWithSplashIcon:pingSplashIcon backgroundImage: [UIImage imageNamed:@"OnboardingBackground"] animationType:SKSplashAnimationTypeBounce];
+    _splashView.animationDuration = 5.0f;
+    _splashView.delegate = self;
     
-    //Cocoalumberjack init files
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-    
-    //configure iRate
-    [self configureiRate];
-    
-    //Harpy
-    //TODO: turn on Harpy
-    [self configureHarpy];
-    
-    //FABRIC
-    [Fabric with:@[CrashlyticsKit]];
+    [self.window.rootViewController.view addSubview:_splashView];
+    [self.window makeKeyAndVisible];
+
+    [_splashView startAnimation];
 }
 
 - (void) showOnboardingView
@@ -620,72 +629,77 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+    //NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
 }
 
 - (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+    //NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
 }
 
 - (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+   // NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+   // NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)rearViewController
 
 {
-    NSLog( @"%@", NSStringFromSelector(_cmd));
+    //NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 
-#pragma mark Splash Video
+#pragma mark - Delegate methods (Optional)
 
-- (void)splashVideoLoaded:(XOSplashVideoController *)splashVideo
+- (void) splashView:(SKSplashView *)splashView didBeginAnimatingWithDuration:(float)duration
 {
-    // load up our real view controller, but don't put it in to the window until the video is done
-    // if there's anything expensive to do it should happen in the background now
-    
-    //
-    
-    // self.viewController = [[XOViewController alloc] initWithNibName:@"XOViewController" bundle:nil];
+    NSLog(@"Started animating from delegate");
+    //To start activity animation when splash animation starts
+    //[_indicatorView startAnimating];
 }
 
-- (void)splashVideoComplete:(XOSplashVideoController *)splashVideo
+- (void) splashViewDidEndAnimating:(SKSplashView *)splashView
 {
-    // swap out the splash controller for our app's
-    //self.window.rootViewController = self.viewController;
-    [self initialize];
+    NSLog(@"Stopped animating from delegate");
+    //To stop activity animation when splash animation ends
+    //[_indicatorView stopAnimating];
+    
+    NSLog(@"splashViewDidEndAnimating app_open: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]);
+    //Check to see if the app has been opened
+    if(![[[NSUserDefaults standardUserDefaults] stringForKey:@"app_open"]  isEqual: @"true"])
+    {
+        [self showOnboardingView];
+    };
 }
+
 @end

@@ -29,6 +29,8 @@
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
+#import "Lottie.h"
+
 
 #import "ShopDetailCollectionViewController.h"
 
@@ -85,6 +87,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (nonatomic, strong) LOTAnimationView *lottieLogo;
 
 
 @end
@@ -94,6 +97,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    DDLogDebug(@"");
+    
     
     self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;     //Add Background without repeating
     //self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
@@ -156,8 +161,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [self getPurchaseGifs];
     [self loadEboticon];
     
-    
-    
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     //    [self populateGifArrays];
     
@@ -194,7 +197,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                                                  name:@"reloadEboticons"
                                                object:nil];
 }
-
 
 
 + (MainViewController *)sharedInstance
@@ -280,10 +282,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)loadEboticon
 {
     if (![self doesInternetExist]) {
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Couldn't connect to the network. Please check your connection settings" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [controller addAction:okAction];
-        [self presentViewController:controller animated:YES completion:nil];
+        
+        self.lottieLogo = [LOTAnimationView animationNamed:@"cloud_disconnection.json"];
+        self.lottieLogo.contentMode = UIViewContentModeScaleAspectFill;
+        [self.view addSubview:self.lottieLogo];
+        [self.lottieLogo play];
+        
+//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Couldn't connect to the network. Please check your connection settings" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [controller addAction:okAction];
+//        [self presentViewController:controller animated:YES completion:nil];
     }else {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
@@ -312,8 +320,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 -(void) populateGifArrays
 {
-    
-    
     if([_eboticonGifs count] > 0){
         EboticonGif *currentGif = [EboticonGif alloc];
         _captionImages          = [[NSMutableArray alloc]init];

@@ -2242,7 +2242,6 @@
     //  NSLog(@"Swipe Detected Left");
     
     if(_currentCategory < 6){
-        
         //Change category
         [self changeCategory:_currentCategory+1];
     }
@@ -2250,8 +2249,6 @@
         //Change category
         [self changeCategory:1];
     }
-    
-    
 }
 
 

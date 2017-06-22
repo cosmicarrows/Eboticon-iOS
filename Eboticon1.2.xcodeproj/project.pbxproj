@@ -113,6 +113,8 @@
 		9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */; };
 		973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */; };
 		973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */; };
+		9755A9D31EFB92AF005DABCC /* SKSplashIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9D01EFB92AF005DABCC /* SKSplashIcon.m */; };
+		9755A9D41EFB92AF005DABCC /* SKSplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9D21EFB92AF005DABCC /* SKSplashView.m */; };
 		975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; };
 		975C939C1BEBB5AC00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
 		975C939D1BEBB6DF00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
@@ -137,7 +139,6 @@
 		9760B57B1B7A87E700E75EEC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9760B57A1B7A87E700E75EEC /* Reachability.m */; };
 		976E4EC31B99E7710057D6B2 /* page10.png in Resources */ = {isa = PBXBuildFile; fileRef = 976E4EC21B99E7710057D6B2 /* page10.png */; };
 		976E4EEB1B9A95B20057D6B2 /* Main1.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 976E4EEA1B9A95B20057D6B2 /* Main1.Storyboard */; };
-		976E4EF21B9A96660057D6B2 /* XOSplashVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 976E4EEE1B9A96660057D6B2 /* XOSplashVideoController.m */; };
 		976E4F0A1B9AA4930057D6B2 /* ipad768x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 976E4F061B9AA4930057D6B2 /* ipad768x1024.png */; };
 		976E4F0B1B9AA4930057D6B2 /* ipad1536x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 976E4F071B9AA4930057D6B2 /* ipad1536x2048.png */; };
 		976E4F0C1B9AA4930057D6B2 /* iphone640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 976E4F081B9AA4930057D6B2 /* iphone640x960.png */; };
@@ -186,6 +187,7 @@
 		97A383121B695D7B002F5571 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A383111B695D7B002F5571 /* TabViewController.m */; };
 		97CC16CA1C332865000E01D6 /* Icon_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C81C332865000E01D6 /* Icon_Facebook.png */; };
 		97CC16CB1C332865000E01D6 /* Icon_Instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CC16C91C332865000E01D6 /* Icon_Instagram.png */; };
+		97D83E051EFAE1A800EBB8E4 /* cloud_disconnection.json in Resources */ = {isa = PBXBuildFile; fileRef = 97D83E041EFAE1A800EBB8E4 /* cloud_disconnection.json */; };
 		97E46BF51BDA5F8000A83A05 /* FilterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E46BF41BDA5F8000A83A05 /* FilterData.m */; };
 		97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E64C821BD83BB7009DB493 /* CustomNavigationController.m */; };
 		97FA1AD81B9F37B0009BA0DC /* eboticon_purchase_gifs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */; };
@@ -225,7 +227,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		632448481AAB67470057ABB2 /* EboticonLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EboticonLite-Info.plist"; path = "/Users/jarrydmccree/Incling/Projects/Eboticon/App/Master/Eboticon1.2/EboticonLite-Info.plist"; sourceTree = "<absolute>"; };
 		6325FA471A8FCC2300C4CABB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6325FA501A8FD2D600C4CABB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6325FA521A8FD2F000C4CABB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -363,6 +364,10 @@
 		973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EboticonKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9755A9CF1EFB92AF005DABCC /* SKSplashIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSplashIcon.h; sourceTree = "<group>"; };
+		9755A9D01EFB92AF005DABCC /* SKSplashIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSplashIcon.m; sourceTree = "<group>"; };
+		9755A9D11EFB92AF005DABCC /* SKSplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSplashView.h; sourceTree = "<group>"; };
+		9755A9D21EFB92AF005DABCC /* SKSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSplashView.m; sourceTree = "<group>"; };
 		975C93991BEBB5AC00006823 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		975C939A1BEBB5AC00006823 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9760B5311B750B6800E75EEC /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
@@ -393,8 +398,6 @@
 		976E4EC21B99E7710057D6B2 /* page10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page10.png; sourceTree = "<group>"; };
 		976E4EE81B9A49990057D6B2 /* Eboticon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Eboticon.entitlements; sourceTree = "<group>"; };
 		976E4EEA1B9A95B20057D6B2 /* Main1.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main1.Storyboard; sourceTree = "<group>"; };
-		976E4EED1B9A96660057D6B2 /* XOSplashVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XOSplashVideoController.h; sourceTree = "<group>"; };
-		976E4EEE1B9A96660057D6B2 /* XOSplashVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XOSplashVideoController.m; sourceTree = "<group>"; };
 		976E4F061B9AA4930057D6B2 /* ipad768x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ipad768x1024.png; sourceTree = "<group>"; };
 		976E4F071B9AA4930057D6B2 /* ipad1536x2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ipad1536x2048.png; sourceTree = "<group>"; };
 		976E4F081B9AA4930057D6B2 /* iphone640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone640x960.png; sourceTree = "<group>"; };
@@ -459,6 +462,7 @@
 		97A383111B695D7B002F5571 /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
 		97CC16C81C332865000E01D6 /* Icon_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Facebook.png; sourceTree = "<group>"; };
 		97CC16C91C332865000E01D6 /* Icon_Instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Instagram.png; sourceTree = "<group>"; };
+		97D83E041EFAE1A800EBB8E4 /* cloud_disconnection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud_disconnection.json; sourceTree = "<group>"; };
 		97E46BF31BDA5F8000A83A05 /* FilterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterData.h; sourceTree = "<group>"; };
 		97E46BF41BDA5F8000A83A05 /* FilterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterData.m; sourceTree = "<group>"; };
 		97E64C811BD83BB7009DB493 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
@@ -564,8 +568,8 @@
 		6337EB37188B11A500332C75 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				9755A9D51EFB92CE005DABCC /* SKSplash */,
 				63376EAF18E5FB5400DC1204 /* Google Analytics */,
-				976E4EEC1B9A964F0057D6B2 /* XOSplash */,
 				977FBD721B8A647900B75C05 /* IAP */,
 				9760B5781B7A87D900E75EEC /* Reachability */,
 				9760B5641B79342600E75EEC /* KIImagePager */,
@@ -700,7 +704,6 @@
 				97A383031B67E054002F5571 /* KMXMLParser.h */,
 				97A383041B67E054002F5571 /* KMXMLParser.m */,
 				63FAE38E1868CC0200116D73 /* Eboticon1.2-Info.plist */,
-				632448481AAB67470057ABB2 /* EboticonLite-Info.plist */,
 				63FAE38F1868CC0200116D73 /* InfoPlist.strings */,
 				63FAE3921868CC0200116D73 /* main.m */,
 				63FAE3941868CC0200116D73 /* Eboticon1.2-Prefix.pch */,
@@ -744,6 +747,7 @@
 		63FAE3C91868DA8A00116D73 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				97D83E061EFAE1BD00EBB8E4 /* No Connection */,
 				976E4EF51B9A9D800057D6B2 /* Splash */,
 				63B6CB4718F0866A00D1F08A /* eboticon_gifs.csv */,
 				979CFFA01B8AAEE30041EE61 /* eboticon_purchase_gifs.csv */,
@@ -977,6 +981,17 @@
 			name = Onboarding;
 			sourceTree = "<group>";
 		};
+		9755A9D51EFB92CE005DABCC /* SKSplash */ = {
+			isa = PBXGroup;
+			children = (
+				9755A9CF1EFB92AF005DABCC /* SKSplashIcon.h */,
+				9755A9D01EFB92AF005DABCC /* SKSplashIcon.m */,
+				9755A9D11EFB92AF005DABCC /* SKSplashView.h */,
+				9755A9D21EFB92AF005DABCC /* SKSplashView.m */,
+			);
+			name = SKSplash;
+			sourceTree = "<group>";
+		};
 		9760B5641B79342600E75EEC /* KIImagePager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1021,15 +1036,6 @@
 				9760B57A1B7A87E700E75EEC /* Reachability.m */,
 			);
 			name = Reachability;
-			sourceTree = "<group>";
-		};
-		976E4EEC1B9A964F0057D6B2 /* XOSplash */ = {
-			isa = PBXGroup;
-			children = (
-				976E4EED1B9A96660057D6B2 /* XOSplashVideoController.h */,
-				976E4EEE1B9A96660057D6B2 /* XOSplashVideoController.m */,
-			);
-			name = XOSplash;
 			sourceTree = "<group>";
 		};
 		976E4EF51B9A9D800057D6B2 /* Splash */ = {
@@ -1205,6 +1211,14 @@
 			name = "Home View";
 			sourceTree = "<group>";
 		};
+		97D83E061EFAE1BD00EBB8E4 /* No Connection */ = {
+			isa = PBXGroup;
+			children = (
+				97D83E041EFAE1A800EBB8E4 /* cloud_disconnection.json */,
+			);
+			name = "No Connection";
+			sourceTree = "<group>";
+		};
 		97E64C801BD83B88009DB493 /* Custom Navigation Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1278,7 +1292,7 @@
 				ORGANIZATIONNAME = Incling;
 				TargetAttributes = {
 					63FAE3821868CC0200116D73 = {
-						DevelopmentTeam = D64285HJMY;
+						DevelopmentTeam = 662TV55PE6;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1375,6 +1389,7 @@
 				632702ED1AB7949800B39B06 /* Images.xcassets in Resources */,
 				9760B5381B750B6800E75EEC /* page4.png in Resources */,
 				63B6CB4818F0866A00D1F08A /* eboticon_gifs.csv in Resources */,
+				97D83E051EFAE1A800EBB8E4 /* cloud_disconnection.json in Resources */,
 				A514F58F1ED4ED16000EF4F7 /* UnlockView.xib in Resources */,
 				978F1CA01B8F628E00ADA44C /* page9.png in Resources */,
 				978F1CA21B8F62BC00ADA44C /* transparent_bg_keyboard_.png in Resources */,
@@ -1547,8 +1562,10 @@
 				977FBD751B8A648700B75C05 /* IAPHelper.m in Sources */,
 				9760B5631B754E7800E75EEC /* SidebarCategoryTableViewCell.m in Sources */,
 				A514F58D1ED4ECF1000EF4F7 /* UnlockView.swift in Sources */,
+				9755A9D31EFB92AF005DABCC /* SKSplashIcon.m in Sources */,
 				97A383051B67E054002F5571 /* KMXMLParser.m in Sources */,
 				1F9F495B1D30CB18006AAC8F /* UIImage+Decode.m in Sources */,
+				9755A9D41EFB92AF005DABCC /* SKSplashView.m in Sources */,
 				970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */,
 				63B6CB4618F07C9600D1F08A /* EboticonGif.m in Sources */,
 				1F9F49591D30CB0E006AAC8F /* UIImage+Alpha.m in Sources */,
@@ -1583,7 +1600,6 @@
 				9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,
 				9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */,
-				976E4EF21B9A96660057D6B2 /* XOSplashVideoController.m in Sources */,
 				1F9F495E1D30CB27006AAC8F /* HTTPClient.m in Sources */,
 				63CE781E18AD6B040069049F /* EboticonViewController.m in Sources */,
 				1F9F49581D30CB06006AAC8F /* ImageRecord.m in Sources */,
@@ -1743,7 +1759,7 @@
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = D64285HJMY;
+				DEVELOPMENT_TEAM = 662TV55PE6;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1799,7 +1815,7 @@
 				CODE_SIGN_ENTITLEMENTS = Eboticon1.2/Eboticon.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = D64285HJMY;
+				DEVELOPMENT_TEAM = 662TV55PE6;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
