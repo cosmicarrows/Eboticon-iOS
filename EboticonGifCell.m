@@ -36,17 +36,10 @@
         UIImage *image = [[UIImage alloc]init];
         if ([[ImageCache sharedImageCache] DoesExist:eboticonGif.stillUrl] == true) {
             image = [[ImageCache sharedImageCache] GetImage:eboticonGif.stillUrl];
-#ifdef FREE
-            //If eboji is free(f), display normally. Else, grayscale
-            if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
-                _gifImageView.image = image;
-            } else {
-                GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
-                _gifImageView.image = [grayscaleFilter imageByFilteringImage:image];
-            }
-#else
+            
+
             _gifImageView.image = image;
-#endif
+
         }else {
             UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             activityIndicator.hidesWhenStopped = YES;
@@ -62,17 +55,8 @@
                 imgDownloader.imageRecord = eboticonGif;
                 [imgDownloader setCompletionHandler:^{
                     
-#ifdef FREE
-                    //If eboji is free(f), display normally. Else, grayscale
-                    if ([eboticonGif.getDisplayType isEqualToString: @"f"]) {
-                        _gifImageView.image = eboticonGif.thumbImage;
-                    } else {
-                        GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
-                        _gifImageView.image = [grayscaleFilter imageByFilteringImage:eboticonGif.thumbImage];
-                    }
-#else
                     _gifImageView.image = eboticonGif.thumbImage;
-#endif
+                    
                     [activityIndicator stopAnimating];
                     [activityIndicator removeFromSuperview];
                 }];

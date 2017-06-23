@@ -551,6 +551,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 #pragma mark - Splash Screen
 
 
+
 - (void) animateSplash
 {
     //Ping style splash
@@ -571,7 +572,6 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                                               initWithNibName:@"OnboardingView" bundle:nil];
     self.onboardingViewController = onboardingVC;
     [self.window.rootViewController presentViewController:self.onboardingViewController animated:YES completion:nil];
-    
     
 }
 

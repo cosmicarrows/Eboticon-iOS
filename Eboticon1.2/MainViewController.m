@@ -29,7 +29,8 @@
 //In-app purchases (IAP) libraries
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
-#import "Lottie.h"
+#import "Reachability.h"
+
 
 
 #import "ShopDetailCollectionViewController.h"
@@ -87,7 +88,13 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
-@property (nonatomic, strong) LOTAnimationView *lottieLogo;
+@property (nonatomic, strong) UIImageView *noConnectionImageView;
+
+//Reachability
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic, assign) BOOL isEboticonsLoaded;
+
 
 
 @end
@@ -96,13 +103,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    DDLogDebug(@"");
-    
-    
-    self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;     //Add Background without repeating
-    //self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
+
+    //Add Background without repeating
+    self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;
+
+    //Get Saved Skin Tone
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     
     //GOOGLE ANALYTICS
@@ -116,9 +121,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     
     // Do any additional setup after loading the view.
-    
     DDLogDebug(@"Gif Category is %@",_gifCategory);
-    
     if([_gifCategory isEqualToString:CATEGORY_RECENT])
     {
         UIBarButtonItem *clearbutton = [[UIBarButtonItem alloc]
@@ -128,6 +131,216 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                                         action:@selector(clearRecentGifs)];
         self.navigationItem.leftBarButtonItem = clearbutton;
     }
+    
+    //Create Mutable Arrays of Eboticons
+    [self initializeEboticons];
+    
+    //Load current products
+    //[self getProducts];
+    
+    [self getPurchaseGifs];
+    
+    [self initNoConnection];
+    
+    self.isEboticonsLoaded = NO;
+    [self loadEboticon];
+    
+    //[self populateGifArrays];
+    
+    // Configure Collection View
+    [self configureCollectionView];
+    
+    //GOOGLE ANALYTICS
+    [self sendToGoogleAnalytics];
+    
+    //Add sidebar menu button
+    [self setSidebarItems];
+    
+    //Make nav bar transparent
+    [self makeNavBarTransparent];
+    
+    //Create Nav Bar Logo
+    [self makeNavBarLogo];
+    
+    
+    //Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadEboticons:)
+                                                 name:@"reloadEboticons"
+                                               object:nil];
+    
+    [self initializeReachability];
+    
+}
+
+
+#pragma mark - Reachability
+
+
+
+- (void) initializeReachability {
+    /*
+     Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    //Change the host name here to change the server you want to monitor.
+    NSString *remoteHostName = @"api.eboticons.com";
+    self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
+    [self.hostReachability startNotifier];
+    [self updateInterfaceWithReachability:self.hostReachability];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    [self updateInterfaceWithReachability:self.internetReachability];
+}
+
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    [self updateInterfaceWithReachability:curReach];
+}
+
+
+- (void)updateInterfaceWithReachability:(Reachability *)reachability
+{
+    NSLog(@"updateInterfaceWithReachability");
+    
+    if (reachability == self.hostReachability || reachability == self.internetReachability)
+    {
+        [self configureConnectionView:reachability];
+    }
+}
+
+
+- (void)configureConnectionView:(Reachability *)reachability
+{
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    BOOL connectionRequired = [reachability connectionRequired];
+    NSString* statusString = @"";
+    
+    
+    switch (netStatus)
+    {
+        case NotReachable:        {
+            statusString = NSLocalizedString(@"Access Not Available", @"Text field text for access is not available");
+            self.noConnectionImageView.hidden = NO;
+            self.collectionView.hidden = YES;
+            [self showNoConnectionImage];
+            /*
+             Minor interface detail- connectionRequired may return YES even when the host is unreachable. We cover that up here...
+             */
+            connectionRequired = NO;
+            break;
+        }
+            
+        case ReachableViaWWAN:        {
+            statusString = NSLocalizedString(@"Reachable WWAN", @"");
+           
+            self.noConnectionImageView.alpha = 0.0;
+            self.noConnectionImageView.hidden = YES;
+             [self loadEboticon];
+            break;
+        }
+        case ReachableViaWiFi:        {
+            statusString= NSLocalizedString(@"Reachable WiFi", @"");
+            self.noConnectionImageView.alpha = 0.0;
+            self.noConnectionImageView.hidden = YES;
+            [self loadEboticon];
+            break;
+        }
+    }
+    
+    if (connectionRequired)
+    {
+        NSString *connectionRequiredFormatString = NSLocalizedString(@"%@, Connection Required", @"Concatenation of status string with connection requirement");
+        statusString= [NSString stringWithFormat:connectionRequiredFormatString, statusString];
+    }
+    NSLog(@"status string: %@", statusString);
+}
+
+- (BOOL) doesInternetExist {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+- (void) initNoConnection{
+    self.noConnectionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noconnection"]];
+    self.noConnectionImageView.alpha = 0;
+    self.noConnectionImageView.center = self.view.center;
+    self.noConnectionImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.view addSubview:self.noConnectionImageView];
+    
+}
+
+-(void) showNoConnectionImage{
+    
+    self.noConnectionImageView.image = [UIImage imageNamed:@"noconnection"];
+
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{ self.noConnectionImageView.alpha = 1; }
+                     completion:^(BOOL finished){}
+     ];
+    
+    self.isEboticonsLoaded = NO;
+}
+
+-(void) showServerDownImage{
+    
+    self.noConnectionImageView.image = [UIImage imageNamed:@"serverdown"];
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{ self.noConnectionImageView.alpha = 1; }
+                     completion:^(BOOL finished){}
+     ];
+    
+    self.isEboticonsLoaded = NO;
+}
+
+
+
+-(void) showNoConnectionAlert{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Couldn't connect to the network. Please check your connection settings" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [controller addAction:okAction];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark - Initialization
+
+
+- (void)makeNavBarLogo{
+    UIImageView *imageView = [[UIImageView alloc]
+                              initWithFrame:CGRectMake(0,0,3,20)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = NO;
+    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
+    self.navigationItem.titleView = imageView;
+}
+
+- (void)reverseMenu:(UITapGestureRecognizer *)sender{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [self.revealViewController rightRevealToggleForTapGesture];
+}
+
+- (void) initializeEboticons {
     
     //Initialize Gifs
     _currentEboticonGifs         = [[NSMutableArray alloc] init];
@@ -145,31 +358,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     _giftImagesNoCaption         = [[NSMutableArray alloc] init];
     _heartImagesCaption          = [[NSMutableArray alloc] init];
     _heartImagesNoCaption        = [[NSMutableArray alloc] init];
-    
-    //Intialize current tapped image
-    NSLog(@"self.captionState: %lu",(unsigned long)[self.captionState  integerValue]);
-    //self.captionState           = 1;
-    
-    //Load current products
-    //[self getProducts];
-    
-    
-    
-    //Load Gif csv file
-    DDLogDebug(@"Eboticon Gif size %lu",(unsigned long)[_eboticonGifs count]);
     _eboticonGifs = [[NSMutableArray alloc] init];
-    [self getPurchaseGifs];
-    [self loadEboticon];
     
-    DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
-    //    [self populateGifArrays];
-    
-
-    // Configure Collection View
-    [self configureCollectionView];
-    
-
-    //GOOGLE ANALYTICS
+};
+- (void) sendToGoogleAnalytics {
     @try {
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:_gifCategory forKey:kGAIScreenName]build]];
@@ -177,58 +369,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     @catch (NSException *exception) {
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
-    
-    //Add sidebar menu button
-    [self setSidebarItems];
-    
-    //Make nav bar transparent
-    [self makeNavBarTransparent];
-    
-    UIImageView *imageView = [[UIImageView alloc]
-                              initWithFrame:CGRectMake(0,0,3,20)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = NO;
-    imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
-    self.navigationItem.titleView = imageView;
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadEboticons:)
-                                                 name:@"reloadEboticons"
-                                               object:nil];
-}
-
-
-+ (MainViewController *)sharedInstance
-{
-    static dispatch_once_t once;
-    static MainViewController *mainViewController;
-    dispatch_once(&once, ^{
-        mainViewController = [[MainViewController alloc] init];
-    });
-    return mainViewController;
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    NSLog(@"viewWillAppear");
-    
-    [self loadEboticon];
-    
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)reverseMenu:(UITapGestureRecognizer *)sender{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self.revealViewController rightRevealToggleForTapGesture];
 }
 
 - (void) setSidebarItems{
@@ -241,7 +381,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     self.navigationItem.rightBarButtonItem = revealButtonItem;
 }
-
 
 - (void) configureCollectionView {
     
@@ -258,7 +397,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 }
 
 
-
 - (void) makeNavBarTransparent {
     [self.navigationController.navigationBar setTranslucent:YES];
     self.navigationController.view.backgroundColor = [UIColor clearColor];
@@ -267,56 +405,66 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
-- (BOOL) doesInternetExist {
+-(void) addToolbar
+{
+    //Create toolbar
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
+    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
-    if (internetStatus != NotReachable) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
+    //Create buttons
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *enlarge = [[UIBarButtonItem alloc] initWithTitle:@"Enlarge" style:UIBarButtonItemStylePlain target:self action:nil];
+    _toolbarButtons = [NSMutableArray arrayWithObjects:shareButton, enlarge, nil];
+    
+    
+    [self.view addSubview:_toolbar];
+    [self.view bringSubviewToFront:_toolbar];
+    [_toolbar setItems:_toolbarButtons];
 }
+
+
+#pragma mark -
+#pragma mark Eboticon Helper Functions
 
 - (void)loadEboticon
 {
-    if (![self doesInternetExist]) {
+    if(self.isEboticonsLoaded == NO){
+        if (![self doesInternetExist]) {
+            
+            [self showNoConnectionImage];
+            
+        }else {
+            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+            spinner.hidesWhenStopped = YES;
+            [self.view addSubview:spinner];
+            [spinner startAnimating];
+            [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [_eboticonGifs removeAllObjects];
+                    [_eboticonGifs addObjectsFromArray:eboticons];
+                    
+                    DDLogDebug(@"loadEboticon _eboticonCount: %lu", (unsigned long)_eboticonGifs.count);
+                    
+                    [self populateGifArrays];
+                    [spinner stopAnimating];
+                    [self.collectionView reloadData];
+                });
+            }];
+        }
         
-        self.lottieLogo = [LOTAnimationView animationNamed:@"cloud_disconnection.json"];
-        self.lottieLogo.contentMode = UIViewContentModeScaleAspectFill;
-        [self.view addSubview:self.lottieLogo];
-        [self.lottieLogo play];
-        
-//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No Internet Connection" message:@"Couldn't connect to the network. Please check your connection settings" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//        [controller addAction:okAction];
-//        [self presentViewController:controller animated:YES completion:nil];
-    }else {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
-        spinner.hidesWhenStopped = YES;
-        [self.view addSubview:spinner];
-        [spinner startAnimating];
-        [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_eboticonGifs removeAllObjects];
-                [_eboticonGifs addObjectsFromArray:eboticons];
-                [self populateGifArrays];
-                [spinner stopAnimating];
-                [self.collectionView reloadData];
-            });
-        }];
+        self.isEboticonsLoaded = YES;
     }
     
 }
 
 - (void)reloadEboticons:(NSNotification *) notification{
     NSLog(@"***reloadEboticons");
+    self.isEboticonsLoaded = NO;
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     [self loadEboticon];
 };
-
 
 -(void) populateGifArrays
 {
@@ -437,25 +585,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogWarn(@"Eboticon Gif array count is less than zero.");
     }
     
-    NSLog(@"populateGifArrays");
-    NSLog(@"%@", self.savedSkinTone);
-}
-
--(void) addToolbar
-{
-    //Create toolbar
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
-    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    
-    //Create buttons
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:nil];
-    UIBarButtonItem *enlarge = [[UIBarButtonItem alloc] initWithTitle:@"Enlarge" style:UIBarButtonItemStylePlain target:self action:nil];
-    _toolbarButtons = [NSMutableArray arrayWithObjects:shareButton, enlarge, nil];
-    
-    
-    [self.view addSubview:_toolbar];
-    [self.view bringSubviewToFront:_toolbar];
-    [_toolbar setItems:_toolbarButtons];
+    NSLog(@"populateGifArrays savedSkinTone: %@", self.savedSkinTone);
 }
 
 -(NSMutableArray*) getRecentGifs
@@ -906,7 +1036,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
             //NSLog(@"%@",_gifCategory);
             currentGifObject = _purchasedImages[row];
-            NSLog(@"%@",[currentGifObject fileName]);
         }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
             //  NSLog(@"smile images");
             currentGifObject = _smileImagesNoCaption[row];
@@ -1029,6 +1158,54 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     [self.view addSubview:unlockView];
 }
+
+
+#pragma mark -
+#pragma mark ViewControllerDelegate
+
+
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    CGFloat imageHeight = self.view.bounds.size.height * 0.3;
+    CGFloat halfway = self.view.bounds.size.height/2 - imageHeight;
+    self.noConnectionImageView.frame = CGRectMake(0, halfway, self.view.bounds.size.width, imageHeight);
+}
+
+
++ (MainViewController *)sharedInstance
+{
+    static dispatch_once_t once;
+    static MainViewController *mainViewController;
+    dispatch_once(&once, ^{
+        mainViewController = [[MainViewController alloc] init];
+    });
+    return mainViewController;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"viewWillAppear");
+    
+    // [self loadEboticon];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 
 #pragma mark -

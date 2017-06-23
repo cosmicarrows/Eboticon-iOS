@@ -52,10 +52,7 @@ import Foundation
             self.isBlackSelected = true
         }
         
- 
-        
         changedSkinTone()
-        
         
     }
     
@@ -149,40 +146,30 @@ import Foundation
     
     
     @IBAction func tappedAsian(_ sender: Any) {
-
+        
         //Set State
         isAsianSelected = true
         isWhiteSelected = false
         isBlackSelected = false
-        
         changedSkinTone()
-        
-        
     }
     
-    
     @IBAction func tappedWhite(_ sender: Any) {
-
-
+        
         //Set State
         isAsianSelected = false
         isWhiteSelected = true
         isBlackSelected = false
-        
         changedSkinTone()
-
     }
     
     
     @IBAction func tappedBlack(_ sender: Any) {
-
         //Set State
         isAsianSelected = false
         isWhiteSelected = false
         isBlackSelected = true
-        
         changedSkinTone()
-
     }
 
 }
