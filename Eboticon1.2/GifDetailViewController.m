@@ -60,9 +60,6 @@
                                                  name:@"postToFacebook" object:nil];
     
     
-    
-    
-    
     NSLog(@"GifDetailViewController viewDidLoad");
     // Do any additional setup after loading the view.
     _currentDisplayIndex = self.index;
@@ -280,10 +277,10 @@
 
 -(void) loadShareView: (EboticonGif*)currGif
 {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityIndicator.hidesWhenStopped = YES;
     activityIndicator.hidden = NO;
-    activityIndicator.color = [UIColor blueColor];
+    //activityIndicator.color = [UIColor blueColor];
     activityIndicator.center = self.view.center;
     [self.view addSubview:activityIndicator];
     [activityIndicator startAnimating];
@@ -297,11 +294,9 @@
     NSString *movName = [currGif movUrl];
     
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
-    
     // NSString *textObject = @"Check this out #eboticon";
+    // NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
     
-    
-    //NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
    [self createPathForMovName:movName completion:^(NSString *filepath, NSError *error) {
        if (error != nil) {
            dispatch_async(dispatch_get_main_queue(), ^{

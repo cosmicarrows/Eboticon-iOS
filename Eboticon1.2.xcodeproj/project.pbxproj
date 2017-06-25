@@ -117,6 +117,10 @@
 		9755A9D41EFB92AF005DABCC /* SKSplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9D21EFB92AF005DABCC /* SKSplashView.m */; };
 		9755A9D71EFBF42E005DABCC /* hexadots.json in Resources */ = {isa = PBXBuildFile; fileRef = 9755A9D61EFBF42E005DABCC /* hexadots.json */; };
 		9755A9D91EFC0038005DABCC /* LottieLogo1.json in Resources */ = {isa = PBXBuildFile; fileRef = 9755A9D81EFC0038005DABCC /* LottieLogo1.json */; };
+		9755A9E11EFE66A8005DABCC /* Eboticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9E01EFE66A8005DABCC /* Eboticon.swift */; };
+		9755A9E31EFE7DFB005DABCC /* Eboticons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9E21EFE7DFB005DABCC /* Eboticons.swift */; };
+		9755A9E51EFE8177005DABCC /* PurchasePacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9E41EFE8177005DABCC /* PurchasePacks.swift */; };
+		9755A9E71EFE81B6005DABCC /* PurchasePack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9E61EFE81B6005DABCC /* PurchasePack.swift */; };
 		975C939B1BEBB5AC00006823 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C93991BEBB5AC00006823 /* Bolts.framework */; };
 		975C939C1BEBB5AC00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
 		975C939D1BEBB6DF00006823 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975C939A1BEBB5AC00006823 /* Parse.framework */; };
@@ -372,6 +376,10 @@
 		9755A9D21EFB92AF005DABCC /* SKSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSplashView.m; sourceTree = "<group>"; };
 		9755A9D61EFBF42E005DABCC /* hexadots.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hexadots.json; sourceTree = "<group>"; };
 		9755A9D81EFC0038005DABCC /* LottieLogo1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo1.json; sourceTree = "<group>"; };
+		9755A9E01EFE66A8005DABCC /* Eboticon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eboticon.swift; sourceTree = "<group>"; };
+		9755A9E21EFE7DFB005DABCC /* Eboticons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eboticons.swift; sourceTree = "<group>"; };
+		9755A9E41EFE8177005DABCC /* PurchasePacks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasePacks.swift; sourceTree = "<group>"; };
+		9755A9E61EFE81B6005DABCC /* PurchasePack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasePack.swift; sourceTree = "<group>"; };
 		975C93991BEBB5AC00006823 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		975C939A1BEBB5AC00006823 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9760B5311B750B6800E75EEC /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
@@ -740,6 +748,10 @@
 				63FAE3C01868CCE900116D73 /* JMCategoryData.m */,
 				63FAE3C11868CCE900116D73 /* JMCategoriesData.h */,
 				63FAE3C21868CCE900116D73 /* JMCategoriesData.m */,
+				9755A9E01EFE66A8005DABCC /* Eboticon.swift */,
+				9755A9E21EFE7DFB005DABCC /* Eboticons.swift */,
+				9755A9E61EFE81B6005DABCC /* PurchasePack.swift */,
+				9755A9E41EFE8177005DABCC /* PurchasePacks.swift */,
 				63B6CB4418F07C9600D1F08A /* EboticonGif.h */,
 				63B6CB4518F07C9600D1F08A /* EboticonGif.m */,
 				97E46BF31BDA5F8000A83A05 /* FilterData.h */,
@@ -1578,11 +1590,14 @@
 				63B6CB4618F07C9600D1F08A /* EboticonGif.m in Sources */,
 				1F9F49591D30CB0E006AAC8F /* UIImage+Alpha.m in Sources */,
 				9760B56B1B79343600E75EEC /* KIImagePager.m in Sources */,
+				9755A9E51EFE8177005DABCC /* PurchasePacks.swift in Sources */,
+				9755A9E31EFE7DFB005DABCC /* Eboticons.swift in Sources */,
 				63D643991984579B0056AC0B /* EBOActivityTypePostToFacebook.m in Sources */,
 				97044EF51BA32C4E008CA2E1 /* GlobalScope.m in Sources */,
 				9706586E1B6A54A8004B149A /* RightViewController.m in Sources */,
 				63CE781B18AD65090069049F /* GifDetailViewController.m in Sources */,
 				9760B5471B750D0E00E75EEC /* TutorialContentViewController.m in Sources */,
+				9755A9E11EFE66A8005DABCC /* Eboticon.swift in Sources */,
 				1F9F49571D30CB01006AAC8F /* ImageDownloader.m in Sources */,
 				63FAE3971868CC0200116D73 /* AppDelegate.m in Sources */,
 				9760B57B1B7A87E700E75EEC /* Reachability.m in Sources */,
@@ -1605,6 +1620,7 @@
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
 				972269B11EA532380065031A /* OnboardingViewController.swift in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
+				9755A9E71EFE81B6005DABCC /* PurchasePack.swift in Sources */,
 				9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */,
 				63FAE3931868CC0200116D73 /* main.m in Sources */,
 				9760B5741B7A76F300E75EEC /* ShopTableCell.m in Sources */,

@@ -49,6 +49,15 @@ let kBaseURL = "https://api.eboticons.com/v1/"
             }
             }.resume()
     }
+    
+    static func loadPacks(endpoint: String, completion: @escaping ([PurchasePacks]?) -> ()) {
+        
+    }
+    
+    
+    
+    
+
 }
 
 

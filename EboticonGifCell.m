@@ -38,33 +38,52 @@
             image = [[ImageCache sharedImageCache] GetImage:eboticonGif.stillUrl];
             
 
+            
+            _gifImageView.alpha = 0.0;
             _gifImageView.image = image;
+            
+            [UIView animateWithDuration:0.25
+                                  delay:0.0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{ _gifImageView.alpha = 1; }
+                             completion:^(BOOL finished){}
+             ];
 
         }else {
-            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            activityIndicator.hidesWhenStopped = YES;
-            activityIndicator.hidden = NO;
-            [activityIndicator startAnimating];
-            activityIndicator.center = self.contentView.center;
-            activityIndicator.tag = 505;
-            [self.contentView addSubview:activityIndicator];
-            [activityIndicator startAnimating];
+            
+//            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//            activityIndicator.hidesWhenStopped = YES;
+//            activityIndicator.hidden = NO;
+//            [activityIndicator startAnimating];
+//            activityIndicator.center = CGPointMake(self.contentView.frame.size.width / 2, self.contentView.frame.size.height / 2);
+//            activityIndicator.tag = 505;
+//            [self.contentView addSubview:activityIndicator];
+//            [activityIndicator startAnimating];
             
             if ([self checkConnnectivity]) {
                 ImageDownloader *imgDownloader = [[ImageDownloader alloc] init];
                 imgDownloader.imageRecord = eboticonGif;
                 [imgDownloader setCompletionHandler:^{
                     
+                    
+                    _gifImageView.alpha = 0.0;
                     _gifImageView.image = eboticonGif.thumbImage;
                     
-                    [activityIndicator stopAnimating];
-                    [activityIndicator removeFromSuperview];
+                    [UIView animateWithDuration:0.25
+                                          delay:0.0
+                                        options:UIViewAnimationOptionCurveEaseIn
+                                     animations:^{ _gifImageView.alpha = 1; }
+                                     completion:^(BOOL finished){}
+                     ];
+                    
+//                    [activityIndicator stopAnimating];
+//                    [activityIndicator removeFromSuperview];
                 }];
                 [imgDownloader startDownload];
                 
             }else {
-                [activityIndicator stopAnimating];
-                [activityIndicator removeFromSuperview];
+//                [activityIndicator stopAnimating];
+//                [activityIndicator removeFromSuperview];
                 _gifImageView.image = [UIImage imageNamed:@"placeholder.png"];
             }
             

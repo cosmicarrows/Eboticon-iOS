@@ -162,9 +162,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack1"]){
         cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:4]];
     }
-    else if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.holidaypack1"]){
-        cell.packImage.image = [UIImage imageNamed:[_packImages objectAtIndex:5]];
-    }
 }
 
 
@@ -277,7 +274,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
     
     // Create the data model
-    _packImages = @[@"BaePackIcon", @"GreekPackIcons", @"ChurchPackIcon", @"RatchPackIcon", @"GreetingsPackIcon",@"holidaypackicon"];
+    _packImages = @[@"BaePackIcon", @"GreekPackIcons", @"ChurchPackIcon", @"RatchPackIcon", @"GreetingsPackIcon"];
     
     //Add Restore Button
     UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];

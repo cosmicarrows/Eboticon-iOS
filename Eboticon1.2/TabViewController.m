@@ -155,11 +155,7 @@
     
     
     [self.tabBar setBarTintColor:[UIColor colorWithRed:37.0f/255.0f green:21.0f/255.0f blue:48.0f/255.0f alpha:0.5f]]; //
-    
-    
 
-
-    
     NSLog(@"%f", self.tabBar.frame.size.height);
     UIView * moveView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBar.frame.size.height-5, self.view.frame.size.width/5, 5)];
     moveView.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:108.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
@@ -202,16 +198,9 @@
         }
         keyAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         
-    
         
-        //CGFloat red = arc4random()/(CGFloat)INT_MAX;
-        //CGFloat green = arc4random()/(CGFloat)INT_MAX;
-        //CGFloat blue = arc4random()/(CGFloat)INT_MAX;
-        
-        //UIColor * color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
         CABasicAnimation * basicAnimation = [CABasicAnimation animation];
         basicAnimation.keyPath = @"backgroundColor";
-        //basicAnimation.toValue = (__bridge_transfer id)color.CGColor;
         
         CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
         animationGroup.animations = @[keyAnimation,basicAnimation];
@@ -225,12 +214,15 @@
 
 -(void)updateMoveView:(int)tag
 {
+   
     CGFloat width = [UIScreen mainScreen].bounds.size.width/self.viewControllers.count;
-    [self.revealViewController rightRevealToggleForTapGesture];
-    CGRect frame = self.moveView.frame;
-    frame.origin.x = width;
-    self.moveView.frame = frame;
+    CGFloat posX = width * tag + width/2 - self.moveView.frame.size.width/2;
+    CGRect frame = [self.moveView frame];
 
+    [self.revealViewController rightRevealToggleForTapGesture];
+    
+    frame.origin.x = posX;
+    [self.moveView setFrame:frame];
 }
 
 /*

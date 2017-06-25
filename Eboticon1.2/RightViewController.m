@@ -194,8 +194,12 @@
     NSString *categoryName = CATEGORY_RECENT;
     NSLog(@"%s -- category: %@", __PRETTY_FUNCTION__, categoryName);
     
-    TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
-    [revealController pushFrontViewController:tabBarController animated:YES];
+    
+    self.tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
+    [self.tabBarController updateMoveView:0];
+    
+    
+    [revealController pushFrontViewController:self.tabBarController animated:YES];
     
 }
 
@@ -209,10 +213,10 @@
     NSString *categoryName = CATEGORY_PURCHASED;
     NSLog(@"%s -- category: %@", __PRETTY_FUNCTION__, categoryName);
 
-    TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
-    [revealController pushFrontViewController:tabBarController animated:YES];
+    self.tabBarController = [[TabViewController alloc] initWithCategory:categoryName];
+    [self.tabBarController updateMoveView:0];
     
-    
+    [revealController pushFrontViewController:self.tabBarController animated:YES];
 
 }
 
@@ -225,6 +229,7 @@
     
     //Change category
     SWRevealViewController *revealController = self.revealViewController;
+    
     MainViewController *mainViewController = [[MainViewController alloc] init];
     NSString *categoryName = @"";
     
@@ -269,10 +274,11 @@
         mainViewController.gifCategory = categoryName;
         mainViewController.captionState = _captionState;
     
-        TabViewController *tabBarController = [[TabViewController alloc] initWithCategory:categoryName caption:_captionState];
+        self.tabBarController = [[TabViewController alloc] initWithCategory:categoryName caption:_captionState];
+        [self.tabBarController updateMoveView:0];
     
-        //UINavigationController *navigationMainController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-        [revealController pushFrontViewController:tabBarController animated:YES];
+  
+        [revealController pushFrontViewController:self.tabBarController animated:YES];
     
 }
 
@@ -337,39 +343,6 @@
     }
    
 }
-#pragma mark -
 
-
-
-
-
-//- (void)dealloc
-//{
-//    NSLog(@"RightController dealloc");
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-//}
-//
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-//}
-//
-//- (void)viewDidDisappear:(BOOL)animated
-//{
-//    [super viewDidDisappear:animated];
-//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-//}
 
 @end

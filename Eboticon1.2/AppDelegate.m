@@ -410,6 +410,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     //Tabbar With sidebar Items
     NSNumber *caption = @(1); //initialize caption to on
     self.tabBarController = [[TabViewController alloc] initWithCaption:caption];
+    [self.tabBarController updateMoveView:0];
+
     RightViewController *rightViewController = [[RightViewController alloc] init];
     SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
                                                     initWithRearViewController:rightViewController frontViewController:self.tabBarController];
