@@ -258,6 +258,12 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     else if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
     }
+    else if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+    }
+    else if([_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [_product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+        unlockView.packImageView.image = [UIImage imageNamed:@"RatchetPack"];
+    }
     else {
         unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
     }
