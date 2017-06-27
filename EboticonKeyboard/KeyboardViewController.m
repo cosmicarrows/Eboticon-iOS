@@ -155,6 +155,8 @@
 @property (nonatomic, assign) BOOL isKeypadOn;
 @property (nonatomic, assign) BOOL isFacebookButtonOn;
 
+@property (nonatomic, strong) UnlockView *unlockView;
+
 @end
 
 @implementation KeyboardViewController
@@ -649,7 +651,6 @@
         _currentEboticonGifs = _smileImagesCaption;
         [self changeCategory:1];
         
-        
         [_collectionView reloadData];       //Relaod the images into view
         
      //   [self changeKeyboardFlowLayout];                //Change flowlayout
@@ -865,6 +866,7 @@
     
     //Reload keyboard data
     [_collectionView reloadData];
+    
 }
 
 - (IBAction) globeKeyPressed:(UIButton*)sender {
@@ -886,6 +888,7 @@
     
     //Change category
     [self changeCategory:sender.tag];
+     [_unlockView removeFromSuperview];
     
 }
 
@@ -1246,27 +1249,30 @@
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         return @"Church Pack";
     }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return @"Ratchet Pack";
+    }
     else {
         return @"";
     }
 }
 
 - (void)showUnlockView:(EboticonGif *)eboticon {
-    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
+    _unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
-    NSRange range1 = [unlockView.descLabel.text rangeOfString:[self packName:eboticon]];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
-    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
+    _unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
+    NSRange range1 = [_unlockView.descLabel.text rangeOfString:[self packName:eboticon]];
+    NSRange range2 = [_unlockView.descLabel.text rangeOfString:@"$0.99"];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:_unlockView.descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
                             range:range1];
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
                             range:range2];
     
-    unlockView.descLabel.attributedText = attributedText;
-    __weak UnlockView *weakUnlockView = unlockView;
-    [unlockView setCloseButtonBlock:^{
+    _unlockView.descLabel.attributedText = attributedText;
+    __weak UnlockView *weakUnlockView = _unlockView;
+    [_unlockView setCloseButtonBlock:^{
         [UIView animateWithDuration:0.3 animations:^{
             [weakUnlockView setAlpha:0];
         } completion:^(BOOL finished) {
@@ -1275,35 +1281,40 @@
         
     }];
     __weak KeyboardViewController *weakSelf = self;
-    [unlockView setUnlockButtonBlock:^{
+    [_unlockView setUnlockButtonBlock:^{
         [weakUnlockView removeFromSuperview];
         NSURL *deeplink = [NSURL URLWithString:[NSString stringWithFormat:@"eboticon://cart_page/%@", eboticon.purchaseCategory]];
-        [self openURL:deeplink];
+        [weakSelf openURL:deeplink];
     }];
     
     //Set Image
     if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
+        _unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
+        _unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
+        _unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+        _unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+        _unlockView.packImageView.image = [UIImage imageNamed:@"RatchetPack"];
     }
     else {
-        unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
+        _unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
     }
     
-    [self.view addSubview:unlockView];
-    unlockView.translatesAutoresizingMaskIntoConstraints = false;
-    [unlockView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [unlockView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
-    [unlockView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
-    [unlockView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+    [self.view addSubview:_unlockView];
+    self.topBarView.backgroundColor = [_topBarView backgroundColor];
+    _unlockView.translatesAutoresizingMaskIntoConstraints = false;
+    [_unlockView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [_unlockView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
+    [_unlockView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
+    [_unlockView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+    [_unlockView layoutIfNeeded];
 
 }
 
@@ -1462,7 +1473,6 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
             [self showUnlockView:currentGif];

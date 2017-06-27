@@ -896,6 +896,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         return @"Church Pack";
     }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+        return @"Ratchet Pack";
+    }
     else {
         return @"";
     }
