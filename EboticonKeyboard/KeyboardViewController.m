@@ -1231,7 +1231,15 @@
 
 - (BOOL)productPurchased:(NSString *)productIdentifier
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
+    //Get data from the app
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+    for (NSString* identifier in purchasedProducts) {
+        if ([identifier isEqualToString:productIdentifier]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 - (NSString *)packName:(EboticonGif *)eboticon
