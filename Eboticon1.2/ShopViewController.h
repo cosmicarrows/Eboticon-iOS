@@ -15,7 +15,6 @@
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *inAppPurchaseTable;
-@property (strong, nonatomic) NSString *deeplinkProductIdentifier;
 @property (strong, nonatomic) NSArray *packImages;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
