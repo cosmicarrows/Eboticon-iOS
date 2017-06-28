@@ -353,22 +353,24 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if ([[url host] isEqualToString:@"cart_page"]) {
         self.tabBarController.selectedIndex = 1;
         [self.tabBarController updateMoveView:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([url path]) {
             NSString *deeplinkProductIdentifier = [[url path] substringFromIndex:1];
             if (deeplinkProductIdentifier) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
                     for (SKProduct *product in _products) {
                         if ([product.productIdentifier isEqualToString:deeplinkProductIdentifier]) {
                             ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
                             shopDetailCollectionViewController.product = product;
                             shopDetailCollectionViewController.activateBuy = true;
-                            [(UINavigationController *)[Helper topViewController:self.tabBarController.selectedViewController] pushViewController:shopDetailCollectionViewController animated:YES];
+                             [(UINavigationController *)[Helper topViewController:self.tabBarController.selectedViewController] pushViewController:shopDetailCollectionViewController animated:YES];
                         }
                     }
                     
-                });
+                
             }
         }
+            });
     }
     return YES;
 }
