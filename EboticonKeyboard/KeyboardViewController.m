@@ -1188,7 +1188,7 @@
             NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
             
             
-            for(NSString* productIdentifiers in _purchasedProducts) {
+//            for(NSString* productIdentifiers in _purchasedProducts) {
                 for (EboticonGif *eboticon in purchaseEboticons) {
                     NSString * purchaseCategory = eboticon.purchaseCategory;
                     // NSString * gifCategory = eboticonObject.emotionCategory;
@@ -1201,21 +1201,21 @@
                     
                     if([skinTone isEqual:savedSkinTone]){
                         
-                        if([productIdentifiers isEqual:purchaseCategory]) {
-                            //NSLog(@"adding  gif: %d", cnt);
-                            //NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImages addObject:eboticon];
-                            [_allImages addObject:eboticon];
-                        }
+//                        if([productIdentifiers isEqual:purchaseCategory]) {
+//                            //NSLog(@"adding  gif: %d", cnt);
+//                            //NSLog(@"emotionCategory : %@", gifCategory);
+//                            [_purchasedImages addObject:eboticon];
+//                            [_allImages addObject:eboticon];
+//                        }
                         
-                        if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
+                        if(_captionState && [isCaption isEqual:@"Caption"]) {
                             //                    NSLog(@"adding  gif: %d", cnt);
                             //                    NSLog(@"emotionCategory : %@", gifCategory);
                             [_purchasedImagesCaption addObject:eboticon];
                             //[_allImages addObject:eboticonObject];
                         }
                         
-                        if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
+                        if(_captionState && [isCaption isEqual:@"NoCaption"]) {
                             //                    NSLog(@"adding  gif: %d", cnt);
                             //                    NSLog(@"emotionCategory : %@", gifCategory);
                             [_purchasedImagesNoCaption addObject:eboticon];
@@ -1223,7 +1223,7 @@
                         }
                     }
                 }
-            }
+//            }
             
         });
     }];
@@ -1358,11 +1358,11 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     [[cell imageView] setAlpha:1];
-//    if (![currentGif.purchaseCategory isEqualToString:@""]) {
+    if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
             [[cell imageView] setAlpha:0.5];
         }
-//    }
+    }
     
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
