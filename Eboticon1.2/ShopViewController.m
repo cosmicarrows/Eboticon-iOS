@@ -222,18 +222,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
-    
-    if (_deeplinkProductIdentifier) {
-        for (SKProduct *product in _products) {
-            if ([product.productIdentifier isEqualToString:_deeplinkProductIdentifier]) {
-                ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
-                shopDetailCollectionViewController.product = product;
-                
-                shopDetailCollectionViewController.activateBuy = true;
-                [[self navigationController] pushViewController:shopDetailCollectionViewController animated:YES];
-            }
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -246,7 +234,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (NSTimer*)createTimer {
     // create timer on run loop
