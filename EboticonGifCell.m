@@ -39,15 +39,15 @@
             
 
             
-            _gifImageView.alpha = 0.0;
+//            _gifImageView.alpha = 0.0;
             _gifImageView.image = image;
             
-            [UIView animateWithDuration:0.25
-                                  delay:0.0
-                                options:UIViewAnimationOptionCurveEaseIn
-                             animations:^{ _gifImageView.alpha = 1; }
-                             completion:^(BOOL finished){}
-             ];
+//            [UIView animateWithDuration:0.25
+//                                  delay:0.0
+//                                options:UIViewAnimationOptionCurveEaseIn
+//                             animations:^{ _gifImageView.alpha = 1; }
+//                             completion:^(BOOL finished){}
+//             ];
 
         }else {
             
@@ -66,15 +66,15 @@
                 [imgDownloader setCompletionHandler:^{
                     
                     
-                    _gifImageView.alpha = 0.0;
+//                    _gifImageView.alpha = 0.0;
                     _gifImageView.image = eboticonGif.thumbImage;
                     
-                    [UIView animateWithDuration:0.25
-                                          delay:0.0
-                                        options:UIViewAnimationOptionCurveEaseIn
-                                     animations:^{ _gifImageView.alpha = 1; }
-                                     completion:^(BOOL finished){}
-                     ];
+//                    [UIView animateWithDuration:0.25
+//                                          delay:0.0
+//                                        options:UIViewAnimationOptionCurveEaseIn
+//                                     animations:^{ _gifImageView.alpha = 1; }
+//                                     completion:^(BOOL finished){}
+//                     ];
                     
 //                    [activityIndicator stopAnimating];
 //                    [activityIndicator removeFromSuperview];

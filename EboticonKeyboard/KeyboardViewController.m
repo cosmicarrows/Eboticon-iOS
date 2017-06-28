@@ -1358,11 +1358,11 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     [[cell imageView] setAlpha:1];
-    if (![currentGif.purchaseCategory isEqualToString:@""]) {
+//    if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
             [[cell imageView] setAlpha:0.5];
         }
-    }
+//    }
     
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
@@ -1481,12 +1481,12 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    if (![currentGif.purchaseCategory isEqualToString:@""]) {
+//    if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
             [self showUnlockView:currentGif];
             return;
         }
-    }
+//    }
     
     //First Tap
     if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
