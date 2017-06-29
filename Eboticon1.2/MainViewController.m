@@ -924,9 +924,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)showUnlockView:(SKProduct *)product {
     UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.collectionView.frame];
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $%.02f. Get it NOW!",product.localizedTitle, product.price.floatValue];
-    NSRange range1 = [unlockView.descLabel.text rangeOfString:product.localizedTitle];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"$%.02f", product.price.floatValue]];
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only %@%@. Get it NOW!",[product.localizedTitle capitalizedString], [product.priceLocale objectForKey:NSLocaleCurrencySymbol], product.price];
+    NSRange range1 = [unlockView.descLabel.text rangeOfString:[product.localizedTitle capitalizedString]];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"%@%@",[product.priceLocale objectForKey:NSLocaleCurrencySymbol], product.priceLocale]];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}

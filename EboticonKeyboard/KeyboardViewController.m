@@ -1268,6 +1268,30 @@
         return @"";
     }
 }
+
+- (NSString *)packPrice:(EboticonGif *)eboticon
+{
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        return @"$1.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        return @"$0.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        return @"$0.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        return @"$0.99";
+    }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return @"$0.99";
+    }
+    else {
+        return @"";
+    }
+}
+
 - (IBAction)closeUnlockView:(id)sender {
     [_unlockViewContainer setAlpha:0];
 }
@@ -1281,9 +1305,9 @@
 - (void)showUnlockView:(EboticonGif *)eboticon {
     self.selectedEboticon = eboticon;
     CGFloat boldTextFontSize = 17.0f;
-    _descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
+    _descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only %@. Get it NOW!",[self packName:eboticon], [self packPrice:eboticon]];
     NSRange range1 = [_descLabel.text rangeOfString:[self packName:eboticon]];
-    NSRange range2 = [_descLabel.text rangeOfString:@"$0.99"];
+    NSRange range2 = [_descLabel.text rangeOfString:[self packPrice:eboticon]];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:_descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}

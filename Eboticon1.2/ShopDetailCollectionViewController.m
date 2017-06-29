@@ -218,15 +218,16 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     }
 }
 
+
 - (void)showUnlockView {
     UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
     CGRect frame = unlockView.frame;
     frame.origin.y = frame.origin.y + 64;
     unlockView.frame = frame;
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $%.02f. Get it NOW!",[_product.localizedTitle capitalizedString], _product.price.floatValue];
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only %@%@. Get it NOW!",[_product.localizedTitle capitalizedString], [_product.priceLocale objectForKey:NSLocaleCurrencySymbol], _product.price];
     NSRange range1 = [unlockView.descLabel.text rangeOfString:[_product.localizedTitle capitalizedString]];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"$%.02f", _product.price.floatValue]];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"%@%@",[_product.priceLocale objectForKey:NSLocaleCurrencySymbol], _product.priceLocale]];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
