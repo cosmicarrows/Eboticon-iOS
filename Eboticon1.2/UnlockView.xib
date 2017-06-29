@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,13 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EboticonBundle" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-QB-4Ij">
-                    <rect key="frame" x="40" y="154" width="295" height="118"/>
+                    <rect key="frame" x="40" y="95" width="295" height="118"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="T6K-QB-4Ij" secondAttribute="height" multiplier="2.5" id="EeC-TI-kQM"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DU-oN-kZ9">
-                    <rect key="frame" x="87.5" y="332.5" width="200" height="40"/>
+                    <rect key="frame" x="87.5" y="273.5" width="200" height="40"/>
                     <color key="backgroundColor" red="0.14487889409065247" green="0.55815392732620239" blue="0.99000316858291626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="aEd-qe-tc0"/>
@@ -46,13 +46,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkc-xV-OzY">
-                    <rect key="frame" x="40" y="292" width="295" height="20.5"/>
+                    <rect key="frame" x="40" y="233" width="295" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-TC-JLp">
-                    <rect key="frame" x="329" y="64" width="30" height="30"/>
+                    <rect key="frame" x="329" y="5" width="30" height="30"/>
                     <state key="normal" image="close"/>
                     <connections>
                         <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="zk5-LL-qD4"/>
@@ -61,7 +61,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="AfG-TC-JLp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="5YM-MT-Fkk"/>
+                <constraint firstItem="AfG-TC-JLp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="5YM-MT-Fkk"/>
                 <constraint firstItem="1DU-oN-kZ9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7IN-Qw-INv"/>
                 <constraint firstItem="1DU-oN-kZ9" firstAttribute="top" secondItem="mkc-xV-OzY" secondAttribute="bottom" constant="20" id="BbR-ZA-TzC"/>
                 <constraint firstItem="mkc-xV-OzY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="cK5-oN-KGR"/>

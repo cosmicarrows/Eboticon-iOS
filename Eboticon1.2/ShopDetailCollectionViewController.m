@@ -59,7 +59,6 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                           [UIFont fontWithName:@"Avenir-Black" size:14.0], NSFontAttributeName, nil];
     self.navigationController.navigationBar.titleTextAttributes = size;
     
-
     //Create Pack Gifs object
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     
@@ -220,11 +219,14 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 }
 
 - (void)showUnlockView {
-    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.collectionView.frame];
+    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
+    CGRect frame = unlockView.frame;
+    frame.origin.y = frame.origin.y + 64;
+    unlockView.frame = frame;
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[_product.localizedTitle capitalizedString]];
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $%.02f. Get it NOW!",[_product.localizedTitle capitalizedString], _product.price.floatValue];
     NSRange range1 = [unlockView.descLabel.text rangeOfString:[_product.localizedTitle capitalizedString]];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"$%.02f", _product.price.floatValue]];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}

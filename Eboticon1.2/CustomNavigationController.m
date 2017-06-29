@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:84/255.0 green:37/255.0 blue:121/255.0 alpha:1];
 }
 
 - (void)didReceiveMemoryWarning {

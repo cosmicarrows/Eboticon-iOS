@@ -30,6 +30,7 @@
 #import "EboticonIAPHelper.h"
 #import <StoreKit/StoreKit.h>
 #import "Reachability.h"
+#import "GlobalScope.h"
 
 
 
@@ -81,7 +82,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     NSMutableArray *_currentEboticonGifs;
     
-    NSArray *_products;
+//    NSArray *_products;
 }
 
 // Collection View
@@ -882,21 +883,21 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     return index;
 }
 
-- (NSString *)packName:(EboticonGif *)eboticon
+- (NSString *)packName:(NSString *)purchaseCategory
 {
-    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+    if([purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
         return @"Greek Pack";
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+    else if([purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
         return @"Bae Pack";
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+    else if([purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
         return @"Greeting Pack";
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+    else if([purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         return @"Church Pack";
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+    else if([purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
         return @"Ratchet Pack";
     }
     else {
@@ -906,20 +907,26 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 - (SKProduct *)getProduct:(EboticonGif *)eboticon
 {
+    
     for (SKProduct *product in _products) {
-        if ([product.productIdentifier isEqualToString:eboticon.purchaseCategory]) {
+        /*
+         remove last letter of purhaseCategory and productIdentifier so both match as church1 != church2
+         */
+        NSString *productIdentifier = [product.productIdentifier substringToIndex:[product.productIdentifier length]-1];
+        NSString *purchaseCategory = [eboticon.purchaseCategory substringToIndex:[eboticon.purchaseCategory length]-1];
+        if ([productIdentifier isEqualToString:purchaseCategory]) {
             return product;
         }
     }
     return nil;
 }
 
-- (void)showUnlockView:(EboticonGif *)eboticon {
+- (void)showUnlockView:(SKProduct *)product {
     UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.collectionView.frame];
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
-    NSRange range1 = [unlockView.descLabel.text rangeOfString:[self packName:eboticon]];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
+    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $%.02f. Get it NOW!",product.localizedTitle, product.price.floatValue];
+    NSRange range1 = [unlockView.descLabel.text rangeOfString:product.localizedTitle];
+    NSRange range2 = [unlockView.descLabel.text rangeOfString:[NSString stringWithFormat:@"$%.02f", product.price.floatValue]];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
@@ -940,29 +947,26 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     __weak MainViewController *weakSelf = self;
     [unlockView setUnlockButtonBlock:^{
         [weakUnlockView removeFromSuperview];
-        SKProduct *product = [weakSelf getProduct:eboticon];
         ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
         shopDetailCollectionViewController.product = product;
         shopDetailCollectionViewController.activateBuy = true;
-        NSLog(@"The shop productIdentifier is %@",product.productIdentifier);
-        
         [[weakSelf navigationController] pushViewController:shopDetailCollectionViewController animated:YES];
     }];
     
     //Set Image
-    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+    if([product.productIdentifier isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+    else if([product.productIdentifier   isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [product.productIdentifier   isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+    else if([product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+    else if([product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
     }
-    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+    else if([product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [product.productIdentifier  isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
         unlockView.packImageView.image = [UIImage imageNamed:@"RatchetPack"];
     }
     else {
@@ -1158,7 +1162,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     EboticonGif *eboticon = [self getCurrentEboticonGif:[indexPath row]];
     if (![eboticon.purchaseCategory isEqualToString:@""]) {
         if (![[EboticonIAPHelper sharedInstance] productPurchased:eboticon.purchaseCategory]) {
-            [self showUnlockView:eboticon];
+            SKProduct *product = [self getProduct:eboticon];
+            if (product == nil) {
+                return;
+            }
+            [self showUnlockView:product];
             return;
         }
     }
