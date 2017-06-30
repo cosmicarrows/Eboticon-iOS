@@ -204,6 +204,8 @@
 		A53521181EDB194B0098383A /* UnlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A514F58E1ED4ED16000EF4F7 /* UnlockView.xib */; };
 		A53BA5C21E8FA8AC00224FF0 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */; };
 		A54B4AC61F041FF2008A61A6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54B4AC51F041FF2008A61A6 /* Helper.swift */; };
+		A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */; };
+		A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -483,6 +485,9 @@
 		A5198F761E86727300BA6E33 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A53BA5C11E8FA8AC00224FF0 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A54B4AC51F041FF2008A61A6 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		A58465311F06907500410FA2 /* PackSectionHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackSectionHeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackSectionHeaderCollectionReusableView.m; sourceTree = "<group>"; };
+		A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackSectionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -1087,6 +1092,9 @@
 				97044F031BA34922008CA2E1 /* View */,
 				976E4F6A1B9B9B8E0057D6B2 /* Supporting Files */,
 				973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */,
+				A58465311F06907500410FA2 /* PackSectionHeaderCollectionReusableView.h */,
+				A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */,
+				A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */,
 			);
 			path = EboticonKeyboard;
 			sourceTree = "<group>";
@@ -1457,6 +1465,7 @@
 				9730D68D1EC62E760023EA5A /* KeyboardCell.xib in Resources */,
 				972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */,
 				979FE8A41C6667DF00457431 /* eboticon_nointernet_gifs.csv in Resources */,
+				A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */,
 				976E4F891B9BA1B40057D6B2 /* round-switch-mask.png in Resources */,
 				973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */,
 				976E4F791B9BA1660057D6B2 /* Keyboard.storyboard in Resources */,
@@ -1673,6 +1682,7 @@
 			files = (
 				97044EFB1BA348A0008CA2E1 /* LibraryAPI.m in Sources */,
 				97044F121BA3690F008CA2E1 /* ImageRecord.m in Sources */,
+				A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */,
 				976E506F1B9BA3830057D6B2 /* KeyboardCell.m in Sources */,
 				97044F111BA3690F008CA2E1 /* ImageDownloader.m in Sources */,
 				97044F011BA348EF008CA2E1 /* PersistencyManager.m in Sources */,
