@@ -24,6 +24,7 @@
 #import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
 #import "EboticonIAPHelper.h"
+#import "PackSectionHeaderCollectionReusableView.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -75,6 +76,16 @@
     NSMutableArray *_giftImagesNoCaption;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
+    NSMutableArray *_baeImagesNoCaption;
+    NSMutableArray *_baeImagesCaption;
+    NSMutableArray *_churchImagesNoCaption;
+    NSMutableArray *_churchImagesCaption;
+    NSMutableArray *_greekImagesNoCaption;
+    NSMutableArray *_greekImagesCaption;
+    NSMutableArray *_greetingImagesNoCaption;
+    NSMutableArray *_greetingImagesCaption;
+    NSMutableArray *_ratchetImagesNoCaption;
+    NSMutableArray *_ratchetImagesCaption;
     
     int _shiftStatus; //0 = off, 1 = on, 2 = caps lock
     
@@ -158,6 +169,7 @@
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, assign) BOOL isKeypadOn;
 @property (nonatomic, assign) BOOL isFacebookButtonOn;
+@property (nonatomic, assign) BOOL displayingPurchase;
 
 @property (nonatomic, strong) EboticonGif *selectedEboticon;
 @end
@@ -172,7 +184,7 @@
     [super viewDidLoad];
     
     NSLog(@"Keyboard Started 1");
-    
+    self.displayingPurchase = NO;
     //Initialize Firebase Analytics
     [FirebaseConfigurator sharedInstance];
     //NSString *string = [[FirebaseConfigurator sharedInstance] test];
@@ -243,6 +255,8 @@
     
     //Register the Gif Cell
     [_collectionView registerNib:[UINib nibWithNibName:@"KeyboardCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdentifier"];
+    
+    [_collectionView registerNib:[UINib nibWithNibName:@"PackSectionHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView"];
     
     [self.view addSubview:_collectionView];
     
@@ -405,6 +419,16 @@
     _giftImagesNoCaption         = [[NSMutableArray alloc] init];
     _heartImagesCaption          = [[NSMutableArray alloc] init];
     _heartImagesNoCaption        = [[NSMutableArray alloc] init];
+    _baeImagesCaption            = [[NSMutableArray alloc] init];
+    _baeImagesNoCaption          = [[NSMutableArray alloc] init];
+    _churchImagesCaption         = [[NSMutableArray alloc] init];
+    _churchImagesNoCaption       = [[NSMutableArray alloc] init];
+    _greekImagesCaption          = [[NSMutableArray alloc] init];
+    _greekImagesNoCaption        = [[NSMutableArray alloc] init];
+    _greetingImagesCaption       = [[NSMutableArray alloc] init];
+    _greetingImagesNoCaption     = [[NSMutableArray alloc] init];
+    _ratchetImagesCaption        = [[NSMutableArray alloc] init];
+    _ratchetImagesNoCaption      = [[NSMutableArray alloc] init];
     
     
     
@@ -889,7 +913,7 @@
     
     //switches to user's next category
     //NSLog(@"Category %ld Pressed", (long)sender.tag);
-    
+    self.displayingPurchase = NO;
     //Change category
     [self changeCategory:sender.tag];
      [_unlockViewContainer setAlpha:0];
@@ -897,7 +921,7 @@
 }
 
 -(IBAction) purchasedKeyPressed: (UIButton*) sender {
-    
+    self.displayingPurchase = YES;
     [self changeCategory:sender.tag];
 }
 
@@ -1215,31 +1239,79 @@
                         if(_captionState && [isCaption isEqual:@"Caption"]) {
                             //                    NSLog(@"adding  gif: %d", cnt);
                             //                    NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImagesCaption addObject:eboticon];
+                            if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+                                [_greekImagesCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+                                [_baeImagesCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+                                [_greetingImagesCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+                                [_churchImagesCaption addObject:eboticon];
+                            }
+                            else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+                                [_ratchetImagesCaption addObject:eboticon];
+                            }
                             //[_allImages addObject:eboticonObject];
                         }
                         
                         if(_captionState && [isCaption isEqual:@"NoCaption"]) {
                             //                    NSLog(@"adding  gif: %d", cnt);
                             //                    NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImagesNoCaption addObject:eboticon];
                             //[_allImages addObject:eboticonObject];
+//                            [_purchasedImagesCaption addObject:eboticon];
+                            if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+                                [_greekImagesNoCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+                                [_baeImagesNoCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+                                [_greetingImagesNoCaption addObject:eboticon];
+                            }
+                            else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+                                [_churchImagesNoCaption addObject:eboticon];
+                            }
+                            else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+                                [_ratchetImagesNoCaption addObject:eboticon];
+                            }
                         }
                     }
                 }
+            [_purchasedImagesNoCaption addObject:_baeImagesNoCaption];
+             [_purchasedImagesNoCaption addObject:_churchImagesNoCaption];
+             [_purchasedImagesNoCaption addObject:_greekImagesNoCaption];
+             [_purchasedImagesNoCaption addObject:_greetingImagesNoCaption];
+             [_purchasedImagesNoCaption addObject:_ratchetImagesNoCaption];
+            
+            [_purchasedImagesCaption addObject:_baeImagesCaption];
+            [_purchasedImagesCaption addObject:_churchImagesCaption];
+            [_purchasedImagesCaption addObject:_greekImagesCaption];
+            [_purchasedImagesCaption addObject:_greetingImagesCaption];
+            [_purchasedImagesCaption addObject:_ratchetImagesCaption];
+            
 //            }
             
         });
     }];
 }
 
+    
+    
+    
 - (BOOL)productPurchased:(NSString *)productIdentifier
 {
+    
     //Get data from the app
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     for (NSString* identifier in purchasedProducts) {
-        if ([identifier isEqualToString:productIdentifier]) {
+        /*
+         remove last letter of purhaseCategory and productIdentifier so both match as church1 != church2
+         */
+        if ([[identifier substringToIndex:[identifier length]-1] isEqualToString:[productIdentifier substringToIndex:[productIdentifier length]-1]]) {
             return true;
         }
     }
@@ -1289,6 +1361,29 @@
     }
     else {
         return @"";
+    }
+}
+
+- (UIImage *)packSectionHeader:(EboticonGif *)eboticon
+{
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        return [UIImage imageNamed:@"GreekPackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        return [UIImage imageNamed:@"BaePackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        return [UIImage imageNamed:@"GreetingPackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        return [UIImage imageNamed:@"ChurchPackSectionHeader"];
+    }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return [UIImage imageNamed:@"RatchPackSectionHeader"];
+    }
+    else {
+        return nil;
     }
 }
 
@@ -1346,6 +1441,9 @@
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    if (self.displayingPurchase) {
+        return _currentEboticonGifs.count;
+    }
     return 1;
 }
 
@@ -1354,6 +1452,9 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSLog(@"Number of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
+    if (self.displayingPurchase) {
+        return [(NSArray *)[_currentEboticonGifs objectAtIndex:section] count];
+    }
     return [_currentEboticonGifs count];
 }
 
@@ -1370,7 +1471,12 @@
     // Set up the cell...
     // Fetch a image record from the array
     EboticonGif *currentGif = [[EboticonGif alloc]init];
-    currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    if (self.displayingPurchase) {
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    }
+    
     [[cell imageView] setAlpha:1];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1485,7 +1591,6 @@
 
 
 
-
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Button Tapped: %ld", (long)[indexPath row]);
@@ -1493,7 +1598,11 @@
     
     //Get current gif
     EboticonGif *currentGif = [[EboticonGif alloc]init];
-    currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    if (self.displayingPurchase) {
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.section];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    }
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1888,6 +1997,23 @@
     
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (self.displayingPurchase) {
+        return CGSizeMake(_collectionView.frame.size.width, 60);
+    } else {
+        return CGSizeZero;
+    }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
+    if (self.displayingPurchase) {
+        EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
+    }
+    
+    return headerView;
+}
 
 #pragma mark - Orientation Protocol methods
 
@@ -2011,7 +2137,13 @@
         NSArray *visiblePaths = [_collectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            EboticonGif *imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
+            EboticonGif *imgRecord = [[EboticonGif alloc] init];
+            if (self.displayingPurchase) {
+               imgRecord = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            } else {
+                imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
+            }
+            
             
             if (!imgRecord.thumbImage)
                 // Avoid downloading if the image is already downloaded
