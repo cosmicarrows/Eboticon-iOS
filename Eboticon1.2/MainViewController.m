@@ -63,7 +63,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 @interface MainViewController (){
     UIToolbar *_toolbar;
     NSMutableArray *_toolbarButtons;
-    NSMutableArray *_eboticonGifs;
+    NSArray *_eboticonGifs;
     
     NSMutableArray *_allImages;
     NSMutableArray *_purchasedImages;
@@ -80,7 +80,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
     
-    NSMutableArray *_currentEboticonGifs;
+    NSArray *_currentEboticonGifs;
     
 //    NSArray *_products;
 }
@@ -343,7 +343,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void) initializeEboticons {
     
     //Initialize Gifs
-    _currentEboticonGifs         = [[NSMutableArray alloc] init];
+    _currentEboticonGifs         = [[NSArray alloc] init];
     _allImages                   = [[NSMutableArray alloc] init];
     _purchasedImages             = [[NSMutableArray alloc] init];
     _allImagesCaption            = [[NSMutableArray alloc] init];
@@ -358,7 +358,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     _giftImagesNoCaption         = [[NSMutableArray alloc] init];
     _heartImagesCaption          = [[NSMutableArray alloc] init];
     _heartImagesNoCaption        = [[NSMutableArray alloc] init];
-    _eboticonGifs = [[NSMutableArray alloc] init];
+    _eboticonGifs = [[NSArray alloc] init];
     
 };
 - (void) sendToGoogleAnalytics {
@@ -440,14 +440,15 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [_eboticonGifs removeAllObjects];
-                    [_eboticonGifs addObjectsFromArray:eboticons];
+//                    [_eboticonGifs removeAllObjects];
+//                    [_eboticonGifs addObjectsFromArray:eboticons];
                     
                     DDLogDebug(@"loadEboticon _eboticonCount: %lu", (unsigned long)_eboticonGifs.count);
                     
-                    [self populateGifArrays];
+//                    [self populateGifArrays];
                     [spinner stopAnimating];
-                    
+                    _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:CATEGORY_ALL];
+                    NSLog(@"####### %@", _eboticonGifs);
                      [self.collectionView reloadData];
                     
                   
@@ -707,7 +708,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                 
                 if([skinTone isEqual:self.savedSkinTone]){
                     //[_purchasedImages addObject:eboticon];
-                    [_eboticonGifs addObject:eboticon];
+//                   s [_eboticonGifs addObject:eboticon];
                 }
             }
             
@@ -1029,12 +1030,12 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return _eboticonGifs.count;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
+    return [(NSArray *)[_eboticonGifs objectAtIndex:section] count];
     
     NSLog(@"In NumberofItemsinSection. gifCategory is %@",_gifCategory);
     NSLog(@"In Caption State:  %ld",(long)[_captionState integerValue]);
@@ -1131,7 +1132,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     gifCell.layer.cornerRadius = 6;
     
     // TODO: Fix bug to from the cloud
-    EboticonGif *eboticonGifName = [self getCurrentEboticonGif:[indexPath row]];
+    EboticonGif *eboticonGifName = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [gifCell.gifImageView setAlpha:1];
     [gifCell setCellGif:eboticonGifName];
     
@@ -1159,7 +1160,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         [self reverseMenu:nil];
         return;
     }
-    EboticonGif *eboticon = [self getCurrentEboticonGif:[indexPath row]];
+    EboticonGif *eboticon = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if (![eboticon.purchaseCategory isEqualToString:@""]) {
         if (![[EboticonIAPHelper sharedInstance] productPurchased:eboticon.purchaseCategory]) {
             SKProduct *product = [self getProduct:eboticon];
@@ -1171,66 +1172,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         }
     }
     
-    NSMutableArray *imageNames;
-    
-    if ([_captionState integerValue]) {
-        if([_gifCategory isEqual: CATEGORY_CAPTION]){
-            imageNames = _captionImages;
-        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-            imageNames = _noCaptionImages;
-        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-            imageNames = _recentImages;
-        } else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
-            imageNames = _purchasedImages;
-        } else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-            //  NSLog(@"smile images");
-            imageNames = _smileImagesCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-            imageNames = _nosmileImagesCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-            imageNames = _heartImagesCaption;
-        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-            imageNames = _giftImagesCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-            imageNames = _exclamationImagesCaption;
-        }else {
-            _gifCategory = CATEGORY_CAPTION;
-            imageNames = _captionImages;
-        }
-    }
-    else{
-        if([_gifCategory isEqual: CATEGORY_CAPTION]){
-            imageNames = _captionImages;
-        } else if ([_gifCategory isEqual: CATEGORY_NO_CAPTION]){
-            imageNames = _noCaptionImages;
-        } else if ([_gifCategory isEqual: CATEGORY_RECENT]){
-            imageNames = _recentImages;
-        }else if ([_gifCategory isEqual: CATEGORY_PURCHASED]){
-            imageNames = _purchasedImages;
-        }else if ([_gifCategory isEqual: CATEGORY_SMILE]){
-            //  NSLog(@"smile images");
-            imageNames = _smileImagesNoCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_NOSMILE]){
-            imageNames = _nosmileImagesNoCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_HEART]){
-            imageNames = _heartImagesNoCaption;
-        }else if ([_gifCategory isEqual: CATEGORY_GIFT]){
-            imageNames = _giftImagesNoCaption;
-        } else if ([_gifCategory isEqual: CATEGORY_EXCLAMATION]){
-            imageNames = _exclamationImagesNoCaption;
-        }else {
-            _gifCategory = CATEGORY_NO_CAPTION;
-            imageNames = _noCaptionImages;
-        }
-        
-    }
+    NSMutableArray *imageNames = [_eboticonGifs objectAtIndex:indexPath.section];
     
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
-    
-    DDLogDebug(@"Row: %ld", (long)indexPath.row);
-    DDLogDebug(@"Passing images count: %ld", (long)[imageNames count]);
-    DDLogDebug(@"Category: %@", _gifCategory);
-    
     
     gifDetailViewController.gifCategory = _gifCategory;
     gifDetailViewController.index = indexPath.row;

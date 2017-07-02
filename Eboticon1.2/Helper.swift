@@ -8,6 +8,20 @@
 
 import UIKit
 
+let baePack = "com.eboticon.Eboticon.baepack"
+let churchPack = "com.eboticon.Eboticon.churchpack"
+let greekPack = "com.eboticon.Eboticon.greekpack"  // com.eboticon.Eboticon.greekpack1
+let greetingPack = "com.eboticon.Eboticon.greetingspack"
+let ratchetPack = "com.eboticon.Eboticon.ratchpack"
+
+let caption = "Caption"
+
+let love = "love"
+let happy = "happy"
+let unhappy = "not_happ"
+let greeting = "greeting"
+let exclamation = "exclamation"
+
 @objc class Helper: NSObject {
     
     class func topViewController(_ rootViewController: UIViewController?) -> UIViewController? {
@@ -30,4 +44,63 @@ import UIKit
             return topViewController(presented)
         }
     }
+    
+    class func isBaePack(_ eboticon:EboticonGif) -> Bool {
+        if eboticon.purchaseCategory == "" {
+            return false
+        }
+        let pack = eboticon.purchaseCategory.substring(to: eboticon.purchaseCategory.index(before: eboticon.purchaseCategory.endIndex))
+        return pack == baePack
+    }
+    class func isChurchPack(_ eboticon:EboticonGif) -> Bool {
+        if eboticon.purchaseCategory == "" {
+            return false
+        }
+        let pack = eboticon.purchaseCategory.substring(to: eboticon.purchaseCategory.index(before: eboticon.purchaseCategory.endIndex))
+        return pack == churchPack
+    }
+    class func isGreekPack(_ eboticon:EboticonGif) -> Bool {
+        if eboticon.purchaseCategory == "" {
+            return false
+        }
+        let pack = eboticon.purchaseCategory.substring(to: eboticon.purchaseCategory.index(before: eboticon.purchaseCategory.endIndex))
+        return pack == greekPack
+    }
+    class func isGreetingPack(_ eboticon:EboticonGif) -> Bool {
+        if eboticon.purchaseCategory == "" {
+            return false
+        }
+        let pack = eboticon.purchaseCategory.substring(to: eboticon.purchaseCategory.index(before: eboticon.purchaseCategory.endIndex))
+        return pack == greetingPack
+    }
+    class func isRatchetPack(_ eboticon:EboticonGif) -> Bool {
+        if eboticon.purchaseCategory == "" {
+            return false
+        }
+        let pack = eboticon.purchaseCategory.substring(to: eboticon.purchaseCategory.index(before: eboticon.purchaseCategory.endIndex))
+        return pack == ratchetPack
+    }
+    class func isFreePack(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.purchaseCategory == ""
+    }
+    class func isCaption(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.category == caption
+    }
+    
+    class func isLove(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.emotionCategory == love
+    }
+    class func isHappy(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.emotionCategory == happy
+    }
+    class func isUnhappy(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.emotionCategory == unhappy
+    }
+    class func isGreeting(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.emotionCategory == greeting
+    }
+    class func isExclamation(_ eboticon:EboticonGif) -> Bool {
+        return eboticon.emotionCategory == exclamation
+    }
 }
+

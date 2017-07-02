@@ -206,6 +206,7 @@
 		A54B4AC61F041FF2008A61A6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54B4AC51F041FF2008A61A6 /* Helper.swift */; };
 		A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */; };
 		A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */; };
+		A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA370C1F079B530042E1FC /* DataStore.swift */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -488,6 +489,7 @@
 		A58465311F06907500410FA2 /* PackSectionHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackSectionHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackSectionHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackSectionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		A5AA370C1F079B530042E1FC /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 				63B6CB4518F07C9600D1F08A /* EboticonGif.m */,
 				97E46BF31BDA5F8000A83A05 /* FilterData.h */,
 				97E46BF41BDA5F8000A83A05 /* FilterData.m */,
+				A5AA370C1F079B530042E1FC /* DataStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1673,6 +1676,7 @@
 				979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */,
 				1F9F495F1D30CB2A006AAC8F /* PersistencyManager.m in Sources */,
 				A5198F771E86727300BA6E33 /* Webservice.swift in Sources */,
+				A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

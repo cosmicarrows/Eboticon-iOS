@@ -44,8 +44,8 @@ let kBaseURL = "https://api.eboticons.com/v1/"
                     }
                     eboticons.append(unwrappedEboticon)
                 }
+                DataStore.shared.setupDataStore(eboticons)
                 completion(eboticons)
-                
             }
             }.resume()
     }
