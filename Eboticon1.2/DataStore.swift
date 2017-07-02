@@ -59,7 +59,7 @@ import Foundation
             function = Helper.isGreeting(_:)
         case "exclamation":
             function = Helper.isExclamation(_:)
-        case "purchased":
+        case "Purchased":
             return purchased(caption)
         default:
             return all(caption)
@@ -90,19 +90,11 @@ import Foundation
     
     private func purchased(_ caption:Bool) -> [[EboticonGif]] {
         var all: [[EboticonGif]] = []
-        if caption {
             all.append(baePack.filter{ Helper.isCaption($0) })
             all.append(churchPack.filter{ Helper.isCaption($0) })
             all.append(greekPack.filter{ Helper.isCaption($0) })
             all.append(greetingPack.filter{ Helper.isCaption($0) })
             all.append(ratchetPack.filter{ Helper.isCaption($0) })
-        } else {
-            all.append(baePack.filter{ !Helper.isCaption($0) })
-            all.append(churchPack.filter{ !Helper.isCaption($0) })
-            all.append(greekPack.filter{ Helper.isCaption($0) })
-            all.append(greetingPack.filter{ !Helper.isCaption($0) })
-            all.append(ratchetPack.filter{ !Helper.isCaption($0) })
-        }
         return all
     }
     
@@ -119,7 +111,7 @@ import Foundation
             all.append(freePack.filter{ !Helper.isCaption($0) })
             all.append(baePack.filter{ !Helper.isCaption($0) })
             all.append(churchPack.filter{ !Helper.isCaption($0) })
-            all.append(greekPack.filter{ Helper.isCaption($0) })
+            all.append(greekPack.filter{ !Helper.isCaption($0) })
             all.append(greetingPack.filter{ !Helper.isCaption($0) })
             all.append(ratchetPack.filter{ !Helper.isCaption($0) })
         }

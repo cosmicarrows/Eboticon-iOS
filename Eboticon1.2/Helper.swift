@@ -165,3 +165,12 @@ let publishedEndpoint = "eboticons/published"
     }
 }
 
+//extension Sequence where Iterator.Element: Hashable {
+//    func unique() -> [Iterator.Element] {
+//        var seen = Set<Iterator.Element>()
+//        return filter { seen.update(with: $0) == nil }
+//    }
+//}
+//func == (lhs: EboticonGif, rhs: EboticonGif) -> Bool {
+//    return lhs.eboticonID == rhs.eboticonID
+//}
