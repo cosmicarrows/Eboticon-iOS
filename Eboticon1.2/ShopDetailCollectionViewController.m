@@ -133,14 +133,24 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         spinner.hidesWhenStopped = YES;
         [self.view addSubview:spinner];
         [spinner startAnimating];
-        [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+        [Helper getEboticons:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_eboticonGifs addObjectsFromArray:eboticons];
-                [self createPackGifs];
-                [spinner stopAnimating];
-                [self.collectionView reloadData];
+                if (eboticons != nil) {
+                    [_eboticonGifs addObjectsFromArray:eboticons];
+                    [self createPackGifs];
+                    [spinner stopAnimating];
+                    [self.collectionView reloadData];
+                }
             });
         }];
+//        [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [_eboticonGifs addObjectsFromArray:eboticons];
+//                [self createPackGifs];
+//                [spinner stopAnimating];
+//                [self.collectionView reloadData];
+//            });
+//        }];
     }
     
 }

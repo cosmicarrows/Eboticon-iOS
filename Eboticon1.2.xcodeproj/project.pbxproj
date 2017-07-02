@@ -209,6 +209,8 @@
 		A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA370C1F079B530042E1FC /* DataStore.swift */; };
 		A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */; };
 		A5AA37151F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */; };
+		A5AA37171F09381D0042E1FC /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37161F09381D0042E1FC /* Cache.swift */; };
+		A5AA37191F0938370042E1FC /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37181F0938370042E1FC /* Resource.swift */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -494,6 +496,8 @@
 		A5AA370C1F079B530042E1FC /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		A5AA37161F09381D0042E1FC /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		A5AA37181F0938370042E1FC /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -1264,6 +1268,8 @@
 			isa = PBXGroup;
 			children = (
 				A5198F761E86727300BA6E33 /* Webservice.swift */,
+				A5AA37161F09381D0042E1FC /* Cache.swift */,
+				A5AA37181F0938370042E1FC /* Resource.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1655,6 +1661,7 @@
 				A54B4AC61F041FF2008A61A6 /* Helper.swift in Sources */,
 				6351833118F6BBA700932C04 /* EboticonGifCell.m in Sources */,
 				1F9F495D1D30CB21006AAC8F /* LibraryAPI.m in Sources */,
+				A5AA37171F09381D0042E1FC /* Cache.swift in Sources */,
 				1F9F495C1D30CB1D006AAC8F /* UIImage+Resize.m in Sources */,
 				9760B5451B750D0E00E75EEC /* KeyboardTutorialViewController.m in Sources */,
 				63A70AB718A6A0F30075B829 /* iTellAFriend.m in Sources */,
@@ -1665,6 +1672,7 @@
 				977FBD781B8A661200B75C05 /* EboticonIAPHelper.m in Sources */,
 				97A383121B695D7B002F5571 /* TabViewController.m in Sources */,
 				6368612D186D555C00EF3CC5 /* GifCollectionViewController.m in Sources */,
+				A5AA37191F0938370042E1FC /* Resource.swift in Sources */,
 				972269B11EA532380065031A /* OnboardingViewController.swift in Sources */,
 				63FAE3C41868CCE900116D73 /* JMCategoriesData.m in Sources */,
 				9755A9E71EFE81B6005DABCC /* PurchasePack.swift in Sources */,
