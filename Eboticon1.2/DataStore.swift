@@ -40,6 +40,10 @@ import Foundation
         ratchetPack = eboticons.filter{ Helper.isRatchetPack($0) && $0.skinTone == skintone }
     }
     
+    func hasData()->Bool {
+        return !freePack.isEmpty || !baePack.isEmpty || !churchPack.isEmpty || !greekPack.isEmpty || !ratchetPack.isEmpty
+    }
+    
     public func fetchEbotions(_ caption:Bool, category:String) -> [[EboticonGif]] {
         var function:(EboticonGif) -> Bool = Helper.isLove(_:)
         switch category {
