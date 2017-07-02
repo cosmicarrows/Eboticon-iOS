@@ -207,6 +207,8 @@
 		A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */; };
 		A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */; };
 		A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA370C1F079B530042E1FC /* DataStore.swift */; };
+		A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */; };
+		A5AA37151F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */; };
 		A78A24501B26C6E1007A4931 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78A244F1B26C6E1007A4931 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
@@ -490,6 +492,8 @@
 		A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackSectionHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackSectionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		A5AA370C1F079B530042E1FC /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		A78A244F1B26C6E1007A4931 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F20D761D73A94E0A9EC0F3DC /* Pods_EboticonKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EboticonKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71A7C5C6734DB2329CFB2E0 /* Pods-EboticonKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EboticonKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -1183,6 +1187,8 @@
 				6351832F18F6BBA700932C04 /* EboticonGifCell.h */,
 				6351833018F6BBA700932C04 /* EboticonGifCell.m */,
 				970DA3DC1B69BED700587CD6 /* EboticonGifCell.xib */,
+				A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */,
+				A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */,
 			);
 			name = "Main Collection View";
 			sourceTree = "<group>";
@@ -1382,6 +1388,7 @@
 				976E4EEB1B9A95B20057D6B2 /* Main1.Storyboard in Resources */,
 				9760B5711B7A672B00E75EEC /* avenirltstd-book.otf in Resources */,
 				978F1C951B8F627B00ADA44C /* arrow_left.png in Resources */,
+				A5AA37151F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib in Resources */,
 				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,
 				978F1C961B8F627B00ADA44C /* arrow_right.png in Resources */,
 				971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */,
@@ -1673,6 +1680,7 @@
 				63A70AB018A606540075B829 /* MoreViewController.m in Sources */,
 				63FAE3C31868CCE900116D73 /* JMCategoryData.m in Sources */,
 				97E64C831BD83BB7009DB493 /* CustomNavigationController.m in Sources */,
+				A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */,
 				979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */,
 				1F9F495F1D30CB2A006AAC8F /* PersistencyManager.m in Sources */,
 				A5198F771E86727300BA6E33 /* Webservice.swift in Sources */,

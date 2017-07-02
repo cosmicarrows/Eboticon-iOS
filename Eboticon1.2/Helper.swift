@@ -18,11 +18,36 @@ let caption = "Caption"
 
 let love = "love"
 let happy = "happy"
-let unhappy = "not_happ"
+let unhappy = "not_happy"
 let greeting = "greeting"
 let exclamation = "exclamation"
 
+let baePackSectionHeaderImage = "BaePackSectionHeader"
+let churchPackSectionHeaderImage = "ChurchPackSectionHeader"
+let greekPackSectionHeaderImage = "GreekPackSectionHeader"
+let greetingPackSectionHeaderImage = "GreetingPackSectionHeader"
+let ratchetPackSectionHeaderImage = "RatchPackSectionHeader"
+
 @objc class Helper: NSObject {
+    
+    class func packSectionHeaderImage(_ eboticon:EboticonGif) -> UIImage? {
+        if Helper.isBaePack(eboticon) {
+            return UIImage(named: baePackSectionHeaderImage)
+        }
+        if Helper.isChurchPack(eboticon) {
+            return UIImage(named: churchPackSectionHeaderImage)
+        }
+        if Helper.isGreekPack(eboticon) {
+            return UIImage(named: greekPackSectionHeaderImage)
+        }
+        if Helper.isGreetingPack(eboticon) {
+            return UIImage(named: greetingPackSectionHeaderImage)
+        }
+        if Helper.isRatchetPack(eboticon) {
+            return UIImage(named: ratchetPackSectionHeaderImage)
+        }
+        return nil
+    }
     
     class func topViewController(_ rootViewController: UIViewController?) -> UIViewController? {
         guard let rootViewController = rootViewController else {
