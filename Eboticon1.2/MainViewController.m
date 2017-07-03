@@ -437,10 +437,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                 spinner.hidesWhenStopped = YES;
                 [self.view addSubview:spinner];
                 [spinner startAnimating];
+                NSString *tone = [[NSUserDefaults standardUserDefaults] objectForKey:@"skin_tone"];
                 [Helper getEboticons:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (eboticons != nil) {
-                            [DataStore.shared setupDataStore:eboticons tone:self.savedSkinTone];
+                            [DataStore.shared setupDataStore:eboticons tone:tone];
                             [spinner stopAnimating];
                             _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:_gifCategory];
                             [self.collectionView reloadData];
