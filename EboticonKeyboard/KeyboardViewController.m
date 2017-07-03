@@ -50,8 +50,8 @@
     
     NSInteger _currentCategory;
     NSInteger _tappedImageCount;
-    NSInteger _currentImageSelected;
-    NSInteger _lastImageSelected;
+    NSIndexPath *_currentImageSelected;
+    NSIndexPath *_lastImageSelected;
     NSInteger _captionState;
     NSInteger _scrollSwipeState;
     NSInteger _currentNumberGifs;
@@ -744,7 +744,7 @@
                         [exclamationGreekNoCaption addObject:eboticon];
                     }
                 }
-            } else if([KeyboardHelper isGreeting:eboticon]){
+            } else if([KeyboardHelper isGreetingPack:eboticon]){
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_greetingImagesCaption addObject:eboticon];
                     if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
@@ -1705,7 +1705,10 @@
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _currentEboticonGifs.count;
+    if (_showSection == YES) {
+        return _currentEboticonGifs.count;
+    }
+    return 1;
 }
 
 
@@ -1713,7 +1716,10 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSLog(@"Number of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
-    return [(NSArray *)[_currentEboticonGifs objectAtIndex:section] count];
+    if (_showSection == YES) {
+        return [(NSArray *)[_currentEboticonGifs objectAtIndex:section] count];
+    }
+    return _currentEboticonGifs.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1729,9 +1735,12 @@
     // Set up the cell...
     // Fetch a image record from the array
     EboticonGif *currentGif = [[EboticonGif alloc]init];
-    currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if (_showSection == YES) {
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
+    }
 
-    
     [[cell imageView] setAlpha:1];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1853,9 +1862,13 @@
     
     //Get current gif
     EboticonGif *currentGif = [[EboticonGif alloc]init];
+    
+    if (_showSection == YES) {
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
+    }
   
-    currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.section];
-
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1865,7 +1878,7 @@
     }
     
     //First Tap
-    if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
+    if (_tappedImageCount == 0 && _currentImageSelected == indexPath && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -1875,7 +1888,7 @@
         
         //   NSLog(@"Button Tapped ");
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath.row;
+        _currentImageSelected = indexPath;
         
         if([UIPasteboard generalPasteboard]){
             NSString * urlPath = currentGif.gifUrl;
@@ -1955,7 +1968,7 @@
         
     }
     //Tapped different image
-    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row && allowedOpenAccess){
+    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once different");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -1963,7 +1976,7 @@
         //        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath.row;
+        _currentImageSelected = indexPath;
         
         if([UIPasteboard generalPasteboard]){
             NSString * urlPath = currentGif.gifUrl;
@@ -2100,7 +2113,7 @@
         }
     }
     //No image selected
-    else if (_tappedImageCount == 0 && _currentImageSelected != indexPath.row && allowedOpenAccess){
+    else if (_tappedImageCount == 0 && _currentImageSelected != indexPath && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -2109,7 +2122,7 @@
         
         
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath.row;
+        _currentImageSelected = indexPath;
         
         // Make toast
         if([UIPasteboard generalPasteboard]){
@@ -2251,28 +2264,35 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] > 0) {
-        EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:section] objectAtIndex:0];
-        if ( [eboticon.purchaseCategory isEqualToString:@""]) {
-            return CGSizeZero;
+    if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] > 0) {
+            EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:section] objectAtIndex:0];
+            if ( [eboticon.purchaseCategory isEqualToString:@""]) {
+                return CGSizeZero;
+            } else {
+                return CGSizeMake(_collectionView.frame.size.width, 60);
+            }
         } else {
-            return CGSizeMake(_collectionView.frame.size.width, 60);
+            return CGSizeZero;
         }
     } else {
         return CGSizeZero;
     }
-
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
-    if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] > 0) {
-        EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
-        if (![eboticon.purchaseCategory isEqualToString:@""]) {
-            headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
+    if (_showSection == YES) {
+        PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] > 0) {
+            EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
+            if (![eboticon.purchaseCategory isEqualToString:@""]) {
+                headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
+            }
         }
+        return headerView;
+    } else {
+        return nil;
     }
-    return headerView;
 }
 
 #pragma mark - Orientation Protocol methods
@@ -2398,7 +2418,12 @@
         for (NSIndexPath *indexPath in visiblePaths)
         {
             EboticonGif *imgRecord = [[EboticonGif alloc] init];
-               imgRecord = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            if (_showSection == YES) {
+                imgRecord = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            } else {
+                imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
+            }
+            
             if (!imgRecord.thumbImage)
                 // Avoid downloading if the image is already downloaded
             {
