@@ -14,5 +14,8 @@
     [super awakeFromNib];
     // Initialization code
 }
+- (void)prepareForReuse {
+    _packSectionImageView.image = nil;
+}
 
 @end
