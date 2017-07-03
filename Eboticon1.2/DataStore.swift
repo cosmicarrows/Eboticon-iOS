@@ -28,16 +28,14 @@ import Foundation
     var greetingPack: [EboticonGif] = []
     var ratchetPack: [EboticonGif] = []
     var all: [EboticonGif] = []
-    
-    private let skintone = UserDefaults.standard.string(forKey:"skin_tone")
-    
-    func setupDataStore(_ eboticons:[EboticonGif]) {
-        freePack = eboticons.filter{ Helper.isFreePack($0) && $0.skinTone == skintone }
-        baePack = eboticons.filter{ Helper.isBaePack($0) && $0.skinTone == skintone }
-        churchPack = eboticons.filter{ Helper.isChurchPack($0) && $0.skinTone == skintone }
-        greekPack = eboticons.filter{ Helper.isGreekPack($0) && $0.skinTone == skintone }
-        greetingPack = eboticons.filter{ Helper.isGreetingPack($0) && $0.skinTone == skintone }
-        ratchetPack = eboticons.filter{ Helper.isRatchetPack($0) && $0.skinTone == skintone }
+        
+    func setupDataStore(_ eboticons:[EboticonGif], tone:String) {
+        freePack = eboticons.filter{ Helper.isFreePack($0) && $0.skinTone == tone }
+        baePack = eboticons.filter{ Helper.isBaePack($0) && $0.skinTone == tone }
+        churchPack = eboticons.filter{ Helper.isChurchPack($0) && $0.skinTone == tone }
+        greekPack = eboticons.filter{ Helper.isGreekPack($0) && $0.skinTone == tone }
+        greetingPack = eboticons.filter{ Helper.isGreetingPack($0) && $0.skinTone == tone }
+        ratchetPack = eboticons.filter{ Helper.isRatchetPack($0) && $0.skinTone == tone }
     }
     
     func hasData()->Bool {

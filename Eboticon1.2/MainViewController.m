@@ -428,10 +428,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 - (void)loadEboticon
 {
-    if ([DataStore.shared hasData]) {
-        _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:_gifCategory];
-        [self.collectionView reloadData];
-    } else {
         if(self.isEboticonsLoaded == NO){
             if (![self doesInternetExist]) {
                 [self showNoConnectionImage];
@@ -441,33 +437,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                 spinner.hidesWhenStopped = YES;
                 [self.view addSubview:spinner];
                 [spinner startAnimating];
-                
                 [Helper getEboticons:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (eboticons != nil) {
-                            [DataStore.shared setupDataStore:eboticons];
+                            [DataStore.shared setupDataStore:eboticons tone:self.savedSkinTone];
                             [spinner stopAnimating];
-                            _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:CATEGORY_ALL];
+                            _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:_gifCategory];
                             [self.collectionView reloadData];
                         }
                     });
                 }];
-//                
-//                [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        
-//                        DDLogDebug(@"loadEboticon _eboticonCount: %lu", (unsigned long)_eboticonGifs.count);
-//                        [DataStore.shared setupDataStore:eboticons];
-//                        [spinner stopAnimating];
-//                        _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:CATEGORY_ALL];
-//                        [self.collectionView reloadData];
-//                    });
-//                }];
             }
-            
             self.isEboticonsLoaded = YES;
         }
-    }
 
     
 }
@@ -477,6 +459,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.isEboticonsLoaded = NO;
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     [self loadEboticon];
+    [self.collectionView reloadData];
 };
 
 -(NSMutableArray*) getRecentGifs

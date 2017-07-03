@@ -20,7 +20,6 @@ import Foundation
         }
         
         let dataResource = Resource<Data>(url: resource.url, parse: {$0}, method: resource.method)
-        
         webservice.load(resource: dataResource) { (result) in
             switch result {
             case let .error(error):
