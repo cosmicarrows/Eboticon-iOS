@@ -1751,13 +1751,13 @@
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
 
-
+    [cell.imageView setContentMode:UIViewContentModeScaleToFill];
     
     
     if([self isRequestsOpenAccessEnabled]){
         
         //Load Gif File name
-        if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
+        if (_tappedImageCount == 1 && _currentImageSelected == indexPath){
             
             cell.imageView.image = [UIImage imageNamed:@"placeholder_loading.png"];
             
