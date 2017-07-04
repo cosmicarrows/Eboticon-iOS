@@ -9,34 +9,51 @@
 import Foundation
 
 typealias JSONDictionary = [String: Any]
-let kBaseURL = "http://api.eboticons.com/v1/"
+let kBaseURL = "https://api.eboticons.com/v1/"
 
 
-@objc class Webservice:NSObject, URLSessionDelegate {
+@objc class Webservice:NSObject {
     
-    func loadEboticons(endpoint: String, completion: @escaping ([JSONDictionary]?) -> ()) {
+    func loadEboticons(endpoint: String, onlyFreeOnce:Bool, completion: @escaping ([EboticonGif]?) -> ()) {
         guard let url = URL(string:kBaseURL+endpoint) else {
             return
-        }
-        let configuration = URLSessionConfiguration.default
-        
-        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
-        session.dataTask(with: url) { data, response, error in
-
+        }        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            
             guard let data = data else {
                 completion(nil)
                 return
             }
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
             if let jsonArray = json as? [JSONDictionary] {
-                completion(jsonArray)
+                var eboticons = [EboticonGif]()
+                for eboticonDict in jsonArray {
+                    let pack = eboticonDict["pack"] as? String ?? ""
+                    if onlyFreeOnce {
+                        if pack != "" {
+                            continue
+                        }
+                    }
+                    let id = eboticonDict["id"] as? NSNumber ?? 0
+                    let gif = eboticonDict["gif"] as? String ?? ""
+                    let still = eboticonDict["still"] as? String ?? ""
+                    let name = eboticonDict["name"] as? String ?? ""
+                    let caption = eboticonDict["caption"] as? String ?? ""
+                    let mov = eboticonDict["movie"] as? String ?? ""
+                    let category = eboticonDict["category"] as? String ?? ""
+                    let skinTone = eboticonDict["skin_tone"] as? String ?? ""
+                    
+                    
+                    let eboticon = EboticonGif(attributes: name, gifURL: gif, captionCategory: caption, category: category, eboticonID: id, movieURL: mov, stillURL: still, skinTone: skinTone, displayType: "", purchaseCategory: pack)
+                    guard let unwrappedEboticon = eboticon else {
+                        continue
+                    }
+                    eboticons.append(unwrappedEboticon)
+                }
+                completion(eboticons)
+                
             }
             }.resume()
-    }
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        
     }
 }
 
