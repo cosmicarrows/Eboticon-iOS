@@ -50,8 +50,8 @@
     
     NSInteger _currentCategory;
     NSInteger _tappedImageCount;
-    NSIndexPath *_currentImageSelected;
-    NSIndexPath *_lastImageSelected;
+    NSInteger _currentImageSelected;
+    NSInteger _lastImageSelected;
     NSInteger _captionState;
     NSInteger _scrollSwipeState;
     NSInteger _currentNumberGifs;
@@ -87,11 +87,6 @@
     NSMutableArray *_ratchetImagesNoCaption;
     NSMutableArray *_ratchetImagesCaption;
     NSMutableArray *_freePack;
-    NSMutableArray *_baePack;
-    NSMutableArray *_churchPack;
-    NSMutableArray *_greekPack;
-    NSMutableArray *_greetingPack;
-    NSMutableArray *_ratchetPack;
     
     int _shiftStatus; //0 = off, 1 = on, 2 = caps lock
     
@@ -188,7 +183,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _showSection == NO;
     NSLog(@"Keyboard Started 1");
     //Initialize Firebase Analytics
     [FirebaseConfigurator sharedInstance];
@@ -434,26 +429,6 @@
     _greetingImagesNoCaption     = [[NSMutableArray alloc] init];
     _ratchetImagesCaption        = [[NSMutableArray alloc] init];
     _ratchetImagesNoCaption      = [[NSMutableArray alloc] init];
-    _freePack                    = [[NSMutableArray alloc] init];
-    _baePack                     = [[NSMutableArray alloc] init];
-    _churchPack                  = [[NSMutableArray alloc] init];
-    _greekPack                   = [[NSMutableArray alloc] init];
-    _greetingPack                = [[NSMutableArray alloc] init];
-    _ratchetPack                 = [[NSMutableArray alloc] init];
-    
-    
-    
-    
-    //    _exclamationImagesCaption = [[NSMutableArray alloc]init];
-    //    _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _smileImagesCaption = [[NSMutableArray alloc]init];
-    //    _smileImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _nosmileImagesCaption = [[NSMutableArray alloc]init];
-    //    _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _giftImagesCaption = [[NSMutableArray alloc]init];
-    //    _giftImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _heartImagesCaption = [[NSMutableArray alloc]init];
-    //    _heartImagesNoCaption = [[NSMutableArray alloc]init];
     
     //Intialize current tapped image
     _tappedImageCount       = 0;
@@ -476,7 +451,6 @@
     
     //Load CSV into Array
 //    [self getPurchaseGifs];
-    
     
     //Setup item size of keyboard layout to fit keyboard.
     //[self changeKeyboardFlowLayout];
@@ -521,14 +495,27 @@
     spinner.hidesWhenStopped = YES;
     [self.view addSubview:spinner];
     [spinner startAnimating];
-    [[[Webservice alloc] init] loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<NSDictionary<NSString *,id> *> * eboticons) {
-        [self populateAllSection:eboticons];
-        [spinner stopAnimating];
-        [self changeCategory:1];
-        [_collectionView reloadData];
-    }];
-
     
+    [[[Webservice alloc] init] loadEboticonsWithEndpoint:@"eboticons/published" onlyFreeOnce:YES completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"######## %@",eboticons );
+            [_allImages addObjectsFromArray:eboticons];
+            [self populateGifArrays];
+            [spinner stopAnimating];
+            [self getPurchasedGif];
+        });
+        
+    }];
+}
+
+- (void)getPurchasedGif
+{
+    [[[Webservice alloc] init] loadEboticonsWithEndpoint:@"eboticons/published" onlyFreeOnce:NO completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self populateAllSection:eboticons];
+        });
+        
+    }];
 }
 
 - (void) populateAllSection:(NSArray *)eboticons
@@ -536,340 +523,46 @@
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
     
-    //_smileImagesCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *smileFreeCaption = [NSMutableArray new];
-    NSMutableArray *smileBaeCaption = [NSMutableArray new];
-    NSMutableArray *smileChurchCaption = [NSMutableArray new];
-    NSMutableArray *smileGreekCaption = [NSMutableArray new];
-    NSMutableArray *smileGreetingCaption = [NSMutableArray new];
-    NSMutableArray *smileRatchetCaption = [NSMutableArray new];
-    
-    //_smileImagesNoCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *smileFreeNoCaption = [NSMutableArray new];
-    NSMutableArray *smileBaeNoCaption = [NSMutableArray new];
-    NSMutableArray *smileChurchNoCaption = [NSMutableArray new];
-    NSMutableArray *smileGreekNoCaption = [NSMutableArray new];
-    NSMutableArray *smileGreetingNoCaption = [NSMutableArray new];
-    NSMutableArray *smileRatchetNoCaption = [NSMutableArray new];
-    
-    //_nosmileImagesCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *noSmileFreeCaption = [NSMutableArray new];
-    NSMutableArray *noSmileBaeCaption = [NSMutableArray new];
-    NSMutableArray *noSmileChurchCaption = [NSMutableArray new];
-    NSMutableArray *noSmileGreekCaption = [NSMutableArray new];
-    NSMutableArray *noSmileGreetingCaption = [NSMutableArray new];
-    NSMutableArray *noSmileRatchetCaption = [NSMutableArray new];
-    
-    //_nosmileImagesNoCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *noSmileFreeNoCaption = [NSMutableArray new];
-    NSMutableArray *noSmileBaeNoCaption = [NSMutableArray new];
-    NSMutableArray *noSmileChurchNoCaption = [NSMutableArray new];
-    NSMutableArray *noSmileGreekNoCaption = [NSMutableArray new];
-    NSMutableArray *noSmileGreetingNoCaption = [NSMutableArray new];
-    NSMutableArray *noSmileRatchetNoCaption = [NSMutableArray new];
-    
-    
-    //_giftImagesCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *giftFreeCaption = [NSMutableArray new];
-    NSMutableArray *giftBaeCaption = [NSMutableArray new];
-    NSMutableArray *giftChurchCaption = [NSMutableArray new];
-    NSMutableArray *giftGreekCaption = [NSMutableArray new];
-    NSMutableArray *giftGreetingCaption = [NSMutableArray new];
-    NSMutableArray *giftRatchetCaption = [NSMutableArray new];
-    
-    //_giftImagesNoCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *giftFreeNoCaption = [NSMutableArray new];
-    NSMutableArray *giftBaeNoCaption = [NSMutableArray new];
-    NSMutableArray *giftChurchNoCaption = [NSMutableArray new];
-    NSMutableArray *giftGreekNoCaption = [NSMutableArray new];
-    NSMutableArray *giftGreetingNoCaption = [NSMutableArray new];
-    NSMutableArray *giftRatchetNoCaption = [NSMutableArray new];
-    
-    //_heartImagesCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *heartFreeCaption = [NSMutableArray new];
-    NSMutableArray *heartBaeCaption = [NSMutableArray new];
-    NSMutableArray *heartChurchCaption = [NSMutableArray new];
-    NSMutableArray *heartGreekCaption = [NSMutableArray new];
-    NSMutableArray *heartGreetingCaption = [NSMutableArray new];
-    NSMutableArray *heartRatchetCaption = [NSMutableArray new];
-    
-    //_heartImagesNoCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *heartFreeNoCaption = [NSMutableArray new];
-    NSMutableArray *heartBaeNoCaption = [NSMutableArray new];
-    NSMutableArray *heartChurchNoCaption = [NSMutableArray new];
-    NSMutableArray *heartGreekNoCaption = [NSMutableArray new];
-    NSMutableArray *heartGreetingNoCaption = [NSMutableArray new];
-    NSMutableArray *heartRatchetNoCaption = [NSMutableArray new];
-    
-    //_exclamationImagesCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *exclamationFreeCaption = [NSMutableArray new];
-    NSMutableArray *exclamationBaeCaption = [NSMutableArray new];
-    NSMutableArray *exclamationChurchCaption = [NSMutableArray new];
-    NSMutableArray *exclamationGreekCaption = [NSMutableArray new];
-    NSMutableArray *exclamationGreetingCaption = [NSMutableArray new];
-    NSMutableArray *exclamationRatchetCaption = [NSMutableArray new];
-    
-    //_exclamationImagesNoCaption in the form [[free pack], [bae pack], [church], [greek], [greeting], [ratchet]]
-    NSMutableArray *exclamationFreeNoCaption = [NSMutableArray new];
-    NSMutableArray *exclamationBaeNoCaption = [NSMutableArray new];
-    NSMutableArray *exclamationChurchNoCaption = [NSMutableArray new];
-    NSMutableArray *exclamationGreekNoCaption = [NSMutableArray new];
-    NSMutableArray *exclamationGreetingNoCaption = [NSMutableArray new];
-    NSMutableArray *exclamationRatchetNoCaption = [NSMutableArray new];
-    
-    
-    for (NSDictionary *eboticonDict in eboticons) {
-        
-        if ([savedSkinTone isEqualToString:[eboticonDict objectForKey:@"skin_tone"]]) {
-            
-            NSNumber *eboticonID = [eboticonDict objectForKey:@"id"];
-            NSString *gif = [eboticonDict objectForKey:@"gif"];
-            NSString *still = [eboticonDict objectForKey:@"still"];
-            NSString *name = [eboticonDict objectForKey:@"name"];
-            NSString *caption = [eboticonDict objectForKey:@"caption"];
-            NSString *mov = [eboticonDict objectForKey:@"movie"];
-            NSString *category = [eboticonDict objectForKey:@"category"];
-            NSString *skinTone = [eboticonDict objectForKey:@"skin_tone"];
-            NSString *pack = @"";
-            pack = [eboticonDict objectForKey:@"pack"];
-            
-            EboticonGif *eboticon = [[EboticonGif alloc] initWithAttributes:name gifURL:gif captionCategory:caption category:category eboticonID:eboticonID movieURL:mov stillURL:still skinTone:skinTone displayType:@"" purchaseCategory:pack];
-            [_allImages addObject:eboticon];
+    for (EboticonGif *eboticon in eboticons) {
+        if ([savedSkinTone isEqualToString:eboticon.skinTone]) {
+            if ([self productPurchased:eboticon.purchaseCategory]) {
+                [_allImages addObject:eboticon];
+            }
             if ([KeyboardHelper isBaePack:eboticon]) {
                 
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                      [_baeImagesCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileBaeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileBaeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftBaeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartBaeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationBaeCaption addObject:eboticon];
-                    }
                 } else {
                      [_baeImagesNoCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileBaeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileBaeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftBaeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartBaeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationBaeNoCaption addObject:eboticon];
-                    }
                 }
             } else if([KeyboardHelper isChurchPack:eboticon]) {
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_churchImagesCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileChurchCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileChurchCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftChurchCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartChurchCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationChurchCaption addObject:eboticon];
-                    }
                 } else {
                      [_churchImagesNoCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileChurchNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileChurchNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftChurchNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartChurchNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationChurchNoCaption addObject:eboticon];
-                    }
                 }
             } else if ([KeyboardHelper isGreekPack:eboticon]) {
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_greekImagesCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileGreekCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileGreekCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftGreekCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartGreekCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationGreekCaption addObject:eboticon];
-                    }
                 } else {
                     [_greekImagesNoCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileGreekNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileGreekNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftGreekNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartGreekNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationGreekNoCaption addObject:eboticon];
-                    }
                 }
             } else if([KeyboardHelper isGreetingPack:eboticon]){
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_greetingImagesCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileGreetingCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileGreetingCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftGreetingCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartGreetingCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationGreetingCaption addObject:eboticon];
-                    }
                 } else {
                     [_greetingImagesNoCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileGreetingNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileGreetingNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftGreetingNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartGreetingNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationGreetingNoCaption addObject:eboticon];
-                    }
                 }
             } else if ([KeyboardHelper isRatchetPack:eboticon]) {
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_ratchetImagesCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileRatchetCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileRatchetCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftRatchetCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartRatchetCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationRatchetCaption addObject:eboticon];
-                    }
                 } else {
                     [_ratchetImagesNoCaption addObject:eboticon];
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileRatchetNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileRatchetNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftRatchetNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartRatchetNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationRatchetNoCaption addObject:eboticon];
-                    }
                 }
-            } else if([KeyboardHelper isFreePack:eboticon]) {
-                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileFreeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileFreeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftFreeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartFreeCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationFreeCaption addObject:eboticon];
-                    }
-                } else {
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_SMILE]) {
-                        [smileFreeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_NOSMILE]) {
-                        [noSmileFreeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_GIFT]) {
-                        [giftFreeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_HEART]) {
-                        [heartFreeNoCaption addObject:eboticon];
-                    }
-                    if ([eboticon.emotionCategory isEqualToString:CATEGORY_EXCLAMATION]) {
-                        [exclamationFreeNoCaption addObject:eboticon];
-                    }
-                }
-                
             }
         }
     }
-    
-    _smileImagesCaption = [[NSMutableArray alloc] initWithObjects:smileFreeCaption, smileBaeCaption, smileChurchCaption, smileGreekCaption, smileGreetingCaption, smileRatchetCaption, nil];
-    _smileImagesNoCaption = [[NSMutableArray alloc] initWithObjects:smileFreeNoCaption, smileBaeNoCaption, smileChurchNoCaption, smileGreekNoCaption, smileGreetingNoCaption, smileRatchetNoCaption, nil];
-    
-    _nosmileImagesCaption = [[NSMutableArray alloc] initWithObjects:noSmileFreeCaption, noSmileBaeCaption, noSmileChurchCaption, noSmileGreekCaption, noSmileGreetingCaption, noSmileRatchetCaption, nil];
-    _nosmileImagesNoCaption = [[NSMutableArray alloc] initWithObjects:noSmileFreeNoCaption, noSmileBaeNoCaption, noSmileChurchNoCaption, noSmileGreekNoCaption, noSmileGreetingNoCaption, noSmileRatchetNoCaption, nil];
-    
-    _giftImagesCaption = [[NSMutableArray alloc] initWithObjects:giftFreeCaption, giftBaeCaption, giftChurchCaption, giftGreekCaption, giftGreetingCaption, giftRatchetCaption, nil];
-    _giftImagesNoCaption = [[NSMutableArray alloc] initWithObjects:giftFreeNoCaption, giftBaeNoCaption, giftChurchNoCaption, giftGreekNoCaption, giftGreetingNoCaption, giftRatchetNoCaption, nil];
-    
-    _heartImagesCaption = [[NSMutableArray alloc] initWithObjects:heartFreeCaption, heartBaeCaption, heartChurchCaption, heartGreekCaption, heartGreetingCaption, heartRatchetCaption, nil];
-    _heartImagesNoCaption = [[NSMutableArray alloc] initWithObjects:heartFreeNoCaption, heartBaeNoCaption, heartChurchNoCaption, heartGreekNoCaption, heartGreetingNoCaption, heartRatchetNoCaption, nil];
-    
-    _exclamationImagesCaption = [[NSMutableArray alloc] initWithObjects:exclamationFreeCaption, exclamationBaeCaption, exclamationChurchCaption, exclamationGreekCaption, exclamationGreetingCaption, exclamationRatchetCaption, nil];
-    _exclamationImagesNoCaption = [[NSMutableArray alloc] initWithObjects:exclamationFreeNoCaption, exclamationBaeNoCaption, exclamationChurchNoCaption, exclamationGreekNoCaption, exclamationGreetingNoCaption, exclamationRatchetNoCaption, nil];
-    
+    [self populateGifArrays];
     [_purchasedImagesNoCaption addObject:_baeImagesNoCaption];
     [_purchasedImagesNoCaption addObject:_churchImagesNoCaption];
     [_purchasedImagesNoCaption addObject:_greekImagesNoCaption];
@@ -903,7 +596,6 @@
     
     //Set Gifs is no internet exists
     if([self doesInternetExists]){
-        _showSection = YES;
         [self loadEboticonFromServer];
     }
     else{
@@ -957,7 +649,18 @@
         
         NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
         NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
+        [_smileImagesCaption removeAllObjects];
+        [_smileImagesNoCaption removeAllObjects];
+        [_nosmileImagesCaption removeAllObjects];
+        [_nosmileImagesNoCaption removeAllObjects];
         
+        [_heartImagesCaption removeAllObjects];
+        [_heartImagesNoCaption removeAllObjects];
+        
+        [_giftImagesCaption removeAllObjects];
+        [_giftImagesNoCaption removeAllObjects];
+        [_exclamationImagesCaption removeAllObjects];
+        [_exclamationImagesNoCaption removeAllObjects];
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
             
@@ -1277,12 +980,14 @@
     //switches to user's next category
     //NSLog(@"Category %ld Pressed", (long)sender.tag);
     //Change category
+    _showSection = NO;
     [self changeCategory:sender.tag];
      [_unlockViewContainer setAlpha:0];
     
 }
 
 -(IBAction) purchasedKeyPressed: (UIButton*) sender {
+    _showSection = YES;
     [self changeCategory:sender.tag];
 }
 
@@ -1717,9 +1422,9 @@
 {
     NSLog(@"Number of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
     if (_showSection == YES) {
-        return [(NSArray *)[_currentEboticonGifs objectAtIndex:section] count];
+        return [[(NSArray *)_currentEboticonGifs objectAtIndex:section] count];
     }
-    return _currentEboticonGifs.count;
+    return  _currentEboticonGifs.count;;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1757,7 +1462,7 @@
     if([self isRequestsOpenAccessEnabled]){
         
         //Load Gif File name
-        if (_tappedImageCount == 1 && _currentImageSelected == indexPath){
+        if (_tappedImageCount == 1 && _currentImageSelected == indexPath.row){
             
             cell.imageView.image = [UIImage imageNamed:@"placeholder_loading.png"];
             
@@ -1878,7 +1583,7 @@
     }
     
     //First Tap
-    if (_tappedImageCount == 0 && _currentImageSelected == indexPath && allowedOpenAccess){
+    if (_tappedImageCount == 0 && _currentImageSelected == indexPath.row && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -1888,7 +1593,7 @@
         
         //   NSLog(@"Button Tapped ");
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath;
+        _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
             NSString * urlPath = currentGif.gifUrl;
@@ -1968,7 +1673,7 @@
         
     }
     //Tapped different image
-    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath && allowedOpenAccess){
+    else if (_tappedImageCount == 1 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once different");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -1976,7 +1681,7 @@
         //        NSLog(@"lastImage %ld", (long)_lastImageSelected);
         
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath;
+        _currentImageSelected = indexPath.row;
         
         if([UIPasteboard generalPasteboard]){
             NSString * urlPath = currentGif.gifUrl;
@@ -2113,7 +1818,7 @@
         }
     }
     //No image selected
-    else if (_tappedImageCount == 0 && _currentImageSelected != indexPath && allowedOpenAccess){
+    else if (_tappedImageCount == 0 && _currentImageSelected != indexPath.row && allowedOpenAccess){
         
         //        NSLog(@"Button Tapped once");
         //        NSLog(@"currentImage %ld", (long)_currentImageSelected);
@@ -2122,7 +1827,7 @@
         
         
         _tappedImageCount = 1;
-        _currentImageSelected = indexPath;
+        _currentImageSelected = indexPath.row;
         
         // Make toast
         if([UIPasteboard generalPasteboard]){
@@ -2265,34 +1970,19 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (_showSection == YES) {
-        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] > 0) {
-            EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:section] objectAtIndex:0];
-            if ( [eboticon.purchaseCategory isEqualToString:@""]) {
-                return CGSizeZero;
-            } else {
-                return CGSizeMake(_collectionView.frame.size.width, 60);
-            }
-        } else {
-            return CGSizeZero;
-        }
+        return CGSizeMake(_collectionView.frame.size.width, 60);
     } else {
         return CGSizeZero;
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
     if (_showSection == YES) {
-        PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
-        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] > 0) {
-            EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
-            if (![eboticon.purchaseCategory isEqualToString:@""]) {
-                headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
-            }
-        }
-        return headerView;
-    } else {
-        return nil;
+       EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
+        headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
     }
+    return headerView;
 }
 
 #pragma mark - Orientation Protocol methods
@@ -2318,9 +2008,6 @@
     
     //Set Image View
     self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
-    
-    
-
     
 }
 
