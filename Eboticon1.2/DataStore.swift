@@ -45,8 +45,8 @@ import Foundation
     public func fetchEboticons(_ caption:Bool, category:String) -> [[EboticonGif]] {
         var function:(EboticonGif) -> Bool = Helper.isLove(_:)
         switch category {
-        case "recent":
-            break
+        case "Recent":
+            return recent()
         case "love":
             function = Helper.isLove(_:)
         case "happy":
@@ -85,7 +85,34 @@ import Foundation
         }
         return all
     }
-    
+    private func recent() -> [[EboticonGif]] {
+        var all: [[EboticonGif]] = []
+        let recentGif = UserDefaults.standard.object(forKey: "listOfRecentGifs") as? [String]
+        guard let gifs = recentGif else { return all }
+        var recentFreePack:[EboticonGif] = []
+        var recentBaePack: [EboticonGif] = []
+        
+        var recentChurchPack: [EboticonGif] = []
+        var recentGreekPack: [EboticonGif] = []
+        
+        var recentGreetingPack: [EboticonGif] = []
+        var recentRatchetPack: [EboticonGif] = []
+        for fileName in gifs {
+            recentFreePack.append(contentsOf: freePack.filter{ $0.fileName == fileName})
+            recentBaePack.append(contentsOf: baePack.filter{ $0.fileName == fileName})
+            recentChurchPack.append(contentsOf: churchPack.filter{ $0.fileName == fileName})
+            recentGreekPack.append(contentsOf: greekPack.filter{ $0.fileName == fileName})
+            recentGreetingPack.append(contentsOf: greetingPack.filter{ $0.fileName == fileName})
+            recentRatchetPack.append(contentsOf: ratchetPack.filter{ $0.fileName == fileName})
+        }
+        all.append(recentFreePack)
+        all.append(recentBaePack)
+        all.append(recentChurchPack)
+        all.append(recentGreekPack)
+        all.append(recentGreetingPack)
+        all.append(recentRatchetPack)
+        return all
+    }
     private func purchased(_ caption:Bool) -> [[EboticonGif]] {
         var all: [[EboticonGif]] = []
             all.append(baePack.filter{ Helper.isCaption($0) })

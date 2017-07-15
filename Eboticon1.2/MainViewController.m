@@ -523,12 +523,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                         [arrayEboticonGifs insertObject:[_eboticonGifs objectAtIndex:j] atIndex:0];
                     }
                 }
-                
             }
         }
-        
     }
-    
     return arrayEboticonGifs;
 }
 
@@ -537,6 +534,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 -(void) clearRecentGifs
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:RECENT_GIFS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    _eboticonGifs = [DataStore.shared fetchEboticons:[_captionState boolValue] category:_gifCategory];
     self.recentImages = nil;
     DDLogInfo(@"Clear Recents");
     [self reloadData];
