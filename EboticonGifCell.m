@@ -31,23 +31,20 @@
 
 -(void) setCellGif:(EboticonGif *) eboticonGif
 {
+    //Reset Image to prevent prematurely loading images
+    _gifImageView.image = nil;
+    
+    //Load image from cache or remotely
     if (nil != eboticonGif){
         _cellGif = eboticonGif;
         UIImage *image = [[UIImage alloc]init];
         if ([[ImageCache sharedImageCache] DoesExist:eboticonGif.stillUrl] == true) {
             image = [[ImageCache sharedImageCache] GetImage:eboticonGif.stillUrl];
             
-
-            
-//            _gifImageView.alpha = 0.0;
+            _gifImageView.alpha = 0.0;
             _gifImageView.image = image;
-            
-//            [UIView animateWithDuration:0.25
-//                                  delay:0.0
-//                                options:UIViewAnimationOptionCurveEaseIn
-//                             animations:^{ _gifImageView.alpha = 1; }
-//                             completion:^(BOOL finished){}
-//             ];
+            [self fadeInImage];
+
 
         }else {
             
@@ -66,16 +63,11 @@
                 [imgDownloader setCompletionHandler:^{
                     
                     
-//                    _gifImageView.alpha = 0.0;
+                    _gifImageView.alpha = 0.0;
                     _gifImageView.image = eboticonGif.thumbImage;
+                    [self fadeInImage];
                     
-//                    [UIView animateWithDuration:0.25
-//                                          delay:0.0
-//                                        options:UIViewAnimationOptionCurveEaseIn
-//                                     animations:^{ _gifImageView.alpha = 1; }
-//                                     completion:^(BOOL finished){}
-//                     ];
-                    
+
 //                    [activityIndicator stopAnimating];
 //                    [activityIndicator removeFromSuperview];
                 }];
@@ -86,10 +78,19 @@
 //                [activityIndicator removeFromSuperview];
                 _gifImageView.image = [UIImage imageNamed:@"placeholder.png"];
             }
-            
-            
         }
     }
+}
+
+- (void) fadeInImage {
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{ _gifImageView.alpha = 1; }
+                     completion:^(BOOL finished){}
+     ];
+    
+    
 }
 
 - (void)prepareForReuse {

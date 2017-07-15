@@ -23,7 +23,7 @@
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CURRENTSCREEN @"Shop Screen"
 
-
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
@@ -164,6 +164,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     }
 }
 
+- (void) makeNavBarNonTransparent {
+   // UIApplication *app = [UIApplication sharedApplication];
+   // CGFloat statusBarHeight = app.statusBarFrame.size.height;
+    
+    //UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -statusBarHeight, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
+    //statusBarView.backgroundColor = UIColorFromRGB(0x2C1D41);
+    //[self.navigationController.navigationBar addSubview:statusBarView];
+    
+    //UINavigationBar *bar = [self.navigationController navigationBar];
+    //[bar setBarTintColor:UIColorFromRGB(0x2C1D41)];
+    //[bar setTranslucent:YES];
+    
+}
 
 
 #pragma mark -
@@ -266,6 +279,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Add Restore Button
     UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
     self.navigationItem.rightBarButtonItem = restoreButton;
+    
+    //create Nav Bar
+   // [self makeNavBarNonTransparent];
     
     //Create Pull to Refresh
     UITableViewController *tableViewController = [[UITableViewController alloc] init];

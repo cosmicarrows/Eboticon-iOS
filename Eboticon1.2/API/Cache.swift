@@ -17,8 +17,24 @@ import Foundation
     func load<A>(_ resource:Resource<A>, update:@escaping (Result<A>) -> ()) {
         if let result = cache.load(resource) {
             update(.success(result))
+            return
         }
         
+        let dataResource = Resource<Data>(url: resource.url, parse: {$0}, method: resource.method)
+        webservice.load(resource: dataResource) { (result) in
+            switch result {
+            case let .error(error):
+                update(.error(error))
+            case let .success(data):
+                self.cache.save(data, for: resource)
+                let result = Result(resource.parse(data), or: WebserviceError.other)
+                update(result)
+            }
+        }
+    }
+    
+    func loadWithoutCheckingCache<A>(_ resource:Resource<A>, update:@escaping (Result<A>) -> ()) {
+
         let dataResource = Resource<Data>(url: resource.url, parse: {$0}, method: resource.method)
         webservice.load(resource: dataResource) { (result) in
             switch result {

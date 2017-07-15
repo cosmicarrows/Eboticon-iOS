@@ -35,6 +35,16 @@ let publishedEndpoint = "eboticons/published"
         let webservice = Webservice()
         let cachedWebservice = CachedWebservice(webservice)
         cachedWebservice.load(Helper.resource(URL(string:kBaseURL+endpoint)!)) { (result) in
+            print("cachedWebservice")
+            completion(result.value)
+        }
+    }
+    
+    class func getEboticonsFromServer(_ endpoint:String, completion:@escaping (([EboticonGif]?) -> ())) {
+        let webservice = Webservice()
+        let cachedWebservice = CachedWebservice(webservice)
+        cachedWebservice.loadWithoutCheckingCache(Helper.resource(URL(string:kBaseURL+endpoint)!)) { (result) in
+            print("cachedWebservice")
             completion(result.value)
         }
     }

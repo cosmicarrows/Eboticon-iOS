@@ -203,6 +203,8 @@
     //Contifgure Top Bar
     [self createTopBar];
     
+    [self createBorderForToolbar];
+    
     //Create Connection Png
     [self createNoConnectionPng];
     
@@ -291,6 +293,19 @@
     [self.topBarView addSubview:self.bottomBorder];
     
 }
+
+- (void)createBorderForToolbar {
+    
+    self.toolbar.clipsToBounds = YES;
+
+    //Add bottom border
+    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.toolbar.frame.size.width, 1)];
+    topBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
+    [self.toolbar addSubview:topBorder];
+    
+}
+
+
 
 
 - (void)createNoConnectionPng {

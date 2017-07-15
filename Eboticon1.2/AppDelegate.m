@@ -520,6 +520,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 
 - (void) setupNavigationBar{
+    
+    
+
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     //Setting up Navigation Bar
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
     

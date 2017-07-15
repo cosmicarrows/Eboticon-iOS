@@ -25,11 +25,17 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 #define CURRENTSCREEN @"Shop Detail Screen"
 #define BASEURL @"http://www.inclingconsulting.com/eboticon/purchased/"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 
 @interface ShopDetailCollectionViewController (){
     NSMutableArray *_eboticonGifs;
     NSMutableArray *_packGifs;
 }
+
+@property (nonatomic, assign) BOOL isEboticonsLoaded;
+
+
 @end
 
 @implementation ShopDetailCollectionViewController
@@ -37,6 +43,8 @@ static const int ddLogLevel = LOG_LEVEL_DEBUG;
 static NSString * const reuseIdentifier = @"ShopDetailCell";
 
 - (void)viewDidLoad {
+    NSLog(@"viewDidLoad");
+
     [super viewDidLoad];
     
     //Load Gif csv file
@@ -47,17 +55,9 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     DDLogDebug(@"Gif Array count %lu",(unsigned long)[_eboticonGifs count]);
     
     //Sets the navigation bar title
+    [self makeNavBarNonTransparent];
     [self.navigationItem setTitle:[self.product.localizedTitle uppercaseString]];
     
-    //Change Title Size
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    
-    NSDictionary *size = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                          shadow, NSShadowAttributeName,
-                          [UIFont fontWithName:@"Avenir-Black" size:14.0], NSFontAttributeName, nil];
-    self.navigationController.navigationBar.titleTextAttributes = size;
     
     //Create Pack Gifs object
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
@@ -133,9 +133,14 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         spinner.hidesWhenStopped = YES;
         [self.view addSubview:spinner];
         [spinner startAnimating];
+        
+        NSLog(@"loadPurchaseEboticon");
         [Helper getEboticons:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+            NSLog(@"purchased/published");
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (eboticons != nil) {
+                    
+                    [_eboticonGifs removeAllObjects];
                     [_eboticonGifs addObjectsFromArray:eboticons];
                     [self createPackGifs];
                     [spinner stopAnimating];
@@ -143,14 +148,6 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                 }
             });
         }];
-//        [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [_eboticonGifs addObjectsFromArray:eboticons];
-//                [self createPackGifs];
-//                [spinner stopAnimating];
-//                [self.collectionView reloadData];
-//            });
-//        }];
     }
     
 }
@@ -158,25 +155,28 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 
 -(void) createPackGifs
 {
+    NSLog(@"createPackGifs");
+
     if([_eboticonGifs count] > 0){
         EboticonGif *currentGif = [EboticonGif alloc];
+        [_packGifs removeAllObjects];
         
         for(int i = 0; i < [_eboticonGifs count]; i++){
             currentGif = [_eboticonGifs objectAtIndex:i];
 
             
-            NSString * purchaseCategory = [currentGif purchaseCategory]; //Category
-            NSString * skinTone = [currentGif skinTone];           //Skin
+            NSString * purchaseCategory = [currentGif purchaseCategory];
+            NSString * skinTone = [currentGif skinTone];
             
-            DDLogDebug(@"gifCategory: %@", purchaseCategory);
-            
-            if([skinTone isEqual:self.savedSkinTone]){
-                if([self.product.productIdentifier isEqual:purchaseCategory]) {
-                    [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
-                }
+            if([skinTone isEqual:self.savedSkinTone] && [self.product.productIdentifier isEqual:purchaseCategory]){
+                [_packGifs addObject:[_eboticonGifs objectAtIndex:i]];
+                
             }
             
         }
+        
+        NSLog(@"Pack Gifs Count: %lu", (unsigned long)[_packGifs count] );
+        NSLog(@"Eboticon Gifs Count: %lu", (unsigned long)[_eboticonGifs count] );
         
     } else {
         DDLogWarn(@"Eboticon Gif array count is less than zero.");
@@ -202,7 +202,27 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
     if (self.activateBuy == true) {
         [self buyButtonTapped:nil];
     }
+    
+   // [self makeNavBarNonTransparent];
+    
+    
 }
+
+
+- (void) makeNavBarNonTransparent {
+    UIApplication *app = [UIApplication sharedApplication];
+    CGFloat statusBarHeight = app.statusBarFrame.size.height;
+    
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -statusBarHeight, [UIScreen mainScreen].bounds.size.width, 40)];
+    statusBarView.backgroundColor = UIColorFromRGB(0x2C1D41);
+    [self.view addSubview:statusBarView];
+    
+//    UINavigationBar *bar = [self.navigationController navigationBar];
+//    [bar setBarTintColor:UIColorFromRGB(0x2C1D41)];
+//    [bar setTranslucent:NO];
+    
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -218,13 +238,25 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         //Remove Buy Button
         self.navigationItem.rightBarButtonItem = nil;
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Pack purchased."
-                                                        message:[NSString stringWithFormat:@"Thank you for purchasing %@. To use the %@ Eboticons, go to main library filter and select \"Purchased\" or click on \"Purchased\" icon in the keyboard. Enjoy!",self.product.localizedTitle,self.product.localizedTitle ]
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK" 
-                                              otherButtonTitles:nil];
-        [alert show];
-
+        UIAlertController * alert = [UIAlertController
+                                     alertControllerWithTitle:@"Pack purchased."
+                                     message:[NSString stringWithFormat:@"Thank you for purchasing %@. To use the %@ Eboticons, go to main library filter and select \"Purchased\" or click on \"Purchased\" icon in the keyboard. Enjoy!",self.product.localizedTitle,self.product.localizedTitle ]
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        
+        UIAlertAction* yesButton = [UIAlertAction
+                                    actionWithTitle:@"OK"
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) {
+                                        //Handle your yes please button action here
+                                    }];
+        
+        
+        [alert addAction:yesButton];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
     }
 }
 
@@ -290,13 +322,40 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [_packGifs count];
+    
+    if (_packGifs.count > 0) {
+        self.collectionView.backgroundView = nil;
+        return _packGifs.count;
+        
+    }
+    else if (self.isEboticonsLoaded == YES && _packGifs.count == 0) {
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available.";
+        messageLabel.textColor = [UIColor whiteColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.collectionView.backgroundView = messageLabel;
+        return 0;
+    }
+    else {
+        return 0;
+    }
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (ShopDetailCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ShopDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    //FLAnimatedImage  *temporaryImage = myAnimatedImageView.animatedImage;
+    //myAnimatedImageView.animatedImage = nil;
     cell.gifImageView.animatedImage = nil;
+    
+    cell.gifImageView.image = [UIImage imageNamed:@"placeholder"];
     
     EboticonGif *currentGif = [_packGifs objectAtIndex:indexPath.row];
     
@@ -339,6 +398,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                     [activityIndicator removeFromSuperview];
                     FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
                     cell.gifImageView.animatedImage = image;
+                    self.isEboticonsLoaded = YES;
                 });
                 
             });

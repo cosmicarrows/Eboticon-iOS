@@ -60,6 +60,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define kPublishedEboticonsURL = "published"
 #define kPublishedPurchasedPackURL = "purchased/published"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface MainViewController (){
     UIToolbar *_toolbar;
     NSMutableArray *_toolbarButtons;
@@ -82,7 +84,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     NSArray *_currentEboticonGifs;
     
-//    NSArray *_products;
 }
 
 // Collection View
@@ -90,6 +91,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (nonatomic, strong) UIImageView *noConnectionImageView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 
 //Reachability
 @property (nonatomic) Reachability *hostReachability;
@@ -104,10 +107,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     //Add Background without repeating
     self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;
-
+    
     //Get Saved Skin Tone
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     
@@ -133,18 +136,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         self.navigationItem.leftBarButtonItem = clearbutton;
     }
     
+    [self setupPullToRefresh];
+    
+    
     //Create Mutable Arrays of Eboticons
     [self initializeEboticons];
     
-    //Load current products
-    //[self getProducts];
-    
     [self initNoConnection];
     
-    self.isEboticonsLoaded = NO;
-    [self loadEboticon];
     
-    //[self populateGifArrays];
+    self.isEboticonsLoaded = NO;
+    
+    // Pull Eboticon from API
+    [self loadEboticon];
     
     // Configure Collection View
     [self configureCollectionView];
@@ -161,8 +165,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Create Nav Bar Logo
     [self makeNavBarLogo];
     
-    //  [self getPurchaseGifs];
-    
     //Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadEboticons:)
@@ -175,8 +177,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 
 #pragma mark - Reachability
-
-
 
 - (void) initializeReachability {
     /*
@@ -233,7 +233,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             self.collectionView.hidden = YES;
             [self showNoConnectionImage];
             /*
-             Minor interface detail- connectionRequired may return YES even when the host is unreachable. We cover that up here...
+             Minor interface detail-
+             connectionRequired may return YES even when the host is unreachable. We cover that up here...
              */
             connectionRequired = NO;
             break;
@@ -241,10 +242,10 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
             
         case ReachableViaWWAN:        {
             statusString = NSLocalizedString(@"Reachable WWAN", @"");
-           
+            
             self.noConnectionImageView.alpha = 0.0;
             self.noConnectionImageView.hidden = YES;
-             [self loadEboticon];
+            [self loadEboticon];
             break;
         }
         case ReachableViaWiFi:        {
@@ -289,7 +290,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 -(void) showNoConnectionImage{
     
     self.noConnectionImageView.image = [UIImage imageNamed:@"noconnection"];
-
+    
     [UIView animateWithDuration:0.5
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -361,6 +362,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     _eboticonGifs = [[NSArray alloc] init];
     
 };
+
+
 - (void) sendToGoogleAnalytics {
     @try {
         id tracker = [[GAI sharedInstance] defaultTracker];
@@ -405,6 +408,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
+
 -(void) addToolbar
 {
     //Create toolbar
@@ -415,7 +419,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:nil];
     UIBarButtonItem *enlarge = [[UIBarButtonItem alloc] initWithTitle:@"Enlarge" style:UIBarButtonItemStylePlain target:self action:nil];
     _toolbarButtons = [NSMutableArray arrayWithObjects:shareButton, enlarge, nil];
-    
     
     [self.view addSubview:_toolbar];
     [self.view bringSubviewToFront:_toolbar];
@@ -428,39 +431,72 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 - (void)loadEboticon
 {
-        if(self.isEboticonsLoaded == NO){
-            if (![self doesInternetExist]) {
-                [self showNoConnectionImage];
-            }else {
-                UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-                spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
-                spinner.hidesWhenStopped = YES;
-                [self.view addSubview:spinner];
-                [spinner startAnimating];
-                NSString *tone = [[NSUserDefaults standardUserDefaults] objectForKey:@"skin_tone"];
-                [Helper getEboticons:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (eboticons != nil) {
-                            [DataStore.shared setupDataStore:eboticons tone:tone];
-                            [spinner stopAnimating];
-                            _eboticonGifs = [DataStore.shared fetchEbotions:[_captionState boolValue] category:_gifCategory];
-                            [self.collectionView reloadData];
-                        }
-                    });
-                }];
-            }
-            self.isEboticonsLoaded = YES;
-        }
+    if(self.isEboticonsLoaded == NO){
+        if (![self doesInternetExist]) {
+            [self showNoConnectionImage];
+        }else {
+            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            spinner.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0f, [[UIScreen mainScreen] bounds].size.height/2.0f-100);
+            spinner.hidesWhenStopped = YES;
+            [self.view addSubview:spinner];
+            [spinner startAnimating];
+            NSString *tone = [[NSUserDefaults standardUserDefaults] objectForKey:@"skin_tone"];
+            
 
+            
+            [Helper getEboticons:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (eboticons != nil) {
+                        [DataStore.shared setupDataStore:eboticons tone:tone];
+                        [spinner stopAnimating];
+                        _eboticonGifs = [DataStore.shared fetchEboticons:[_captionState boolValue] category:_gifCategory];
+                        [self reloadData];
+                    }
+                });
+            }];
+        }
+        self.isEboticonsLoaded = YES;
+    }
+    
     
 }
+
+- (void)getLatestEboticons
+{
+    
+    //Clear Cache
+    NSURLCache *sharedCache = [NSURLCache sharedURLCache];
+    [sharedCache removeAllCachedResponses];
+    
+    //Get Eboticons
+    if (![self doesInternetExist]) {
+        [self showNoConnectionImage];
+    }else {
+        NSString *tone = [[NSUserDefaults standardUserDefaults] objectForKey:@"skin_tone"];
+        [Helper getEboticonsFromServer:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"gotEboticons");
+                if (eboticons != nil) {
+                    [DataStore.shared setupDataStore:eboticons tone:tone];
+                    _eboticonGifs = [DataStore.shared fetchEboticons:[_captionState boolValue] category:_gifCategory];
+                    [self reloadData];
+                }
+                [self.refreshControl endRefreshing];
+                
+            });
+        }];
+    }
+    self.isEboticonsLoaded = YES;
+}
+
+
 
 - (void)reloadEboticons:(NSNotification *) notification{
     NSLog(@"***reloadEboticons");
     self.isEboticonsLoaded = NO;
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     [self loadEboticon];
-    [self.collectionView reloadData];
+    [self reloadData];
 };
 
 -(NSMutableArray*) getRecentGifs
@@ -503,7 +539,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:RECENT_GIFS_KEY];
     self.recentImages = nil;
     DDLogInfo(@"Clear Recents");
-    [self.collectionView reloadData];
+    [self reloadData];
     
 }
 
@@ -706,9 +742,13 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     __weak MainViewController *weakSelf = self;
     [unlockView setUnlockButtonBlock:^{
         [weakUnlockView removeFromSuperview];
+        
+        [weakSelf navigationController].navigationBar.backgroundColor = UIColorFromRGB(0x2C1D41);
+
         ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
         shopDetailCollectionViewController.product = product;
         shopDetailCollectionViewController.activateBuy = true;
+        
         [[weakSelf navigationController] pushViewController:shopDetailCollectionViewController animated:YES];
     }];
     
@@ -788,7 +828,28 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _eboticonGifs.count;
+    if (_eboticonGifs.count > 0) {
+        self.collectionView.backgroundView = nil;
+        return _eboticonGifs.count;
+        
+    }
+    else {
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        messageLabel.textColor = [UIColor whiteColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.collectionView.backgroundView = messageLabel;
+        return 0;
+    }
+    
+    
+    
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -830,10 +891,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     if ([self.revealViewController wasAnimated]){
         FilterData *sharedFilterData = [FilterData sharedInstance];
         _captionState = sharedFilterData.captionState;
-        [self.collectionView reloadData];
+        [self reloadData];
         [self reverseMenu:nil];
         return;
     }
+    
     EboticonGif *eboticon = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if (![eboticon.purchaseCategory isEqualToString:@""]) {
         if (![[EboticonIAPHelper sharedInstance] productPurchased:eboticon.purchaseCategory]) {
@@ -848,6 +910,8 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     NSMutableArray *imageNames = [_eboticonGifs objectAtIndex:indexPath.section];
     
+    NSLog(@"image clicked: %@", eboticon.getFileName);
+    
     GifDetailViewController *gifDetailViewController =  [[GifDetailViewController alloc] initWithNibName:@"GifDetailView" bundle:nil];
     
     gifDetailViewController.gifCategory = _gifCategory;
@@ -857,6 +921,46 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     gifDetailViewController.imgBackground = [self captureView:self.view];
     [[self navigationController] pushViewController:gifDetailViewController animated:YES];
 }
+
+- (void) setupPullToRefresh{
+    
+    // Initialize the refresh control.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = UIColorFromRGB(0x380063);
+    
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(getLatestEboticons)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.collectionView addSubview:self.refreshControl];
+    self.collectionView.alwaysBounceVertical = YES;
+    
+}
+
+
+
+- (void)reloadData
+{
+    // Reload table data
+    [self.collectionView reloadData];
+    
+    // End the refreshing
+    if (self.refreshControl) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        self.refreshControl.attributedTitle = attributedTitle;
+        
+        [self.refreshControl endRefreshing];
+    }
+}
+
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout

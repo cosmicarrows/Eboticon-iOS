@@ -42,7 +42,7 @@ import Foundation
         return !freePack.isEmpty || !baePack.isEmpty || !churchPack.isEmpty || !greekPack.isEmpty || !ratchetPack.isEmpty
     }
     
-    public func fetchEbotions(_ caption:Bool, category:String) -> [[EboticonGif]] {
+    public func fetchEboticons(_ caption:Bool, category:String) -> [[EboticonGif]] {
         var function:(EboticonGif) -> Bool = Helper.isLove(_:)
         switch category {
         case "recent":
@@ -119,14 +119,3 @@ import Foundation
 }
 
 
-
-//@objc public enum EboticonCategory:String {
-//    case recent = "Recent"
-//    case all = "all"
-//    case happy = "happy"
-//    case unhappy = "not_happy"
-//    case love = "love"
-//    case greeting = "greeting"
-//    case exclamation = "exclamation"
-//    case purchased = "Purchased"
-//}
