@@ -46,7 +46,7 @@ import Foundation
         var function:(EboticonGif) -> Bool = Helper.isLove(_:)
         switch category {
         case "Recent":
-            return recent()
+            return recent(caption)
         case "love":
             function = Helper.isLove(_:)
         case "happy":
@@ -85,7 +85,7 @@ import Foundation
         }
         return all
     }
-    private func recent() -> [[EboticonGif]] {
+    private func recent(_ caption:Bool) -> [[EboticonGif]] {
         var all: [[EboticonGif]] = []
         let recentGif = UserDefaults.standard.object(forKey: "listOfRecentGifs") as? [String]
         guard let gifs = recentGif else { return all }
@@ -98,12 +98,12 @@ import Foundation
         var recentGreetingPack: [EboticonGif] = []
         var recentRatchetPack: [EboticonGif] = []
         for fileName in gifs {
-            recentFreePack.append(contentsOf: freePack.filter{ $0.fileName == fileName})
-            recentBaePack.append(contentsOf: baePack.filter{ $0.fileName == fileName})
-            recentChurchPack.append(contentsOf: churchPack.filter{ $0.fileName == fileName})
-            recentGreekPack.append(contentsOf: greekPack.filter{ $0.fileName == fileName})
-            recentGreetingPack.append(contentsOf: greetingPack.filter{ $0.fileName == fileName})
-            recentRatchetPack.append(contentsOf: ratchetPack.filter{ $0.fileName == fileName})
+            recentFreePack.append(contentsOf: freePack.filter{ $0.fileName == fileName && Helper.isCaption($0)})
+            recentBaePack.append(contentsOf: baePack.filter{ $0.fileName == fileName && Helper.isCaption($0) })
+            recentChurchPack.append(contentsOf: churchPack.filter{ $0.fileName == fileName && Helper.isCaption($0) })
+            recentGreekPack.append(contentsOf: greekPack.filter{ $0.fileName == fileName && Helper.isCaption($0) })
+            recentGreetingPack.append(contentsOf: greetingPack.filter{ $0.fileName == fileName && Helper.isCaption($0) })
+            recentRatchetPack.append(contentsOf: ratchetPack.filter{ $0.fileName == fileName && Helper.isCaption($0) })
         }
         all.append(recentFreePack)
         all.append(recentBaePack)
