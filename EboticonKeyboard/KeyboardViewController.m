@@ -137,6 +137,7 @@
 //@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
+@property (nonatomic, strong) KVKeyboardViewController *kvController;
 //keypad
 @property (nonatomic, weak) IBOutlet UIView *keypadView;
 
@@ -220,7 +221,7 @@
     //Initialize Keypad
     [self initializeKeypad];
     [self createStoreAndFacebookButton];
-    
+    [self createKouriViniKepad];
     // UISwipeGestureRecognizerDirectionLeft
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
     leftRecognizer.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -245,7 +246,19 @@
     _unlockButton.layer.cornerRadius = 5;
 }
 
-
+- (void) createKouriViniKepad {
+    _kvController = [[KVKeyboardViewController alloc] init];
+    [self addChildViewController:_kvController];
+    _kvController.view.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:_kvController.view];
+    [self.view bringSubviewToFront:_kvController.view];
+    [_kvController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [_kvController.view.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
+    [_kvController.view.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
+    [_kvController.view.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+    [_kvController.view.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
+    _kvController.view.alpha = 0;
+}
 
 - (void) createCollectionView {
     
@@ -2197,25 +2210,26 @@
     [self.keypadButton setImage:[UIImage imageNamed:@"HLKeypad.png"] forState:UIControlStateNormal];
     
     if(!self.isKeypadOn){
-        self.topBarView.hidden = YES;
-        self.captionSwitch.hidden = YES;
-        _collectionView.hidden = YES;
-        self.keypadView.hidden = NO;
-        self.isKeypadOn = true;
-        self.facebookButton.hidden = YES;
-        self.storeButton.hidden = YES;
+        _kvController.view.alpha = 1;
+//        self.topBarView.hidden = YES;
+//        self.captionSwitch.hidden = YES;
+//        _collectionView.hidden = YES;
+//        self.keypadView.hidden = NO;
+//        self.isKeypadOn = true;
+//        self.facebookButton.hidden = YES;
+//        self.storeButton.hidden = YES;
     }
     else{
         
-        
+        _kvController.view.alpha = 0;
         
        // self.pageControl.hidden = NO;
-        self.topBarView.hidden = NO;
-        self.captionSwitch.hidden = NO;
-        self.storeButton.hidden = NO;
-        self.facebookButton.hidden = NO;
-        _collectionView.hidden = NO;
-        self.keypadView.hidden = YES;
+//        self.topBarView.hidden = NO;
+//        self.captionSwitch.hidden = NO;
+//        self.storeButton.hidden = NO;
+//        self.facebookButton.hidden = NO;
+//        _collectionView.hidden = NO;
+//        self.keypadView.hidden = YES;
         self.isKeypadOn = false;
     }
     

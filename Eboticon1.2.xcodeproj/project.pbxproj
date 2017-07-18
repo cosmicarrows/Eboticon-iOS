@@ -221,7 +221,7 @@
 		A5A370821F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */; };
 		A5A370831F1E142C00CB7FC7 /* KeyboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */; };
 		A5A370841F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */; };
-		A5A370851F1E142C00CB7FC7 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */; };
+		A5A370851F1E142C00CB7FC7 /* KVKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370671F1E142C00CB7FC7 /* KVKeyboardViewController.swift */; };
 		A5A370861F1E142C00CB7FC7 /* LanguageDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */; };
 		A5A370871F1E142C00CB7FC7 /* LanguageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */; };
 		A5A370881F1E142C00CB7FC7 /* LightDarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */; };
@@ -535,7 +535,7 @@
 		A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutSelection.swift; sourceTree = "<group>"; };
 		A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
 		A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardSelectionViewController.swift; sourceTree = "<group>"; };
-		A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		A5A370671F1E142C00CB7FC7 /* KVKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVKeyboardViewController.swift; sourceTree = "<group>"; };
 		A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageDefinition.swift; sourceTree = "<group>"; };
 		A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingsViewController.swift; sourceTree = "<group>"; };
 		A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightDarkView.swift; sourceTree = "<group>"; };
@@ -1342,7 +1342,7 @@
 				A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */,
 				A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */,
 				A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */,
-				A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */,
+				A5A370671F1E142C00CB7FC7 /* KVKeyboardViewController.swift */,
 				A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */,
 				A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */,
 				A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */,
@@ -1603,7 +1603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		463CB57A171D6AAA85160239 /* [CP] Check Pods Manifest.lock */ = {
@@ -1621,7 +1621,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6325FA461A8FCB4C00C4CABB /* ShellScript */ = {
@@ -1803,7 +1803,7 @@
 				A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */,
 				A5A370761F1E142C00CB7FC7 /* DefaultKeyboard.swift in Sources */,
 				976E506F1B9BA3830057D6B2 /* KeyboardCell.m in Sources */,
-				A5A370851F1E142C00CB7FC7 /* KeyboardViewController.swift in Sources */,
+				A5A370851F1E142C00CB7FC7 /* KVKeyboardViewController.swift in Sources */,
 				97044F111BA3690F008CA2E1 /* ImageDownloader.m in Sources */,
 				A5A370881F1E142C00CB7FC7 /* LightDarkView.swift in Sources */,
 				A5A3707B1F1E142C00CB7FC7 /* ImageKey.swift in Sources */,

@@ -17,7 +17,7 @@ class CustomNavigationController : UINavigationController {
 
     // Something of a hack: we may have to totally redraw the keyboard when we dismiss the nav controller
     // e.g. if the user selected a different layout
-    var parentKeyboardVC: KeyboardViewController? = nil
+    var parentKeyboardVC: KVKeyboardViewController? = nil
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         countViews += 1
@@ -51,7 +51,7 @@ class CustomNavigationController : UINavigationController {
         self.pushViewController(UIViewController(), animated: false)
     }
 
-    convenience init (parent: KeyboardViewController)
+    convenience init (parent: KVKeyboardViewController)
     {
         self.init()
         self.parentKeyboardVC = parent

@@ -1879,6 +1879,20 @@
             </objects>
             <point key="canvasLocation" x="416.80000000000001" y="104.7976011994003"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="LtG-rR-JEp">
+            <objects>
+                <viewController id="pQN-KL-YYp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="itY-WA-DWj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tjs-oo-ceK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="206"/>
+        </scene>
     </scenes>
     <resources>
         <image name="EboticonBundle" width="1024" height="411"/>

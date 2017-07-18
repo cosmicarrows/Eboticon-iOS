@@ -26,10 +26,10 @@ class ExtraView: UIView {
         self.darkMode = darkMode
         self.solidColorMode = solidColorMode
         
-        super.init(frame: CGRectZero)
+        super.init(frame: .zero)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.globalColors = nil
         self.darkMode = false
         self.solidColorMode = false

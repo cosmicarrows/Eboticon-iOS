@@ -14,7 +14,7 @@ import UIKit
 
 let kCatTypeEnabled = "kCatTypeEnabled"
 
-class Catboard: KeyboardViewController {
+class Catboard: KVKeyboardViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         UserDefaults.standard.register(defaults: [kCatTypeEnabled: true])

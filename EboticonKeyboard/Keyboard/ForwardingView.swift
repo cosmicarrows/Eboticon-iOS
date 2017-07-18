@@ -19,7 +19,7 @@ class ForwardingView: UIView, UIGestureRecognizerDelegate {
 	var currentMode: Int = 0
 	var keyboard_type: UIKeyboardType?
 
-    var viewController: KeyboardViewController?  = nil
+    var viewController: KVKeyboardViewController?  = nil
 	
     fileprivate func MakeLongPressGesturesRecognizer()
     {
@@ -44,7 +44,7 @@ class ForwardingView: UIView, UIGestureRecognizerDelegate {
         self.MakeLongPressGesturesRecognizer()
     }
 
-    convenience init(frame: CGRect, viewController: KeyboardViewController) {
+    convenience init(frame: CGRect, viewController: KVKeyboardViewController) {
         self.init(frame: frame)
 
         self.viewController = viewController

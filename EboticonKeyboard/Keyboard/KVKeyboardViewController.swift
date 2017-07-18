@@ -1,5 +1,5 @@
 //
-//  KeyboardViewController.swift
+//  KVKeyboardViewController.swift
 //  Keyboard
 //
 //  Created by Alexei Baboulevitch on 6/9/14.
@@ -37,7 +37,7 @@ let vEnglishLanguageCode = "EN"
 let vQwertyKeyboardFileName = "QWERTY"
 let kWordStoreButton = "kWordStoreButton"
 
-class KeyboardViewController: UIInputViewController {
+class KVKeyboardViewController: UIInputViewController {
 
     let backspaceDelay: TimeInterval = 0.5
     let backspaceRepeat: TimeInterval = 0.07
@@ -123,9 +123,9 @@ class KeyboardViewController: UIInputViewController {
 
         self.bannerView = self.createBanner()
         for button in self.bannerView!.buttons {
-            button.addTarget(self, action: #selector(KeyboardViewController.didTapSuggestionButton(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside])
-            button.addTarget(self, action: #selector(KeyboardViewController.didTTouchDownSuggestionButton(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
-            button.addTarget(self, action: #selector(KeyboardViewController.didTTouchExitDownSuggestionButton(_:)), for: [.touchDragExit, .touchCancel])
+            button.addTarget(self, action: #selector(KVKeyboardViewController.didTapSuggestionButton(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside])
+            button.addTarget(self, action: #selector(KVKeyboardViewController.didTTouchDownSuggestionButton(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
+            button.addTarget(self, action: #selector(KVKeyboardViewController.didTTouchExitDownSuggestionButton(_:)), for: [.touchDragExit, .touchCancel])
         }
 
         self.view.insertSubview(self.bannerView!, aboveSubview: self.forwardingView)
@@ -148,14 +148,14 @@ class KeyboardViewController: UIInputViewController {
 
         //sleep(30)
         
-        self.currentInterfaceOrientation = KeyboardViewController.getInterfaceOrientation()
+        self.currentInterfaceOrientation = KVKeyboardViewController.getInterfaceOrientation()
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
 		InitializeLayout()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardViewController.defaultsChanged(_:)), name: UserDefaults.didChangeNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(KeyboardViewController.hideExpandView(_:)), name: NSNotification.Name(rawValue: "hideExpandViewNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KVKeyboardViewController.defaultsChanged(_:)), name: UserDefaults.didChangeNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(KVKeyboardViewController.hideExpandView(_:)), name: NSNotification.Name(rawValue: "hideExpandViewNotification"), object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -457,24 +457,24 @@ class KeyboardViewController: UIInputViewController {
                             // Long press on keyboard change shows popup with options to change layout or move to next
                             // installed keyboard
                             
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.keyCharLongPressed(_:)), for: .touchDownRepeat)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.keyCharLongPressed(_:)), for: .touchDownRepeat)
 
                             // Single tap on keyboard change key just advances to next installed keyboard
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.advanceTapped), for: .touchUpInside)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.advanceTapped), for: .touchUpInside)
 
                         case Key.KeyType.backspace:
                             let cancelEvents: UIControlEvents = [UIControlEvents.touchUpInside, UIControlEvents.touchUpInside, UIControlEvents.touchDragExit, UIControlEvents.touchUpOutside, UIControlEvents.touchCancel, UIControlEvents.touchDragOutside]
                             
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.backspaceDown(_:)), for: .touchDown)
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.backspaceUp(_:)), for: cancelEvents)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.backspaceDown(_:)), for: .touchDown)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.backspaceUp(_:)), for: cancelEvents)
 
                         case Key.KeyType.shift:
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.shiftDown(_:)), for: .touchDown)
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.shiftUp(_:)), for: .touchUpInside)
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.shiftDoubleTapped(_:)), for: .touchDownRepeat)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.shiftDown(_:)), for: .touchDown)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.shiftUp(_:)), for: .touchUpInside)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.shiftDoubleTapped(_:)), for: .touchDownRepeat)
 
                         case Key.KeyType.modeChange:
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.modeChangeTapped(_:)), for: .touchDown)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.modeChangeTapped(_:)), for: .touchDown)
 
                         default:
                             break
@@ -482,28 +482,28 @@ class KeyboardViewController: UIInputViewController {
                         
                         if key.isCharacter {
                             if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad {
-                                keyView.addTarget(self, action: #selector(KeyboardViewController.showPopup(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
+                                keyView.addTarget(self, action: #selector(KVKeyboardViewController.showPopup(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
 
 
 
                                 keyView.addTarget(keyView, action: #selector(KeyboardKey.hidePopup), for: [.touchDragExit, .touchCancel])
-                                keyView.addTarget(self, action: #selector(KeyboardViewController.hidePopupDelay(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside])
+                                keyView.addTarget(self, action: #selector(KVKeyboardViewController.hidePopupDelay(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside])
                             }
 							
-							keyView.addTarget(self, action: #selector(KeyboardViewController.keyCharLongPressed(_:)), for: .touchDownRepeat)
+							keyView.addTarget(self, action: #selector(KVKeyboardViewController.keyCharLongPressed(_:)), for: .touchDownRepeat)
                         }
                         
                         if key.hasOutput {
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.keyPressedHelper(_:)), for: .touchUpInside)
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.keyPressedHelper(_:)), for: .touchUpInside)
                         }
                         
                         if key.type != Key.KeyType.shift && key.type != Key.KeyType.modeChange {
                             
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.highlightKey(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
-                            keyView.addTarget(self, action: #selector(KeyboardViewController.unHighlightKey(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside,  .touchDragExit, .touchCancel])
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.highlightKey(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
+                            keyView.addTarget(self, action: #selector(KVKeyboardViewController.unHighlightKey(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside,  .touchDragExit, .touchCancel])
                         }
                         
-                        keyView.addTarget(self, action: #selector(KeyboardViewController.playKeySound), for: .touchDown)
+                        keyView.addTarget(self, action: #selector(KVKeyboardViewController.playKeySound), for: .touchDown)
                     }
                 }
             }
@@ -541,7 +541,7 @@ class KeyboardViewController: UIInputViewController {
         }
         
         if sender.popup != nil {
-            self.popupDelayTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(KeyboardViewController.hidePopupCallback), userInfo: nil, repeats: false)
+            self.popupDelayTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(KVKeyboardViewController.hidePopupCallback), userInfo: nil, repeats: false)
         }
     }
     
@@ -717,7 +717,7 @@ class KeyboardViewController: UIInputViewController {
         self.setCapsIfNeeded()
         
         // trigger for subsequent deletes
-        self.backspaceDelayTimer = Timer.scheduledTimer(timeInterval: backspaceDelay - backspaceRepeat, target: self, selector: #selector(KeyboardViewController.backspaceDelayCallback), userInfo: nil, repeats: false)
+        self.backspaceDelayTimer = Timer.scheduledTimer(timeInterval: backspaceDelay - backspaceRepeat, target: self, selector: #selector(KVKeyboardViewController.backspaceDelayCallback), userInfo: nil, repeats: false)
     }
     
     func backspaceUp(_ sender: KeyboardKey) {
@@ -726,7 +726,7 @@ class KeyboardViewController: UIInputViewController {
     
     func backspaceDelayCallback() {
         self.backspaceDelayTimer = nil
-        self.backspaceRepeatTimer = Timer.scheduledTimer(timeInterval: backspaceRepeat, target: self, selector: #selector(KeyboardViewController.backspaceRepeatCallback), userInfo: nil, repeats: true)
+        self.backspaceRepeatTimer = Timer.scheduledTimer(timeInterval: backspaceRepeat, target: self, selector: #selector(KVKeyboardViewController.backspaceRepeatCallback), userInfo: nil, repeats: true)
     }
     
     func backspaceRepeatCallback() {
@@ -1022,7 +1022,7 @@ class KeyboardViewController: UIInputViewController {
                     offsetY = 3
                 }
                 else {
-                    switch  KeyboardViewController.getDeviceType() {
+                    switch  KVKeyboardViewController.getDeviceType() {
                     case TTDeviceType.ttDeviceTypeIPhone4, TTDeviceType.ttDeviceTypeIPhone5:
                         offsetY = 9
 
