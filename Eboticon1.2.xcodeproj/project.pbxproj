@@ -200,6 +200,36 @@
 		A54B4AC61F041FF2008A61A6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54B4AC51F041FF2008A61A6 /* Helper.swift */; };
 		A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */; };
 		A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */; };
+		A5A370701F1E142C00CB7FC7 /* Catboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3704D1F1E142C00CB7FC7 /* Catboard.swift */; };
+		A5A370711F1E142C00CB7FC7 /* CatboardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3704E1F1E142C00CB7FC7 /* CatboardBanner.swift */; };
+		A5A370721F1E142C00CB7FC7 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3704F1F1E142C00CB7FC7 /* CustomNavigationController.swift */; };
+		A5A370731F1E142C00CB7FC7 /* CYRKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A370521F1E142C00CB7FC7 /* CYRKeyboardButton.m */; };
+		A5A370741F1E142C00CB7FC7 /* CYRKeyboardButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A370541F1E142C00CB7FC7 /* CYRKeyboardButtonView.m */; };
+		A5A370751F1E142C00CB7FC7 /* TurtleBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A370561F1E142C00CB7FC7 /* TurtleBezierPath.m */; };
+		A5A370761F1E142C00CB7FC7 /* DefaultKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370571F1E142C00CB7FC7 /* DefaultKeyboard.swift */; };
+		A5A370771F1E142C00CB7FC7 /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370581F1E142C00CB7FC7 /* DefaultSettings.swift */; };
+		A5A370781F1E142C00CB7FC7 /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370591F1E142C00CB7FC7 /* DirectionEnum.swift */; };
+		A5A370791F1E142C00CB7FC7 /* ExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */; };
+		A5A3707A1F1E142C00CB7FC7 /* ForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */; };
+		A5A3707B1F1E142C00CB7FC7 /* ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */; };
+		A5A3707C1F1E142C00CB7FC7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5A3705D1F1E142C00CB7FC7 /* Info.plist */; };
+		A5A3707D1F1E142C00CB7FC7 /* KeyboardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */; };
+		A5A3707E1F1E142C00CB7FC7 /* KeyboardInputTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */; };
+		A5A3707F1F1E142C00CB7FC7 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */; };
+		A5A370801F1E142C00CB7FC7 /* KeyboardKeyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370621F1E142C00CB7FC7 /* KeyboardKeyBackground.swift */; };
+		A5A370811F1E142C00CB7FC7 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370631F1E142C00CB7FC7 /* KeyboardLayout.swift */; };
+		A5A370821F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */; };
+		A5A370831F1E142C00CB7FC7 /* KeyboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */; };
+		A5A370841F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */; };
+		A5A370851F1E142C00CB7FC7 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */; };
+		A5A370861F1E142C00CB7FC7 /* LanguageDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */; };
+		A5A370871F1E142C00CB7FC7 /* LanguageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */; };
+		A5A370881F1E142C00CB7FC7 /* LightDarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */; };
+		A5A370891F1E142C00CB7FC7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5A3706B1F1E142C00CB7FC7 /* Media.xcassets */; };
+		A5A3708A1F1E142C00CB7FC7 /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706C1F1E142C00CB7FC7 /* Shapes.swift */; };
+		A5A3708B1F1E142C00CB7FC7 /* SuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706D1F1E142C00CB7FC7 /* SuggestionView.swift */; };
+		A5A3708C1F1E142C00CB7FC7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706E1F1E142C00CB7FC7 /* Utilities.swift */; };
+		A5A3708D1F1E142C00CB7FC7 /* WordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706F1F1E142C00CB7FC7 /* WordStore.swift */; };
 		A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA370C1F079B530042E1FC /* DataStore.swift */; };
 		A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */; };
 		A5AA37151F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */; };
@@ -481,6 +511,39 @@
 		A58465311F06907500410FA2 /* PackSectionHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackSectionHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackSectionHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackSectionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		A5A3704D1F1E142C00CB7FC7 /* Catboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Catboard.swift; sourceTree = "<group>"; };
+		A5A3704E1F1E142C00CB7FC7 /* CatboardBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatboardBanner.swift; sourceTree = "<group>"; };
+		A5A3704F1F1E142C00CB7FC7 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		A5A370511F1E142C00CB7FC7 /* CYRKeyboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRKeyboardButton.h; sourceTree = "<group>"; };
+		A5A370521F1E142C00CB7FC7 /* CYRKeyboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRKeyboardButton.m; sourceTree = "<group>"; };
+		A5A370531F1E142C00CB7FC7 /* CYRKeyboardButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRKeyboardButtonView.h; sourceTree = "<group>"; };
+		A5A370541F1E142C00CB7FC7 /* CYRKeyboardButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRKeyboardButtonView.m; sourceTree = "<group>"; };
+		A5A370551F1E142C00CB7FC7 /* TurtleBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurtleBezierPath.h; sourceTree = "<group>"; };
+		A5A370561F1E142C00CB7FC7 /* TurtleBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurtleBezierPath.m; sourceTree = "<group>"; };
+		A5A370571F1E142C00CB7FC7 /* DefaultKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeyboard.swift; sourceTree = "<group>"; };
+		A5A370581F1E142C00CB7FC7 /* DefaultSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
+		A5A370591F1E142C00CB7FC7 /* DirectionEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
+		A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtraView.swift; sourceTree = "<group>"; };
+		A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardingView.swift; sourceTree = "<group>"; };
+		A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageKey.swift; sourceTree = "<group>"; };
+		A5A3705D1F1E142C00CB7FC7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardConnector.swift; sourceTree = "<group>"; };
+		A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInputTraits.swift; sourceTree = "<group>"; };
+		A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
+		A5A370621F1E142C00CB7FC7 /* KeyboardKeyBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKeyBackground.swift; sourceTree = "<group>"; };
+		A5A370631F1E142C00CB7FC7 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
+		A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutSelection.swift; sourceTree = "<group>"; };
+		A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
+		A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardSelectionViewController.swift; sourceTree = "<group>"; };
+		A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageDefinition.swift; sourceTree = "<group>"; };
+		A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSettingsViewController.swift; sourceTree = "<group>"; };
+		A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightDarkView.swift; sourceTree = "<group>"; };
+		A5A3706B1F1E142C00CB7FC7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A5A3706C1F1E142C00CB7FC7 /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		A5A3706D1F1E142C00CB7FC7 /* SuggestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionView.swift; sourceTree = "<group>"; };
+		A5A3706E1F1E142C00CB7FC7 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		A5A3706F1F1E142C00CB7FC7 /* WordStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordStore.swift; sourceTree = "<group>"; };
 		A5AA370C1F079B530042E1FC /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -1069,6 +1132,7 @@
 				976E50701B9BA9880057D6B2 /* EboticonKeyboard.entitlements */,
 				976E4F941B9BA1D30057D6B2 /* utils */,
 				976E4F7A1B9BA1750057D6B2 /* resources */,
+				A5A3704C1F1E142C00CB7FC7 /* Keyboard */,
 				976E4F781B9BA1660057D6B2 /* Keyboard.storyboard */,
 				976E4F6C1B9B9B8E0057D6B2 /* KeyboardViewController.h */,
 				976E4F6D1B9B9B8E0057D6B2 /* KeyboardViewController.m */,
@@ -1254,6 +1318,54 @@
 				A5AA37181F0938370042E1FC /* Resource.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		A5A3704C1F1E142C00CB7FC7 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A5A3704D1F1E142C00CB7FC7 /* Catboard.swift */,
+				A5A3704E1F1E142C00CB7FC7 /* CatboardBanner.swift */,
+				A5A3704F1F1E142C00CB7FC7 /* CustomNavigationController.swift */,
+				A5A370501F1E142C00CB7FC7 /* CYRKeyboardButton */,
+				A5A370571F1E142C00CB7FC7 /* DefaultKeyboard.swift */,
+				A5A370581F1E142C00CB7FC7 /* DefaultSettings.swift */,
+				A5A370591F1E142C00CB7FC7 /* DirectionEnum.swift */,
+				A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */,
+				A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */,
+				A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */,
+				A5A3705D1F1E142C00CB7FC7 /* Info.plist */,
+				A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */,
+				A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */,
+				A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */,
+				A5A370621F1E142C00CB7FC7 /* KeyboardKeyBackground.swift */,
+				A5A370631F1E142C00CB7FC7 /* KeyboardLayout.swift */,
+				A5A370641F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift */,
+				A5A370651F1E142C00CB7FC7 /* KeyboardModel.swift */,
+				A5A370661F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift */,
+				A5A370671F1E142C00CB7FC7 /* KeyboardViewController.swift */,
+				A5A370681F1E142C00CB7FC7 /* LanguageDefinition.swift */,
+				A5A370691F1E142C00CB7FC7 /* LanguageSettingsViewController.swift */,
+				A5A3706A1F1E142C00CB7FC7 /* LightDarkView.swift */,
+				A5A3706B1F1E142C00CB7FC7 /* Media.xcassets */,
+				A5A3706C1F1E142C00CB7FC7 /* Shapes.swift */,
+				A5A3706D1F1E142C00CB7FC7 /* SuggestionView.swift */,
+				A5A3706E1F1E142C00CB7FC7 /* Utilities.swift */,
+				A5A3706F1F1E142C00CB7FC7 /* WordStore.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		A5A370501F1E142C00CB7FC7 /* CYRKeyboardButton */ = {
+			isa = PBXGroup;
+			children = (
+				A5A370511F1E142C00CB7FC7 /* CYRKeyboardButton.h */,
+				A5A370521F1E142C00CB7FC7 /* CYRKeyboardButton.m */,
+				A5A370531F1E142C00CB7FC7 /* CYRKeyboardButtonView.h */,
+				A5A370541F1E142C00CB7FC7 /* CYRKeyboardButtonView.m */,
+				A5A370551F1E142C00CB7FC7 /* TurtleBezierPath.h */,
+				A5A370561F1E142C00CB7FC7 /* TurtleBezierPath.m */,
+			);
+			path = CYRKeyboardButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1450,9 +1562,11 @@
 				976E4F8A1B9BA1B40057D6B2 /* round-switch-mask@2x.png in Resources */,
 				976E4F8B1B9BA1B40057D6B2 /* round-switch-overlay.png in Resources */,
 				976E4F8E1B9BA1B40057D6B2 /* round-switch-thumb-highlight@2x.png in Resources */,
+				A5A370891F1E142C00CB7FC7 /* Media.xcassets in Resources */,
 				976E4F921B9BA1B40057D6B2 /* round-switch-track.png in Resources */,
 				97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */,
 				976E4F8C1B9BA1B40057D6B2 /* round-switch-overlay@2x.png in Resources */,
+				A5A3707C1F1E142C00CB7FC7 /* Info.plist in Resources */,
 				A53521181EDB194B0098383A /* UnlockView.xib in Resources */,
 				976E4F8F1B9BA1B40057D6B2 /* round-switch-thumb.png in Resources */,
 				976E50681B9BA2590057D6B2 /* KeyArt.xcassets in Resources */,
@@ -1680,21 +1794,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				97044F121BA3690F008CA2E1 /* ImageRecord.m in Sources */,
+				A5A370781F1E142C00CB7FC7 /* DirectionEnum.swift in Sources */,
+				A5A3708A1F1E142C00CB7FC7 /* Shapes.swift in Sources */,
+				A5A370841F1E142C00CB7FC7 /* KeyboardSelectionViewController.swift in Sources */,
+				A5A3707A1F1E142C00CB7FC7 /* ForwardingView.swift in Sources */,
+				A5A370751F1E142C00CB7FC7 /* TurtleBezierPath.m in Sources */,
+				A5A370701F1E142C00CB7FC7 /* Catboard.swift in Sources */,
 				A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */,
+				A5A370761F1E142C00CB7FC7 /* DefaultKeyboard.swift in Sources */,
 				976E506F1B9BA3830057D6B2 /* KeyboardCell.m in Sources */,
+				A5A370851F1E142C00CB7FC7 /* KeyboardViewController.swift in Sources */,
 				97044F111BA3690F008CA2E1 /* ImageDownloader.m in Sources */,
+				A5A370881F1E142C00CB7FC7 /* LightDarkView.swift in Sources */,
+				A5A3707B1F1E142C00CB7FC7 /* ImageKey.swift in Sources */,
 				9722338E1C8796D50069F111 /* KeypadViewController.m in Sources */,
 				973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */,
 				976E4F6E1B9B9B8E0057D6B2 /* KeyboardViewController.m in Sources */,
 				A53BA5C21E8FA8AC00224FF0 /* Webservice.swift in Sources */,
+				A5A370711F1E142C00CB7FC7 /* CatboardBanner.swift in Sources */,
 				976E4F981B9BA1F40057D6B2 /* Reachability.m in Sources */,
+				A5A370801F1E142C00CB7FC7 /* KeyboardKeyBackground.swift in Sources */,
 				97044F1E1BA36946008CA2E1 /* UIImage+Decode.m in Sources */,
+				A5A3708B1F1E142C00CB7FC7 /* SuggestionView.swift in Sources */,
+				A5A370811F1E142C00CB7FC7 /* KeyboardLayout.swift in Sources */,
+				A5A370791F1E142C00CB7FC7 /* ExtraView.swift in Sources */,
+				A5A370771F1E142C00CB7FC7 /* DefaultSettings.swift in Sources */,
 				976E4F771B9BA14C0057D6B2 /* KeyboardCollectionViewFlowLayout.m in Sources */,
+				A5A3707E1F1E142C00CB7FC7 /* KeyboardInputTraits.swift in Sources */,
+				A5A370731F1E142C00CB7FC7 /* CYRKeyboardButton.m in Sources */,
+				A5A370871F1E142C00CB7FC7 /* LanguageSettingsViewController.swift in Sources */,
+				A5A370861F1E142C00CB7FC7 /* LanguageDefinition.swift in Sources */,
 				97044F1D1BA36946008CA2E1 /* UIImage+RoundedCorner.m in Sources */,
+				A5A370831F1E142C00CB7FC7 /* KeyboardModel.swift in Sources */,
+				A5A370741F1E142C00CB7FC7 /* CYRKeyboardButtonView.m in Sources */,
+				A5A3708C1F1E142C00CB7FC7 /* Utilities.swift in Sources */,
+				A5A3708D1F1E142C00CB7FC7 /* WordStore.swift in Sources */,
 				97044F1C1BA36946008CA2E1 /* UIImage+Alpha.m in Sources */,
 				97044F101BA3690F008CA2E1 /* ImageCache.m in Sources */,
 				97044F071BA349D5008CA2E1 /* EboticonGif.m in Sources */,
+				A5A370821F1E142C00CB7FC7 /* KeyboardLayoutSelection.swift in Sources */,
+				A5A370721F1E142C00CB7FC7 /* CustomNavigationController.swift in Sources */,
 				97044F1F1BA36946008CA2E1 /* UIImage+Resize.m in Sources */,
+				A5A3707F1F1E142C00CB7FC7 /* KeyboardKey.swift in Sources */,
+				A5A3707D1F1E142C00CB7FC7 /* KeyboardConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
