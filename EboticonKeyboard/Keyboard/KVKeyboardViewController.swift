@@ -45,7 +45,7 @@ class KVKeyboardViewController: UIInputViewController {
     var forwardingView: ForwardingView!
     var layout: KeyboardLayout?
     var heightConstraint: NSLayoutConstraint?
-    
+    var parentProxy:UITextDocumentProxy!
     var bannerView: SuggestionView?
 
     var currentMode: Int {
@@ -203,7 +203,7 @@ class KVKeyboardViewController: UIInputViewController {
     fileprivate func layoutHelper()
     {
 
-        let proxy = textDocumentProxy
+        let proxy = parentProxy!
         self.keyboard = defaultKeyboard(proxy.keyboardType!)
 
         preKeyboardType = proxy.keyboardType!
@@ -256,7 +256,7 @@ class KVKeyboardViewController: UIInputViewController {
     // only available after frame becomes non-zero
     func darkMode() -> Bool {
         let darkMode = { () -> Bool in
-                return self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearance.dark
+                return self.parentProxy.keyboardAppearance == UIKeyboardAppearance.dark
         }()
 
         return darkMode
@@ -291,7 +291,7 @@ class KVKeyboardViewController: UIInputViewController {
 		
 		self.bannerView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: metric("topBanner"))
 		
-		self.bannerView?.isHidden = textDocumentProxy.keyboardType == UIKeyboardType.numberPad || textDocumentProxy.keyboardType == UIKeyboardType.decimalPad
+		self.bannerView?.isHidden = parentProxy!.keyboardType == UIKeyboardType.numberPad || parentProxy!.keyboardType == UIKeyboardType.decimalPad
 
 		self.forwardingView.frame.origin = CGPoint(x: 0, y: self.view.bounds.height - self.forwardingView.bounds.height)
 		
@@ -433,7 +433,7 @@ class KVKeyboardViewController: UIInputViewController {
         
         let canonicalLandscapeHeight = CGFloat(orientation.isLandscape && actualScreenHeight >= 800 ? 330 : 162)
 		
-		let topBannerHeight = (withTopBanner && textDocumentProxy.keyboardType != UIKeyboardType.numberPad && textDocumentProxy.keyboardType != UIKeyboardType.decimalPad)
+		let topBannerHeight = (withTopBanner && parentProxy!.keyboardType != UIKeyboardType.numberPad && parentProxy!.keyboardType != UIKeyboardType.decimalPad)
             ? metric("topBanner") : 0
 
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight + topBannerHeight : canonicalLandscapeHeight + topBannerHeight)
@@ -450,12 +450,13 @@ class KVKeyboardViewController: UIInputViewController {
                 for key in rowKeys {
                     if let keyView = self.layout?.viewForKey(key) {
                         keyView.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
-						
+						keyView.alpha = 1
                         switch key.type {
 
                         case Key.KeyType.keyboardChange:
                             // Long press on keyboard change shows popup with options to change layout or move to next
                             // installed keyboard
+                            keyView.alpha = 0
                             
                             keyView.addTarget(self, action: #selector(KVKeyboardViewController.keyCharLongPressed(_:)), for: .touchDownRepeat)
 
@@ -522,7 +523,7 @@ class KVKeyboardViewController: UIInputViewController {
             self.popupDelayTimer?.invalidate()
         }
 
-		let proxy = textDocumentProxy
+		let proxy = parentProxy!
         if proxy.keyboardType != UIKeyboardType.numberPad && proxy.keyboardType != UIKeyboardType.decimalPad {
 
             // Push the top row of suggestion buttons back so we can draw the popup over the top
@@ -570,9 +571,9 @@ class KVKeyboardViewController: UIInputViewController {
 	override func textDidChange(_ textInput: UITextInput?) {
 		self.contextChanged()
 		
-		let proxy = textDocumentProxy 
+		let proxy = parentProxy!
 		
-		keyboard_type = textDocumentProxy.keyboardType!
+		keyboard_type = parentProxy!.keyboardType!
 		
 		DispatchQueue.main.async(execute: {
 			if proxy.keyboardType! != self.preKeyboardType
@@ -658,7 +659,7 @@ class KVKeyboardViewController: UIInputViewController {
             }
 			
             let charactersAreInCorrectState = { () -> Bool in
-                let previousContext = self.textDocumentProxy.documentContextBeforeInput
+                let previousContext = self.parentProxy!.documentContextBeforeInput
 				
                 if previousContext == nil || previousContext!.characters.count < 3 {
                     return false
@@ -686,8 +687,8 @@ class KVKeyboardViewController: UIInputViewController {
             }()
             
             if charactersAreInCorrectState {
-                self.textDocumentProxy.deleteBackward()
-                self.textDocumentProxy.deleteBackward()
+                self.parentProxy!.deleteBackward()
+                self.parentProxy!.deleteBackward()
                 InsertText(".")
                 InsertText(" ")
             }
@@ -711,7 +712,7 @@ class KVKeyboardViewController: UIInputViewController {
     func backspaceDown(_ sender: KeyboardKey) {
         self.cancelBackspaceTimers()
         
-        self.textDocumentProxy.deleteBackward()
+        self.parentProxy!.deleteBackward()
         WordStore.CurrentWordStore().DeleteBackward()
 
         self.setCapsIfNeeded()
@@ -732,7 +733,7 @@ class KVKeyboardViewController: UIInputViewController {
     func backspaceRepeatCallback() {
         self.playKeySound()
         
-        self.textDocumentProxy.deleteBackward()
+        self.parentProxy!.deleteBackward()
         
         self.setCapsIfNeeded()
     }
@@ -840,7 +841,7 @@ class KVKeyboardViewController: UIInputViewController {
             return false
         }
         
-        let documentProxy = self.textDocumentProxy
+        let documentProxy = self.parentProxy!
         if let autocapitalization = documentProxy.autocapitalizationType {
 
             switch autocapitalization {
@@ -905,7 +906,7 @@ class KVKeyboardViewController: UIInputViewController {
 
     func InsertText(_ insertChar: String)
     {
-        self.textDocumentProxy.insertText(insertChar)
+        self.parentProxy!.insertText(insertChar)
 
         WordStore.CurrentWordStore().recordChar(insertChar)
 
@@ -977,7 +978,7 @@ class KVKeyboardViewController: UIInputViewController {
 
             // Tapping on the suggestion replaces the word we've been inserting into the text buffer
             for _ in 0 ..< WordStore.CurrentWordStore().CurrentWord.characters.count {
-                self.textDocumentProxy.deleteBackward()
+                self.parentProxy!.deleteBackward()
             }
 
             let insertionWord =

@@ -1,14 +1,10 @@
 //
-//  Catboard.swift
+//  KouriKeyPad.swift
+//  Eboticon1.2
 //
+//  Created by Johnson Ejezie on 18/07/2017.
+//  Copyright © 2017 Incling. All rights reserved.
 //
-//  Created by Alexei Baboulevitch on 9/24/14.
-//  Licensed under the 3-clause ("New") BSD license.
-//  Modified by Aaron Walton with contributions from others on GitHub
-
-/*This is the suggestion bar. The title of this class comes from Alexei Baboulevitch original demo which had cat emoji. At this point, the names have not been updated.*/
-
-
 
 import UIKit
 
@@ -20,7 +16,7 @@ class Catboard: KVKeyboardViewController {
         UserDefaults.standard.register(defaults: [kCatTypeEnabled: true])
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-
+    
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

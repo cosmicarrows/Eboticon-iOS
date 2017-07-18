@@ -137,7 +137,7 @@
 //@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
-@property (nonatomic, strong) KVKeyboardViewController *kvController;
+@property (nonatomic, strong) Catboard *kvController;
 //keypad
 @property (nonatomic, weak) IBOutlet UIView *keypadView;
 
@@ -247,9 +247,13 @@
 }
 
 - (void) createKouriViniKepad {
-    _kvController = [[KVKeyboardViewController alloc] init];
+    _kvController = [[Catboard alloc] init];
     [self addChildViewController:_kvController];
     _kvController.view.translatesAutoresizingMaskIntoConstraints = false;
+    
+    _kvController.parentProxy = self.textDocumentProxy;
+    _kvController.view.backgroundColor = [UIColor colorWithRed:210/255.0 green:213/255.0 blue:219/255.0 alpha:1];
+
     [self.view addSubview:_kvController.view];
     [self.view bringSubviewToFront:_kvController.view];
     [_kvController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
@@ -258,6 +262,7 @@
     [_kvController.view.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
     [_kvController.view.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
     _kvController.view.alpha = 0;
+    [_kvController didMoveToParentViewController:self];
 }
 
 - (void) createCollectionView {
@@ -1046,7 +1051,7 @@
     self.keypadView.hidden = YES;
     self.isKeypadOn = false;
     self.isFacebookButtonOn = NO;
-    
+     _kvController.view.alpha = 0;
     //Change the toolbar
     //NSLog(@"tag: %ld", (long)tag);
     switch (tag) {
@@ -1592,7 +1597,6 @@
 {
     NSLog(@"Button Tapped: %ld", (long)[indexPath row]);
     BOOL allowedOpenAccess = [self isRequestsOpenAccessEnabled]; // Can you allow access
-    
     //Get current gif
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     
