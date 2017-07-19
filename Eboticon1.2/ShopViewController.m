@@ -212,23 +212,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    _imagePager.imageCounterDisabled = YES;
-//    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
-//    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-//    
-//    /******** fit background image to the imagePager's frame *********/
-//    
-//    UIGraphicsBeginImageContext(_imagePager.frame.size);
-//    [[UIImage imageNamed:@"banner1.png"] drawInRect:_imagePager.bounds];
-//    UIImage *imageFirstSlider = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:imageFirstSlider];
-//    _imagePager.slideshowTimeInterval = 5.5f;
-//    _imagePager.slideshowShouldCallScrollToDelegate = YES;
-//    
-//    [_imagePager setBounces:NO];
-    
     UIImageView *imageView = [[UIImageView alloc]
                               initWithFrame:CGRectMake(10,0,3,20)];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -272,7 +255,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     // Do any additional setup after loading the view from its nib.
     
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
+    [self setupSlideImageShow];
     // Create the data model
     _packImages = @[@"BaePackIcon", @"GreekPackIcons", @"ChurchPackIcon", @"RatchPackIcon", @"GreetingsPackIcon"];
     
@@ -310,6 +293,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
     
+}
+
+- (void) setupSlideImageShow
+{
+    NSArray *images = [[NSArray alloc] initWithObjects:[[ImageSource alloc] initWithImageString:@"banner0"], [[ImageSource alloc] initWithImageString:@"banner1"], [[ImageSource alloc] initWithImageString:@"banner2"], [[ImageSource alloc] initWithImageString:@"banner3"], [[ImageSource alloc] initWithImageString:@"banner4"], nil];
+    [self.imageSlideShow setSlideshowInterval:5.5];
+    self.imageSlideShow.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+    self.imageSlideShow.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    self.imageSlideShow.contentMode = UIViewContentModeScaleAspectFill;
+    [self.imageSlideShow setImageInputs:images];
 }
 
 - (NSArray *) arrayWithImages:(KIImagePager*)pager

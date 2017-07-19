@@ -6,11 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopViewController">
             <connections>
+                <outlet property="imageSlideShow" destination="iu4-qk-xFM" id="3Zh-l7-CAn"/>
                 <outlet property="inAppPurchaseTable" destination="zid-fh-oG3" id="HMP-2k-LKR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="yye-eV-SWo"/>
             </connections>
@@ -21,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
-                    <rect key="frame" x="0.0" y="225" width="375" height="393"/>
+                    <rect key="frame" x="0.0" y="249" width="375" height="369"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="320" id="Xr7-03-XVf"/>
@@ -31,24 +33,23 @@
                         <outlet property="delegate" destination="-1" id="aum-ui-pOO"/>
                     </connections>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner1.png" translatesAutoresizingMaskIntoConstraints="NO" id="ChR-Ml-1Cj">
-                    <rect key="frame" x="0.0" y="64" width="375" height="161"/>
-                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iu4-qk-xFM" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                    <rect key="frame" x="0.0" y="64" width="375" height="185"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="7pe-PV-69L"/>
                 <constraint firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="FIM-vl-Hbt"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="iu4-qk-xFM" secondAttribute="bottom" id="HOj-WH-EN7"/>
                 <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ly1-vD-pV3"/>
                 <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="49" id="P4O-tP-PAT"/>
-                <constraint firstItem="ChR-Ml-1Cj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZUT-cg-VfX"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="ChR-Ml-1Cj" secondAttribute="bottom" id="fVL-hs-jRb"/>
-                <constraint firstAttribute="trailing" secondItem="ChR-Ml-1Cj" secondAttribute="trailing" id="sL3-hJ-2xD"/>
-                <constraint firstItem="ChR-Ml-1Cj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="x6X-Ap-2dT"/>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qvg-zC-DO2"/>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="height" secondItem="zid-fh-oG3" secondAttribute="height" multiplier="1:2" id="h4J-Py-akf"/>
+                <constraint firstAttribute="trailing" secondItem="iu4-qk-xFM" secondAttribute="trailing" id="kb6-wz-TZp"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="102.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="banner1.png" width="400" height="161"/>
-    </resources>
 </document>
