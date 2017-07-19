@@ -87,7 +87,7 @@
 		970DA3E41B69CD5100587CD6 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 970DA3E21B69CD5100587CD6 /* ShopViewController.m */; };
 		970DA3E51B69CD5100587CD6 /* ShopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3E31B69CD5100587CD6 /* ShopView.xib */; };
 		970DA3F31B69D04A00587CD6 /* MoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970DA3F21B69D04A00587CD6 /* MoreView.xib */; };
-		971DED901BAC460900D2A751 /* banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED8F1BAC460900D2A751 /* banner1.png */; };
+		971DED901BAC460900D2A751 /* banner0.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED8F1BAC460900D2A751 /* banner0.png */; };
 		971DED921BAC6A5C00D2A751 /* placeholder_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED911BAC6A5C00D2A751 /* placeholder_loading.png */; };
 		971DED9F1BADD26100D2A751 /* round-switch-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED941BADD26100D2A751 /* round-switch-mask.png */; };
 		971DEDA01BADD26100D2A751 /* round-switch-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971DED951BADD26100D2A751 /* round-switch-mask@2x.png */; };
@@ -230,6 +230,10 @@
 		A5A3708C1F1E142C00CB7FC7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706E1F1E142C00CB7FC7 /* Utilities.swift */; };
 		A5A3708D1F1E142C00CB7FC7 /* WordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3706F1F1E142C00CB7FC7 /* WordStore.swift */; };
 		A5A370911F1E8ABA00CB7FC7 /* KouriKeyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370901F1E8ABA00CB7FC7 /* KouriKeyPad.swift */; };
+		A5A3709E1F1FE39E00CB7FC7 /* banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A3709A1F1FE39E00CB7FC7 /* banner1.png */; };
+		A5A3709F1F1FE39E00CB7FC7 /* banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A3709B1F1FE39E00CB7FC7 /* banner2.png */; };
+		A5A370A01F1FE39E00CB7FC7 /* banner3.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A3709C1F1FE39E00CB7FC7 /* banner3.png */; };
+		A5A370A11F1FE39E00CB7FC7 /* banner4.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A3709D1F1FE39E00CB7FC7 /* banner4.png */; };
 		A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA370C1F079B530042E1FC /* DataStore.swift */; };
 		A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */; };
 		A5AA37151F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */; };
@@ -371,7 +375,7 @@
 		970DA3E21B69CD5100587CD6 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		970DA3E31B69CD5100587CD6 /* ShopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopView.xib; sourceTree = "<group>"; };
 		970DA3F21B69D04A00587CD6 /* MoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreView.xib; sourceTree = "<group>"; };
-		971DED8F1BAC460900D2A751 /* banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner1.png; sourceTree = "<group>"; };
+		971DED8F1BAC460900D2A751 /* banner0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner0.png; sourceTree = "<group>"; };
 		971DED911BAC6A5C00D2A751 /* placeholder_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder_loading.png; sourceTree = "<group>"; };
 		971DED941BADD26100D2A751 /* round-switch-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask.png"; sourceTree = "<group>"; };
 		971DED951BADD26100D2A751 /* round-switch-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-switch-mask@2x.png"; sourceTree = "<group>"; };
@@ -544,6 +548,10 @@
 		A5A3706E1F1E142C00CB7FC7 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		A5A3706F1F1E142C00CB7FC7 /* WordStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordStore.swift; sourceTree = "<group>"; };
 		A5A370901F1E8ABA00CB7FC7 /* KouriKeyPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KouriKeyPad.swift; sourceTree = "<group>"; };
+		A5A3709A1F1FE39E00CB7FC7 /* banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner1.png; sourceTree = "<group>"; };
+		A5A3709B1F1FE39E00CB7FC7 /* banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner2.png; sourceTree = "<group>"; };
+		A5A3709C1F1FE39E00CB7FC7 /* banner3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner3.png; sourceTree = "<group>"; };
+		A5A3709D1F1FE39E00CB7FC7 /* banner4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner4.png; sourceTree = "<group>"; };
 		A5AA370C1F079B530042E1FC /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -1098,7 +1106,11 @@
 		9760B5771B7A84A600E75EEC /* shop */ = {
 			isa = PBXGroup;
 			children = (
-				971DED8F1BAC460900D2A751 /* banner1.png */,
+				971DED8F1BAC460900D2A751 /* banner0.png */,
+				A5A3709A1F1FE39E00CB7FC7 /* banner1.png */,
+				A5A3709B1F1FE39E00CB7FC7 /* banner2.png */,
+				A5A3709C1F1FE39E00CB7FC7 /* banner3.png */,
+				A5A3709D1F1FE39E00CB7FC7 /* banner4.png */,
 				97065D731B6A85B1004B149A /* shop-slider.png */,
 				9760B5751B7A849F00E75EEC /* shopCostBorder.png */,
 			);
@@ -1492,10 +1504,12 @@
 				9760B5461B750D0E00E75EEC /* KeyboardTutorialViewController.xib in Resources */,
 				978F1C961B8F627B00ADA44C /* arrow_right.png in Resources */,
 				971DEDA91BADD26100D2A751 /* round-switch-track@2x.png in Resources */,
+				A5A370A11F1FE39E00CB7FC7 /* banner4.png in Resources */,
 				97CC16CB1C332865000E01D6 /* Icon_Instagram.png in Resources */,
 				971DEDA31BADD26100D2A751 /* round-switch-thumb-highlight.png in Resources */,
 				971DED9F1BADD26100D2A751 /* round-switch-mask.png in Resources */,
 				9760B5371B750B6800E75EEC /* page3.png in Resources */,
+				A5A3709F1F1FE39E00CB7FC7 /* banner2.png in Resources */,
 				97065D771B6BAC87004B149A /* EboticonView.xib in Resources */,
 				9755A9D71EFBF42E005DABCC /* hexadots.json in Resources */,
 				97035AAB1B6C26C7004FEDC5 /* ShopTableCell.xib in Resources */,
@@ -1505,11 +1519,13 @@
 				971DEDA21BADD26100D2A751 /* round-switch-overlay@2x.png in Resources */,
 				9760B5351B750B6800E75EEC /* page1.png in Resources */,
 				970DA3C91B6978F200587CD6 /* MainView.xib in Resources */,
-				971DED901BAC460900D2A751 /* banner1.png in Resources */,
+				971DED901BAC460900D2A751 /* banner0.png in Resources */,
 				970DA3DF1B69C75E00587CD6 /* nav_bg.png in Resources */,
 				63FAE3911868CC0200116D73 /* InfoPlist.strings in Resources */,
 				978F1C9E1B8F628E00ADA44C /* page7.png in Resources */,
 				978F1C9D1B8F628E00ADA44C /* page6.png in Resources */,
+				A5A3709E1F1FE39E00CB7FC7 /* banner1.png in Resources */,
+				A5A370A01F1FE39E00CB7FC7 /* banner3.png in Resources */,
 				971DEDA51BADD26100D2A751 /* round-switch-thumb.png in Resources */,
 				970DA3F31B69D04A00587CD6 /* MoreView.xib in Resources */,
 				97A2C8F71E3BCF3600F5BC2D /* GoogleService-Info.plist in Resources */,
@@ -1679,6 +1695,7 @@
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Harpy/Harpy.framework",
+				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
 				"${BUILT_PRODUCTS_DIR}/SIAlertView/SIAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/TTSwitch/TTSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
@@ -1694,6 +1711,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Harpy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SIAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
