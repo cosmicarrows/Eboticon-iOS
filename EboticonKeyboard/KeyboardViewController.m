@@ -1489,7 +1489,7 @@
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
 
-    [cell.imageView setContentMode:UIViewContentModeScaleToFill];
+    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
     
     
     if([self isRequestsOpenAccessEnabled]){
