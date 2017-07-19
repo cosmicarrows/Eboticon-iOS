@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopViewController">
             <connections>
-                <outlet property="_imagePager" destination="7RK-aU-FNo" id="Ztt-2y-M1e"/>
                 <outlet property="inAppPurchaseTable" destination="zid-fh-oG3" id="HMP-2k-LKR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="yye-eV-SWo"/>
             </connections>
@@ -21,35 +20,35 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7RK-aU-FNo" userLabel="Image Pager" customClass="KIImagePager">
-                    <rect key="frame" x="0.0" y="53" width="375" height="154"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="yhJ-BT-X9L"/>
-                        <outlet property="delegate" destination="-1" id="Eno-mg-pQQ"/>
-                    </connections>
-                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
-                    <rect key="frame" x="0.0" y="207" width="375" height="501"/>
+                    <rect key="frame" x="0.0" y="225" width="375" height="393"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="320" id="Xr7-03-XVf"/>
+                    </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="LU3-sD-uJE"/>
                         <outlet property="delegate" destination="-1" id="aum-ui-pOO"/>
                     </connections>
                 </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner1.png" translatesAutoresizingMaskIntoConstraints="NO" id="ChR-Ml-1Cj">
+                    <rect key="frame" x="0.0" y="64" width="375" height="161"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="trailing" secondItem="7RK-aU-FNo" secondAttribute="trailing" id="0VT-IH-6hJ"/>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="53" id="ADm-EL-eY8"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="7RK-aU-FNo" secondAttribute="bottom" id="B3T-vi-8kU"/>
-                <constraint firstAttribute="bottom" secondItem="7RK-aU-FNo" secondAttribute="bottom" constant="460" id="GfV-gc-Kqd"/>
+                <constraint firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="FIM-vl-Hbt"/>
                 <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ly1-vD-pV3"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="7RK-aU-FNo" secondAttribute="leading" id="MGW-hi-h0h"/>
-                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="-41" id="P4O-tP-PAT"/>
-                <constraint firstAttribute="trailing" secondItem="7RK-aU-FNo" secondAttribute="trailing" id="T3H-Kk-piN"/>
+                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="49" id="P4O-tP-PAT"/>
+                <constraint firstItem="ChR-Ml-1Cj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZUT-cg-VfX"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="ChR-Ml-1Cj" secondAttribute="bottom" id="fVL-hs-jRb"/>
+                <constraint firstAttribute="trailing" secondItem="ChR-Ml-1Cj" secondAttribute="trailing" id="sL3-hJ-2xD"/>
+                <constraint firstItem="ChR-Ml-1Cj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="x6X-Ap-2dT"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="102.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="banner1.png" width="400" height="161"/>
+    </resources>
 </document>

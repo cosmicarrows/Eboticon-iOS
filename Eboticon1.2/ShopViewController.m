@@ -27,7 +27,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
-    IBOutlet KIImagePager *_imagePager;
+//    IBOutlet KIImagePager *_imagePager;
     NSNumberFormatter * _priceFormatter;
 }
 
@@ -212,26 +212,26 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _imagePager.imageCounterDisabled = YES;
-    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
-    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-    
-    /******** fit background image to the imagePager's frame *********/
-    
-    UIGraphicsBeginImageContext(_imagePager.frame.size);
-    [[UIImage imageNamed:@"banner1.png"] drawInRect:_imagePager.bounds];
-    UIImage *imageFirstSlider = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:imageFirstSlider];
-    _imagePager.slideshowTimeInterval = 5.5f;
-    _imagePager.slideshowShouldCallScrollToDelegate = YES;
-    
-    [_imagePager setBounces:NO];
+//    _imagePager.imageCounterDisabled = YES;
+//    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+//    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+//    
+//    /******** fit background image to the imagePager's frame *********/
+//    
+//    UIGraphicsBeginImageContext(_imagePager.frame.size);
+//    [[UIImage imageNamed:@"banner1.png"] drawInRect:_imagePager.bounds];
+//    UIImage *imageFirstSlider = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:imageFirstSlider];
+//    _imagePager.slideshowTimeInterval = 5.5f;
+//    _imagePager.slideshowShouldCallScrollToDelegate = YES;
+//    
+//    [_imagePager setBounces:NO];
     
     UIImageView *imageView = [[UIImageView alloc]
                               initWithFrame:CGRectMake(10,0,3,20)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
