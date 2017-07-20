@@ -30,12 +30,41 @@ import Foundation
     var all: [EboticonGif] = []
         
     func setupDataStore(_ eboticons:[EboticonGif], tone:String) {
-        freePack = eboticons.filter{ Helper.isFreePack($0) && $0.skinTone == tone }
-        baePack = eboticons.filter{ Helper.isBaePack($0) && $0.skinTone == tone }
-        churchPack = eboticons.filter{ Helper.isChurchPack($0) && $0.skinTone == tone }
-        greekPack = eboticons.filter{ Helper.isGreekPack($0) && $0.skinTone == tone }
-        greetingPack = eboticons.filter{ Helper.isGreetingPack($0) && $0.skinTone == tone }
-        ratchetPack = eboticons.filter{ Helper.isRatchetPack($0) && $0.skinTone == tone }
+        churchPack.removeAll()
+        freePack.removeAll()
+        baePack.removeAll()
+        greekPack.removeAll()
+        greetingPack.removeAll()
+        ratchetPack.removeAll()
+        var baePackSeen = Set<String>()
+        var churchPackSeen = Set<String>()
+        var greekPackSeen = Set<String>()
+        var greetingPackSeen = Set<String>()
+        var ratchetPackSeen = Set<String>()
+        
+        for eboticon in eboticons {
+            if tone == eboticon.skinTone {
+                if Helper.isFreePack(eboticon) {
+                    freePack.append(eboticon)
+                } else if Helper.isBaePack(eboticon) && !baePackSeen.contains(eboticon.stillUrl) {
+                    baePack.append(eboticon)
+                    baePackSeen.insert(eboticon.stillUrl)
+                } else if Helper.isChurchPack(eboticon) && !churchPackSeen.contains(eboticon.stillUrl) {
+                    churchPack.append(eboticon)
+                    churchPackSeen.insert(eboticon.stillUrl)
+                } else if Helper.isGreekPack(eboticon) && !greekPackSeen.contains(eboticon.stillUrl) {
+                    greekPack.append(eboticon)
+                    greekPackSeen.insert(eboticon.stillUrl)
+                } else if Helper.isGreetingPack(eboticon) && !greetingPackSeen.contains(eboticon.stillUrl) {
+                    greetingPack.append(eboticon)
+                    greetingPackSeen.insert(eboticon.stillUrl)
+                } else if Helper.isRatchetPack(eboticon) && !ratchetPackSeen.contains(eboticon.stillUrl) {
+                    ratchetPack.append(eboticon)
+                    ratchetPackSeen.insert(eboticon.stillUrl)
+                }
+                
+            }
+        }        
     }
     
     func hasData()->Bool {
