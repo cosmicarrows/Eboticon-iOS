@@ -43,7 +43,7 @@
             
             _gifImageView.alpha = 0.0;
             _gifImageView.image = image;
-            [self fadeInImage];
+//            [self fadeInImage];
 
 
         }else {
@@ -63,9 +63,9 @@
                 [imgDownloader setCompletionHandler:^{
                     
                     
-                    _gifImageView.alpha = 0.0;
+//                    _gifImageView.alpha = 0.0;
                     _gifImageView.image = eboticonGif.thumbImage;
-                    [self fadeInImage];
+//                    [self fadeInImage];
                     
 
 //                    [activityIndicator stopAnimating];

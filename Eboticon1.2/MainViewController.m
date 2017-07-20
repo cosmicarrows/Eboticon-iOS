@@ -868,13 +868,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     // TODO: Fix bug to from the cloud
     EboticonGif *eboticonGifName = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [gifCell.gifImageView setAlpha:1];
     [gifCell setCellGif:eboticonGifName];
     
     if (![eboticonGifName.purchaseCategory isEqualToString:@""]) {
         if (![[EboticonIAPHelper sharedInstance] productPurchased:eboticonGifName.purchaseCategory]) {
             [[gifCell gifImageView] setAlpha:0.5];
+        } else {
+            [[gifCell gifImageView] setAlpha:1];
         }
+    } else {
+        [[gifCell gifImageView] setAlpha:1];
     }
     
     return gifCell;
