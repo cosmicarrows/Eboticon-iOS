@@ -24,7 +24,7 @@
 @property (strong, nonatomic) TabViewController *tabBarController;
 @property (strong, nonatomic) SWRevealViewController *viewController;
 @property (strong, nonatomic) SKSplashView *splashView;
-
+@property (nonatomic) int selectedIndex;
 
 @property (strong, nonatomic) OnboardingViewController *onboardingViewController;
 

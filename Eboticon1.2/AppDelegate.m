@@ -284,6 +284,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 // [START disconnect_from_fcm]
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     [[FIRMessaging messaging] disconnect];
+    self.selectedIndex = (int)self.tabBarController.selectedIndex;
     NSLog(@"Disconnected from FCM");
 }
 // [END disconnect_from_fcm]
@@ -337,6 +338,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [self. tabBarController updateMoveView:self.selectedIndex];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
