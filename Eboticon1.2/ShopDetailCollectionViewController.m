@@ -139,7 +139,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
             NSLog(@"purchased/published");
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (eboticons != nil) {
-                    
+                    self.isEboticonsLoaded = YES;
                     [_eboticonGifs removeAllObjects];
                     [_eboticonGifs addObjectsFromArray:eboticons];
                     [self createPackGifs];
@@ -332,7 +332,7 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
         // Display a message when the table is empty
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
-        messageLabel.text = @"No data is currently available.";
+        messageLabel.text = @"This pack is available in other skin tones.";
         messageLabel.textColor = [UIColor whiteColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -394,11 +394,11 @@ static NSString * const reuseIdentifier = @"ShopDetailCell";
                     [[ImageCache sharedImageCache] AddData:currentGif.gifUrl :imageData];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.isEboticonsLoaded = YES;
                     [activityIndicator stopAnimating];
                     [activityIndicator removeFromSuperview];
                     FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:imageData];
                     cell.gifImageView.animatedImage = image;
-                    self.isEboticonsLoaded = YES;
                 });
                 
             });

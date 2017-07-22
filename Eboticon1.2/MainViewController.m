@@ -389,7 +389,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     
     //Register the Gif Cell
     [self.collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
-     [self.collectionView registerNib:[UINib nibWithNibName:@"EmptyCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EmptyCollectionViewCell"];
+//    [self.collectionView registerNib:[UINib nibWithNibName:@"EmptyCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EmptyCollectionViewCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"PackHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:PackHeaderCollectionReusableView.kIdentifier];
     //Add background image
     //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
@@ -854,20 +854,21 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSUInteger count = [(NSArray *)[_eboticonGifs objectAtIndex:section] count];
-    if (count == 0) {
-        return 1;
-    }
-    return count;
+        return [(NSArray *)[_eboticonGifs objectAtIndex:section] count];
+//    NSUInteger count = [(NSArray *)[_eboticonGifs objectAtIndex:section] count];
+//    if (count == 0) {
+//        return 1;
+//    }
+//    return count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] == 0) {
-        EmptyCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EmptyCollectionViewCell" forIndexPath:indexPath];
-        return cell;
-    }
+//    if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+//        EmptyCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EmptyCollectionViewCell" forIndexPath:indexPath];
+//        return cell;
+//    }
     EboticonGifCell *gifCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimatedGifCell" forIndexPath:indexPath];
     
     //rounded corners
@@ -976,9 +977,9 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] == 0) {
-        return CGSizeMake(self.view.bounds.size.width, 64);
-    }
+//    if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+//        return CGSizeMake(self.view.bounds.size.width, 64);
+//    }
     return CGSizeMake(self.view.bounds.size.width/3 - 8, self.view.bounds.size.width/3 - 8);
     
 }
@@ -991,27 +992,36 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         } else {
             return CGSizeMake(_collectionView.frame.size.width, 60);
         }
-    } else if (section != 0) {
-        //GREEK PACK
-        return CGSizeMake(_collectionView.frame.size.width, 60);
-    }
-    else {
+    } else {
+//    } else if (section != 0) {
+//        //GREEK PACK
+//        return CGSizeMake(_collectionView.frame.size.width, 60);
+//    }
+//    else {
         return CGSizeZero;
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    PackHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackHeaderCollectionReusableView" forIndexPath:indexPath];
-    if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] > 0) {
-        EboticonGif *eboticon = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        if (![Helper isFreePack:eboticon]) {
-            headerView.eboticon = eboticon;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+
+        PackHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackHeaderCollectionReusableView" forIndexPath:indexPath];
+        
+        if ([(NSArray *)[_eboticonGifs objectAtIndex:indexPath.section] count] > 0) {
+            EboticonGif *eboticon = [[_eboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            if (![Helper isFreePack:eboticon]) {
+                headerView.eboticon = eboticon;
+            }
+//        } else if (indexPath.section != 0) {
+//            //GREEK PACK
+//            [headerView greekPack];
         }
-    } else if (indexPath.section != 0) {
-        //GREEK PACK
-        [headerView greekPack];
+        return headerView;
+        
     }
-    return headerView;
+    return nil;
+   
 }
 
 - (UIImage*)captureView:(UIView *)view
