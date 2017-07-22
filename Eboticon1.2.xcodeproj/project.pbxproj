@@ -200,6 +200,8 @@
 		A54B4AC61F041FF2008A61A6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54B4AC51F041FF2008A61A6 /* Helper.swift */; };
 		A58465341F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */; };
 		A58465351F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */; };
+		A5880A3B1F23229A00D22E9A /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880A391F23229A00D22E9A /* EmptyCollectionViewCell.swift */; };
+		A5880A3C1F23229A00D22E9A /* EmptyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5880A3A1F23229A00D22E9A /* EmptyCollectionViewCell.xib */; };
 		A5A370711F1E142C00CB7FC7 /* CatboardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3704E1F1E142C00CB7FC7 /* CatboardBanner.swift */; };
 		A5A370721F1E142C00CB7FC7 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3704F1F1E142C00CB7FC7 /* CustomNavigationController.swift */; };
 		A5A370731F1E142C00CB7FC7 /* CYRKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A370521F1E142C00CB7FC7 /* CYRKeyboardButton.m */; };
@@ -515,6 +517,8 @@
 		A58465311F06907500410FA2 /* PackSectionHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackSectionHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		A58465321F06907500410FA2 /* PackSectionHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackSectionHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		A58465331F06907500410FA2 /* PackSectionHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackSectionHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		A5880A391F23229A00D22E9A /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		A5880A3A1F23229A00D22E9A /* EmptyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyCollectionViewCell.xib; sourceTree = "<group>"; };
 		A5A3704E1F1E142C00CB7FC7 /* CatboardBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatboardBanner.swift; sourceTree = "<group>"; };
 		A5A3704F1F1E142C00CB7FC7 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		A5A370511F1E142C00CB7FC7 /* CYRKeyboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRKeyboardButton.h; sourceTree = "<group>"; };
@@ -1252,6 +1256,8 @@
 				970DA3DC1B69BED700587CD6 /* EboticonGifCell.xib */,
 				A5AA37121F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift */,
 				A5AA37131F0928CE0042E1FC /* PackHeaderCollectionReusableView.xib */,
+				A5880A391F23229A00D22E9A /* EmptyCollectionViewCell.swift */,
+				A5880A3A1F23229A00D22E9A /* EmptyCollectionViewCell.xib */,
 			);
 			name = "Main Collection View";
 			sourceTree = "<group>";
@@ -1521,6 +1527,7 @@
 				970DA3C91B6978F200587CD6 /* MainView.xib in Resources */,
 				971DED901BAC460900D2A751 /* banner0.png in Resources */,
 				970DA3DF1B69C75E00587CD6 /* nav_bg.png in Resources */,
+				A5880A3C1F23229A00D22E9A /* EmptyCollectionViewCell.xib in Resources */,
 				63FAE3911868CC0200116D73 /* InfoPlist.strings in Resources */,
 				978F1C9E1B8F628E00ADA44C /* page7.png in Resources */,
 				978F1C9D1B8F628E00ADA44C /* page6.png in Resources */,
@@ -1803,6 +1810,7 @@
 				A5AA37141F0928CE0042E1FC /* PackHeaderCollectionReusableView.swift in Sources */,
 				979CFF9E1B8AA8720041EE61 /* ShopDetailCollectionViewController.m in Sources */,
 				A5198F771E86727300BA6E33 /* Webservice.swift in Sources */,
+				A5880A3B1F23229A00D22E9A /* EmptyCollectionViewCell.swift in Sources */,
 				A5AA370D1F079B530042E1FC /* DataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

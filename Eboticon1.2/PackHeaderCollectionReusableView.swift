@@ -24,5 +24,8 @@ class PackHeaderCollectionReusableView: UICollectionReusableView {
             sectionHeaderImageView.image = Helper.packSectionHeaderImage(eboticon)
         }
     }
+    func greekPack() {
+        sectionHeaderImageView.image = UIImage(named: greekPackSectionHeaderImage)
+    }
     
 }
