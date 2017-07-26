@@ -1455,6 +1455,9 @@
 {
     NSLog(@"Number of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
     if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] == 0) {
+            return 0;
+        }
         return [[(NSArray *)_currentEboticonGifs objectAtIndex:section] count];
     }
     return  _currentEboticonGifs.count;;
@@ -1601,6 +1604,9 @@
     EboticonGif *currentGif = [[EboticonGif alloc]init];
     
     if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+            return;
+        }
         currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     } else {
         currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
@@ -2002,6 +2008,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] == 0) {
+            return CGSizeZero;
+        }
         return CGSizeMake(_collectionView.frame.size.width, 60);
     } else {
         return CGSizeZero;
@@ -2011,6 +2020,9 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
     if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+            return nil;
+        }
        EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
         headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
     }
@@ -2138,6 +2150,9 @@
         {
             EboticonGif *imgRecord = [[EboticonGif alloc] init];
             if (_showSection == YES) {
+                if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+                    return;
+                }
                 imgRecord = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             } else {
                 imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
