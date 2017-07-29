@@ -184,7 +184,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _showSection == NO;
+    _showSection = NO;
     NSLog(@"Keyboard Started 1");
     //Initialize Firebase Analytics
     [FirebaseConfigurator sharedInstance];
