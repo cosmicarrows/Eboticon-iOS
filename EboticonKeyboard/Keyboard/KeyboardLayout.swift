@@ -390,13 +390,13 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
             if key.shape == nil {
                 switch model.type {
                 case Key.KeyType.shift:
-                    key.shape = self.getShape(ShiftShape)
+                    key.shape = self.getShape(ShiftShape.self)
 
                 case Key.KeyType.backspace:
-                    key.shape = self.getShape(BackspaceShape)
+                    key.shape = self.getShape(BackspaceShape.self)
 
                 case Key.KeyType.keyboardChange:
-                    key.shape = self.getShape(GlobeShape)
+                    key.shape = self.getShape(GlobeShape.self)
 
                 default:
                     break
