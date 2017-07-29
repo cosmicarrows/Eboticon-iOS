@@ -1319,12 +1319,17 @@
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     for (NSString* identifier in purchasedProducts) {
-        /*
-         remove last letter of purhaseCategory and productIdentifier so both match as church1 != church2
-         */
-        if ([[identifier substringToIndex:[identifier length]-1] isEqualToString:[productIdentifier substringToIndex:[productIdentifier length]-1]]) {
+        if ([identifier isEqualToString:@""] || [productIdentifier isEqualToString:@""]) {
             return true;
+        } else {
+            /*
+             remove last letter of purhaseCategory and productIdentifier so both match as church1 != church2
+             */
+            if ([[identifier substringToIndex:[identifier length]-1] isEqualToString:[productIdentifier substringToIndex:[productIdentifier length]-1]]) {
+                return true;
+            }
         }
+        
     }
     return false;
 }
