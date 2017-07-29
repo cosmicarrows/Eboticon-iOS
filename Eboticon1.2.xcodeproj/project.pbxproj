@@ -213,7 +213,6 @@
 		A5A370791F1E142C00CB7FC7 /* ExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */; };
 		A5A3707A1F1E142C00CB7FC7 /* ForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */; };
 		A5A3707B1F1E142C00CB7FC7 /* ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */; };
-		A5A3707C1F1E142C00CB7FC7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5A3705D1F1E142C00CB7FC7 /* Info.plist */; };
 		A5A3707D1F1E142C00CB7FC7 /* KeyboardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */; };
 		A5A3707E1F1E142C00CB7FC7 /* KeyboardInputTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */; };
 		A5A3707F1F1E142C00CB7FC7 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */; };
@@ -533,7 +532,6 @@
 		A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtraView.swift; sourceTree = "<group>"; };
 		A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardingView.swift; sourceTree = "<group>"; };
 		A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageKey.swift; sourceTree = "<group>"; };
-		A5A3705D1F1E142C00CB7FC7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardConnector.swift; sourceTree = "<group>"; };
 		A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInputTraits.swift; sourceTree = "<group>"; };
 		A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
@@ -1351,7 +1349,6 @@
 				A5A3705A1F1E142C00CB7FC7 /* ExtraView.swift */,
 				A5A3705B1F1E142C00CB7FC7 /* ForwardingView.swift */,
 				A5A3705C1F1E142C00CB7FC7 /* ImageKey.swift */,
-				A5A3705D1F1E142C00CB7FC7 /* Info.plist */,
 				A5A3705F1F1E142C00CB7FC7 /* KeyboardConnector.swift */,
 				A5A370601F1E142C00CB7FC7 /* KeyboardInputTraits.swift */,
 				A5A370611F1E142C00CB7FC7 /* KeyboardKey.swift */,
@@ -1589,7 +1586,6 @@
 				976E4F921B9BA1B40057D6B2 /* round-switch-track.png in Resources */,
 				97FA1AD91B9F37B4009BA0DC /* eboticon_gifs.csv in Resources */,
 				976E4F8C1B9BA1B40057D6B2 /* round-switch-overlay@2x.png in Resources */,
-				A5A3707C1F1E142C00CB7FC7 /* Info.plist in Resources */,
 				A53521181EDB194B0098383A /* UnlockView.xib in Resources */,
 				976E4F8F1B9BA1B40057D6B2 /* round-switch-thumb.png in Resources */,
 				976E50681B9BA2590057D6B2 /* KeyArt.xcassets in Resources */,
