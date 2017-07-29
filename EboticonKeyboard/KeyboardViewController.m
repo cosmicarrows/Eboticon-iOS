@@ -137,7 +137,7 @@
 //@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
-@property (nonatomic, strong) Catboard *kvController;
+//@property (nonatomic, strong) Catboard *kvController;
 //keypad
 @property (nonatomic, weak) IBOutlet UIView *keypadView;
 
@@ -221,7 +221,7 @@
     //Initialize Keypad
     [self initializeKeypad];
     [self createStoreAndFacebookButton];
-    [self createKouriViniKepad];
+//    [self createKouriViniKeypad];
     // UISwipeGestureRecognizerDirectionLeft
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
     leftRecognizer.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -246,8 +246,8 @@
     _unlockButton.layer.cornerRadius = 5;
 }
 
-- (void) createKouriViniKepad {
-    _kvController = [[Catboard alloc] init];
+- (void) createKouriViniKeypad {
+    KVKeyboardViewController *_kvController = [[Catboard alloc] init];
     [self addChildViewController:_kvController];
     _kvController.view.translatesAutoresizingMaskIntoConstraints = false;
     
@@ -261,8 +261,16 @@
     [_kvController.view.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
     [_kvController.view.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
     [_kvController.view.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
-    _kvController.view.alpha = 0;
+//    _kvController.view.alpha = 0;
     [_kvController didMoveToParentViewController:self];
+}
+
+- (void) removeKouriViniKeypad {
+    KVKeyboardViewController *_kvController = [self.childViewControllers lastObject];
+    [_kvController willMoveToParentViewController:nil];
+    [_kvController.view removeFromSuperview];
+    [_kvController removeFromParentViewController];
+    _kvController = nil;
 }
 
 - (void) createCollectionView {
@@ -1051,7 +1059,8 @@
     self.keypadView.hidden = YES;
     self.isKeypadOn = false;
     self.isFacebookButtonOn = NO;
-     _kvController.view.alpha = 0;
+    [self removeKouriViniKeypad];
+//     _kvController.view.alpha = 0;
     //Change the toolbar
     //NSLog(@"tag: %ld", (long)tag);
     switch (tag) {
@@ -2229,7 +2238,8 @@
     [self.keypadButton setImage:[UIImage imageNamed:@"HLKeypad.png"] forState:UIControlStateNormal];
     
     if(!self.isKeypadOn){
-        _kvController.view.alpha = 1;
+        [self createKouriViniKeypad];
+//        _kvController.view.alpha = 1;
 //        self.topBarView.hidden = YES;
 //        self.captionSwitch.hidden = YES;
 //        _collectionView.hidden = YES;
@@ -2239,8 +2249,8 @@
 //        self.storeButton.hidden = YES;
     }
     else{
-        
-        _kvController.view.alpha = 0;
+        [self removeKouriViniKeypad];
+//        _kvController.view.alpha = 0;
         
        // self.pageControl.hidden = NO;
 //        self.topBarView.hidden = NO;
