@@ -2415,11 +2415,17 @@
     //NSLog(@"Swipe Right Detected");
     
     if(_currentCategory > 1){
+        
+        if (_currentCategory-1 == 5) {
+            _showSection = NO;
+        }
+        
         //Change category
         [self changeCategory:_currentCategory-1];
     }
     else{
         //Change category
+        _showSection = YES;
         [self changeCategory:6];
     }
     
@@ -2431,9 +2437,15 @@
     
     if(_currentCategory < 6){
         //Change category
+        if (_currentCategory+1 == 6) {
+            _showSection = YES;
+        } else {
+            _showSection = NO;
+        }
         [self changeCategory:_currentCategory+1];
     }
     else{
+        _showSection = NO;
         //Change category
         [self changeCategory:1];
     }
