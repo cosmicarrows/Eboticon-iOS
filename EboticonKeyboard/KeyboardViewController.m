@@ -563,8 +563,13 @@
 {
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
     NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
-    
+    NSMutableSet *uniqueEboticons = [[NSMutableSet alloc] init];
     for (EboticonGif *eboticon in eboticons) {
+        if ([uniqueEboticons containsObject:eboticon.gifUrl]) {
+            continue;
+        } else {
+            [uniqueEboticons addObject:eboticon.gifUrl];
+        }
         if ([savedSkinTone isEqualToString:eboticon.skinTone]) {
             if ([self productPurchased:eboticon.purchaseCategory]) {
                 [_allImages addObject:eboticon];
@@ -702,9 +707,14 @@
         [_giftImagesNoCaption removeAllObjects];
         [_exclamationImagesCaption removeAllObjects];
         [_exclamationImagesNoCaption removeAllObjects];
+        NSMutableSet *uniqueEboticons = [[NSMutableSet alloc] init];
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
-            
+            if ([uniqueEboticons containsObject:currentGif.gifUrl]) {
+                continue;
+            } else {
+                [uniqueEboticons addObject:currentGif.gifUrl];
+            }
             NSString * gifCategory = currentGif.emotionCategory; //Category
             NSString * gifCaption = currentGif.category;
             NSString * gifFileName = currentGif.fileName;
