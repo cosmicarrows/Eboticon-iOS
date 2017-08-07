@@ -293,22 +293,24 @@
     
     NSString *movName = [currGif movUrl];
     
+    
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     // NSString *textObject = @"Check this out #eboticon";
     // NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
     
    [self createPathForMovName:movName completion:^(NSString *filepath, NSError *error) {
-       if (error != nil) {
-           dispatch_async(dispatch_get_main_queue(), ^{
-               [activityIndicator stopAnimating];
-               [activityIndicator removeFromSuperview];
-               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-               [alertController addAction:cancel];
-               [self presentViewController:alertController animated:YES completion:nil];
-               return;
-           });
-       }
+//       if (error != nil) {
+//           NSLog(@"mov&&&& %@", error);
+//           dispatch_async(dispatch_get_main_queue(), ^{
+//               [activityIndicator stopAnimating];
+//               [activityIndicator removeFromSuperview];
+//               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+//               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//               [alertController addAction:cancel];
+//               [self presentViewController:alertController animated:YES completion:nil];
+//               return;
+//           });
+//       }
        NSString *gifUrl = [currGif gifUrl];
        NSLog(@"movname %@", movName);
        NSLog(@"get file name %@", [currGif gifUrl]);
