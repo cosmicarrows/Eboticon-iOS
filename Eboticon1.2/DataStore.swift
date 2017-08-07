@@ -41,11 +41,13 @@ import Foundation
         var greekPackSeen = Set<String>()
         var greetingPackSeen = Set<String>()
         var ratchetPackSeen = Set<String>()
+        var freePackSeen = Set<String>()
         
         for eboticon in eboticons {
             if tone == eboticon.skinTone {
-                if Helper.isFreePack(eboticon) {
+                if Helper.isFreePack(eboticon) && !freePackSeen.contains(eboticon.stillUrl) {
                     freePack.append(eboticon)
+                    freePackSeen.insert(eboticon.stillUrl)
                 } else if Helper.isBaePack(eboticon) && !baePackSeen.contains(eboticon.stillUrl) {
                     baePack.append(eboticon)
                     baePackSeen.insert(eboticon.stillUrl)
