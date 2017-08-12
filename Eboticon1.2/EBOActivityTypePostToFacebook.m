@@ -99,13 +99,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (void)performActivity {
     
-    NSString * movName = [self.movItems objectAtIndex:0];
-    //    NSString *filepath  = [[NSBundle mainBundle] pathForResource:movName ofType:nil];
-    //NSData *movData = [NSData dataWithContentsOfFile:filepath];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
+    NSString * filepath = [self.movItems objectAtIndex:0];
+
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
             UISaveVideoAtPathToSavedPhotosAlbum(filepath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
@@ -137,12 +132,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 -(BOOL)doesMovieExist:(NSString *)movFileName {
-    //
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", self.movName]];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:movFileName];
     
     if(fileExists)
         return YES;

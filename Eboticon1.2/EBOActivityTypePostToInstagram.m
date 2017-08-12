@@ -48,10 +48,14 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    if ([self doesMovieExist:self.movName])
+    if ([self doesMovieExist:self.movName]){
         return YES;
-    else
+    }
+    else{
+        NSLog(@"%@", self.movName);
+        NSLog(@"Movie does not exist");
         return NO;
+    }
     
 }
 
@@ -96,10 +100,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (void)performActivity {
     
-    NSString * movName = [self.movItems objectAtIndex:0];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
+    NSString * filepath = [self.movItems objectAtIndex:0];
     
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filepath)) {
@@ -133,11 +134,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 -(BOOL)doesMovieExist:(NSString *)movFileName {
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filepath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", self.movName]];
+    NSLog(@"doesMovieExist: %@", movFileName);
     
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:movFileName];
     
     if(fileExists)
         return YES;
@@ -190,7 +189,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         [igNotInstalledAlert addButtonWithTitle:@"OK"
                                            type:SIAlertViewButtonTypeDestructive
                                         handler:^(SIAlertView *alert) {
-                                            [self openInstagram];
+                                            //[self openInstagram];
                                         }];
         igNotInstalledAlert.transitionStyle = SIAlertViewTransitionStyleBounce;
         [igNotInstalledAlert show];
