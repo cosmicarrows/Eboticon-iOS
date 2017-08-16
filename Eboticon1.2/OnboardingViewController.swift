@@ -117,6 +117,7 @@ import Foundation
             UserDefaults(suiteName: "group.com.eboticon.eboticon")?.set("black", forKey: "skin_tone")
 
         }
+        UserDefaults.standard.synchronize()
         
     }
 

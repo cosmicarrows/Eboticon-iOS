@@ -22,6 +22,7 @@ target 'Eboticon1.2' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'lottie-ios'
+    pod 'ImageSlideshow', '~> 1.3'
 end
 
 target 'EboticonKeyboard' do

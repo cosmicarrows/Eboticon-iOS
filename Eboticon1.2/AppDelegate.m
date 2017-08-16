@@ -23,6 +23,7 @@
 #import "UIView+Toast.h"
 #import "ShopViewController.h"
 #import "Eboticon-Swift.h"
+#import "ShopDetailCollectionViewController.h"
 
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
@@ -283,6 +284,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 // [START disconnect_from_fcm]
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     [[FIRMessaging messaging] disconnect];
+    self.selectedIndex = (int)self.tabBarController.selectedIndex;
     NSLog(@"Disconnected from FCM");
 }
 // [END disconnect_from_fcm]
@@ -336,6 +338,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [self. tabBarController updateMoveView:self.selectedIndex];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
@@ -352,12 +355,24 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if ([[url host] isEqualToString:@"cart_page"]) {
         self.tabBarController.selectedIndex = 1;
         [self.tabBarController updateMoveView:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([url path]) {
-            if ([self.tabBarController.selectedViewController isKindOfClass:[ShopViewController class]]) {
-                ((ShopViewController *)self.tabBarController.selectedViewController).deeplinkProductIdentifier = [[url path] substringFromIndex:1];
+            NSString *deeplinkProductIdentifier = [[url path] substringFromIndex:1];
+            if (deeplinkProductIdentifier) {
+                
+                    for (SKProduct *product in _products) {
+                        if ([product.productIdentifier isEqualToString:deeplinkProductIdentifier]) {
+                            ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
+                            shopDetailCollectionViewController.product = product;
+                            shopDetailCollectionViewController.activateBuy = true;
+                             [(UINavigationController *)[Helper topViewController:self.tabBarController.selectedViewController] pushViewController:shopDetailCollectionViewController animated:YES];
+                        }
+                    }
+                    
+                
             }
-            
         }
+            });
     }
     return YES;
 }
@@ -507,6 +522,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 
 - (void) setupNavigationBar{
+    
+    
+
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     //Setting up Navigation Bar
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x380063)];
     

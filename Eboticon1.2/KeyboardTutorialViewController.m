@@ -118,7 +118,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     CGFloat fHeight = 40;
     
     CGRect frame1 = CGRectMake(5, self.view.frame.size.height / 2.0 - fHeight / 2.0, fWidth, fHeight);
-    CGRect frame2 = CGRectMake(self.view.frame.size.width - 5 - fWidth, self.view.frame.size.height / 2.0 - fHeight / 2.0, fWidth, fHeight);
+    CGRect frame2 = CGRectMake([UIScreen mainScreen].bounds.size.width - 5 - fWidth, self.view.frame.size.height / 2.0 - fHeight / 2.0, fWidth, fHeight);
     
     btnGoPreviousPage = [[UIButton alloc]initWithFrame:frame1];
     [btnGoPreviousPage setBackgroundImage:[UIImage imageNamed:@"arrow_left.png"] forState:UIControlStateNormal];

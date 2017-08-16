@@ -23,11 +23,11 @@
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define CURRENTSCREEN @"Shop Screen"
 
-
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 
 @interface ShopViewController () <UITableViewDataSource, UITableViewDelegate, KIImagePagerDelegate, KIImagePagerDataSource>{
-    IBOutlet KIImagePager *_imagePager;
+//    IBOutlet KIImagePager *_imagePager;
     NSNumberFormatter * _priceFormatter;
 }
 
@@ -164,6 +164,19 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     }
 }
 
+- (void) makeNavBarNonTransparent {
+   // UIApplication *app = [UIApplication sharedApplication];
+   // CGFloat statusBarHeight = app.statusBarFrame.size.height;
+    
+    //UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -statusBarHeight, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
+    //statusBarView.backgroundColor = UIColorFromRGB(0x2C1D41);
+    //[self.navigationController.navigationBar addSubview:statusBarView];
+    
+    //UINavigationBar *bar = [self.navigationController navigationBar];
+    //[bar setBarTintColor:UIColorFromRGB(0x2C1D41)];
+    //[bar setTranslucent:YES];
+    
+}
 
 
 #pragma mark -
@@ -199,41 +212,12 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _imagePager.imageCounterDisabled = YES;
-    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
-    _imagePager.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-    
-    /******** fit background image to the imagePager's frame *********/
-    
-    UIGraphicsBeginImageContext(_imagePager.frame.size);
-    [[UIImage imageNamed:@"banner1.png"] drawInRect:_imagePager.bounds];
-    UIImage *imageFirstSlider = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    _imagePager.backgroundColor = [[UIColor alloc] initWithPatternImage:imageFirstSlider];
-    _imagePager.slideshowTimeInterval = 5.5f;
-    _imagePager.slideshowShouldCallScrollToDelegate = YES;
-    
-    [_imagePager setBounces:NO];
-    
     UIImageView *imageView = [[UIImageView alloc]
                               initWithFrame:CGRectMake(10,0,3,20)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.clipsToBounds = NO;
     imageView.image = [UIImage imageNamed:@"NavigationBarLogo"];
     self.navigationItem.titleView = imageView;
-    
-    if (_deeplinkProductIdentifier) {
-        for (SKProduct *product in _products) {
-            if ([product.productIdentifier isEqualToString:_deeplinkProductIdentifier]) {
-                ShopDetailCollectionViewController *shopDetailCollectionViewController =  [[ShopDetailCollectionViewController alloc] initWithNibName:@"ShopDetailView" bundle:nil];
-                shopDetailCollectionViewController.product = product;
-                
-                shopDetailCollectionViewController.activateBuy = true;
-                [[self navigationController] pushViewController:shopDetailCollectionViewController animated:YES];
-            }
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -246,7 +230,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (NSTimer*)createTimer {
     // create timer on run loop
@@ -272,13 +255,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     // Do any additional setup after loading the view from its nib.
     
     self.view.layer.contents = (id)[UIImage imageNamed:@"MasterBackground2.0.png"].CGImage;     //Add Background without repeating
-    
+    [self setupSlideImageShow];
     // Create the data model
     _packImages = @[@"BaePackIcon", @"GreekPackIcons", @"ChurchPackIcon", @"RatchPackIcon", @"GreetingsPackIcon"];
     
     //Add Restore Button
     UIBarButtonItem *restoreButton = [[UIBarButtonItem alloc] initWithTitle:@"Restore" style:UIBarButtonItemStylePlain target:self action:@selector(restoreButtonTapped:)];
     self.navigationItem.rightBarButtonItem = restoreButton;
+    
+    //create Nav Bar
+   // [self makeNavBarNonTransparent];
     
     //Create Pull to Refresh
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
@@ -307,6 +293,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
         DDLogError(@"[ERROR] in Automatic screen tracking: %@", exception.description);
     }
     
+}
+
+- (void) setupSlideImageShow
+{
+    NSArray *images = [[NSArray alloc] initWithObjects:[[ImageSource alloc] initWithImageString:@"banner0"], [[ImageSource alloc] initWithImageString:@"banner1"], [[ImageSource alloc] initWithImageString:@"banner2"], [[ImageSource alloc] initWithImageString:@"banner3"], [[ImageSource alloc] initWithImageString:@"banner4"], nil];
+    [self.imageSlideShow setSlideshowInterval:5.5];
+    self.imageSlideShow.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+    self.imageSlideShow.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    self.imageSlideShow.contentMode = UIViewContentModeScaleAspectFill;
+    [self.imageSlideShow setImageInputs:images];
 }
 
 - (NSArray *) arrayWithImages:(KIImagePager*)pager

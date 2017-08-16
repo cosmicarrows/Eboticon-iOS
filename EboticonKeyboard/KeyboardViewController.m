@@ -24,6 +24,7 @@
 #import <DFImageManager/DFImageManagerKit.h>
 #import "Reachability.h"
 #import "EboticonIAPHelper.h"
+#import "PackSectionHeaderCollectionReusableView.h"
 
 #define RECENT_GIFS_KEY @"listOfRecentGifs"
 #define CATEGORY_RECENT @"Recent"
@@ -75,6 +76,17 @@
     NSMutableArray *_giftImagesNoCaption;
     NSMutableArray *_heartImagesCaption;
     NSMutableArray *_heartImagesNoCaption;
+    NSMutableArray *_baeImagesNoCaption;
+    NSMutableArray *_baeImagesCaption;
+    NSMutableArray *_churchImagesNoCaption;
+    NSMutableArray *_churchImagesCaption;
+    NSMutableArray *_greekImagesNoCaption;
+    NSMutableArray *_greekImagesCaption;
+    NSMutableArray *_greetingImagesNoCaption;
+    NSMutableArray *_greetingImagesCaption;
+    NSMutableArray *_ratchetImagesNoCaption;
+    NSMutableArray *_ratchetImagesCaption;
+    NSMutableArray *_freePack;
     
     int _shiftStatus; //0 = off, 1 = on, 2 = caps lock
     
@@ -102,6 +114,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *purchasedButton;
 @property (weak, nonatomic) IBOutlet UIButton *keypadButton;
+@property (strong, nonatomic) IBOutlet UILabel *descLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *packImageView;
 
 //keyboard rows
 @property (nonatomic, weak) IBOutlet UIView *numbersRow1View;
@@ -116,12 +130,14 @@
 @property (nonatomic, weak) IBOutlet UIButton *switchModeRow4Button;
 @property (nonatomic, weak) IBOutlet UIButton *shiftButton;
 @property (nonatomic, weak) IBOutlet UIButton *spaceButton;
+@property (strong, nonatomic) IBOutlet UIButton *unlockButton;
 
 // Collection View
 @property (nonatomic, nonatomic) IBOutlet UICollectionView *keyboardCollectionView;
 //@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
+//@property (nonatomic, strong) Catboard *kvController;
 //keypad
 @property (nonatomic, weak) IBOutlet UIView *keypadView;
 
@@ -139,6 +155,7 @@
 
 //Caption Switch
 @property (strong, nonatomic) IBOutlet TTSwitch *captionSwitch;
+@property (strong, nonatomic) IBOutlet UIView *unlockViewContainer;
 
 //Caption Switch
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -154,7 +171,9 @@
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, assign) BOOL isKeypadOn;
 @property (nonatomic, assign) BOOL isFacebookButtonOn;
+@property (nonatomic, assign) BOOL showSection;
 
+@property (nonatomic, strong) EboticonGif *selectedEboticon;
 @end
 
 @implementation KeyboardViewController
@@ -165,9 +184,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _showSection = NO;
     NSLog(@"Keyboard Started 1");
-    
     //Initialize Firebase Analytics
     [FirebaseConfigurator sharedInstance];
     //NSString *string = [[FirebaseConfigurator sharedInstance] test];
@@ -186,6 +204,8 @@
     //Contifgure Top Bar
     [self createTopBar];
     
+    [self createBorderForToolbar];
+    
     //Create Connection Png
     [self createNoConnectionPng];
     
@@ -201,7 +221,7 @@
     //Initialize Keypad
     [self initializeKeypad];
     [self createStoreAndFacebookButton];
-    
+//    [self createKouriViniKeypad];
     // UISwipeGestureRecognizerDirectionLeft
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
     leftRecognizer.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -223,10 +243,35 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    
+    _unlockButton.layer.cornerRadius = 5;
 }
 
+- (void) createKouriViniKeypad {
+    KVKeyboardViewController *_kvController = [[Catboard alloc] init];
+    [self addChildViewController:_kvController];
+    _kvController.view.translatesAutoresizingMaskIntoConstraints = false;
+    
+    _kvController.parentProxy = self.textDocumentProxy;
+    _kvController.view.backgroundColor = [UIColor colorWithRed:210/255.0 green:213/255.0 blue:219/255.0 alpha:1];
 
+    [self.view addSubview:_kvController.view];
+    [self.view bringSubviewToFront:_kvController.view];
+    [_kvController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [_kvController.view.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
+    [_kvController.view.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
+    [_kvController.view.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+    [_kvController.view.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
+//    _kvController.view.alpha = 0;
+    [_kvController didMoveToParentViewController:self];
+}
+
+- (void) removeKouriViniKeypad {
+    KVKeyboardViewController *_kvController = [self.childViewControllers lastObject];
+    [_kvController willMoveToParentViewController:nil];
+    [_kvController.view removeFromSuperview];
+    [_kvController removeFromParentViewController];
+    _kvController = nil;
+}
 
 - (void) createCollectionView {
     
@@ -238,6 +283,8 @@
     
     //Register the Gif Cell
     [_collectionView registerNib:[UINib nibWithNibName:@"KeyboardCell" bundle:nil] forCellWithReuseIdentifier:@"cellIdentifier"];
+    
+    [_collectionView registerNib:[UINib nibWithNibName:@"PackSectionHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView"];
     
     [self.view addSubview:_collectionView];
     
@@ -272,6 +319,20 @@
     [self.topBarView addSubview:self.bottomBorder];
     
 }
+
+- (void)createBorderForToolbar {
+    
+    self.toolbar.clipsToBounds = YES;
+
+    //Add bottom border
+    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.toolbar.frame.size.width, 1)];
+    topBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
+    [self.toolbar addSubview:topBorder];
+    
+}
+
+
+
 
 - (void)createNoConnectionPng {
     
@@ -399,22 +460,16 @@
     _giftImagesNoCaption         = [[NSMutableArray alloc] init];
     _heartImagesCaption          = [[NSMutableArray alloc] init];
     _heartImagesNoCaption        = [[NSMutableArray alloc] init];
-    
-    
-    
-    
-    
-    
-    //    _exclamationImagesCaption = [[NSMutableArray alloc]init];
-    //    _exclamationImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _smileImagesCaption = [[NSMutableArray alloc]init];
-    //    _smileImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _nosmileImagesCaption = [[NSMutableArray alloc]init];
-    //    _nosmileImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _giftImagesCaption = [[NSMutableArray alloc]init];
-    //    _giftImagesNoCaption = [[NSMutableArray alloc]init];
-    //    _heartImagesCaption = [[NSMutableArray alloc]init];
-    //    _heartImagesNoCaption = [[NSMutableArray alloc]init];
+    _baeImagesCaption            = [[NSMutableArray alloc] init];
+    _baeImagesNoCaption          = [[NSMutableArray alloc] init];
+    _churchImagesCaption         = [[NSMutableArray alloc] init];
+    _churchImagesNoCaption       = [[NSMutableArray alloc] init];
+    _greekImagesCaption          = [[NSMutableArray alloc] init];
+    _greekImagesNoCaption        = [[NSMutableArray alloc] init];
+    _greetingImagesCaption       = [[NSMutableArray alloc] init];
+    _greetingImagesNoCaption     = [[NSMutableArray alloc] init];
+    _ratchetImagesCaption        = [[NSMutableArray alloc] init];
+    _ratchetImagesNoCaption      = [[NSMutableArray alloc] init];
     
     //Intialize current tapped image
     _tappedImageCount       = 0;
@@ -436,7 +491,7 @@
     [self loadGifs];
     
     //Load CSV into Array
-    [self getPurchaseGifs];
+//    [self getPurchaseGifs];
     
     //Setup item size of keyboard layout to fit keyboard.
     //[self changeKeyboardFlowLayout];
@@ -481,14 +536,90 @@
     spinner.hidesWhenStopped = YES;
     [self.view addSubview:spinner];
     [spinner startAnimating];
-    [Webservice loadEboticonsWithEndpoint:@"eboticons/published" completion:^(NSArray<EboticonGif *> *eboticons) {
+    
+    [[[Webservice alloc] init] loadEboticonsWithEndpoint:@"eboticons/published" onlyFreeOnce:YES completion:^(NSArray<EboticonGif *> *eboticons) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"######## %@",eboticons );
             [_allImages addObjectsFromArray:eboticons];
             [self populateGifArrays];
             [spinner stopAnimating];
+            [self getPurchasedGif];
         });
+        
     }];
+}
+
+- (void)getPurchasedGif
+{
+    [[[Webservice alloc] init] loadEboticonsWithEndpoint:@"eboticons/published" onlyFreeOnce:NO completion:^(NSArray<EboticonGif *> *eboticons) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self populateAllSection:eboticons];
+        });
+        
+    }];
+}
+
+- (void) populateAllSection:(NSArray *)eboticons
+{
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
+    NSMutableSet *uniqueEboticons = [[NSMutableSet alloc] init];
+    for (EboticonGif *eboticon in eboticons) {
+        if ([uniqueEboticons containsObject:eboticon.gifUrl]) {
+            continue;
+        } else {
+            [uniqueEboticons addObject:eboticon.gifUrl];
+        }
+        if ([savedSkinTone isEqualToString:eboticon.skinTone]) {
+            if ([self productPurchased:eboticon.purchaseCategory]) {
+                [_allImages addObject:eboticon];
+            }
+            if ([KeyboardHelper isBaePack:eboticon]) {
+                
+                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
+                     [_baeImagesCaption addObject:eboticon];
+                } else {
+                     [_baeImagesNoCaption addObject:eboticon];
+                }
+            } else if([KeyboardHelper isChurchPack:eboticon]) {
+                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
+                    [_churchImagesCaption addObject:eboticon];
+                } else {
+                     [_churchImagesNoCaption addObject:eboticon];
+                }
+            } else if ([KeyboardHelper isGreekPack:eboticon]) {
+                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
+                    [_greekImagesCaption addObject:eboticon];
+                } else {
+                    [_greekImagesNoCaption addObject:eboticon];
+                }
+            } else if([KeyboardHelper isGreetingPack:eboticon]){
+                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
+                    [_greetingImagesCaption addObject:eboticon];
+                } else {
+                    [_greetingImagesNoCaption addObject:eboticon];
+                }
+            } else if ([KeyboardHelper isRatchetPack:eboticon]) {
+                if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
+                    [_ratchetImagesCaption addObject:eboticon];
+                } else {
+                    [_ratchetImagesNoCaption addObject:eboticon];
+                }
+            }
+        }
+    }
+    [self populateGifArrays];
+    [_purchasedImagesNoCaption addObject:_baeImagesNoCaption];
+    [_purchasedImagesNoCaption addObject:_churchImagesNoCaption];
+    [_purchasedImagesNoCaption addObject:_greekImagesNoCaption];
+    [_purchasedImagesNoCaption addObject:_greetingImagesNoCaption];
+    [_purchasedImagesNoCaption addObject:_ratchetImagesNoCaption];
     
+    [_purchasedImagesCaption addObject:_baeImagesCaption];
+    [_purchasedImagesCaption addObject:_churchImagesCaption];
+    [_purchasedImagesCaption addObject:_greekImagesCaption];
+    [_purchasedImagesCaption addObject:_greetingImagesCaption];
+    [_purchasedImagesCaption addObject:_ratchetImagesCaption];
 }
 
 - (void) loadGifs
@@ -514,6 +645,7 @@
         [self loadEboticonFromServer];
     }
     else{
+        _showSection = NO;
         NSString *path = [[NSBundle mainBundle] pathForResource:@"eboticon_nointernet_gifs" ofType:@"csv"];
         
         NSError *error = nil;
@@ -555,7 +687,6 @@
     
 }
 
-
 -(void) populateGifArrays
 {
     if([_allImages count] > 0){
@@ -564,10 +695,26 @@
         
         NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
         NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
+        [_smileImagesCaption removeAllObjects];
+        [_smileImagesNoCaption removeAllObjects];
+        [_nosmileImagesCaption removeAllObjects];
+        [_nosmileImagesNoCaption removeAllObjects];
         
+        [_heartImagesCaption removeAllObjects];
+        [_heartImagesNoCaption removeAllObjects];
+        
+        [_giftImagesCaption removeAllObjects];
+        [_giftImagesNoCaption removeAllObjects];
+        [_exclamationImagesCaption removeAllObjects];
+        [_exclamationImagesNoCaption removeAllObjects];
+        NSMutableSet *uniqueEboticons = [[NSMutableSet alloc] init];
         for(int i = 0; i < [_allImages count]; i++){
             currentGif = [_allImages objectAtIndex:i];
-            
+            if ([uniqueEboticons containsObject:currentGif.gifUrl]) {
+                continue;
+            } else {
+                [uniqueEboticons addObject:currentGif.gifUrl];
+            }
             NSString * gifCategory = currentGif.emotionCategory; //Category
             NSString * gifCaption = currentGif.category;
             NSString * gifFileName = currentGif.fileName;
@@ -648,7 +795,6 @@
         //Set currnet gifs
         _currentEboticonGifs = _smileImagesCaption;
         [self changeCategory:1];
-        
         
         [_collectionView reloadData];       //Relaod the images into view
         
@@ -865,6 +1011,7 @@
     
     //Reload keyboard data
     [_collectionView reloadData];
+    
 }
 
 - (IBAction) globeKeyPressed:(UIButton*)sender {
@@ -883,14 +1030,15 @@
     
     //switches to user's next category
     //NSLog(@"Category %ld Pressed", (long)sender.tag);
-    
     //Change category
+    _showSection = NO;
     [self changeCategory:sender.tag];
+     [_unlockViewContainer setAlpha:0];
     
 }
 
 -(IBAction) purchasedKeyPressed: (UIButton*) sender {
-    
+    _showSection = YES;
     [self changeCategory:sender.tag];
 }
 
@@ -921,10 +1069,10 @@
     self.keypadView.hidden = YES;
     self.isKeypadOn = false;
     self.isFacebookButtonOn = NO;
-    
+    [self removeKouriViniKeypad];
+//     _kvController.view.alpha = 0;
     //Change the toolbar
     //NSLog(@"tag: %ld", (long)tag);
-    
     switch (tag) {
             
             
@@ -941,6 +1089,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
+//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_SMILE];
             if (_captionState) {
                 _currentEboticonGifs = _smileImagesCaption;
             }
@@ -963,6 +1112,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
+//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_NOSMILE];
             if (_captionState) {
                 _currentEboticonGifs = _nosmileImagesCaption;
             }
@@ -986,6 +1136,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
+//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_GIFT];
             if (_captionState) {
                 _currentEboticonGifs = _giftImagesCaption;
             }
@@ -1033,6 +1184,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
+//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_HEART];
             if (_captionState) {
                 _currentEboticonGifs = _heartImagesCaption;
             }
@@ -1169,66 +1321,27 @@
     _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
 }
-
-
-- (void) getPurchaseGifs
-{
-    [Webservice loadEboticonsWithEndpoint:@"purchased/published" completion:^(NSArray<EboticonGif *> *eboticons) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSArray *purchaseEboticons = [[NSArray alloc]initWithArray:eboticons];
-            
-            //Get data from the app
-            NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
-            
-            _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
-
-            NSString *savedSkinTone = [defaults stringForKey:@"skin_tone"];
-            
-            
-            for(NSString* productIdentifiers in _purchasedProducts) {
-                for (EboticonGif *eboticon in purchaseEboticons) {
-                    NSString * purchaseCategory = eboticon.purchaseCategory;
-                    // NSString * gifCategory = eboticonObject.emotionCategory;
-                    NSString * isCaption = eboticon.category;
-                    
-                    NSString * skinTone = [eboticon skinTone];           //Skin
-                    
-                    
-                    // DDLogDebug(@"gifCategory: %@", purchaseCategory);
-                    
-                    if([skinTone isEqual:savedSkinTone]){
-                        
-                        if([productIdentifiers isEqual:purchaseCategory]) {
-                            //NSLog(@"adding  gif: %d", cnt);
-                            //NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImages addObject:eboticon];
-                            [_allImages addObject:eboticon];
-                        }
-                        
-                        if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"Caption"]) {
-                            //                    NSLog(@"adding  gif: %d", cnt);
-                            //                    NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImagesCaption addObject:eboticon];
-                            //[_allImages addObject:eboticonObject];
-                        }
-                        
-                        if([productIdentifiers isEqual:purchaseCategory] && _captionState && [isCaption isEqual:@"NoCaption"]) {
-                            //                    NSLog(@"adding  gif: %d", cnt);
-                            //                    NSLog(@"emotionCategory : %@", gifCategory);
-                            [_purchasedImagesNoCaption addObject:eboticon];
-                            //[_allImages addObject:eboticonObject];
-                        }
-                    }
-                }
-            }
-            
-        });
-    }];
-}
-
+    
 - (BOOL)productPurchased:(NSString *)productIdentifier
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
+    
+    //Get data from the app
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.eboticon.eboticon"];
+    NSArray *purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
+    for (NSString* identifier in purchasedProducts) {
+        if ([identifier isEqualToString:@""] || [productIdentifier isEqualToString:@""]) {
+            return true;
+        } else {
+            /*
+             remove last letter of purhaseCategory and productIdentifier so both match as church1 != church2
+             */
+            if ([[identifier substringToIndex:[identifier length]-1] isEqualToString:[productIdentifier substringToIndex:[productIdentifier length]-1]]) {
+                return true;
+            }
+        }
+        
+    }
+    return false;
 }
 
 - (NSString *)packName:(EboticonGif *)eboticon
@@ -1246,65 +1359,106 @@
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
         return @"Church Pack";
     }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return @"Ratchet Pack";
+    }
     else {
         return @"";
     }
 }
 
+- (NSString *)packPrice:(EboticonGif *)eboticon
+{
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        return @"$1.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        return @"$0.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        return @"$0.99";
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        return @"$0.99";
+    }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return @"$0.99";
+    }
+    else {
+        return @"";
+    }
+}
+
+- (UIImage *)packSectionHeader:(EboticonGif *)eboticon
+{
+    //Set Image
+    if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
+        return [UIImage imageNamed:@"GreekPackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
+        return [UIImage imageNamed:@"BaePackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
+        return [UIImage imageNamed:@"GreetingPackSectionHeader"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
+        return [UIImage imageNamed:@"ChurchPackSectionHeader"];
+    }
+    else if ([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]) {
+        return [UIImage imageNamed:@"RatchPackSectionHeader"];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (IBAction)closeUnlockView:(id)sender {
+    [_unlockViewContainer setAlpha:0];
+}
+- (IBAction)unlock:(id)sender {
+    [_unlockViewContainer setAlpha:0];
+    NSURL *deeplink = [NSURL URLWithString:[NSString stringWithFormat:@"eboticon://cart_page/%@", self.selectedEboticon.purchaseCategory]];
+    [self openURL:deeplink];
+}
+
+
 - (void)showUnlockView:(EboticonGif *)eboticon {
-    UnlockView *unlockView = [[UnlockView alloc]initWithFrame:self.view.frame];
+    self.selectedEboticon = eboticon;
     CGFloat boldTextFontSize = 17.0f;
-    unlockView.descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only $0.99. Get it NOW!",[self packName:eboticon]];
-    NSRange range1 = [unlockView.descLabel.text rangeOfString:[self packName:eboticon]];
-    NSRange range2 = [unlockView.descLabel.text rangeOfString:@"$0.99"];
-    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:unlockView.descLabel.text];
+    _descLabel.text = [NSString stringWithFormat:@"Unlock %@ to get these new emojis and stickers. It’s only %@. Get it NOW!",[self packName:eboticon], [self packPrice:eboticon]];
+    NSRange range1 = [_descLabel.text rangeOfString:[self packName:eboticon]];
+    NSRange range2 = [_descLabel.text rangeOfString:[self packPrice:eboticon]];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:_descLabel.text];
     
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
                             range:range1];
     [attributedText setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:boldTextFontSize]}
                             range:range2];
     
-    unlockView.descLabel.attributedText = attributedText;
-    __weak UnlockView *weakUnlockView = unlockView;
-    [unlockView setCloseButtonBlock:^{
-        [UIView animateWithDuration:0.3 animations:^{
-            [weakUnlockView setAlpha:0];
-        } completion:^(BOOL finished) {
-            [weakUnlockView removeFromSuperview];
-        }];
-        
-    }];
-    __weak KeyboardViewController *weakSelf = self;
-    [unlockView setUnlockButtonBlock:^{
-        [weakUnlockView removeFromSuperview];
-        NSURL *deeplink = [NSURL URLWithString:[NSString stringWithFormat:@"eboticon://cart_page/%@", eboticon.purchaseCategory]];
-        [self openURL:deeplink];
-    }];
+    _descLabel.attributedText = attributedText;
+    [_unlockViewContainer setAlpha:1];
     
     //Set Image
     if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greekpack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"GreekPack"];
+        _packImageView.image = [UIImage imageNamed:@"GreekPack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.baepack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"BaePack"];
+        _packImageView.image = [UIImage imageNamed:@"BaePack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.greetingspack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"GreetingPack"];
+        _packImageView.image = [UIImage imageNamed:@"GreetingPack"];
     }
     else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.churchpack2"]){
-        unlockView.packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+        _packImageView.image = [UIImage imageNamed:@"ChurchPack"];
+    }
+    else if([eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack1"] || [eboticon.purchaseCategory isEqualToString:@"com.eboticon.Eboticon.ratchpack2"]){
+        _packImageView.image = [UIImage imageNamed:@"RatchetPack"];
     }
     else {
-        unlockView.packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
+        _packImageView.image = [UIImage imageNamed:@"EboticonBundle"];
     }
-    
-    [self.view addSubview:unlockView];
-    unlockView.translatesAutoresizingMaskIntoConstraints = false;
-    [unlockView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [unlockView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
-    [unlockView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
-    [unlockView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
-
+    [self.view bringSubviewToFront:_unlockViewContainer];
 }
 
 
@@ -1313,6 +1467,9 @@
 #pragma mark UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    if (_showSection == YES) {
+        return _currentEboticonGifs.count;
+    }
     return 1;
 }
 
@@ -1321,7 +1478,13 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSLog(@"Number of current gifs: %lu", (unsigned long)[_currentEboticonGifs count]);
-    return [_currentEboticonGifs count];
+    if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] == 0) {
+            return 0;
+        }
+        return [[(NSArray *)_currentEboticonGifs objectAtIndex:section] count];
+    }
+    return  _currentEboticonGifs.count;;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1337,7 +1500,12 @@
     // Set up the cell...
     // Fetch a image record from the array
     EboticonGif *currentGif = [[EboticonGif alloc]init];
-    currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
+    if (_showSection == YES) {
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
+    }
+
     [[cell imageView] setAlpha:1];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1348,7 +1516,7 @@
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
 
-
+    [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
     
     
     if([self isRequestsOpenAccessEnabled]){
@@ -1452,17 +1620,23 @@
 
 
 
-
 -(void) collectionView:(UICollectionView *) collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Button Tapped: %ld", (long)[indexPath row]);
     BOOL allowedOpenAccess = [self isRequestsOpenAccessEnabled]; // Can you allow access
-    
     //Get current gif
     EboticonGif *currentGif = [[EboticonGif alloc]init];
-    currentGif = [_currentEboticonGifs objectAtIndex: (long)indexPath.row];
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     
+    if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+            return;
+        }
+        currentGif = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
+    }
+  
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
             [self showUnlockView:currentGif];
@@ -1856,6 +2030,28 @@
     
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:section] count] == 0) {
+            return CGSizeZero;
+        }
+        return CGSizeMake(_collectionView.frame.size.width, 60);
+    } else {
+        return CGSizeZero;
+    }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    PackSectionHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PackSectionHeaderCollectionReusableView" forIndexPath:indexPath];
+    if (_showSection == YES) {
+        if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+            return nil;
+        }
+       EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
+        headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
+    }
+    return headerView;
+}
 
 #pragma mark - Orientation Protocol methods
 
@@ -1880,9 +2076,6 @@
     
     //Set Image View
     self.noConnectionImageView.frame = CGRectMake(0,0, self.view.frame.size.width,  self.view.frame.size.height-44);
-    
-    
-
     
 }
 
@@ -1979,7 +2172,15 @@
         NSArray *visiblePaths = [_collectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            EboticonGif *imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
+            EboticonGif *imgRecord = [[EboticonGif alloc] init];
+            if (_showSection == YES) {
+                if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
+                    return;
+                }
+                imgRecord = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            } else {
+                imgRecord = [_currentEboticonGifs objectAtIndex:indexPath.row];
+            }
             
             if (!imgRecord.thumbImage)
                 // Avoid downloading if the image is already downloaded
@@ -2052,25 +2253,27 @@
     [self.keypadButton setImage:[UIImage imageNamed:@"HLKeypad.png"] forState:UIControlStateNormal];
     
     if(!self.isKeypadOn){
-        self.topBarView.hidden = YES;
-        self.captionSwitch.hidden = YES;
-        _collectionView.hidden = YES;
-        self.keypadView.hidden = NO;
-        self.isKeypadOn = true;
-        self.facebookButton.hidden = YES;
-        self.storeButton.hidden = YES;
+        [self createKouriViniKeypad];
+//        _kvController.view.alpha = 1;
+//        self.topBarView.hidden = YES;
+//        self.captionSwitch.hidden = YES;
+//        _collectionView.hidden = YES;
+//        self.keypadView.hidden = NO;
+//        self.isKeypadOn = true;
+//        self.facebookButton.hidden = YES;
+//        self.storeButton.hidden = YES;
     }
     else{
-        
-        
+        [self removeKouriViniKeypad];
+//        _kvController.view.alpha = 0;
         
        // self.pageControl.hidden = NO;
-        self.topBarView.hidden = NO;
-        self.captionSwitch.hidden = NO;
-        self.storeButton.hidden = NO;
-        self.facebookButton.hidden = NO;
-        _collectionView.hidden = NO;
-        self.keypadView.hidden = YES;
+//        self.topBarView.hidden = NO;
+//        self.captionSwitch.hidden = NO;
+//        self.storeButton.hidden = NO;
+//        self.facebookButton.hidden = NO;
+//        _collectionView.hidden = NO;
+//        self.keypadView.hidden = YES;
         self.isKeypadOn = false;
     }
     
@@ -2227,11 +2430,17 @@
     //NSLog(@"Swipe Right Detected");
     
     if(_currentCategory > 1){
+        
+        if (_currentCategory-1 == 5) {
+            _showSection = NO;
+        }
+        
         //Change category
         [self changeCategory:_currentCategory-1];
     }
     else{
         //Change category
+        _showSection = YES;
         [self changeCategory:6];
     }
     
@@ -2243,9 +2452,15 @@
     
     if(_currentCategory < 6){
         //Change category
+        if (_currentCategory+1 == 6) {
+            _showSection = YES;
+        } else {
+            _showSection = NO;
+        }
         [self changeCategory:_currentCategory+1];
     }
     else{
+        _showSection = NO;
         //Change category
         [self changeCategory:1];
     }

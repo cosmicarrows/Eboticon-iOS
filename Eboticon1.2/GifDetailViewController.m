@@ -231,27 +231,43 @@
     
 }
 
-- (void)createPathForMovName:(NSString *)movName completion:(CompletionHandler)finishBlock {
+- (NSString *) createLocalFilename: (NSString *)filename
+{
+    //Creates a list of path strings for the specified directories in the specified domains. The list is in the order in which you should search the directories.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString *file = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:file];
+    //NSString *file = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", movName]];
+    NSString *file = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", filename]];
+    
+    NSLog(@"createLocalFilename: %@", file);
+    
+    return file;
+}
+
+
+- (void)createPathForMovName:(NSString *)movName fileName:(NSString *)fileName completion:(CompletionHandler)finishBlock {
+    
+    NSString *filePath = [self createLocalFilename:fileName];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     if (fileExists) {
         
-        NSLog(@"file path %@", file);
-        finishBlock(file, nil);
+        NSLog(@"file path exists: %@", filePath);
+        finishBlock(filePath, nil);
         
         
     }else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"Downloading Started");
+            NSLog(@"mov url: %@", movName);
+
             NSURL  *url = [NSURL URLWithString:movName];
             
             NSError *downloadError = nil;
             // Create an NSData object from the contents of the given URL.
             NSData *urlData = [NSData dataWithContentsOfURL:url
-                                              options:kNilOptions
-                                                error:&downloadError];
+                                                    options:kNilOptions
+                                                      error:&downloadError];
             if (downloadError) {
                 finishBlock(nil, downloadError);
             }
@@ -259,9 +275,7 @@
             if ( urlData )
             {
                 
-                
-                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,[NSString stringWithFormat:@"%@.mov", movName]];
-                
+        
                 //saving is done on main thread
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [urlData writeToFile:filePath atomically:YES];
@@ -292,78 +306,87 @@
     [self showEmailAlert];
     
     NSString *movName = [currGif movUrl];
+    NSLog(@"loadShareView for %@", movName);
+    NSString *filename = [NSString stringWithFormat:@"%@.mov",[currGif fileName]];
+    
     
     // NSURL *gifFileURL = [self fileToURL:[currGif getFileName]];
     // NSString *textObject = @"Check this out #eboticon";
     // NSString *gifUrlName = [NSString stringWithFormat:@"http://www.inclingconsulting.com/eboticon/%@", [currGif getFileName]];
     
-   [self createPathForMovName:movName completion:^(NSString *filepath, NSError *error) {
-       if (error != nil) {
-           dispatch_async(dispatch_get_main_queue(), ^{
-               [activityIndicator stopAnimating];
-               [activityIndicator removeFromSuperview];
-               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-               [alertController addAction:cancel];
-               [self presentViewController:alertController animated:YES completion:nil];
-               return;
-           });
-       }
-       NSString *gifUrl = [currGif gifUrl];
-       NSLog(@"movname %@", movName);
-       NSLog(@"get file name %@", [currGif gifUrl]);
-       //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
-       
-       
-       //Form the URI by adding it to your host:
-       NSLog(@"gifname %@", gifUrl);
-       
-       //And put it on the .string property of the generalPasteboard:
-       [UIPasteboard generalPasteboard].string = gifUrl;
-       
-       
-       NSURL *imagePath = [NSURL URLWithString:gifUrl];
-       
-       NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
-       dispatch_async(dispatch_get_main_queue(), ^{
-           // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
-           // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
-           [activityIndicator stopAnimating];
-           [activityIndicator removeFromSuperview];
-           NSLog(@"%@",gifUrl);
-           
-           
-           // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
-           
-           NSArray *objectsToShare = @[animatedGif];
-           
-           NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
-           //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
-           
-           NSLog(@"activities %@", applicationActivities);
-           
-           //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-           UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
-           
-           
-           //UIActivityTypePostToFacebook
-           NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
-           
-           controller.excludedActivityTypes = excludedActivities;
-           
-           
-           //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
-           
-           [self presentViewController:controller animated:YES completion: nil];
-           [controller setCompletionWithItemsHandler:
-            ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-                DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
-                [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
-                [[iRate sharedInstance] logEvent:TRUE];
-                [self promptForRating];
-            }];
-       });
-   }];
+    [self createPathForMovName:movName fileName:filename completion:^(NSString *filepath, NSError *error) {
+        if (error != nil) {
+            NSLog(@"error creating path for mov: %@", error);
+            //           dispatch_async(dispatch_get_main_queue(), ^{
+            //               [activityIndicator stopAnimating];
+            //               [activityIndicator removeFromSuperview];
+            //               UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            //               UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            //               [alertController addAction:cancel];
+            //               [self presentViewController:alertController animated:YES completion:nil];
+            //               return;
+            //           });
+        }
+        
+        
+        NSString *gifUrl = [currGif gifUrl];
+        NSLog(@"movname %@", movName);
+        NSLog(@"get file gif: %@", [currGif gifUrl]);
+        NSLog(@"gifname %@", gifUrl);
+        NSLog(@"get file name: %@", [currGif fileName]);
+        NSLog(@"stored file path: %@", filepath);
+
+        //UIImage *gifFilename = [UIImage imageNamed:[currGif getFileName]];
+        //Form the URI by adding it to your host:
+        //And put it on the .string property of the generalPasteboard:
+        [UIPasteboard generalPasteboard].string = gifUrl;
+        
+        
+        NSURL *imagePath = [NSURL URLWithString:gifUrl];
+        
+        NSData *animatedGif = [NSData dataWithContentsOfURL:imagePath];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // NSURL *gifFileURL    =  [NSURL URLWithString:gifUrlName];
+            // UIImage *gifFileImage    =  [UIImage imageNamed:[currGif getFileName]];
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+            NSLog(@"%@",gifUrl);
+            
+            
+            // NSArray *objectsToShare = [NSArray arrayWithObjects: animatedGif, textObject, imagePath, nil];
+            
+            NSArray *objectsToShare = @[animatedGif];
+            
+            // NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:movName],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:movName]]; //uncomment to add in facebook instagram capability
+            
+            NSArray *applicationActivities = @[[[EBOActivityTypePostToFacebook alloc] initWithAttributes:filepath],[[EBOActivityTypePostToInstagram alloc] initWithAttributes:filepath]]; //uncomment to add in facebook instagram capability
+            
+            //NSArray *applicationActivities = [[NSArray alloc] init]; //uncomment to add normal activities
+            
+            NSLog(@"activities %@", applicationActivities);
+            
+            //UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:applicationActivities];
+            
+            
+            //UIActivityTypePostToFacebook
+            NSArray *excludedActivities = @[ UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToFlickr, UIActivityTypePostToFacebook];
+            
+            controller.excludedActivityTypes = excludedActivities;
+            
+            
+            //[self presentViewController:controller animated:YES completion: ^{[self logShareEvent];}];
+            
+            [self presentViewController:controller animated:YES completion: nil];
+            [controller setCompletionWithItemsHandler:
+             ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+                 DDLogInfo(@"%@: Logging Successful share completion: Activity type is: %@", NSStringFromClass(self.class), activityType);
+                 [self sendShareToGoogleAnalytics:[currGif getFileName] withShareMethod:activityType];
+                 [[iRate sharedInstance] logEvent:TRUE];
+                 [self promptForRating];
+             }];
+        });
+    }];
     
     
 }

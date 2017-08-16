@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShopViewController">
             <connections>
-                <outlet property="_imagePager" destination="7RK-aU-FNo" id="Ztt-2y-M1e"/>
+                <outlet property="imageSlideShow" destination="iu4-qk-xFM" id="3Zh-l7-CAn"/>
                 <outlet property="inAppPurchaseTable" destination="zid-fh-oG3" id="HMP-2k-LKR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="yye-eV-SWo"/>
             </connections>
@@ -19,36 +22,34 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
-                    <frame key="frameInset" minY="230" width="414" height="460"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zid-fh-oG3">
+                    <rect key="frame" x="0.0" y="234.5" width="375" height="383.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="320" id="Xr7-03-XVf"/>
+                    </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="LU3-sD-uJE"/>
                         <outlet property="delegate" destination="-1" id="aum-ui-pOO"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7RK-aU-FNo" userLabel="Image Pager" customClass="KIImagePager">
-                    <frame key="frameInset" minY="63" width="414" height="167"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="7RK-aU-FNo" secondAttribute="height" multiplier="400:161" id="DOx-aV-91X"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="yhJ-BT-X9L"/>
-                        <outlet property="delegate" destination="-1" id="Eno-mg-pQQ"/>
-                    </connections>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iu4-qk-xFM" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                    <rect key="frame" x="0.0" y="43" width="375" height="191.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="4bd-JA-auk"/>
-                <constraint firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="7B4-5p-EMm"/>
-                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="46" id="OXO-aU-qiX"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="7RK-aU-FNo" secondAttribute="bottom" id="XAU-02-5tV"/>
-                <constraint firstItem="7RK-aU-FNo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Xiq-rn-1dv"/>
-                <constraint firstAttribute="trailing" secondItem="7RK-aU-FNo" secondAttribute="trailing" id="cbx-lq-POU"/>
-                <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kto-8b-3A3"/>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="43" id="7pe-PV-69L"/>
+                <constraint firstAttribute="trailing" secondItem="zid-fh-oG3" secondAttribute="trailing" id="FIM-vl-Hbt"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="top" secondItem="iu4-qk-xFM" secondAttribute="bottom" id="HOj-WH-EN7"/>
+                <constraint firstItem="zid-fh-oG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ly1-vD-pV3"/>
+                <constraint firstAttribute="bottom" secondItem="zid-fh-oG3" secondAttribute="bottom" constant="49" id="P4O-tP-PAT"/>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qvg-zC-DO2"/>
+                <constraint firstItem="iu4-qk-xFM" firstAttribute="height" secondItem="zid-fh-oG3" secondAttribute="height" multiplier="1:2" id="h4J-Py-akf"/>
+                <constraint firstAttribute="trailing" secondItem="iu4-qk-xFM" secondAttribute="trailing" id="kb6-wz-TZp"/>
             </constraints>
+            <point key="canvasLocation" x="33.5" y="102.5"/>
         </view>
     </objects>
 </document>
