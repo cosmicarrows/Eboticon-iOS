@@ -105,6 +105,7 @@
 		972269B31EA532560065031A /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972269B21EA532560065031A /* OnboardingView.xib */; };
 		9730D68D1EC62E760023EA5A /* KeyboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9730D68C1EC62E750023EA5A /* KeyboardCell.xib */; };
 		9739B57D1E5F196300823EA0 /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */; };
+		973A53481F640D8F00A65FA1 /* no_access.png in Resources */ = {isa = PBXBuildFile; fileRef = 973A53471F640D8F00A65FA1 /* no_access.png */; };
 		973CEFA91E5E14FD00DDB12F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */; };
 		973CEFAB1E5E2B7E00DDB12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */; };
 		9755A9D31EFB92AF005DABCC /* SKSplashIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9755A9D01EFB92AF005DABCC /* SKSplashIcon.m */; };
@@ -396,6 +397,7 @@
 		9730D68C1EC62E750023EA5A /* KeyboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardCell.xib; sourceTree = "<group>"; };
 		9739B57B1E5F196300823EA0 /* Eboticon1.2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Eboticon1.2-Bridging-Header.h"; sourceTree = "<group>"; };
 		9739B57C1E5F196300823EA0 /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
+		973A53471F640D8F00A65FA1 /* no_access.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_access.png; sourceTree = "<group>"; };
 		973CEFA71E5E14FC00DDB12F /* EboticonKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EboticonKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		973CEFA81E5E14FD00DDB12F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		973CEFAA1E5E2B7E00DDB12F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1192,6 +1194,7 @@
 		976E4F7B1B9BA1800057D6B2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				973A53471F640D8F00A65FA1 /* no_access.png */,
 				976E50691B9BA2720057D6B2 /* no_connection.png */,
 				976E506A1B9BA2720057D6B2 /* placeholder.png */,
 				971DED911BAC6A5C00D2A751 /* placeholder_loading.png */,
@@ -1592,6 +1595,7 @@
 				976E4F931B9BA1B40057D6B2 /* round-switch-track@2x.png in Resources */,
 				971DED921BAC6A5C00D2A751 /* placeholder_loading.png in Resources */,
 				976E4F911B9BA1B40057D6B2 /* round-switch-thumb@2x.png in Resources */,
+				973A53481F640D8F00A65FA1 /* no_access.png in Resources */,
 				976E506C1B9BA2720057D6B2 /* placeholder.png in Resources */,
 				9730D68D1EC62E760023EA5A /* KeyboardCell.xib in Resources */,
 				972233911C8797100069F111 /* KeyButtonArt.xcassets in Resources */,

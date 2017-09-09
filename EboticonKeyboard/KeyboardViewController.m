@@ -144,6 +144,9 @@
 // No connection
 @property (nonatomic, nonatomic) UIImageView *noConnectionImageView;
 
+// No connection
+@property (nonatomic, nonatomic) UIImageView *noAccessImageView;
+
 //Bottom border
 @property (nonatomic, nonatomic) UIView *bottomBorder;
 
@@ -209,6 +212,9 @@
     //Create Connection Png
     [self createNoConnectionPng];
     
+    //Create Connection Png
+    [self createNoAccessPng];
+    
     //Activity Indicator
     [self createActivityIndicator];
     
@@ -221,7 +227,7 @@
     //Initialize Keypad
     [self initializeKeypad];
     [self createStoreAndFacebookButton];
-//    [self createKouriViniKeypad];
+    //    [self createKouriViniKeypad];
     // UISwipeGestureRecognizerDirectionLeft
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeLeftGesture:)];
     leftRecognizer.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -235,6 +241,13 @@
     rightRecognizer.delegate = self;
     [self.view addGestureRecognizer:rightRecognizer];
     
+    if([self isOpenAccessGranted]){
+        self.noAccessImageView.hidden = YES;
+    }
+    else {
+        self.noAccessImageView.hidden = NO;
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -244,6 +257,7 @@
 
 - (void) viewDidAppear:(BOOL)animated{
     _unlockButton.layer.cornerRadius = 5;
+    
 }
 
 - (void) createKouriViniKeypad {
@@ -253,7 +267,7 @@
     
     _kvController.parentProxy = self.textDocumentProxy;
     _kvController.view.backgroundColor = [UIColor colorWithRed:210/255.0 green:213/255.0 blue:219/255.0 alpha:1];
-
+    
     [self.view addSubview:_kvController.view];
     [self.view bringSubviewToFront:_kvController.view];
     [_kvController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
@@ -261,7 +275,7 @@
     [_kvController.view.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
     [_kvController.view.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
     [_kvController.view.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
-//    _kvController.view.alpha = 0;
+    //    _kvController.view.alpha = 0;
     [_kvController didMoveToParentViewController:self];
 }
 
@@ -289,7 +303,7 @@
     [self.view addSubview:_collectionView];
     
     //Register the Gif Cell
-   // [_collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
+    // [_collectionView registerNib:[UINib nibWithNibName:@"EboticonGifCell" bundle:nil] forCellWithReuseIdentifier:@"AnimatedGifCell"];
     
     //Add background image
     //self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Ebo_Background.png"]];
@@ -303,11 +317,11 @@
     [_collectionView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
     [_collectionView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
     [_collectionView.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
-
-  //  [_collectionView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-  //  [_collectionView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
-  //  [_collectionView.widthAnchor constraintEqualToConstant:self.view.frame.size.width].active = YES;
-
+    
+    //  [_collectionView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    //  [_collectionView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+    //  [_collectionView.widthAnchor constraintEqualToConstant:self.view.frame.size.width].active = YES;
+    
 }
 
 
@@ -323,7 +337,7 @@
 - (void)createBorderForToolbar {
     
     self.toolbar.clipsToBounds = YES;
-
+    
     //Add bottom border
     UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.toolbar.frame.size.width, 1)];
     topBorder.backgroundColor = [UIColor colorWithRed:0.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:0.2f];
@@ -338,9 +352,28 @@
     
     //Show no connection png
     self.noConnectionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
-    self.noConnectionImageView .image = [UIImage imageNamed:@"no_connection.png"];
+    self.noConnectionImageView.image = [UIImage imageNamed:@"no_connection.png"];
     self.noConnectionImageView.hidden = YES;
     [self.view addSubview:self.noConnectionImageView ];
+    
+}
+
+- (void)createNoAccessPng {
+    
+    //Show no connection png
+    self.noAccessImageView = [[UIImageView alloc] init];
+    self.noAccessImageView.image = [UIImage imageNamed:@"no_access.png"];
+    self.noAccessImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.noAccessImageView.hidden = YES;
+    [self.view addSubview:self.noAccessImageView ];
+    
+    //Set Contraints
+    self.noAccessImageView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.noAccessImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.noAccessImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0f].active = YES;
+    [self.noAccessImageView.topAnchor constraintEqualToAnchor: self.topBarView.bottomAnchor].active = YES;
+    [self.noAccessImageView.bottomAnchor constraintEqualToAnchor: self.toolbar.topAnchor].active = YES;
+    [self.noAccessImageView.heightAnchor constraintEqualToConstant:self.view.frame.size.height/2-self.toolbar.frame.size.height-self.toolbar.frame.size.height].active = YES;
     
 }
 
@@ -491,7 +524,7 @@
     [self loadGifs];
     
     //Load CSV into Array
-//    [self getPurchaseGifs];
+    //    [self getPurchaseGifs];
     
     //Setup item size of keyboard layout to fit keyboard.
     //[self changeKeyboardFlowLayout];
@@ -528,6 +561,30 @@
     
 }
 
+
+- (BOOL)isOpenAccessGranted
+{
+    NSOperatingSystemVersion operatingSystem= [[NSProcessInfo processInfo] operatingSystemVersion];
+    
+    if (operatingSystem.majorVersion>=10) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = @"Hey";
+        
+        if (pasteboard.hasStrings) {
+            pasteboard.string = @"";
+            return true;
+        }
+        else
+        {
+            pasteboard.string = @"";
+            return false;
+        }
+    }
+    else
+    {
+        return [UIPasteboard generalPasteboard];
+    }
+}
 
 - (void)loadEboticonFromServer
 {
@@ -577,15 +634,15 @@
             if ([KeyboardHelper isBaePack:eboticon]) {
                 
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
-                     [_baeImagesCaption addObject:eboticon];
+                    [_baeImagesCaption addObject:eboticon];
                 } else {
-                     [_baeImagesNoCaption addObject:eboticon];
+                    [_baeImagesNoCaption addObject:eboticon];
                 }
             } else if([KeyboardHelper isChurchPack:eboticon]) {
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
                     [_churchImagesCaption addObject:eboticon];
                 } else {
-                     [_churchImagesNoCaption addObject:eboticon];
+                    [_churchImagesNoCaption addObject:eboticon];
                 }
             } else if ([KeyboardHelper isGreekPack:eboticon]) {
                 if ([eboticon.category isEqualToString:CATEGORY_CAPTION]) {
@@ -798,7 +855,7 @@
         
         [_collectionView reloadData];       //Relaod the images into view
         
-     //   [self changeKeyboardFlowLayout];                //Change flowlayout
+        //   [self changeKeyboardFlowLayout];                //Change flowlayout
         
         
     } else {
@@ -1033,7 +1090,7 @@
     //Change category
     _showSection = NO;
     [self changeCategory:sender.tag];
-     [_unlockViewContainer setAlpha:0];
+    [_unlockViewContainer setAlpha:0];
     
 }
 
@@ -1070,7 +1127,7 @@
     self.isKeypadOn = false;
     self.isFacebookButtonOn = NO;
     [self removeKouriViniKeypad];
-//     _kvController.view.alpha = 0;
+    //     _kvController.view.alpha = 0;
     //Change the toolbar
     //NSLog(@"tag: %ld", (long)tag);
     switch (tag) {
@@ -1089,7 +1146,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_SMILE];
+            //            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_SMILE];
             if (_captionState) {
                 _currentEboticonGifs = _smileImagesCaption;
             }
@@ -1112,7 +1169,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_NOSMILE];
+            //            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_NOSMILE];
             if (_captionState) {
                 _currentEboticonGifs = _nosmileImagesCaption;
             }
@@ -1136,7 +1193,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_GIFT];
+            //            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_GIFT];
             if (_captionState) {
                 _currentEboticonGifs = _giftImagesCaption;
             }
@@ -1184,7 +1241,7 @@
             [self.keypadButton setImage:[UIImage imageNamed:@"Keypad.png"] forState:UIControlStateNormal];
             
             //Load Gifs depending on caption
-//            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_HEART];
+            //            [self sortDataBasedOn:_captionState == 1 andCategory:CATEGORY_HEART];
             if (_captionState) {
                 _currentEboticonGifs = _heartImagesCaption;
             }
@@ -1233,47 +1290,47 @@
 
 
 //- (void) changeKeyboardFlowLayout {
-//    
+//
 //    // CGFloat pageWidth = _collectionView.frame.size.width;
 //    CGFloat pageHeight = _collectionView.frame.size.height;
 //    CGFloat newItemSizeHeight;
 //    CGFloat newItemSizeWidth;
 //    // UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
-//    
-//    
+//
+//
 //    //Check for Landscape or Portrait mode
 //    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
 //        //Keyboard is in Portrait
 //        //NSLog(@"Portrait");
-//        
+//
 //        //Create 5x2 grid
 //        //newItemSizeWidth = floor(pageWidth/5) - 1;  //Hied
 //        newItemSizeHeight = floor(pageHeight/2);
 //        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
-//        
-//        
+//
+//
 //    }
 //    else{
 //        //Keyboard is in Landscape
 //        // NSLog(@"Landscape");
-//        
+//
 //        //Create 9x2 grid
 //        //newItemSizeWidth = floor(pageWidth/9) - 1;
 //        newItemSizeHeight = floor(pageHeight/2);
 //        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
 //    }
-//    
+//
 //    //NSLog(@"pageHeight %f", pageHeight);
 //    //NSLog(@"pageWidth %f", pageWidth);
 //    //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
 //    //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
 //    //    NSLog(@"newItemSizeHeight 1: %f", newItemSizeHeight);
 //    //    NSLog(@"newItemSizeWidth  1: %f", newItemSizeWidth);
-//    
+//
 //    //Create new item size
 //    self.flowLayout.itemSize = CGSizeMake(newItemSizeWidth, newItemSizeHeight);
-//    
-//    
+//
+//
 //}
 
 
@@ -1286,7 +1343,7 @@
 {
     
     NSLog(@"%s", __PRETTY_FUNCTION__);
-
+    
     if (!decelerate)
         [self loadImagesForOnscreenRows];
 }
@@ -1294,17 +1351,17 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-        //NSLog(@"%s", __PRETTY_FUNCTION__);
-
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     [self loadImagesForOnscreenRows];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     
-       // NSLog(@"%s", __PRETTY_FUNCTION__);
-
-
+    // NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    
 }
 
 #pragma mark-
@@ -1321,7 +1378,7 @@
     _purchasedProducts = [defaults objectForKey:@"purchasedProducts"];
     //self.numberLabel.text = [NSString stringWithFormat:@"%d", number];
 }
-    
+
 - (BOOL)productPurchased:(NSString *)productIdentifier
 {
     
@@ -1491,8 +1548,8 @@
 {
     
     
-     NSLog(@" Loading row %lu", (long)indexPath.row) ;
-     NSLog(@" Loading current count %lu", (unsigned long)[_currentEboticonGifs count]);
+    NSLog(@" Loading row %lu", (long)indexPath.row) ;
+    NSLog(@" Loading current count %lu", (unsigned long)[_currentEboticonGifs count]);
     
     KeyboardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)[cell.imageView viewWithTag:505];
@@ -1505,7 +1562,7 @@
     } else {
         currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
     }
-
+    
     [[cell imageView] setAlpha:1];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1515,7 +1572,7 @@
     
     NSLog(@" Loading still... %@", currentGif.stillUrl) ;
     NSLog(@" Loading gif... %@", currentGif.gifUrl) ;
-
+    
     [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
     
     
@@ -1544,8 +1601,8 @@
         //Load Still Name
         else{
             
-
-
+            
+            
             // Check if the image exists in cache. If it does exists in cache, directly fetch it and display it in the cell
             if ([[ImageCache sharedImageCache] DoesExist:currentGif.stillUrl]== true)
             {
@@ -1635,7 +1692,7 @@
     } else {
         currentGif = [_currentEboticonGifs objectAtIndex:indexPath.row];
     }
-  
+    
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     if (![currentGif.purchaseCategory isEqualToString:@""]) {
         if (![self productPurchased:currentGif.purchaseCategory]) {
@@ -1979,13 +2036,13 @@
 //{
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
 //     NSLog(@"%f", _collectionView.frame.size.height);
-//    
+//
 //    // CGFloat pageWidth = _collectionView.frame.size.width;
 //    CGFloat pageHeight = _collectionView.frame.size.height;
 //    CGFloat newItemSizeHeight;
 //    CGFloat newItemSizeWidth;
 //    UIEdgeInsets sectionInset = [self.flowLayout sectionInset]; //here the sectionInsets are always = 0 because of a timing issue so you need to force set width of an item a few pixels less than the width of the collectionView.
-//    
+//
 //    //Check for Landscape or Portrait mode
 //    if([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height){
 //        //Create 5x2 grid
@@ -1995,22 +2052,22 @@
 //    else{
 //        //Keyboard is in Landscape
 //        NSLog(@"Landscape");
-//        
+//
 //        //Create 9x2 grid
 //        //newItemSizeWidth = floor(pageWidth/9) - 1;
 //        newItemSizeHeight = floor(pageHeight/2) - (sectionInset.top+sectionInset.bottom);
 //        newItemSizeWidth = floor(newItemSizeHeight*4.0/3.0);
-//        
-//        
+//
+//
 //    }
-//    
+//
 //    //NSLog(@"pageHeight %f", pageHeight);
 //    //NSLog(@"pageWidth %f", pageWidth);
 //    //NSLog(@"sectionInset top and bottom %f", sectionInset.top+sectionInset.bottom);
 //    //NSLog(@"sectionInset top and bottom %f", sectionInset.left+sectionInset.right);
 //    //NSLog(@"newItemSizeHeight 2: %f", newItemSizeHeight);
 //    //NSLog(@"newItemSizeWidth  2: %f", newItemSizeWidth);
-//    
+//
 //    //Create new item size
 //    return CGSizeMake(newItemSizeWidth, newItemSizeHeight);
 //}
@@ -2047,7 +2104,7 @@
         if ([(NSArray *)[_currentEboticonGifs objectAtIndex:indexPath.section] count] == 0) {
             return nil;
         }
-       EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
+        EboticonGif *eboticon = [[_currentEboticonGifs objectAtIndex:indexPath.section] objectAtIndex:0];
         headerView.packSectionImageView.image = [self packSectionHeader:eboticon];
     }
     return headerView;
@@ -2058,10 +2115,10 @@
 
 - (void)viewWillLayoutSubviews
 {
-   // [self.flowLayout invalidateLayout];
+    // [self.flowLayout invalidateLayout];
     
     //Set Keyboard Frame
-//    self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    //    self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     
     //Set activity frame and position
@@ -2254,26 +2311,26 @@
     
     if(!self.isKeypadOn){
         [self createKouriViniKeypad];
-//        _kvController.view.alpha = 1;
-//        self.topBarView.hidden = YES;
-//        self.captionSwitch.hidden = YES;
-//        _collectionView.hidden = YES;
-//        self.keypadView.hidden = NO;
-//        self.isKeypadOn = true;
-//        self.facebookButton.hidden = YES;
-//        self.storeButton.hidden = YES;
+        //        _kvController.view.alpha = 1;
+        //        self.topBarView.hidden = YES;
+        //        self.captionSwitch.hidden = YES;
+        //        _collectionView.hidden = YES;
+        //        self.keypadView.hidden = NO;
+        //        self.isKeypadOn = true;
+        //        self.facebookButton.hidden = YES;
+        //        self.storeButton.hidden = YES;
     }
     else{
         [self removeKouriViniKeypad];
-//        _kvController.view.alpha = 0;
+        //        _kvController.view.alpha = 0;
         
-       // self.pageControl.hidden = NO;
-//        self.topBarView.hidden = NO;
-//        self.captionSwitch.hidden = NO;
-//        self.storeButton.hidden = NO;
-//        self.facebookButton.hidden = NO;
-//        _collectionView.hidden = NO;
-//        self.keypadView.hidden = YES;
+        // self.pageControl.hidden = NO;
+        //        self.topBarView.hidden = NO;
+        //        self.captionSwitch.hidden = NO;
+        //        self.storeButton.hidden = NO;
+        //        self.facebookButton.hidden = NO;
+        //        _collectionView.hidden = NO;
+        //        self.keypadView.hidden = YES;
         self.isKeypadOn = false;
     }
     
@@ -2371,7 +2428,7 @@
 - (IBAction) switchKeyboardMode:(UIButton*)sender {
     
     NSLog(@"switchKeyboardMode");
-
+    
     
     self.numbersRow1View.hidden = YES;
     self.numbersRow2View.hidden = YES;
