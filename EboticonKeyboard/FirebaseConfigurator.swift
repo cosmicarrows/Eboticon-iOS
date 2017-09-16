@@ -21,7 +21,10 @@ import Firebase
     
     // MARK: Init
     override init() {
-        FIRApp.configure()
+        super.init()
+        if (isOpenAccessGranted()){
+            FIRApp.configure()
+        }
         
         print("My Class Initialized")
         // initialized with variable or property
@@ -42,6 +45,34 @@ import Firebase
             kFIRParameterItemName: title as NSObject,
             kFIRParameterContentType: "content" as NSObject
             ]);
+        
+    }
+    
+    func isOpenAccessGranted() -> Bool {
+        
+        if #available(iOSApplicationExtension 10.0, *) {
+            UIPasteboard.general.string = "TEST"
+            
+            if UIPasteboard.general.hasStrings {
+                // Enable string-related control...
+                UIPasteboard.general.string = ""
+                return  true
+            }
+            else
+            {
+                UIPasteboard.general.string = ""
+                return  false
+            }
+        } else {
+            // Fallback on earlier versions
+            if UIPasteboard.general.isKind(of: UIPasteboard.self) {
+                return true
+            }else
+            {
+                return false
+            }
+            
+        }
         
     }
 }

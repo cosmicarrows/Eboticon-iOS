@@ -356,7 +356,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         self.tabBarController.selectedIndex = 1;
         [self.tabBarController updateMoveView:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if ([url path]) {
+        if ([url path] && [url path].length > 1) {
             NSString *deeplinkProductIdentifier = [[url path] substringFromIndex:1];
             if (deeplinkProductIdentifier) {
                 
