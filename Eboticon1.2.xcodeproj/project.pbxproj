@@ -1400,7 +1400,6 @@
 				6325FA461A8FCB4C00C4CABB /* ShellScript */,
 				97702BE81B2772070011F6DE /* Embed App Extensions */,
 				9E1DA5B4AF58B846A36BDFA7 /* [CP] Embed Pods Frameworks */,
-				D8E7420BB6B73C406BBDF635 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1421,7 +1420,6 @@
 				976E4F651B9B9B8E0057D6B2 /* Frameworks */,
 				976E4F661B9B9B8E0057D6B2 /* Resources */,
 				97181DDE1C54212600692BAE /* ShellScript */,
-				6FE07306B4F513AE1D97AC84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1660,21 +1658,6 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run a9a59c791b6749c4e0bf26ed1771b7aafd2db9cc 09206210effa278b82e0efb0ba7d905db324490ea40915091f8d04789d63b79b\n\ncd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
 		};
-		6FE07306B4F513AE1D97AC84 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EboticonKeyboard/Pods-EboticonKeyboard-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		97181DDE1C54212600692BAE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1728,21 +1711,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8E7420BB6B73C406BBDF635 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eboticon1.2/Pods-Eboticon1.2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
