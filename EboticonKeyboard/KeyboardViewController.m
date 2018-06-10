@@ -179,6 +179,9 @@
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, assign) BOOL isKeypadOn;
 @property (nonatomic, assign) BOOL isFacebookButtonOn;
+@property (nonatomic, assign) BOOL isAsianButtonOn;
+@property (nonatomic, assign) BOOL isBlackButtonOn;
+@property (nonatomic, assign) BOOL isCaucasionButtonOn;
 @property (nonatomic, assign) BOOL showSection;
 
 @property (nonatomic, strong) EboticonGif *selectedEboticon;
@@ -192,6 +195,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //Get Saved Skin Tone
+    self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
+    
+    if ([self.savedSkinTone isEqual: @"asian"]) {
+        //Set State
+        self.isAsianButtonOn = true;
+        self.isCaucasionButtonOn = false;
+        self.isBlackButtonOn = false;
+        
+    }
+    
+    if ([self.savedSkinTone isEqual: @"white"]) {
+        //Set State
+        self.isAsianButtonOn = false;
+        self.isCaucasionButtonOn = true;
+        self.isBlackButtonOn = false;
+        
+    }
+    
+    if ([self.savedSkinTone isEqual: @"black"]) {
+        //Set State
+        self.isAsianButtonOn = false;
+        self.isCaucasionButtonOn = false;
+        self.isBlackButtonOn = true;
+        self.blackButton.selected = true;
+        
+        
+    }
+    
+    [self changedSkinTone];
+    
+
+    
     _showSection = NO;
     NSLog(@"Keyboard Started 1");
     //Initialize Firebase Analytics
@@ -435,12 +473,20 @@
     [self.blackButton addTarget:self action:@selector(toggleBlackSkinTone:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.blackButton];
     
+    self.caucasianButton = [[UIButton alloc] init];
+    [self.caucasianButton setImage: [UIImage imageNamed:@"caucasianNotSelected"] forState:UIControlStateNormal];
+    [self.caucasianButton setImage:[UIImage imageNamed:@"caucasianHighlighted"] forState:UIControlStateSelected];
+    [self.caucasianButton addTarget:self action:@selector(toggleCaucasianSkinTone:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.caucasianButton];
+    
     
     self.storeButton.translatesAutoresizingMaskIntoConstraints = false;
     self.facebookButton.translatesAutoresizingMaskIntoConstraints = false;
     
     self.asianButton.translatesAutoresizingMaskIntoConstraints = false;
     self.blackButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.caucasianButton.translatesAutoresizingMaskIntoConstraints = false;
+
 
     
     [self.facebookButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
@@ -462,6 +508,11 @@
     [self.blackButton.centerYAnchor constraintEqualToAnchor:self.asianButton.centerYAnchor].active = YES;
     [self.blackButton.heightAnchor constraintEqualToAnchor:self.asianButton.heightAnchor].active = YES;
     [self.blackButton.widthAnchor constraintEqualToAnchor:self.asianButton.heightAnchor].active = YES;
+    
+    [self.caucasianButton.leadingAnchor constraintEqualToAnchor:self.blackButton.trailingAnchor constant:5.0f].active = YES;
+    [self.caucasianButton.centerYAnchor constraintEqualToAnchor:self.blackButton.centerYAnchor].active = YES;
+    [self.caucasianButton.heightAnchor constraintEqualToAnchor:self.blackButton.heightAnchor].active = YES;
+    [self.caucasianButton.widthAnchor constraintEqualToAnchor:self.blackButton.heightAnchor].active = YES;
 }
 
 - (void)toggleFacebookUpdate:(UIButton *)sender
@@ -473,16 +524,73 @@
 
 - (void)toggleAsianSkinTone:(UIButton *)sender
 {
-    NSLog(@"Skin tone button tapped");
     sender.selected = !sender.selected;
+    //Set State
+    self.isAsianButtonOn = sender.selected;
+    self.isCaucasionButtonOn = false;
+    self.isBlackButtonOn = false;
+    [self changedSkinTone];
     
 }
 
 - (void)toggleBlackSkinTone:(UIButton *)sender
 {
-    NSLog(@"Skin tone button tapped");
     sender.selected = !sender.selected;
+    //Set State
+    self.isBlackButtonOn = sender.selected;
+    self.isCaucasionButtonOn = false;
+    self.isAsianButtonOn = false;
+    [self changedSkinTone];
     
+}
+
+- (void)toggleCaucasianSkinTone:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    //Set State
+    self.isCaucasionButtonOn = sender.selected;
+    self.isBlackButtonOn = false;
+    self.isAsianButtonOn = false;
+    [self changedSkinTone];
+    
+}
+
+- (void)changedSkinTone {
+    
+    if (self.isAsianButtonOn == true) {
+        //set button state
+        
+        self.asianButton.selected = true;
+        self.caucasianButton.selected = false;
+        self.blackButton.selected = false;
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"asian" forKey:@"skin_tone"];
+        //didn't call the suite method similar to onBoarding here....
+    }
+    
+    if (self.isCaucasionButtonOn == true) {
+        //set button state
+        
+        self.asianButton.selected = false;
+        self.caucasianButton.selected = true;
+        self.blackButton.selected = false;
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"white" forKey:@"skin_tone"];
+        //didn't call the suite method similar to onBoarding here....
+    }
+    
+    if (self.isBlackButtonOn == true) {
+        //set button state
+        
+        self.asianButton.selected = false;
+        self.caucasianButton.selected = false;
+        self.blackButton.selected = true;
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"black" forKey:@"skin_tone"];
+        //didn't call the suite method similar to onBoarding here....
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)openStore:(UIButton *)sender

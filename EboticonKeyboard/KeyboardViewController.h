@@ -11,4 +11,6 @@
 
 @interface KeyboardViewController : UIInputViewController  <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate>
 
+@property (strong, nonatomic) NSString *savedSkinTone;
+
 @end

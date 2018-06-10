@@ -111,6 +111,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
     //Add Background without repeating
     self.view.layer.contents = (id)[UIImage imageNamed:@"bg_keyboard.png"].CGImage;
     
+    
     //Get Saved Skin Tone
     self.savedSkinTone = [[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"];
     
