@@ -451,13 +451,13 @@
 {
     sender.selected = !sender.selected;
     self.isFacebookButtonOn = sender.selected;
+    NSLog(@"Facebook button tapped");
 }
 
 - (void)toggleSkinToneCheck:(UIButton *)sender
 {
     NSLog(@"Skin tone button tapped");
     sender.selected = !sender.selected;
-    NSLog([[NSUserDefaults standardUserDefaults] stringForKey:@"skin_tone"]);
     
 }
 
