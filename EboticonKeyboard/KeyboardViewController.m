@@ -166,7 +166,11 @@
 //Top Bar Buttons
 @property (strong, nonatomic) UIButton *storeButton;
 @property (strong, nonatomic) UIButton *facebookButton;
-@property (strong, nonatomic) UIButton *skinToneToggleButton;
+@property (strong, nonatomic) UIButton *asianButton;
+@property (strong, nonatomic) UIButton *blackButton;
+@property (strong, nonatomic) UIButton *caucasianButton;
+
+
 
 //Indicator
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
@@ -419,17 +423,17 @@
     [self.facebookButton addTarget:self action:@selector(toggleFacebookUpdate:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.facebookButton];
     
-    self.skinToneToggleButton = [[UIButton alloc] init];
-    [self.skinToneToggleButton setImage: [UIImage imageNamed:@"toggleSkins"] forState:UIControlStateNormal];
-    [self.skinToneToggleButton setImage:[UIImage imageNamed:@"toggleSkins-Highlighted"] forState:UIControlStateSelected];
-    [self.skinToneToggleButton addTarget:self action:@selector(toggleSkinToneCheck:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.skinToneToggleButton];
+    self.asianButton = [[UIButton alloc] init];
+    [self.asianButton setImage: [UIImage imageNamed:@"asianNotSelected"] forState:UIControlStateNormal];
+    [self.asianButton setImage:[UIImage imageNamed:@"asianHighlighted"] forState:UIControlStateSelected];
+    [self.asianButton addTarget:self action:@selector(toggleAsianSkinTone:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.asianButton];
     
     
     self.storeButton.translatesAutoresizingMaskIntoConstraints = false;
     self.facebookButton.translatesAutoresizingMaskIntoConstraints = false;
     
-    self.skinToneToggleButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.asianButton.translatesAutoresizingMaskIntoConstraints = false;
     
     [self.facebookButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
     [self.facebookButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
@@ -441,10 +445,10 @@
     [self.storeButton.heightAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
     [self.storeButton.widthAnchor constraintEqualToAnchor:self.captionSwitch.heightAnchor].active = YES;
     
-    [self.skinToneToggleButton.leadingAnchor constraintEqualToAnchor:self.facebookButton.trailingAnchor constant:5.0f].active = YES;
-    [self.skinToneToggleButton.centerYAnchor constraintEqualToAnchor:self.facebookButton.centerYAnchor].active = YES;
-    [self.skinToneToggleButton.heightAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
-    [self.skinToneToggleButton.widthAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
+    [self.asianButton.leadingAnchor constraintEqualToAnchor:self.facebookButton.trailingAnchor constant:5.0f].active = YES;
+    [self.asianButton.centerYAnchor constraintEqualToAnchor:self.facebookButton.centerYAnchor].active = YES;
+    [self.asianButton.heightAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
+    [self.asianButton.widthAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
 }
 
 - (void)toggleFacebookUpdate:(UIButton *)sender
@@ -454,7 +458,7 @@
     NSLog(@"Facebook button tapped");
 }
 
-- (void)toggleSkinToneCheck:(UIButton *)sender
+- (void)toggleAsianSkinTone:(UIButton *)sender
 {
     NSLog(@"Skin tone button tapped");
     sender.selected = !sender.selected;
