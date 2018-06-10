@@ -12,6 +12,8 @@ PODS:
   - CocoaLumberjack/Core (1.9.2)
   - CocoaLumberjack/Extensions (1.9.2):
     - CocoaLumberjack/Core
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
   - DFImageManager (0.8.0):
     - DFImageManager/Core (= 0.8.0)
     - DFImageManager/NSURLSession (= 0.8.0)
@@ -29,6 +31,7 @@ PODS:
     - DFImageManager/Core
   - DFImageManager/UI (0.8.0):
     - DFImageManager/Core
+  - Fabric (1.7.6)
   - Firebase/Core (3.7.1):
     - FirebaseAnalytics (= 3.4.4)
     - FirebaseCore (= 3.4.3)
@@ -73,9 +76,11 @@ PODS:
 DEPENDENCIES:
   - CHCSVParser (~> 2.0.7)
   - CocoaLumberjack (~> 1.9)
+  - Crashlytics
   - DFImageManager
   - DFImageManager/AFNetworking
   - DFImageManager/GIF
+  - Fabric
   - Firebase/Core
   - Firebase/Messaging
   - FLAnimatedImage (~> 1.0)
@@ -93,7 +98,9 @@ SPEC REPOS:
     - AFNetworking
     - CHCSVParser
     - CocoaLumberjack
+    - Crashlytics
     - DFImageManager
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -117,7 +124,9 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   CHCSVParser: 4e0d2f198acd9d7663e4981acecffabd4e3012c1
   CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   DFImageManager: 37d75898009b05e49d13e36576677c76847b7d2a
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   Firebase: be473484f0d515e72ffd04acf22f981773c23e58
   FirebaseAnalytics: 0533a00b681e08fd0b2cd0444b7ddf0ef9fd7a1a
   FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
@@ -137,6 +146,6 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTSwitch: fef67a32dbd75e6981a3d27a7e954728e537de50
 
-PODFILE CHECKSUM: 7963f507affbe60a26beb503f370bfb68bba0a8f
+PODFILE CHECKSUM: 4f36978558b9455df04e081748d77e1d0bf7e569
 
 COCOAPODS: 1.5.2

@@ -1656,7 +1656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run a9a59c791b6749c4e0bf26ed1771b7aafd2db9cc 09206210effa278b82e0efb0ba7d905db324490ea40915091f8d04789d63b79b\n\ncd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 24a8857ce005e35d356b5c3a1d2095b52ae4d91e 9c6042f5a7b2f8b77fb561b2772f3c51080086966f75879f8367ded04bc32787";
 		};
 		97181DDE1C54212600692BAE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1669,7 +1669,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 535c2c480e8b4d7a52424ebb1f6195444cde32de fd9a1e8353f449b06dfc59244bf05f4eb3d300be2518e7adacaad44b5c772afb";
 		};
 		9E1DA5B4AF58B846A36BDFA7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

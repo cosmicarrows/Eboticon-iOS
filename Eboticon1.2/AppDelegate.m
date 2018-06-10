@@ -415,7 +415,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [self configureHarpy];
     
     //FABRIC
-    [Fabric with:@[CrashlyticsKit]];
+    [Fabric with:@[[Crashlytics class]]];
 }
 
 #pragma mark - Setup (Configuration)

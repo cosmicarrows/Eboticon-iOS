@@ -23,6 +23,8 @@ target 'Eboticon1.2' do
     pod 'Firebase/Messaging'
     pod 'lottie-ios'
     pod 'ImageSlideshow', '~> 1.3'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 target 'EboticonKeyboard' do
@@ -34,6 +36,8 @@ target 'EboticonKeyboard' do
     pod 'TTSwitch', '~> 0.0.5'
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 
