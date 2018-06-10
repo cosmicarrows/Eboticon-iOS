@@ -429,11 +429,19 @@
     [self.asianButton addTarget:self action:@selector(toggleAsianSkinTone:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.asianButton];
     
+    self.blackButton = [[UIButton alloc] init];
+    [self.blackButton setImage: [UIImage imageNamed:@"blackNotSelected"] forState:UIControlStateNormal];
+    [self.blackButton setImage:[UIImage imageNamed:@"blackHighlighted"] forState:UIControlStateSelected];
+    [self.blackButton addTarget:self action:@selector(toggleBlackSkinTone:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.blackButton];
+    
     
     self.storeButton.translatesAutoresizingMaskIntoConstraints = false;
     self.facebookButton.translatesAutoresizingMaskIntoConstraints = false;
     
     self.asianButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.blackButton.translatesAutoresizingMaskIntoConstraints = false;
+
     
     [self.facebookButton.leadingAnchor constraintEqualToAnchor:self.captionSwitch.trailingAnchor constant:5.0f].active = YES;
     [self.facebookButton.centerYAnchor constraintEqualToAnchor:self.captionSwitch.centerYAnchor].active = YES;
@@ -449,6 +457,11 @@
     [self.asianButton.centerYAnchor constraintEqualToAnchor:self.facebookButton.centerYAnchor].active = YES;
     [self.asianButton.heightAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
     [self.asianButton.widthAnchor constraintEqualToAnchor:self.facebookButton.heightAnchor].active = YES;
+    
+    [self.blackButton.leadingAnchor constraintEqualToAnchor:self.asianButton.trailingAnchor constant:5.0f].active = YES;
+    [self.blackButton.centerYAnchor constraintEqualToAnchor:self.asianButton.centerYAnchor].active = YES;
+    [self.blackButton.heightAnchor constraintEqualToAnchor:self.asianButton.heightAnchor].active = YES;
+    [self.blackButton.widthAnchor constraintEqualToAnchor:self.asianButton.heightAnchor].active = YES;
 }
 
 - (void)toggleFacebookUpdate:(UIButton *)sender
@@ -459,6 +472,13 @@
 }
 
 - (void)toggleAsianSkinTone:(UIButton *)sender
+{
+    NSLog(@"Skin tone button tapped");
+    sender.selected = !sender.selected;
+    
+}
+
+- (void)toggleBlackSkinTone:(UIButton *)sender
 {
     NSLog(@"Skin tone button tapped");
     sender.selected = !sender.selected;
